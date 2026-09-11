@@ -1,4 +1,5 @@
 <script setup>
+import { RouterLink } from 'vue-router'
 import ImagePlaceholder from '@/components/ui/ImagePlaceholder.vue'
 import BaseButton from '@/components/ui/BaseButton.vue'
 
@@ -18,14 +19,16 @@ function handleAddToCart() {
 
 <template>
   <article class="product-card">
-    <div class="product-card__image">
-      <img v-if="product.image" :src="product.image" :alt="product.category" />
-      <ImagePlaceholder v-else :label="product.category" />
-    </div>
+    <RouterLink :to="`/products/${product.id}`" class="product-card__link">
+      <div class="product-card__image">
+        <img v-if="product.image" :src="product.image" :alt="product.category" />
+        <ImagePlaceholder v-else :label="product.category" />
+      </div>
 
-    <h3 class="product-card__title" :lang="product.title === product.category ? 'en' : 'km'">
-      {{ product.title }}
-    </h3>
+      <h3 class="product-card__title" :lang="product.title === product.category ? 'en' : 'km'">
+        {{ product.title }}
+      </h3>
+    </RouterLink>
     <p class="product-card__category">{{ product.category }}</p>
     <p class="product-card__price">
       {{ product.price }} <span class="product-card__unit">{{ product.unit }}</span>
@@ -47,6 +50,17 @@ function handleAddToCart() {
   padding: var(--space-4);
   display: flex;
   flex-direction: column;
+}
+
+.product-card__link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.product-card__link:hover .product-card__title {
+  color: var(--color-brand);
 }
 
 .product-card__image {

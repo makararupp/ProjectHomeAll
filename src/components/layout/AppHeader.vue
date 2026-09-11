@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue'
+import { RouterLink } from 'vue-router'
 import { navLinks } from '@/data/navLinks'
 import BaseButton from '@/components/ui/BaseButton.vue'
 
@@ -18,10 +19,10 @@ function handleSearch() {
       <nav class="app-header__nav" aria-label="Primary">
         <ul>
           <li v-for="link in navLinks" :key="link.label">
-            <a :href="link.href" class="app-header__nav-link">
+            <RouterLink :to="link.href" class="app-header__nav-link">
               {{ link.label }}
               <span v-if="link.hasDropdown" class="app-header__caret" aria-hidden="true">⌄</span>
-            </a>
+            </RouterLink>
           </li>
         </ul>
       </nav>

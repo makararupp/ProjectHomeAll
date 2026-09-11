@@ -8,10 +8,12 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: HomeView
-    }
-    // Add more routes here as additional pages (Product, Category, About Us...)
-    // are implemented, e.g.:
-    // { path: '/products', name: 'products', component: () => import('@/views/ProductsView.vue') }
+    },
+    {
+      path: '/products',
+      name: 'products',
+      component: () => import('@/views/ProductDetailView.vue')
+    },
   ],
   scrollBehavior() {
     return { top: 0 }
