@@ -7,7 +7,7 @@ const isOpen = ref(false)
 
 <template>
   <nav class="category-nav" aria-label="Categories">
-    <div class="category-nav__inner container">
+    <div class="category-nav__inner">
       <button
         type="button"
         class="category-nav__trigger"
@@ -42,6 +42,8 @@ const isOpen = ref(false)
   display: flex;
   align-items: center;
   gap: var(--space-10);
+  width: 100%;
+  padding: 0 var(--space-8);
 }
 
 .category-nav__trigger {
