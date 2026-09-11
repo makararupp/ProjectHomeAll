@@ -8,7 +8,6 @@ const year = new Date().getFullYear()
   <footer class="app-footer">
     <div class="container app-footer__top">
       <div class="app-footer__brand">
-        <p class="app-footer__logo">HomeAll</p>
         <p class="app-footer__tagline">
           Your business marketplace for products, services and opportunities.
         </p>
@@ -51,13 +50,6 @@ const year = new Date().getFullYear()
   grid-template-columns: minmax(240px, 340px) 1fr;
   gap: var(--space-10);
   padding-bottom: var(--space-10);
-}
-
-.app-footer__logo {
-  font-size: var(--font-size-3xl);
-  font-weight: 700;
-  color: var(--color-text-heading);
-  margin-bottom: var(--space-4);
 }
 
 .app-footer__tagline {
