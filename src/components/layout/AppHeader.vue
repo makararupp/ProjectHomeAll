@@ -93,6 +93,7 @@ function handleSearch() {
 }
 
 .app-header__search {
+  margin-left: auto;
   flex: 1;
   display: flex;
   max-width: 565px;
@@ -128,10 +129,8 @@ function handleSearch() {
 }
 
 .app-header__auth {
-  margin-left: auto;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
   gap: var(--space-6);
   flex-shrink: 0;
 }
