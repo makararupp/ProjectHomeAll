@@ -71,8 +71,14 @@ const isOpen = ref(false)
 .category-nav__list {
   display: flex;
   align-items: center;
-  gap: var(--space-8);
+  gap: var(--space-6);
   overflow-x: auto;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+.category-nav__list::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
 }
 
 .category-nav__list a {
