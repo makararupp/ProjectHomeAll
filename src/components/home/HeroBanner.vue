@@ -2,8 +2,33 @@
 import { onBeforeUnmount, onMounted, ref } from 'vue'
 import BaseButton from '@/components/ui/BaseButton.vue'
 import ImagePlaceholder from '@/components/ui/ImagePlaceholder.vue'
+import slide1 from '@/assets/images/slide1.jpg'
+import slide2 from '@/assets/images/slide2.jpg'
+import slide3 from '@/assets/images/slide3.jpg'
 
-const slideCount = 3
+// 3 JPG images with links and click actions
+const slides = [
+  {
+    id: 1,
+    image: slide1,
+    alt: 'Business solutions slide 1',
+    link: '/products'
+  },
+  {
+    id: 2,
+    image: slide2,
+    alt: 'Business solutions slide 2',
+    link: '/categories'
+  },
+  {
+    id: 3,
+    image: slide3,
+    alt: 'Business solutions slide 3',
+    link: '/about'
+  }
+]
+
+const slideCount = slides.length
 const activeSlide = ref(0)
 let intervalId = null
 
@@ -17,6 +42,10 @@ function nextSlide() {
 
 function prevSlide() {
   activeSlide.value = (activeSlide.value - 1 + slideCount) % slideCount
+}
+
+function handleSlideClick(slide) {
+  console.log('Slide clicked:', slide)
 }
 
 onMounted(() => {
@@ -50,9 +79,17 @@ onBeforeUnmount(() => {
           ‹
         </button>
 
-        <div class="hero__image">
-          <ImagePlaceholder label="HomeAll" />
-        </div>
+        <a
+          :href="slides[activeSlide].link"
+          class="hero__image"
+          :aria-label="slides[activeSlide].alt"
+          @click="handleSlideClick(slides[activeSlide])"
+        >
+          <ImagePlaceholder
+            label="HomeAll"
+            :image="slides[activeSlide].image"
+          />
+        </a>
 
         <button
           type="button"
@@ -136,6 +173,16 @@ onBeforeUnmount(() => {
   width: 100%;
   height: 100%;
   min-height: 320px;
+  display: block;
+  cursor: pointer;
+}
+
+.hero__image:hover :deep(img) {
+  transform: scale(1.03);
+}
+
+.hero__image :deep(img) {
+  transition: transform 0.3s ease;
 }
 
 .hero__arrow {
