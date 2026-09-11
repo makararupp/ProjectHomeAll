@@ -6,6 +6,6 @@ const route = useRoute()
 
 <template>
   <div class="product-detail container">
-    <h1>Product</h1>
+    <h1>Category</h1>
   </div>
 </template>
