@@ -1,8 +1,6 @@
 <script setup>
 import { ref, computed, watch } from 'vue'
 import { RouterLink } from 'vue-router'
-import AppHeader from '@/components/layout/AppHeader.vue'
-import CategoryNav from '@/components/layout/CategoryNav.vue'
 import AppFooter from '@/components/layout/AppFooter.vue'
 import { allProducts, itemGroups } from '@/data/products'
 
@@ -67,9 +65,6 @@ function clearAllFilters() {
 
 <template>
   <div class="products-page">
-    <AppHeader />
-    <CategoryNav />
-
     <main class="products-main container">
       <!-- Breadcrumbs -->
       <nav class="breadcrumb" aria-label="Breadcrumbs">
@@ -80,10 +75,6 @@ function clearAllFilters() {
           </li>
           <li class="breadcrumb__item">
             <RouterLink to="/" class="breadcrumb__link">Homeall Village</RouterLink>
-            <span class="breadcrumb__separator" aria-hidden="true">›</span>
-          </li>
-          <li class="breadcrumb__item">
-            <RouterLink to="/products" class="breadcrumb__link">Store</RouterLink>
             <span class="breadcrumb__separator" aria-hidden="true">›</span>
           </li>
           <li class="breadcrumb__item">
@@ -145,7 +136,7 @@ function clearAllFilters() {
           </div>
         </aside>
 
-        <!-- Right Content: Search, View Mode & Products -->
+        <!-- Right Content: x, View Mode & Products -->
         <section class="catalog-content">
           <!-- Top Search & View Control Bar -->
           <div class="toolbar">
@@ -332,7 +323,7 @@ function clearAllFilters() {
 
 .products-main {
   flex: 1;
-  padding-top: var(--space-6);
+  padding-top: var(--space-8);
   padding-bottom: var(--space-16);
 }
 

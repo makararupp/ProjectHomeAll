@@ -4,6 +4,17 @@ import { RouterLink } from 'vue-router'
 import { navLinks } from '@/data/navLinks'
 import BaseButton from '@/components/ui/BaseButton.vue'
 
+defineProps({
+  showSearch: {
+    type: Boolean,
+    default: true
+  },
+  showAuth: {
+    type: Boolean,
+    default: true
+  }
+})
+
 const searchQuery = ref('')
 
 function handleSearch() {
@@ -27,7 +38,12 @@ function handleSearch() {
         </ul>
       </nav>
 
-      <form class="app-header__search" role="search" @submit.prevent="handleSearch">
+      <form
+        v-if="showSearch"
+        class="app-header__search"
+        role="search"
+        @submit.prevent="handleSearch"
+      >
         <label for="site-search" class="sr-only">Search products, categories or services</label>
         <input
           id="site-search"
@@ -40,7 +56,7 @@ function handleSearch() {
         </BaseButton>
       </form>
 
-      <div class="app-header__auth">
+      <div v-if="showAuth" class="app-header__auth">
         <RouterLink to="/sign-in" class="app-header__auth-link">Sign in</RouterLink>
         <RouterLink to="/register" class="app-header__auth-link app-header__auth-link--strong">Register</RouterLink>
       </div>
