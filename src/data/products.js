@@ -40,6 +40,38 @@ export const products = [
     price: '$6.80',
     unit: '/ length',
     image: pro4
+  },
+  {
+    id: 'bathroom-appliances',
+    title: 'បន្ទប់ទឹក និងក្បាលផ្កាឈូក',
+    category: 'Bathroom Appliance',
+    price: '$25.00',
+    unit: '/ set',
+    image: pro5
+  },
+  {
+    id: 'kitchen-cookware',
+    title: 'សម្ភារៈ ឧបករណ៍ផ្ទះបាយ',
+    category: 'Kitchen Product',
+    price: '$8.00',
+    unit: '/ item',
+    image: pro6
+  },
+  {
+    id: 'copper-pipes',
+    title: 'បំពង់ស្ពាន់ Copper Pipe',
+    category: 'Copper Pipes',
+    price: '$14.20',
+    unit: '/ length',
+    image: pro1
+  },
+  {
+    id: 'steel-plate',
+    title: 'ដែកកែកូត SCGTY150×114',
+    category: 'Steel Product',
+    price: '$4.50',
+    unit: '/ piece',
+    image: pro4
   }
 ]
 
