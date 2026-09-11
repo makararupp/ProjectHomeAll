@@ -1,0 +1,72 @@
+/**
+ * Design tokens
+ * Single source of truth for colors, spacing, radii and typography,
+ * extracted from the "HomeAll Design" Figma frame.
+ * Never hardcode a hex value in a component — reference a token instead.
+ */
+:root {
+  /* Brand */
+  --color-brand: #34c759;
+  --color-brand-dark: #269c46;
+
+  /* Text */
+  --color-text-heading: #1f2937;
+  --color-text-primary: #222222;
+  --color-text-secondary: #6b7280;
+  --color-text-muted: #777777;
+  --color-text-faint: #9aa0a6;
+  --color-text-nav: #555555;
+  --color-text-white: #ffffff;
+
+  /* Surfaces */
+  --color-bg-page: #f7f8fa;
+  --color-bg-section: #edeff2;
+  --color-bg-surface: #ffffff;
+
+  /* Borders */
+  --color-border: #e5e7eb;
+  --color-border-soft: #e4e7eb;
+  --color-border-softer: #e2e5e9;
+  --color-border-input: #d9dde3;
+  --color-border-strong: #222222;
+  --color-dot-inactive: #c7ccd1;
+
+  /* Spacing scale (4px base) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+
+  /* Radii */
+  --radius-sm: 5px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+  --radius-pill: 999px;
+
+  /* Typography */
+  --font-family-base: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-size-xs: 13px;
+  --font-size-sm: 14px;
+  --font-size-base: 15px;
+  --font-size-md: 16px;
+  --font-size-lg: 17px;
+  --font-size-xl: 18px;
+  --font-size-2xl: 20px;
+  --font-size-3xl: 26px;
+  --font-size-4xl: 30px;
+  --font-size-5xl: 42px;
+
+  /* Layout */
+  --container-max-width: 1344px;
+  --header-height: 72px;
+  --category-nav-height: 42px;
+
+  /* Motion */
+  --transition-fast: 150ms ease;
+}

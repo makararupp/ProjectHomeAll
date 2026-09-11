@@ -1,0 +1,25 @@
+{
+  "name": "homeall-vue",
+  "version": "1.0.0",
+  "private": true,
+  "description": "HomeAll business marketplace homepage — Vue 3 + Vite implementation of the Figma design",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext .vue,.js --fix",
+    "format": "prettier --write \"src/**/*.{js,vue,css}\""
+  },
+  "dependencies": {
+    "vue": "^3.4.21",
+    "vue-router": "^4.3.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.0.4",
+    "eslint": "^8.57.0",
+    "eslint-plugin-vue": "^9.23.0",
+    "prettier": "^3.2.5",
+    "vite": "^5.2.0"
+  }
+}
