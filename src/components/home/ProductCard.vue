@@ -34,11 +34,16 @@ function handleAddToCart() {
       {{ product.price }} <span class="product-card__unit">{{ product.unit }}</span>
     </p>
 
-    <BaseButton variant="primary" size="sm">
-      <button type="button" class="product-card__cta" @click="handleAddToCart">
+    <div class="product-card__actions">
+      <BaseButton
+        variant="primary"
+        size="sm"
+        class="product-card__add-btn"
+        @click="handleAddToCart"
+      >
         Add to Card
-      </button>
-    </BaseButton>
+      </BaseButton>
+    </div>
   </article>
 </template>
 
@@ -103,11 +108,15 @@ function handleAddToCart() {
   color: var(--color-text-secondary);
 }
 
-.product-card__cta {
-  width: 100%;
-  height: 100%;
-  color: inherit;
-  font: inherit;
-  font-weight: 600;
+.product-card__actions {
+  display: flex;
+  justify-content: center;
+  margin-top: auto;
+}
+
+.product-card__add-btn {
+  padding: 0 var(--space-4);
+  font-size: var(--font-size-xs);
+  cursor: pointer;
 }
 </style>
