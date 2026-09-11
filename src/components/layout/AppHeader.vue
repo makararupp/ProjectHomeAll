@@ -81,15 +81,17 @@ function handleSearch() {
   font-size: var(--font-size-base);
   font-weight: 500;
   color: var(--color-text-primary);
+  transition: color var(--transition-fast);
 }
 
 .app-header__nav-link:hover {
-  color: var(--color-brand);
+  color: #34c759;
 }
 
 .app-header__caret {
   color: var(--color-text-nav);
   font-size: var(--font-size-md);
+  transition: color var(--transition-fast);
 }
 
 .app-header__search {
