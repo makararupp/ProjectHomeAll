@@ -11,11 +11,10 @@ function handleSearch() {
 }
 </script>
 
-<template >
+<template>
   <header class="app-header">
-    <div class="app-header__inner container">
-      <a href="/" class="app-header__logo">HomeAll</a>
-
+    <div class="app-header__inner">
+      
       <nav class="app-header__nav" aria-label="Primary">
         <ul>
           <li v-for="link in navLinks" :key="link.label">
@@ -33,7 +32,7 @@ function handleSearch() {
           id="site-search"
           v-model="searchQuery"
           type="search"
-          placeholder="Search products, categories or services"
+          placeholder="Search products"
         />
         <BaseButton variant="primary" size="md">
           <button type="submit" class="app-header__search-submit">Search</button>
@@ -59,6 +58,8 @@ function handleSearch() {
   display: flex;
   align-items: center;
   gap: var(--space-8);
+  width: 100%;
+  padding: 0 var(--space-8);
 }
 
 .app-header__logo {
@@ -127,8 +128,10 @@ function handleSearch() {
 }
 
 .app-header__auth {
+  margin-left: auto;
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: var(--space-6);
   flex-shrink: 0;
 }
