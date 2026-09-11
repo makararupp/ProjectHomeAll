@@ -6,7 +6,7 @@
 export const navLinks = [
   { label: 'Home', href: '/' },
   { label: 'Product', href: '/products' },
-  { label: 'Category', href: '/categories', hasDropdown: true },
+  { label: 'Category', href: '/categories',},
   { label: 'About Us', href: '/about' },
   { label: 'New', href: '/new' }
 ]
