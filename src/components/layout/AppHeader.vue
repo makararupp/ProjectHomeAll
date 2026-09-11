@@ -41,8 +41,8 @@ function handleSearch() {
       </form>
 
       <div class="app-header__auth">
-        <a href="/sign-in" class="app-header__auth-link">Sign in</a>
-        <a href="/register" class="app-header__auth-link app-header__auth-link--strong">Register</a>
+        <RouterLink to="/sign-in" class="app-header__auth-link">Sign in</RouterLink>
+        <RouterLink to="/register" class="app-header__auth-link app-header__auth-link--strong">Register</RouterLink>
       </div>
     </div>
   </header>
