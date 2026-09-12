@@ -301,10 +301,12 @@ onUnmounted(() => {
 
 <style scoped>
 .category-nav {
-  position: relative;
+  position: sticky;
+  top: var(--header-height);
   background-color: var(--color-brand);
   height: var(--category-nav-height);
-  z-index: 50;
+  z-index: 90;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
 }
 
 .category-nav__inner {

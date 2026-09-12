@@ -173,8 +173,12 @@ onUnmounted(() => {
 
 <style scoped>
 .app-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
   background-color: var(--color-bg-surface);
   border-bottom: 1px solid var(--color-border);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
 }
 
 .app-header__inner {
