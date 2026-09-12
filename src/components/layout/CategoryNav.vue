@@ -10,6 +10,7 @@ const route = useRoute()
 function getActiveKeyFromPath(path) {
   if (path.includes('industrial-parts')) return 'industrialParts'
   if (path.includes('construction')) return 'construction'
+  if (path.includes('food-beverage') || path.includes('/food')) return 'foodBeverage'
   return ''
 }
 
@@ -21,7 +22,7 @@ watch(
     const key = getActiveKeyFromPath(path)
     if (key) {
       activeCategoryKey.value = key
-    } else if (activeCategoryKey.value === 'industrialParts' || activeCategoryKey.value === 'construction') {
+    } else if (['industrialParts', 'construction', 'foodBeverage'].includes(activeCategoryKey.value)) {
       activeCategoryKey.value = ''
     }
   }

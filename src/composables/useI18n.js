@@ -162,6 +162,26 @@ export const translations = {
       lipChannelPurlin: 'Lip Channel C-Purlin',
       hBeamStructuralSteel: 'H-Beam Structural Steel',
       squareBoxSteel: 'Square Box Steel'
+    },
+    foodPage: {
+      breadcrumbHome: 'Home',
+      breadcrumbCategories: 'Product Categories',
+      breadcrumbCurrent: 'Food & Beverage',
+      pageTitle: 'Food & Beverage',
+      pageSubtitle: 'Delicious culinary delights, fast food meals, BBQ grills, and premium food catering selections.',
+      fastFoodTitle: 'Fast Food & Popular Meals',
+      viewAllFastFood: 'View All Fast Food',
+      bbqTitle: 'BBQ & Grilled Specialties',
+      viewAllBbq: 'View All BBQ & Grills',
+      fastFoodComboFeast: 'Fast Food Combo Feast',
+      crispyGoldenFriedChicken: 'Crispy Golden Fried Chicken',
+      toastedCheeseburgerWrap: 'Toasted Cheeseburger Wrap',
+      grilledChickenTortillaWrap: 'Grilled Chicken Tortilla Wrap',
+      cheeseLoverPizza: 'Cheese Lover Mozzarella Pizza',
+      grilledBbqMeatSkewers: 'Grilled BBQ Meat Skewers',
+      grilledChickenRicePlatter: 'Grilled Chicken Rice Platter',
+      crispyChickenPlatter: 'Crispy Chicken & Fries Basket',
+      bbqPartyFeast: 'Family BBQ & Burger Party Feast'
     }
   },
   km: {
@@ -322,6 +342,26 @@ export const translations = {
       lipChannelPurlin: 'ដែកស៊ី (Lip Channel)',
       hBeamStructuralSteel: 'ដែកអក្សរ H (H-Beam)',
       squareBoxSteel: 'ដែកប្រអប់ជ្រុង'
+    },
+    foodPage: {
+      breadcrumbHome: 'ទំព័រដើម',
+      breadcrumbCategories: 'ប្រភេទផលិតផល',
+      breadcrumbCurrent: 'ម្ហូបអាហារ និងភេសជ្ជៈ',
+      pageTitle: 'ម្ហូបអាហារ និងភេសជ្ជៈ (Food & Beverage)',
+      pageSubtitle: 'ម្ហូបអាហារឆ្ងាញ់ៗ អាហាររហ័សទាន់ចិត្ត សាច់អាំង BBQ និងសេវាកម្មផ្គត់ផ្គង់ម្ហូបអាហារប្រកបដោយអនាម័យនិងគុណភាពខ្ពស់។',
+      fastFoodTitle: 'អាហាររហ័សទាន់ចិត្ត និងអាហារពេញនិយម',
+      viewAllFastFood: 'មើលអាហាររហ័សទាំងអស់',
+      bbqTitle: 'សាច់អាំង BBQ និងឈុតបាយចានធំ',
+      viewAllBbq: 'មើលសាច់អាំង BBQ ទាំងអស់',
+      fastFoodComboFeast: 'ឈុតប៊ឺហ្គឺ និងមាន់បំពងពិសេស',
+      crispyGoldenFriedChicken: 'មាន់បំពងស្រួយមាស',
+      toastedCheeseburgerWrap: 'នំបុ័ងរុំសាច់គោ និងឈីស',
+      grilledChickenTortillaWrap: 'នំបុ័ងរុំសាច់មាន់អាំង',
+      cheeseLoverPizza: 'ភីហ្សាឈីសពិសេស',
+      grilledBbqMeatSkewers: 'សាច់អាំងចង្កាក់ BBQ ពិសេស',
+      grilledChickenRicePlatter: 'បាយសាច់មាន់អាំងចង្កាក់ និងដំឡូងបារាំង',
+      crispyChickenPlatter: 'កន្ត្រកមាន់បំពង និងដំឡូងបារាំង',
+      bbqPartyFeast: 'ឈុតជប់លៀង BBQ និងប៊ឺហ្គឺគ្រួសារ'
     }
   }
 }
