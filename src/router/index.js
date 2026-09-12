@@ -41,6 +41,11 @@ const router = createRouter({
       alias: ['/categories'],
       name: 'category-detail',
       component: () => import('@/views/CategoryDetailView.vue')
+    },
+    {
+      path: '/categories/construction',
+      name: 'category-construction',
+      component: () => import('@/views/ConstructionView.vue')
     }
   ],
   scrollBehavior() {

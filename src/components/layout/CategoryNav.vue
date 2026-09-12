@@ -7,14 +7,21 @@ import { useI18n } from '@/composables/useI18n'
 
 const { t } = useI18n()
 const route = useRoute()
-const activeCategoryKey = ref(route.path.includes('industrial-parts') ? 'industrialParts' : '')
+function getActiveKeyFromPath(path) {
+  if (path.includes('industrial-parts')) return 'industrialParts'
+  if (path.includes('construction')) return 'construction'
+  return ''
+}
+
+const activeCategoryKey = ref(getActiveKeyFromPath(route.path))
 
 watch(
   () => route.path,
   (path) => {
-    if (path.includes('industrial-parts')) {
-      activeCategoryKey.value = 'industrialParts'
-    } else if (activeCategoryKey.value === 'industrialParts') {
+    const key = getActiveKeyFromPath(path)
+    if (key) {
+      activeCategoryKey.value = key
+    } else if (activeCategoryKey.value === 'industrialParts' || activeCategoryKey.value === 'construction') {
       activeCategoryKey.value = ''
     }
   }

@@ -140,6 +140,28 @@ export const translations = {
       whiteCement: 'White Cement',
       floorScreedMortar50kg: 'Floor Screed Mortar 50 kg',
       plasteringMasonryTools: 'Plastering Masonry Tools'
+    },
+    constructionPage: {
+      breadcrumbHome: 'Home',
+      breadcrumbCategories: 'Product Categories',
+      breadcrumbCurrent: 'Construction',
+      pageTitle: 'Construction',
+      pageSubtitle: 'High-standard construction materials, renovation solutions, and specialized architectural project installations.',
+      worksTitle: 'Construction & Architectural Works',
+      viewAllWorks: 'View Construction Works',
+      materialsTitle: 'Key Construction Materials',
+      viewAllMaterials: 'View Construction Materials',
+      exteriorWallPainting: 'Exterior Wall Painting & Finishing',
+      outdoorPatioCanopy: 'Outdoor Patio & Shade Sail',
+      wallFloorTiling: 'Wall & Floor Tile Installation',
+      gardenLawnSunshade: 'Garden Lawn Sunshade Canopy',
+      villaExteriorAwning: 'Villa Exterior & Tensile Awning',
+      camelPortlandCement: 'Camel Portland Cement 50kg',
+      reinforcedSteelRebars: 'Reinforced Steel Rebars',
+      structuralSteelTube: 'Structural Steel Tube',
+      lipChannelPurlin: 'Lip Channel C-Purlin',
+      hBeamStructuralSteel: 'H-Beam Structural Steel',
+      squareBoxSteel: 'Square Box Steel'
     }
   },
   km: {
@@ -278,6 +300,28 @@ export const translations = {
       whiteCement: 'ស៊ីម៉ងត៍ស (White Cement)',
       floorScreedMortar50kg: 'បាយអចាក់កម្រាល 50 kg (Floor Screed)',
       plasteringMasonryTools: 'ឧបករណ៍បូក និងរៀបឥដ្ឋ (Masonry Tools)'
+    },
+    constructionPage: {
+      breadcrumbHome: 'ទំព័រដើម',
+      breadcrumbCategories: 'ប្រភេទផលិតផល',
+      breadcrumbCurrent: 'សំណង់',
+      pageTitle: 'សម្ភារៈ និងការងារសំណង់ (Construction)',
+      pageSubtitle: 'សម្ភារៈសំណង់ស្តង់ដារខ្ពស់ ដំណោះស្រាយជួសជុលកែលម្អ និងការងារស្ថាបត្យកម្មសំណង់ខាងក្រៅនិងខាងក្នុងប្រកបដោយគុណភាព។',
+      worksTitle: 'ការងារសំណង់ និងការតុបតែងស្ថាបត្យកម្ម',
+      viewAllWorks: 'មើលការងារសំណង់ទាំងអស់',
+      materialsTitle: 'សម្ភារៈសំណង់សំខាន់ៗ',
+      viewAllMaterials: 'មើលសម្ភារៈសំណង់ទាំងអស់',
+      exteriorWallPainting: 'ការងារលាបថ្នាំជញ្ជាំងខាងក្រៅ',
+      outdoorPatioCanopy: 'ដំបូលតង់ម្លប់ទីធ្លាក្រៅ',
+      wallFloorTiling: 'ការងារបិទការ៉ូជញ្ជាំង និងកម្រាល',
+      gardenLawnSunshade: 'ដំបូលការពារកម្ដៅថ្ងៃសួនច្បារ',
+      villaExteriorAwning: 'ការងារដំបូលតង់ផ្ទះវីឡា',
+      camelPortlandCement: 'ស៊ីម៉ងត៍ Camel 50kg',
+      reinforcedSteelRebars: 'ដែកសរសៃសំណង់ (Rebars)',
+      structuralSteelTube: 'ដែកទីបជ្រុងរចនាសម្ព័ន្ធ',
+      lipChannelPurlin: 'ដែកស៊ី (Lip Channel)',
+      hBeamStructuralSteel: 'ដែកអក្សរ H (H-Beam)',
+      squareBoxSteel: 'ដែកប្រអប់ជ្រុង'
     }
   }
 }
