@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import { RouterLink } from 'vue-router'
 import { navLinks } from '@/data/navLinks'
 import BaseButton from '@/components/ui/BaseButton.vue'
@@ -21,6 +21,47 @@ function handleSearch() {
   // Placeholder handler — wire up to a real search route/API.
   console.log('Searching for:', searchQuery.value)
 }
+
+// Language Selector state
+const isLangOpen = ref(false)
+const langRef = ref(null)
+
+const languages = [
+  { id: 'km', code: 'KH', displayCode: 'KH', name: 'ភាសាខ្មែរ' },
+  { id: 'en', code: 'US', displayCode: 'EN', name: 'English' },
+  { id: 'zh', code: 'CN', displayCode: 'CN', name: '中文' }
+]
+
+const currentLang = ref(languages[1]) // Default to English (US / EN)
+
+function selectLanguage(lang) {
+  currentLang.value = lang
+  isLangOpen.value = false
+  localStorage.setItem('app_language', lang.id)
+}
+
+function toggleLangDropdown() {
+  isLangOpen.value = !isLangOpen.value
+}
+
+function handleClickOutsideLang(event) {
+  if (langRef.value && !langRef.value.contains(event.target)) {
+    isLangOpen.value = false
+  }
+}
+
+onMounted(() => {
+  const saved = localStorage.getItem('app_language')
+  if (saved) {
+    const found = languages.find(l => l.id === saved)
+    if (found) currentLang.value = found
+  }
+  document.addEventListener('click', handleClickOutsideLang)
+})
+
+onUnmounted(() => {
+  document.removeEventListener('click', handleClickOutsideLang)
+})
 </script>
 
 <template>
@@ -55,6 +96,50 @@ function handleSearch() {
           <button type="submit" class="app-header__search-submit">Search</button>
         </BaseButton>
       </form>
+
+      <!-- Language Selector (matching reference image) -->
+      <div ref="langRef" class="lang-selector">
+        <button
+          type="button"
+          class="lang-selector__btn"
+          :class="{ 'is-open': isLangOpen }"
+          :aria-expanded="isLangOpen"
+          aria-haspopup="true"
+          @click="toggleLangDropdown"
+        >
+          <span class="lang-selector__globe" aria-hidden="true">🌐</span>
+          <span class="lang-selector__code">{{ currentLang.displayCode }}</span>
+          <svg
+            class="lang-selector__caret"
+            :class="{ 'is-flipped': isLangOpen }"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+            width="14"
+            height="14"
+            aria-hidden="true"
+          >
+            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+
+        <!-- Dropdown Menu -->
+        <transition name="lang-fade">
+          <div v-if="isLangOpen" class="lang-selector__dropdown" role="menu">
+            <button
+              v-for="lang in languages"
+              :key="lang.id"
+              type="button"
+              class="lang-selector__option"
+              :class="{ 'is-selected': currentLang.id === lang.id }"
+              role="menuitem"
+              @click="selectLanguage(lang)"
+            >
+              <span class="lang-selector__item-code">{{ lang.code }}</span>
+              <span class="lang-selector__item-name" :lang="lang.id">{{ lang.name }}</span>
+            </button>
+          </div>
+        </transition>
+      </div>
 
       <div v-if="showAuth" class="app-header__auth">
         <RouterLink to="/sign-in" class="app-header__auth-link">Sign in</RouterLink>
@@ -180,6 +265,125 @@ function handleSearch() {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+
+/* Language Selector */
+.lang-selector {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.lang-selector__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 38px;
+  padding: 0 12px;
+  background-color: #ffffff;
+  border: 1px solid var(--color-border-input, #d9dde3);
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all var(--transition-fast);
+  user-select: none;
+}
+
+.lang-selector__btn:hover,
+.lang-selector__btn.is-open {
+  border-color: #9ca3af;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.lang-selector__globe {
+  font-size: 15px;
+  line-height: 1;
+}
+
+.lang-selector__code {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1f2937;
+  letter-spacing: 0.02em;
+}
+
+.lang-selector__caret {
+  color: #6b7280;
+  transition: transform 0.2s ease;
+}
+
+.lang-selector__caret.is-flipped {
+  transform: rotate(180deg);
+}
+
+/* Dropdown Menu */
+.lang-selector__dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  min-width: 165px;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 6px 0;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 4px 10px -2px rgba(0, 0, 0, 0.05);
+  z-index: 100;
+  overflow: hidden;
+}
+
+.lang-selector__option {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 18px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.lang-selector__option:hover {
+  background-color: #f9fafb;
+}
+
+.lang-selector__option.is-selected {
+  background-color: #f0f7ff;
+  color: #2563eb;
+}
+
+.lang-selector__item-code {
+  font-size: 13px;
+  font-weight: 700;
+  width: 24px;
+  color: inherit;
+}
+
+.lang-selector__option:not(.is-selected) .lang-selector__item-code {
+  color: #4b5563;
+}
+
+.lang-selector__item-name {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: inherit;
+}
+
+.lang-selector__option:not(.is-selected) .lang-selector__item-name {
+  color: #374151;
+}
+
+/* Transition */
+.lang-fade-enter-active,
+.lang-fade-leave-active {
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.lang-fade-enter-from,
+.lang-fade-leave-to {
+  opacity: 0;
+  transform: translateY(-4px);
 }
 
 @media (max-width: 1024px) {
