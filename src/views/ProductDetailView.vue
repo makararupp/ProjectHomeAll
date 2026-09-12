@@ -633,6 +633,7 @@ function clearAllFilters() {
 }
 
 .product-card__title {
+  font-family: var(--font-family-title);
   font-size: 17px;
   font-weight: 600;
   color: #111827;

@@ -83,6 +83,7 @@ function handleAddToCart() {
 }
 
 .product-card__title {
+  font-family: var(--font-family-title);
   font-size: var(--font-size-2xl);
   font-weight: 600;
   color: var(--color-text-primary);
