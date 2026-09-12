@@ -1,0 +1,18 @@
+{
+  "version": "0.2",
+  "language": "en",
+  "words": [
+    "Homeall",
+    "Pinia",
+    "rebars",
+    "Rebars",
+    "wiremesh",
+    "Wiremesh",
+    "roughcast",
+    "purlin",
+    "skimcoat"
+  ],
+  "ignoreRegExpList": [
+    "[\\u1780-\\u17FF\\u19E0-\\u19FF]+"
+  ]
+}

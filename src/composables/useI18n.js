@@ -45,7 +45,7 @@ export const translations = {
     },
     products: {
       breadcrumbHome: 'Home',
-      breadcrumbVillage: 'Homeall Village',
+      breadcrumbVillage: 'homely Village',
       allProducts: 'All Products',
       filters: 'Filters',
       clearAll: 'Clear All',

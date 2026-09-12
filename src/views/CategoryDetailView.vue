@@ -438,6 +438,7 @@ const { t, isKhmer } = useI18n()
   min-height: 32px;
   display: -webkit-box;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
   transition: color var(--transition-fast);
