@@ -6,8 +6,10 @@ import CategoryNav from '@/components/layout/CategoryNav.vue'
 import AppFooter from '@/components/layout/AppFooter.vue'
 import { allProducts, itemGroups } from '@/data/products'
 import { useI18n } from '@/composables/useI18n'
+import { useCart } from '@/composables/useCart'
 
 const { t, isKhmer } = useI18n()
+const { addToCart } = useCart()
 
 // Helper to map item group and category name to translated string
 function getGroupLabel(name) {
@@ -141,6 +143,7 @@ function showToast(message) {
 }
 
 function handleAddToCart(product, qty = 1) {
+  addToCart(product, qty)
   showToast(`${t('products.addedToCart', 'Added to cart successfully!')} (${product.title} x${qty})`)
   if (isModalOpen.value) {
     closeProductModal()

@@ -1,4 +1,5 @@
 <script setup>
+import { ref } from 'vue'
 import { RouterLink } from 'vue-router'
 import ImagePlaceholder from '@/components/ui/ImagePlaceholder.vue'
 import BaseButton from '@/components/ui/BaseButton.vue'
@@ -34,9 +35,14 @@ function getCategoryLabel(category) {
 }
 
 const emit = defineEmits(['add-to-cart'])
+const isJustAdded = ref(false)
 
 function handleAddToCart() {
   emit('add-to-cart', props.product)
+  isJustAdded.value = true
+  setTimeout(() => {
+    isJustAdded.value = false
+  }, 1200)
 }
 </script>
 
@@ -62,14 +68,18 @@ function handleAddToCart() {
         variant="primary"
         size="sm"
         class="product-card__add-btn"
+        :class="{ 'is-added': isJustAdded }"
         @click="handleAddToCart"
       >
-        <svg class="product-card__btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13">
+        <svg v-if="!isJustAdded" class="product-card__btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13">
           <circle cx="9" cy="21" r="1" />
           <circle cx="20" cy="21" r="1" />
           <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
         </svg>
-        <span>{{ t('featured.addToCart', 'Add to Card') }}</span>
+        <svg v-else class="product-card__btn-icon" viewBox="0 0 20 20" fill="currentColor" width="13" height="13">
+          <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+        </svg>
+        <span>{{ isJustAdded ? t('products.addedToCart', 'Added!') : t('featured.addToCart', 'Add to Card') }}</span>
       </BaseButton>
     </div>
   </article>

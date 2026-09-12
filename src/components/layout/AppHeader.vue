@@ -4,8 +4,10 @@ import { RouterLink } from 'vue-router'
 import { navLinks } from '@/data/navLinks'
 import BaseButton from '@/components/ui/BaseButton.vue'
 import { useI18n } from '@/composables/useI18n'
+import { useCart } from '@/composables/useCart'
 
 const { t, setLocale, currentLocale } = useI18n()
+const { totalCount, isCartBumping, toastMessage, isToastVisible, hideCartToast } = useCart()
 
 defineProps({
   showSearch: {
@@ -151,14 +153,19 @@ onUnmounted(() => {
       </RouterLink>
 
       <!-- Cart (Card) Action -->
-      <RouterLink to="/cart" class="header-action-item" title="Cart">
-        <div class="header-action-item__icon-wrap">
+      <RouterLink to="/cart" class="header-action-item" :class="{ 'is-bumped': isCartBumping }" title="Cart">
+        <div class="header-action-item__icon-wrap" :class="{ 'is-bumped': isCartBumping }">
           <svg class="header-action-item__icon header-action-item__icon--cart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="9" cy="21" r="1" />
             <circle cx="20" cy="21" r="1" />
             <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
           </svg>
-          <span class="header-action-item__badge">0</span>
+          <span
+            class="header-action-item__badge"
+            :class="{ 'has-items': totalCount > 0, 'is-bumped': isCartBumping }"
+          >
+            {{ totalCount > 99 ? '99+' : totalCount }}
+          </span>
         </div>
         <span class="header-action-item__title">{{ t('header.cart', 'Cart') }}</span>
       </RouterLink>
@@ -168,6 +175,29 @@ onUnmounted(() => {
         <RouterLink to="/register" class="app-header__auth-link app-header__auth-link--strong">{{ t('header.register', 'Register') }}</RouterLink>
       </div>
     </div>
+
+    <!-- Global Cart Added Toast -->
+    <Teleport to="body">
+      <Transition name="cart-toast-fade">
+        <div v-if="isToastVisible" class="global-cart-toast" role="status" aria-live="polite">
+          <div class="global-cart-toast__icon">
+            <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16">
+              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+            </svg>
+          </div>
+          <div class="global-cart-toast__content">
+            <p class="global-cart-toast__title">{{ t('products.addedToCart', 'Added to cart successfully!') }}</p>
+            <p class="global-cart-toast__detail">{{ toastMessage }}</p>
+          </div>
+          <RouterLink to="/cart" class="global-cart-toast__btn" @click="hideCartToast">
+            {{ t('header.cart', 'Cart') }}
+          </RouterLink>
+          <button type="button" class="global-cart-toast__close" aria-label="Close" @click="hideCartToast">
+            &times;
+          </button>
+        </div>
+      </Transition>
+    </Teleport>
   </header>
 </template>
 
@@ -463,13 +493,13 @@ onUnmounted(() => {
 
 .header-action-item__badge {
   position: absolute;
-  top: -6px;
-  right: -8px;
-  min-width: 17px;
-  height: 17px;
+  top: -7px;
+  right: -9px;
+  min-width: 18px;
+  height: 18px;
   padding: 0 4px;
   border-radius: 999px;
-  background-color: #f59e0b;
+  background-color: #9ca3af;
   color: #ffffff;
   font-size: 10.5px;
   font-weight: 700;
@@ -478,6 +508,52 @@ onUnmounted(() => {
   justify-content: center;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
   line-height: 1;
+  border: 1.5px solid #ffffff;
+  transition: all 0.22s ease;
+}
+
+.header-action-item__badge.has-items {
+  background: linear-gradient(135deg, #16a34a, #15803d);
+  box-shadow: 0 2px 6px rgba(22, 163, 74, 0.45);
+}
+
+/* Bump / Pop animation on Add to Cart */
+@keyframes cartBadgeBump {
+  0% {
+    transform: scale(1);
+  }
+  35% {
+    transform: scale(1.42);
+    background: #22c55e;
+    box-shadow: 0 0 14px rgba(34, 197, 94, 0.7);
+  }
+  70% {
+    transform: scale(0.92);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.header-action-item__badge.is-bumped {
+  animation: cartBadgeBump 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes cartIconWiggle {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-12deg) scale(1.15);
+  }
+  75% {
+    transform: rotate(12deg) scale(1.15);
+  }
+}
+
+.header-action-item__icon-wrap.is-bumped .header-action-item__icon--cart {
+  animation: cartIconWiggle 0.45s ease;
+  color: #16a34a;
 }
 
 .header-action-item__title {
@@ -491,6 +567,104 @@ onUnmounted(() => {
 
 .header-action-item:hover .header-action-item__title {
   color: #111827;
+}
+
+/* Global Cart Toast Notification */
+.global-cart-toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #ffffff;
+  border: 1px solid #bbf7d0;
+  border-left: 4px solid #16a34a;
+  border-radius: 12px;
+  padding: 12px 16px;
+  box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.12), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  max-width: 420px;
+}
+
+.global-cart-toast__icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #dcfce7;
+  color: #16a34a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.global-cart-toast__content {
+  flex: 1;
+  min-width: 0;
+}
+
+.global-cart-toast__title {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: #111827;
+  line-height: 1.3;
+}
+
+.global-cart-toast__detail {
+  margin: 2px 0 0;
+  font-size: 12px;
+  color: #4b5563;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 220px;
+}
+
+.global-cart-toast__btn {
+  font-size: 12px;
+  font-weight: 600;
+  color: #15803d;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 6px;
+  padding: 5px 10px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.global-cart-toast__btn:hover {
+  background: #16a34a;
+  color: #ffffff;
+  border-color: #16a34a;
+}
+
+.global-cart-toast__close {
+  background: none;
+  border: none;
+  color: #9ca3af;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 0 4px;
+  line-height: 1;
+}
+
+.global-cart-toast__close:hover {
+  color: #374151;
+}
+
+/* Toast Transitions */
+.cart-toast-fade-enter-active,
+.cart-toast-fade-leave-active {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cart-toast-fade-enter-from,
+.cart-toast-fade-leave-to {
+  opacity: 0;
+  transform: translateY(16px) scale(0.95);
 }
 
 @media (max-width: 1024px) {

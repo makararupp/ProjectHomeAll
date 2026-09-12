@@ -4,8 +4,10 @@ import { RouterLink } from 'vue-router'
 import { products } from '@/data/products'
 import ProductCard from './ProductCard.vue'
 import { useI18n } from '@/composables/useI18n'
+import { useCart } from '@/composables/useCart'
 
 const { t } = useI18n()
+const { addToCart } = useCart()
 
 // Number of products to show initially
 const initialCount = 4
@@ -27,8 +29,7 @@ function loadMore() {
 }
 
 function handleAddToCart(product) {
-  // Placeholder handler — connect to a real cart store (e.g. Pinia) later.
-  console.log('Added to cart:', product.id)
+  addToCart(product, 1)
 }
 </script>
 
