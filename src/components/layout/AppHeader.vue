@@ -1,8 +1,11 @@
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { RouterLink } from 'vue-router'
 import { navLinks } from '@/data/navLinks'
 import BaseButton from '@/components/ui/BaseButton.vue'
+import { useI18n } from '@/composables/useI18n'
+
+const { t, setLocale, currentLocale } = useI18n()
 
 defineProps({
   showSearch: {
@@ -28,16 +31,16 @@ const langRef = ref(null)
 
 const languages = [
   { id: 'km', code: 'KH', displayCode: 'KH', name: 'ភាសាខ្មែរ' },
-  { id: 'en', code: 'US', displayCode: 'EN', name: 'English' },
-  { id: 'zh', code: 'CN', displayCode: 'CN', name: '中文' }
+  { id: 'en', code: 'EN', displayCode: 'EN', name: 'English' }
 ]
 
-const currentLang = ref(languages[1]) // Default to English (US / EN)
+const currentLang = computed(() => {
+  return languages.find(l => l.id === currentLocale.value) || languages[0]
+})
 
 function selectLanguage(lang) {
-  currentLang.value = lang
+  setLocale(lang.id)
   isLangOpen.value = false
-  localStorage.setItem('app_language', lang.id)
 }
 
 function toggleLangDropdown() {
@@ -51,11 +54,6 @@ function handleClickOutsideLang(event) {
 }
 
 onMounted(() => {
-  const saved = localStorage.getItem('app_language')
-  if (saved) {
-    const found = languages.find(l => l.id === saved)
-    if (found) currentLang.value = found
-  }
   document.addEventListener('click', handleClickOutsideLang)
 })
 
@@ -70,9 +68,9 @@ onUnmounted(() => {
       
       <nav class="app-header__nav" aria-label="Primary">
         <ul>
-          <li v-for="link in navLinks" :key="link.label">
+          <li v-for="link in navLinks" :key="link.key || link.label">
             <RouterLink :to="link.href" class="app-header__nav-link">
-              {{ link.label }}
+              {{ link.key ? t(`nav.${link.key}`, link.label) : link.label }}
               <span v-if="link.hasDropdown" class="app-header__caret" aria-hidden="true">⌄</span>
             </RouterLink>
           </li>
@@ -85,15 +83,15 @@ onUnmounted(() => {
         role="search"
         @submit.prevent="handleSearch"
       >
-        <label for="site-search" class="sr-only">Search products, categories or services</label>
+        <label for="site-search" class="sr-only">{{ t('header.searchPlaceholder', 'Search products') }}</label>
         <input
           id="site-search"
           v-model="searchQuery"
           type="search"
-          placeholder="Search products"
+          :placeholder="t('header.searchPlaceholder', 'Search products')"
         />
         <BaseButton variant="primary" size="md">
-          <button type="submit" class="app-header__search-submit">Search</button>
+          <button type="submit" class="app-header__search-submit">{{ t('header.searchBtn', 'Search') }}</button>
         </BaseButton>
       </form>
 
@@ -142,8 +140,8 @@ onUnmounted(() => {
       </div>
 
       <div v-if="showAuth" class="app-header__auth">
-        <RouterLink to="/sign-in" class="app-header__auth-link">Sign in</RouterLink>
-        <RouterLink to="/register" class="app-header__auth-link app-header__auth-link--strong">Register</RouterLink>
+        <RouterLink to="/sign-in" class="app-header__auth-link">{{ t('header.signIn', 'Sign in') }}</RouterLink>
+        <RouterLink to="/register" class="app-header__auth-link app-header__auth-link--strong">{{ t('header.register', 'Register') }}</RouterLink>
       </div>
     </div>
   </header>

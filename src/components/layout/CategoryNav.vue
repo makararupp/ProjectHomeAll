@@ -2,6 +2,15 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 import { categories } from '@/data/categories'
 import { megaMenuCategories } from '@/data/megaMenuData'
+import { useI18n } from '@/composables/useI18n'
+
+const { t } = useI18n()
+
+// Helper to convert kebab-case id to camelCase key for translations
+function getCategoryKey(id) {
+  if (!id) return ''
+  return id.replace(/-([a-z])/g, (_, char) => char.toUpperCase())
+}
 
 const isOpen = ref(false)
 const selectedCategoryIndex = ref(0)
@@ -83,7 +92,7 @@ onUnmounted(() => {
           <span />
           <span />
         </span>
-        <span class="category-nav__trigger-text">All Categories</span>
+        <span class="category-nav__trigger-text">{{ t('categories.allCategories', 'All Categories') }}</span>
         <svg
           class="category-nav__caret"
           :class="{ 'is-flipped': isOpen }"
@@ -99,8 +108,8 @@ onUnmounted(() => {
 
       <!-- Category Links in the header bar -->
       <ul class="category-nav__list">
-        <li v-for="category in categories" :key="category.label">
-          <a :href="category.href">{{ category.label }}</a>
+        <li v-for="category in categories" :key="category.key || category.label">
+          <a :href="category.href">{{ category.key ? t(`categories.${category.key}`, category.label) : category.label }}</a>
         </li>
       </ul>
     </div>
@@ -173,7 +182,7 @@ onUnmounted(() => {
                   </svg>
                 </span>
 
-                <span class="mega-menu__sidebar-name">{{ cat.name }}</span>
+                <span class="mega-menu__sidebar-name">{{ t(`categories.${getCategoryKey(cat.id)}`, cat.name) }}</span>
               </li>
             </ul>
           </aside>
@@ -182,7 +191,7 @@ onUnmounted(() => {
           <section class="mega-menu__content">
             <!-- Active Category Title -->
             <div class="mega-menu__header">
-              <h3 class="mega-menu__title">{{ megaMenuCategories[selectedCategoryIndex].name }}</h3>
+              <h3 class="mega-menu__title">{{ t(`categories.${getCategoryKey(megaMenuCategories[selectedCategoryIndex].id)}`, megaMenuCategories[selectedCategoryIndex].name) }}</h3>
             </div>
 
             <!-- Circular Product Items Grid -->
@@ -272,13 +281,13 @@ onUnmounted(() => {
               class="mega-menu__secondary"
             >
               <h4 class="mega-menu__secondary-title">
-                {{ megaMenuCategories[selectedCategoryIndex].secondarySection.title }}
+                {{ t('categories.consumerElectronics', megaMenuCategories[selectedCategoryIndex].secondarySection.title) }}
               </h4>
               <a
                 :href="megaMenuCategories[selectedCategoryIndex].secondarySection.linkHref"
                 class="mega-menu__secondary-link"
               >
-                {{ megaMenuCategories[selectedCategoryIndex].secondarySection.linkText }}
+                {{ t('categories.browseFeatured', megaMenuCategories[selectedCategoryIndex].secondarySection.linkText) }}
                 <span aria-hidden="true">→</span>
               </a>
             </div>
