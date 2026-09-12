@@ -1,5 +1,8 @@
 <script setup>
 import IconBase from '@/components/ui/IconBase.vue'
+import { useI18n } from '@/composables/useI18n'
+
+const { t } = useI18n()
 
 defineProps({
   service: {
@@ -7,6 +10,11 @@ defineProps({
     required: true
   }
 })
+
+function getServiceKey(id) {
+  if (!id) return ''
+  return id.replace(/-([a-z])/g, (_, c) => c.toUpperCase())
+}
 </script>
 
 <template>
@@ -14,7 +22,7 @@ defineProps({
     <span class="service-card__icon">
       <IconBase :name="service.icon" :size="22" />
     </span>
-    <span class="service-card__title">{{ service.title }}</span>
+    <span class="service-card__title">{{ t(`servicesSection.${getServiceKey(service.id)}`, service.title) }}</span>
   </a>
 </template>
 

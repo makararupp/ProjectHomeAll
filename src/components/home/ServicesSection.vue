@@ -1,14 +1,17 @@
 <script setup>
 import { services } from '@/data/services'
 import ServiceCard from './ServiceCard.vue'
+import { useI18n } from '@/composables/useI18n'
+
+const { t } = useI18n()
 </script>
 
 <template>
   <section class="services" aria-labelledby="services-heading">
     <div class="container">
-      <h2 id="services-heading" class="services__title">Explore Our Services</h2>
+      <h2 id="services-heading" class="services__title">{{ t('servicesSection.title', 'Explore Our Services') }}</h2>
       <div class="section-underline" />
-      <p class="services__subtitle">Discover specialized solutions for every business need</p>
+      <p class="services__subtitle">{{ t('servicesSection.subtitle', 'Discover specialized solutions for every business need') }}</p>
 
       <div class="services__grid">
         <ServiceCard v-for="service in services" :key="service.id" :service="service" />

@@ -5,6 +5,9 @@ import ImagePlaceholder from '@/components/ui/ImagePlaceholder.vue'
 import slide1 from '@/assets/images/slide1.jpg'
 import slide2 from '@/assets/images/slide2.jpg'
 import slide3 from '@/assets/images/slide3.jpg'
+import { useI18n } from '@/composables/useI18n'
+
+const { t, isKhmer } = useI18n()
 
 // 3 JPG images for carousel banner
 const slides = [
@@ -58,11 +61,10 @@ onBeforeUnmount(() => {
   <section class="hero" aria-label="Featured business solutions">
     <div class="container hero__inner">
       <div class="hero__card">
-        <p class="hero__eyebrow">BUSINESS SOLUTIONS</p>
-        <h1 class="hero__heading">Everything your business needs</h1>
+        <p class="hero__eyebrow">{{ t('hero.eyebrow', 'BUSINESS SOLUTIONS') }}</p>
+        <h1 class="hero__heading" :class="{ 'hero__heading--km': isKhmer }">{{ t('hero.heading', 'Everything your business needs') }}</h1>
         <div class="hero__actions">
-          <BaseButton variant="primary" href="/products">Explore Products</BaseButton>
-          <BaseButton variant="outline" href="/about">Learn More</BaseButton>
+          <BaseButton variant="primary" href="/products">{{ t('hero.exploreProducts', 'Explore Products') }}</BaseButton>
         </div>
       </div>
 
@@ -144,11 +146,16 @@ onBeforeUnmount(() => {
 }
 
 .hero__heading {
-  font-size: var(--font-size-5xl);
+  font-size: 43px;
   font-weight: 700;
   color: var(--color-text-heading);
-  line-height: 1.25;
-  margin-bottom: var(--space-8);
+  line-height: 1.3;
+  margin-bottom: var(--space-6);
+}
+
+.hero__heading--km {
+  font-size: 44px;
+  line-height: 1.4;
 }
 
 .hero__actions {

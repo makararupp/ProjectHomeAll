@@ -1,13 +1,21 @@
 <script setup>
+import AppHeader from '@/components/layout/AppHeader.vue'
+import CategoryNav from '@/components/layout/CategoryNav.vue'
 import AppFooter from '@/components/layout/AppFooter.vue'
 import aboutImage from '@/assets/images/slide1.jpg' // Single static image
+import { useI18n } from '@/composables/useI18n'
+
+const { t } = useI18n()
 </script>
 
 <template>
   <div class="about-page">
+    <AppHeader />
+    <CategoryNav />
+
     <!-- Full-Width Blue Top Banner -->
     <div class="about-banner">
-      <h1 class="about-banner__title">About Us</h1>
+      <h1 class="about-banner__title">{{ t('about.title', 'About Us') }}</h1>
     </div>
 
     <!-- Main Section with 1 Static Image (No Background Image) -->
@@ -25,15 +33,15 @@ import aboutImage from '@/assets/images/slide1.jpg' // Single static image
         <!-- Right Column: Text Information -->
         <div class="about-text-col">
           <p class="about-paragraph">
-            <strong>HomeAll (Cambodia) Co., Ltd</strong> is dedicated to delivering excellence in construction materials, home products, and industrial solutions. We recognize that customer satisfaction and product reliability are the foundation for building trustworthy, long-lasting business relationships with our clients and partners.
+            <strong>{{ t('about.company', 'HomeAll (Cambodia) Co., Ltd') }}</strong> {{ t('about.p1', 'is dedicated to delivering excellence in construction materials, home products, and industrial solutions. We recognize that customer satisfaction and product reliability are the foundation for building trustworthy, long-lasting business relationships with our clients and partners.') }}
           </p>
 
           <p class="about-paragraph">
-            Our mission is designed to provide businesses and consumers with direct access to certified suppliers, transparent pricing, and comprehensive product catalogs. Regardless of whether you are a contractor, commercial developer, or individual homeowner, we attach great importance to quality assurance, timely delivery, and dependable customer support.
+            {{ t('about.p2', 'Our mission is designed to provide businesses and consumers with direct access to certified suppliers, transparent pricing, and comprehensive product catalogs. Regardless of whether you are a contractor, commercial developer, or individual homeowner, we attach great importance to quality assurance, timely delivery, and dependable customer support.') }}
           </p>
 
           <p class="about-paragraph">
-            We adhere strictly to international trade and product quality standards, ensuring that every order is handled with care and integrity. We look forward to partnering with you to bring your projects to life.
+            {{ t('about.p3', 'We adhere strictly to international trade and product quality standards, ensuring that every order is handled with care and integrity. We look forward to partnering with you to bring your projects to life.') }}
           </p>
         </div>
       </div>

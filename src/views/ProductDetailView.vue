@@ -1,8 +1,33 @@
 <script setup>
 import { ref, computed, watch } from 'vue'
 import { RouterLink } from 'vue-router'
+import AppHeader from '@/components/layout/AppHeader.vue'
+import CategoryNav from '@/components/layout/CategoryNav.vue'
 import AppFooter from '@/components/layout/AppFooter.vue'
 import { allProducts, itemGroups } from '@/data/products'
+import { useI18n } from '@/composables/useI18n'
+
+const { t } = useI18n()
+
+// Helper to map item group and category name to translated string
+function getGroupLabel(name) {
+  if (!name) return ''
+  const keyMap = {
+    'Steel Product': 'steelProduct',
+    'Copper Pipes': 'copperPipes',
+    'Agricultural Products': 'agriculturalProducts',
+    'Kitchen Products': 'kitchenProducts',
+    'Kitchen Product': 'kitchenProduct',
+    'Seasoning & Spice': 'seasoningSpice',
+    'PVC Material': 'pvcMaterial',
+    'Bathroom Appliances': 'bathroomAppliances',
+    'Bathroom Appliance': 'bathroomAppliance',
+    'Floor Tile': 'floorTile',
+    'Plastic Resin': 'plasticResin'
+  }
+  const key = keyMap[name]
+  return key ? t(`products.${key}`, name) : name
+}
 
 const searchQuery = ref('')
 const selectedGroups = ref([])
@@ -65,39 +90,42 @@ function clearAllFilters() {
 
 <template>
   <div class="products-page">
+    <AppHeader />
+    <CategoryNav />
+
     <main class="products-main container">
       <!-- Breadcrumbs -->
       <nav class="breadcrumb" aria-label="Breadcrumbs">
         <ol class="breadcrumb__list">
           <li class="breadcrumb__item">
-            <RouterLink to="/" class="breadcrumb__link">Home</RouterLink>
+            <RouterLink to="/" class="breadcrumb__link">{{ t('products.breadcrumbHome', 'Home') }}</RouterLink>
             <span class="breadcrumb__separator" aria-hidden="true">›</span>
           </li>
           <li class="breadcrumb__item">
-            <RouterLink to="/" class="breadcrumb__link">Homeall Village</RouterLink>
+            <RouterLink to="/" class="breadcrumb__link">{{ t('products.breadcrumbVillage', 'Homeall Village') }}</RouterLink>
             <span class="breadcrumb__separator" aria-hidden="true">›</span>
           </li>
           <li class="breadcrumb__item">
-            <span class="breadcrumb__current" aria-current="page">All Products</span>
+            <span class="breadcrumb__current" aria-current="page">{{ t('products.allProducts', 'All Products') }}</span>
           </li>
         </ol>
       </nav>
 
       <!-- Page Heading -->
-      <h1 class="page-heading">All Products</h1>
+      <h1 class="page-heading">{{ t('products.allProducts', 'All Products') }}</h1>
 
       <!-- Layout: Filters Sidebar + Content Area -->
       <div class="catalog-layout">
         <!-- Left Sidebar: Filters -->
         <aside class="catalog-sidebar" aria-label="Product Filters">
           <div class="filter-header">
-            <h2 class="filter-header__title">Filters</h2>
+            <h2 class="filter-header__title">{{ t('products.filters', 'Filters') }}</h2>
             <button
               type="button"
               class="filter-header__clear"
               @click="clearAllFilters"
             >
-              Clear All
+              {{ t('products.clearAll', 'Clear All') }}
             </button>
           </div>
 
@@ -105,7 +133,7 @@ function clearAllFilters() {
 
           <!-- Item Group Section -->
           <div class="filter-group">
-            <h3 class="filter-group__title">ITEM GROUP</h3>
+            <h3 class="filter-group__title">{{ t('products.itemGroup', 'ITEM GROUP') }}</h3>
             <ul class="filter-group__list">
               <li v-for="group in itemGroups" :key="group" class="filter-item">
                 <label class="filter-item__label">
@@ -129,7 +157,7 @@ function clearAllFilters() {
                       <polyline points="3.5 8.5 6.5 11.5 12.5 4.5" />
                     </svg>
                   </span>
-                  <span class="filter-item__text">{{ group }}</span>
+                  <span class="filter-item__text">{{ getGroupLabel(group) }}</span>
                 </label>
               </li>
             </ul>
@@ -160,8 +188,8 @@ function clearAllFilters() {
                 v-model="searchQuery"
                 type="text"
                 class="toolbar__search-input"
-                placeholder="Search products"
-                aria-label="Search products"
+                :placeholder="t('products.searchPlaceholder', 'Search products')"
+                :aria-label="t('products.searchPlaceholder', 'Search products')"
               />
             </div>
 
@@ -235,13 +263,13 @@ function clearAllFilters() {
               <!-- Card Details -->
               <div class="product-card__body">
                 <h3 class="product-card__title">{{ product.title }}</h3>
-                <p class="product-card__category">{{ product.category }}</p>
+                <p class="product-card__category">{{ getGroupLabel(product.category) }}</p>
                 <p class="product-card__price">{{ product.price }}</p>
                 <p
                   class="product-card__stock"
                   :class="product.inStock ? 'stock--in' : 'stock--out'"
                 >
-                  {{ product.stockText }}
+                  {{ product.inStock ? t('products.stockIn', 'Stock In') : t('products.outOfStock', 'Out of stock') }}
                 </p>
               </div>
             </article>
@@ -249,13 +277,13 @@ function clearAllFilters() {
 
           <!-- Empty State -->
           <div v-else class="catalog-empty">
-            <p class="catalog-empty__text">No products found matching your filter.</p>
+            <p class="catalog-empty__text">{{ t('products.noProducts', 'No products found matching your filter.') }}</p>
             <button
               type="button"
               class="catalog-empty__btn"
               @click="clearAllFilters"
             >
-              Clear filters
+              {{ t('products.clearFilters', 'Clear filters') }}
             </button>
           </div>
 
@@ -265,7 +293,7 @@ function clearAllFilters() {
             class="pagination-container"
           >
             <p class="pagination-info">
-              Showing {{ (currentPage - 1) * itemsPerPage + 1 }}–{{ Math.min(currentPage * itemsPerPage, filteredProducts.length) }} of {{ filteredProducts.length }} products
+              {{ t('products.showing', 'Showing') }} {{ (currentPage - 1) * itemsPerPage + 1 }}–{{ Math.min(currentPage * itemsPerPage, filteredProducts.length) }} {{ t('products.of', 'of') }} {{ filteredProducts.length }} {{ t('products.productsText', 'products') }}
             </p>
 
             <nav class="pagination" aria-label="Products pagination">
@@ -276,7 +304,7 @@ function clearAllFilters() {
                 aria-label="Previous page"
                 @click="goToPage(currentPage - 1)"
               >
-                ‹ Previous
+                ‹ {{ t('products.previous', 'Previous') }}
               </button>
 
               <div class="pagination__pages">
@@ -300,7 +328,7 @@ function clearAllFilters() {
                 aria-label="Next page"
                 @click="goToPage(currentPage + 1)"
               >
-                Next ›
+                {{ t('products.next', 'Next') }} ›
               </button>
             </nav>
           </div>

@@ -3,6 +3,9 @@ import { ref, computed } from 'vue'
 import { RouterLink } from 'vue-router'
 import { products } from '@/data/products'
 import ProductCard from './ProductCard.vue'
+import { useI18n } from '@/composables/useI18n'
+
+const { t } = useI18n()
 
 // Number of products to show initially
 const initialCount = 4
@@ -32,9 +35,9 @@ function handleAddToCart(product) {
 <template>
   <section class="featured" aria-labelledby="featured-heading">
     <div class="container">
-      <h2 id="featured-heading" class="featured__title">Feature Product</h2>
+      <h2 id="featured-heading" class="featured__title">{{ t('featured.title', 'Feature Product') }}</h2>
       <div class="section-underline" />
-      <p class="featured__subtitle">Popular products from trusted suppliers</p>
+      <p class="featured__subtitle">{{ t('featured.subtitle', 'Popular products from trusted suppliers') }}</p>
 
       <div class="featured__grid">
         <ProductCard
@@ -53,7 +56,7 @@ function handleAddToCart(product) {
           class="featured__btn"
           @click="loadMore"
         >
-          View More Products
+          {{ t('featured.viewMore', 'View More Products') }}
         </button>
 
         <!-- Once all featured products are displayed, offer to browse the full catalog -->
@@ -62,7 +65,7 @@ function handleAddToCart(product) {
           to="/products"
           class="featured__btn featured__btn--store"
         >
-          View All Products in Store
+          {{ t('featured.viewAll', 'View All Products in Store') }}
           <span class="featured__btn-icon" aria-hidden="true">→</span>
         </RouterLink>
       </div>

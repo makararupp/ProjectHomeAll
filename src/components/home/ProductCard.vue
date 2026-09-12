@@ -2,6 +2,9 @@
 import { RouterLink } from 'vue-router'
 import ImagePlaceholder from '@/components/ui/ImagePlaceholder.vue'
 import BaseButton from '@/components/ui/BaseButton.vue'
+import { useI18n } from '@/composables/useI18n'
+
+const { t } = useI18n()
 
 const props = defineProps({
   product: {
@@ -9,6 +12,26 @@ const props = defineProps({
     required: true
   }
 })
+
+function getCategoryLabel(category) {
+  if (!category) return ''
+  const keyMap = {
+    'Steel Product': 'steelProduct',
+    'Copper Pipes': 'copperPipes',
+    'Agricultural Products': 'agriculturalProducts',
+    'Kitchen Products': 'kitchenProducts',
+    'Kitchen Product': 'kitchenProduct',
+    'Seasoning & Spice': 'seasoningSpice',
+    'PVC Material': 'pvcMaterial',
+    'PVC Water Pipes': 'pvcMaterial',
+    'Bathroom Appliances': 'bathroomAppliances',
+    'Bathroom Appliance': 'bathroomAppliance',
+    'Floor Tile': 'floorTile',
+    'Plastic Resin': 'plasticResin'
+  }
+  const key = keyMap[category]
+  return key ? t(`products.${key}`, category) : category
+}
 
 const emit = defineEmits(['add-to-cart'])
 
@@ -29,7 +52,7 @@ function handleAddToCart() {
         {{ product.title }}
       </h3>
     </RouterLink>
-    <p class="product-card__category">{{ product.category }}</p>
+    <p class="product-card__category">{{ getCategoryLabel(product.category) }}</p>
     <p class="product-card__price">
       {{ product.price }} <span class="product-card__unit">{{ product.unit }}</span>
     </p>
@@ -41,7 +64,7 @@ function handleAddToCart() {
         class="product-card__add-btn"
         @click="handleAddToCart"
       >
-        Add to Card
+        {{ t('featured.addToCart', 'Add to Card') }}
       </BaseButton>
     </div>
   </article>

@@ -1,5 +1,8 @@
 <script setup>
 import BaseButton from '@/components/ui/BaseButton.vue'
+import { useI18n } from '@/composables/useI18n'
+
+const { t } = useI18n()
 </script>
 
 <template>
@@ -7,17 +10,17 @@ import BaseButton from '@/components/ui/BaseButton.vue'
     <div class="container">
       <div class="about__card">
         <div class="about__copy">
-          <h2 id="about-heading" class="about__title">About Us</h2>
+          <h2 id="about-heading" class="about__title">{{ t('about.title', 'About Us') }}</h2>
           <div class="section-underline about__underline" />
           <p class="about__lead">
-            We connect businesses with products, services and trusted partners across industries.
+            {{ t('about.lead', 'We connect businesses with products, services and trusted partners across industries.') }}
           </p>
           <p class="about__sub">
-            Built for sourcing, selling, renting and growing your business.
+            {{ t('about.sub', 'Built for sourcing, selling, renting and growing your business.') }}
           </p>
         </div>
 
-        <BaseButton variant="primary" size="md" href="/about">Read About Us</BaseButton>
+        <BaseButton variant="primary" size="md" href="/about">{{ t('about.readMore', 'Read About Us') }}</BaseButton>
       </div>
     </div>
   </section>
