@@ -25,7 +25,9 @@ const paths = {
   hammer:
     'M14.5 3.5 21 10l-3 3-6.5-6.5zM3 21l7-7M9 9l1.5-1.5L15 12 13.5 13.5z',
   laptop: 'M4 5h16v10H4zM2 19h20M9 15v-1.5h6V15',
-  chart: 'M3 3v18h18M8 17V10M13 17V6M18 17v-4'
+  chart: 'M3 3v18h18M8 17V10M13 17V6M18 17v-4',
+  store: 'M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zM9 22V12h6v10',
+  sparkle: 'M12 2l2.4 7.2L22 12l-7.6 2.4L12 22l-2.4-7.6L2 12l7.6-2.4z'
 }
 
 const strokeWidth = 1.8

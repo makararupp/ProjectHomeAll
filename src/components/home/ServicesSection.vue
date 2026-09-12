@@ -19,34 +19,41 @@ import ServiceCard from './ServiceCard.vue'
 
 <style scoped>
 .services {
-  padding: var(--space-16) 0;
+  padding: var(--space-10) 0;
 }
 
 .services__title {
-  font-size: var(--font-size-4xl);
+  font-size: 22px;
   font-weight: 700;
   color: var(--color-text-heading);
 }
 
 .services__subtitle {
-  font-size: var(--font-size-lg);
+  font-size: var(--font-size-sm);
   color: var(--color-text-secondary);
-  margin-bottom: var(--space-8);
+  margin-bottom: var(--space-6);
 }
 
 .services__grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: var(--space-6);
+  grid-template-columns: repeat(6, 1fr);
+  gap: var(--space-4);
 }
 
 @media (max-width: 1024px) {
   .services__grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
-@media (max-width: 560px) {
+@media (max-width: 640px) {
+  .services__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-3);
+  }
+}
+
+@media (max-width: 380px) {
   .services__grid {
     grid-template-columns: 1fr;
   }

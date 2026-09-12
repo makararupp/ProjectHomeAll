@@ -17,7 +17,7 @@ import BaseButton from '@/components/ui/BaseButton.vue'
           </p>
         </div>
 
-        <BaseButton variant="primary" size="lg" href="/about">Read About Us</BaseButton>
+        <BaseButton variant="primary" size="md" href="/about">Read About Us</BaseButton>
       </div>
     </div>
   </section>
@@ -25,7 +25,7 @@ import BaseButton from '@/components/ui/BaseButton.vue'
 
 <style scoped>
 .about {
-  padding-bottom: var(--space-16);
+  padding-bottom: var(--space-10);
 }
 
 .about__card {
@@ -33,34 +33,34 @@ import BaseButton from '@/components/ui/BaseButton.vue'
   border: 1px solid var(--color-border-strong, var(--color-border));
   border-color: var(--color-border-softer);
   border-radius: var(--radius-lg);
-  padding: var(--space-10);
+  padding: var(--space-6);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--space-8);
+  gap: var(--space-6);
 }
 
 .about__title {
-  font-size: var(--font-size-4xl);
+  font-size: 22px;
   font-weight: 700;
   color: var(--color-text-heading);
 }
 
 .about__underline {
-  width: 72px;
+  width: 56px;
   margin-top: var(--space-2);
-  margin-bottom: var(--space-5);
+  margin-bottom: var(--space-4);
 }
 
 .about__lead {
-  font-size: var(--font-size-xl);
+  font-size: 15px;
   color: #5f6368;
   margin-bottom: var(--space-2);
   max-width: 640px;
 }
 
 .about__sub {
-  font-size: var(--font-size-md);
+  font-size: 13.5px;
   color: var(--color-text-secondary);
 }
 

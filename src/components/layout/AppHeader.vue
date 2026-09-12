@@ -115,28 +115,30 @@ function handleSearch() {
   margin-left: auto;
   flex: 1;
   display: flex;
-  max-width: 565px;
+  max-width: 460px;
 }
 
 .app-header__search input {
   flex: 1;
-  height: 46px;
-  padding: 0 var(--space-4);
+  height: 38px;
+  padding: 0 var(--space-3);
   border: 1px solid var(--color-border-input);
   border-right: none;
   border-radius: var(--radius-sm) 0 0 var(--radius-sm);
-  font-size: var(--font-size-base);
+  font-size: 13.5px;
   color: var(--color-text-primary);
 }
 
 .app-header__search input::placeholder {
   color: var(--color-text-faint);
+  font-size: 13px;
 }
 
 .app-header__search .base-button {
   border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
   padding: 0;
-  width: 95px;
+  width: 80px;
+  height: 38px;
 }
 
 .app-header__search-submit {

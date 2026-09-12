@@ -72,43 +72,43 @@ function handleAddToCart(product) {
 
 <style scoped>
 .featured {
-  padding-bottom: var(--space-16);
+  padding: var(--space-10) 0;
 }
 
 .featured__title {
-  font-size: var(--font-size-4xl);
+  font-size: 22px;
   font-weight: 700;
   color: var(--color-text-heading);
 }
 
 .featured__subtitle {
-  font-size: var(--font-size-lg);
+  font-size: var(--font-size-sm);
   color: var(--color-text-secondary);
-  margin-bottom: var(--space-8);
+  margin-bottom: var(--space-6);
 }
 
 .featured__grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: var(--space-6);
+  gap: var(--space-4);
 }
 
 .featured__footer {
   display: flex;
   justify-content: center;
-  margin-top: var(--space-10);
+  margin-top: var(--space-6);
 }
 
 .featured__btn {
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
-  padding: 12px 28px;
+  padding: 8px 22px;
   background-color: var(--color-bg-surface);
   border: 1.5px solid var(--color-brand);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-sm);
   color: var(--color-brand-dark);
-  font-size: var(--font-size-md);
+  font-size: var(--font-size-sm);
   font-weight: 600;
   font-family: inherit;
   cursor: pointer;
@@ -124,7 +124,7 @@ function handleAddToCart(product) {
 }
 
 .featured__btn-icon {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 700;
   transition: transform var(--transition-fast);
 }

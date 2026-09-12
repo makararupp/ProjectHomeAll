@@ -505,11 +505,12 @@ function clearAllFilters() {
 .toolbar {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   border: 1px solid #e5e7eb;
-  border-radius: 8px;
+  border-radius: 6px;
   background-color: #ffffff;
-  padding: 6px 12px 6px 16px;
+  padding: 4px 10px 4px 14px;
+  min-height: 38px;
   margin-bottom: 24px;
 }
 
@@ -517,12 +518,12 @@ function clearAllFilters() {
   flex: 1;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 
 .toolbar__search-icon {
-  width: 17px;
-  height: 17px;
+  width: 14px;
+  height: 14px;
   color: #9ca3af;
   flex-shrink: 0;
 }
@@ -531,34 +532,41 @@ function clearAllFilters() {
   flex: 1;
   border: none;
   outline: none;
-  font-size: 15px;
+  font-size: 13px;
   color: #1f2937;
   background: transparent;
   font-family: inherit;
+  padding: 4px 0;
 }
 
 .toolbar__search-input::placeholder {
   color: #9ca3af;
+  font-size: 13px;
 }
 
 .toolbar__views {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
 }
 
 .toolbar__view-btn {
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: #ffffff;
   border: 1px solid #e5e7eb;
-  border-radius: 6px;
+  border-radius: 5px;
   color: #9ca3af;
   cursor: pointer;
   transition: all var(--transition-fast);
+}
+
+.toolbar__view-btn svg {
+  width: 13px;
+  height: 13px;
 }
 
 .toolbar__view-btn:hover {

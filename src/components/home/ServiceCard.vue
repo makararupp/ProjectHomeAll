@@ -12,26 +12,31 @@ defineProps({
 <template>
   <a :href="service.href" class="service-card">
     <span class="service-card__icon">
-      <IconBase :name="service.icon" :size="24" />
+      <IconBase :name="service.icon" :size="22" />
     </span>
-    <h3 class="service-card__title">{{ service.title }}</h3>
-    <p class="service-card__description">{{ service.description }}</p>
-    <span class="service-card__link">View →</span>
+    <span class="service-card__title">{{ service.title }}</span>
   </a>
 </template>
 
 <style scoped>
 .service-card {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
   background-color: var(--color-bg-surface);
-  border: 1px solid var(--color-border-soft);
-  border-radius: var(--radius-lg);
-  padding: var(--space-5);
-  transition: box-shadow var(--transition-fast), transform var(--transition-fast);
+  border: 1px solid #eef0f2;
+  border-radius: 12px;
+  padding: 16px 10px;
+  min-height: 115px;
+  text-decoration: none;
+  transition: all var(--transition-fast);
 }
 
 .service-card:hover {
-  box-shadow: 0 8px 20px rgba(31, 41, 55, 0.06);
+  border-color: #d1d5db;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
   transform: translateY(-2px);
 }
 
@@ -39,31 +44,30 @@ defineProps({
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 54px;
-  height: 54px;
-  border-radius: var(--radius-lg);
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  background-color: #f3f4f6;
+  color: var(--color-brand-dark);
+  transition: all var(--transition-fast);
+}
+
+.service-card:hover .service-card__icon {
   background-color: var(--color-brand);
-  color: var(--color-text-white);
-  margin-bottom: var(--space-4);
+  color: #ffffff;
+  transform: scale(1.05);
 }
 
 .service-card__title {
-  font-size: var(--font-size-xl);
-  font-weight: 600;
+  font-size: 13.5px;
+  font-weight: 400; /* Regular lightweight font matching the screenshot */
+  color: #6b7280; /* Soft gray text color matching the screenshot */
+  text-align: center;
+  line-height: 1.35;
+  transition: color var(--transition-fast);
+}
+
+.service-card:hover .service-card__title {
   color: var(--color-text-primary);
-  margin-bottom: var(--space-2);
-}
-
-.service-card__description {
-  font-size: var(--font-size-sm);
-  color: var(--color-text-secondary);
-  margin-bottom: var(--space-3);
-}
-
-.service-card__link {
-  display: inline-block;
-  font-size: var(--font-size-xs);
-  font-weight: 500;
-  color: var(--color-brand);
 }
 </style>
