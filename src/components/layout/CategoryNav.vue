@@ -7,8 +7,31 @@ const isOpen = ref(false)
 const selectedCategoryIndex = ref(0)
 const navRef = ref(null)
 
+let closeTimer = null
+
+function openMenu() {
+  if (closeTimer) {
+    clearTimeout(closeTimer)
+    closeTimer = null
+  }
+  isOpen.value = true
+}
+
+function scheduleCloseMenu() {
+  if (closeTimer) {
+    clearTimeout(closeTimer)
+  }
+  closeTimer = setTimeout(() => {
+    isOpen.value = false
+  }, 220)
+}
+
 function toggleMenu() {
-  isOpen.value = !isOpen.value
+  if (isOpen.value) {
+    isOpen.value = false
+  } else {
+    openMenu()
+  }
 }
 
 function selectCategory(index) {
@@ -35,6 +58,7 @@ onMounted(() => {
 })
 
 onUnmounted(() => {
+  if (closeTimer) clearTimeout(closeTimer)
   document.removeEventListener('click', handleClickOutside)
   document.removeEventListener('keydown', handleKeyDown)
 })
@@ -50,6 +74,8 @@ onUnmounted(() => {
         :class="{ 'is-active': isOpen }"
         :aria-expanded="isOpen"
         aria-haspopup="true"
+        @mouseenter="openMenu"
+        @mouseleave="scheduleCloseMenu"
         @click="toggleMenu"
       >
         <span class="category-nav__trigger-icon" :class="{ 'is-open': isOpen }" aria-hidden="true">
@@ -81,7 +107,14 @@ onUnmounted(() => {
 
     <!-- Mega Menu Dropdown -->
     <transition name="mega-dropdown">
-      <div v-if="isOpen" class="mega-menu" role="region" aria-label="All Categories Menu">
+      <div
+        v-if="isOpen"
+        class="mega-menu"
+        role="region"
+        aria-label="All Categories Menu"
+        @mouseenter="openMenu"
+        @mouseleave="scheduleCloseMenu"
+      >
         <div class="mega-menu__container">
           <!-- Left Sidebar: Category List -->
           <aside class="mega-menu__sidebar" aria-label="Category Navigation">
