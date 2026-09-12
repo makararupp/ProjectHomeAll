@@ -139,6 +139,30 @@ onUnmounted(() => {
         </transition>
       </div>
 
+      <!-- Wishlist Action (matching reference image) -->
+      <RouterLink to="/wishlist" class="header-action-item" title="Wishlist">
+        <div class="header-action-item__icon-wrap">
+          <svg class="header-action-item__icon header-action-item__icon--wishlist" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+          </svg>
+          <span class="header-action-item__badge">0</span>
+        </div>
+        <span class="header-action-item__title">{{ t('header.wishlist', 'Wishlist') }}</span>
+      </RouterLink>
+
+      <!-- Cart (Card) Action -->
+      <RouterLink to="/cart" class="header-action-item" title="Cart">
+        <div class="header-action-item__icon-wrap">
+          <svg class="header-action-item__icon header-action-item__icon--cart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="21" r="1" />
+            <circle cx="20" cy="21" r="1" />
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+          </svg>
+          <span class="header-action-item__badge">0</span>
+        </div>
+        <span class="header-action-item__title">{{ t('header.cart', 'Cart') }}</span>
+      </RouterLink>
+
       <div v-if="showAuth" class="app-header__auth">
         <RouterLink to="/sign-in" class="app-header__auth-link">{{ t('header.signIn', 'Sign in') }}</RouterLink>
         <RouterLink to="/register" class="app-header__auth-link app-header__auth-link--strong">{{ t('header.register', 'Register') }}</RouterLink>
@@ -382,6 +406,87 @@ onUnmounted(() => {
 .lang-fade-leave-to {
   opacity: 0;
   transform: translateY(-4px);
+}
+
+/* Header Action Items (Wishlist & Cart) */
+.header-action-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  cursor: pointer;
+  padding: 0 4px;
+  user-select: none;
+  flex-shrink: 0;
+  transition: transform var(--transition-fast);
+}
+
+.header-action-item:hover {
+  transform: translateY(-1px);
+}
+
+.header-action-item__icon-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 24px;
+}
+
+.header-action-item__icon {
+  width: 22px;
+  height: 22px;
+  transition: color var(--transition-fast);
+}
+
+.header-action-item__icon--wishlist {
+  color: #3b82f6;
+}
+
+.header-action-item__icon--cart {
+  color: #374151;
+}
+
+.header-action-item:hover .header-action-item__icon--cart {
+  color: var(--color-brand);
+}
+
+.header-action-item:hover .header-action-item__icon--wishlist {
+  color: #ef4444;
+}
+
+.header-action-item__badge {
+  position: absolute;
+  top: -6px;
+  right: -8px;
+  min-width: 17px;
+  height: 17px;
+  padding: 0 4px;
+  border-radius: 999px;
+  background-color: #f59e0b;
+  color: #ffffff;
+  font-size: 10.5px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  line-height: 1;
+}
+
+.header-action-item__title {
+  font-size: 11.5px;
+  font-weight: 500;
+  color: #4b5563;
+  margin-top: 2px;
+  line-height: 1;
+  transition: color var(--transition-fast);
+}
+
+.header-action-item:hover .header-action-item__title {
+  color: #111827;
 }
 
 @media (max-width: 1024px) {

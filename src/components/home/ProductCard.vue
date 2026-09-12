@@ -64,7 +64,12 @@ function handleAddToCart() {
         class="product-card__add-btn"
         @click="handleAddToCart"
       >
-        {{ t('featured.addToCart', 'Add to Card') }}
+        <svg class="product-card__btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13">
+          <circle cx="9" cy="21" r="1" />
+          <circle cx="20" cy="21" r="1" />
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+        </svg>
+        <span>{{ t('featured.addToCart', 'Add to Card') }}</span>
       </BaseButton>
     </div>
   </article>
@@ -140,9 +145,16 @@ function handleAddToCart() {
 }
 
 .product-card__add-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   padding: 0 var(--space-3);
   height: 30px;
   font-size: 12px;
   cursor: pointer;
+}
+
+.product-card__btn-icon {
+  flex-shrink: 0;
 }
 </style>

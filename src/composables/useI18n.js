@@ -15,7 +15,9 @@ export const translations = {
       searchPlaceholder: 'Search products',
       searchBtn: 'Search',
       signIn: 'Sign in',
-      register: 'Register'
+      register: 'Register',
+      cart: 'Cart',
+      wishlist: 'Wishlist'
     },
     hero: {
       eyebrow: 'BUSINESS SOLUTIONS',
@@ -110,7 +112,9 @@ export const translations = {
       searchPlaceholder: 'ស្វែងរកផលិតផល...',
       searchBtn: 'ស្វែងរក',
       signIn: 'ចូលគណនី',
-      register: 'ចុះឈ្មោះ'
+      register: 'ចុះឈ្មោះ',
+      cart: 'កន្ត្រក',
+      wishlist: 'ទំនិញពេញចិត្ត'
     },
     hero: {
       eyebrow: 'ដំណោះស្រាយអាជីវកម្ម',
