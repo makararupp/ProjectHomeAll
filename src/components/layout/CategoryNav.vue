@@ -1,11 +1,32 @@
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
-import { RouterLink } from 'vue-router'
+import { ref, onMounted, onUnmounted, watch } from 'vue'
+import { RouterLink, useRoute } from 'vue-router'
 import { categories } from '@/data/categories'
 import { megaMenuCategories } from '@/data/megaMenuData'
 import { useI18n } from '@/composables/useI18n'
 
 const { t } = useI18n()
+const route = useRoute()
+const activeCategoryKey = ref(route.path.includes('industrial-parts') ? 'industrialParts' : '')
+
+watch(
+  () => route.path,
+  (path) => {
+    if (path.includes('industrial-parts')) {
+      activeCategoryKey.value = 'industrialParts'
+    } else if (activeCategoryKey.value === 'industrialParts') {
+      activeCategoryKey.value = ''
+    }
+  }
+)
+
+function selectCategoryLink(category) {
+  activeCategoryKey.value = activeCategoryKey.value === category.key ? '' : category.key
+  if (category.key === 'services' && route.path === '/') {
+    const el = document.getElementById('services-heading')
+    if (el) el.scrollIntoView({ behavior: 'smooth' })
+  }
+}
 
 // Helper to convert kebab-case id to camelCase key for translations
 function getCategoryKey(id) {
@@ -110,7 +131,24 @@ onUnmounted(() => {
       <!-- Category Links in the header bar -->
       <ul class="category-nav__list">
         <li v-for="category in categories" :key="category.key || category.label">
-          <RouterLink :to="category.href">{{ category.key ? t(`categories.${category.key}`, category.label) : category.label }}</RouterLink>
+          <RouterLink
+            v-if="category.href"
+            :to="category.href"
+            class="category-nav__link"
+            :class="{ 'is-active': activeCategoryKey === category.key }"
+            @click="activeCategoryKey = category.key"
+          >
+            {{ category.key ? t(`categories.${category.key}`, category.label) : category.label }}
+          </RouterLink>
+          <button
+            v-else
+            type="button"
+            class="category-nav__link category-nav__link--btn"
+            :class="{ 'is-active': activeCategoryKey === category.key }"
+            @click="selectCategoryLink(category)"
+          >
+            {{ category.key ? t(`categories.${category.key}`, category.label) : category.label }}
+          </button>
         </li>
       </ul>
     </div>
@@ -378,7 +416,7 @@ onUnmounted(() => {
 .category-nav__list {
   display: flex;
   align-items: center;
-  gap: var(--space-6);
+  gap: var(--space-2);
   overflow-x: auto;
   scrollbar-width: none;
 }
@@ -387,16 +425,35 @@ onUnmounted(() => {
   display: none;
 }
 
-.category-nav__list a {
+.category-nav__link {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-family: inherit;
   font-size: var(--font-size-sm);
-  color: rgba(255, 255, 255, 0.95);
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.92);
   white-space: nowrap;
-  transition: color var(--transition-fast);
+  text-decoration: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  line-height: 1.4;
+  transition: all var(--transition-fast);
+  user-select: none;
 }
 
-.category-nav__list a:hover {
-  color: var(--color-text-white);
-  text-decoration: underline;
+.category-nav__link:hover {
+  background-color: rgba(255, 255, 255, 0.16);
+  color: #ffffff;
+}
+
+.category-nav__link.is-active {
+  background-color: rgba(0, 0, 0, 0.22);
+  color: #ffffff;
+  font-weight: 700;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.18);
 }
 
 /* =========================================

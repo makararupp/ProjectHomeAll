@@ -37,7 +37,8 @@ const router = createRouter({
       component: () => import('@/views/RegisterView.vue')
     },
     {
-      path: '/categories/:slug?',
+      path: '/categories/industrial-parts',
+      alias: ['/categories'],
       name: 'category-detail',
       component: () => import('@/views/CategoryDetailView.vue')
     }
