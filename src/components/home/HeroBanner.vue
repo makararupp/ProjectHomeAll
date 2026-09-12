@@ -252,17 +252,21 @@ onBeforeUnmount(() => {
   text-transform: uppercase;
 }
 
+/* Heading - Incremented & Sharp */
 /* Heading - Compact & Sharp */
 .hero__heading {
+  font-size: 32px;
   font-size: 26px;
   font-weight: 800;
   color: #0f172a;
   line-height: 1.22;
+  margin: 0 0 12px 0;
   margin: 0 0 10px 0;
   letter-spacing: -0.02em;
 }
 
 .hero__heading--km {
+  font-size: 29px;
   font-size: 23px;
   line-height: 1.35;
 }

@@ -3,6 +3,7 @@ import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { RouterLink } from 'vue-router'
 import { navLinks } from '@/data/navLinks'
 import BaseButton from '@/components/ui/BaseButton.vue'
+import logoImg from '@/assets/images/logo.jpg'
 import { useI18n } from '@/composables/useI18n'
 import { useCart } from '@/composables/useCart'
 
@@ -68,17 +69,22 @@ onUnmounted(() => {
   <header class="app-header">
     <div class="app-header__inner">
       
+      <!-- Brand Logo in front of Home from project (src/assets/images/logo.jpg) -->
+      <RouterLink to="/" class="app-header__logo" title="HomeAll">
+        <img :src="logoImg" alt="HomeAll" class="app-header__logo-img" />
+      </RouterLink>
+
       <nav class="app-header__nav" aria-label="Primary">
         <ul>
           <li v-for="link in navLinks" :key="link.key || link.label">
             <RouterLink :to="link.href" class="app-header__nav-link">
-              {{ link.key ? t(`nav.${link.key}`, link.label) : link.label }}
+              <span>{{ link.key ? t(`nav.${link.key}`, link.label) : link.label }}</span>
               <span v-if="link.hasDropdown" class="app-header__caret" aria-hidden="true">⌄</span>
             </RouterLink>
           </li>
         </ul>
       </nav>
-
+      
       <form
         v-if="showSearch"
         class="app-header__search"
@@ -224,7 +230,25 @@ onUnmounted(() => {
   font-size: var(--font-size-3xl);
   font-weight: 700;
   color: var(--color-text-primary);
+  display: flex;
+  align-items: center;
+  text-decoration: none;
   flex-shrink: 0;
+  padding: 4px 0;
+}
+
+.app-header__logo-img {
+  height: 44px;
+  width: auto;
+  max-width: 120px;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+  display: block;
+  transition: transform var(--transition-fast);
+}
+
+.app-header__logo:hover .app-header__logo-img {
+  transform: scale(1.04);
 }
 
 .app-header__nav ul {
@@ -235,8 +259,8 @@ onUnmounted(() => {
 .app-header__nav-link {
   display: inline-flex;
   align-items: center;
-  gap: 2px;
-  font-size: var(--font-size-base);
+  gap: 6px;
+  font-size: 14px;
   font-weight: 500;
   color: var(--color-text-primary);
   transition: color var(--transition-fast);
@@ -244,6 +268,21 @@ onUnmounted(() => {
 
 .app-header__nav-link:hover {
   color: #34c759;
+}
+
+.app-header__nav-home-img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  border-radius: 4px;
+  flex-shrink: 0;
+  display: inline-block;
+  vertical-align: middle;
+  transition: transform var(--transition-fast);
+}
+
+.app-header__nav-link:hover .app-header__nav-home-img {
+  transform: scale(1.08);
 }
 
 .app-header__caret {

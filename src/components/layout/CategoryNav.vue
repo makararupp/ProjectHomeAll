@@ -370,6 +370,8 @@ onUnmounted(() => {
   align-items: center;
   gap: 10px;
   color: var(--color-text-white);
+  font-size: 15px;
+  font-size: 16px;
   font-size: 14px;
   font-weight: 600;
   padding: 6px 14px;
@@ -439,6 +441,10 @@ onUnmounted(() => {
   padding: 5px 12px;
   border-radius: 6px;
   font-family: inherit;
+  font-size: 15px;
+  font-size: 16px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.94);
   font-size: var(--font-size-sm);
   font-weight: 500;
   color: rgba(255, 255, 255, 0.92);
