@@ -35,6 +35,11 @@ const router = createRouter({
       alias: ['/Register'],
       name: 'register',
       component: () => import('@/views/RegisterView.vue')
+    },
+    {
+      path: '/categories/:slug?',
+      name: 'category-detail',
+      component: () => import('@/views/CategoryDetailView.vue')
     }
   ],
   scrollBehavior() {

@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed, watch } from 'vue'
-import { RouterLink } from 'vue-router'
+import { RouterLink, useRoute } from 'vue-router'
 import AppHeader from '@/components/layout/AppHeader.vue'
 import CategoryNav from '@/components/layout/CategoryNav.vue'
 import AppFooter from '@/components/layout/AppFooter.vue'
@@ -29,9 +29,22 @@ function getGroupLabel(name) {
   return key ? t(`products.${key}`, name) : name
 }
 
-const searchQuery = ref('')
-const selectedGroups = ref([])
+const route = useRoute()
+const searchQuery = ref(route.query.search ? String(route.query.search) : '')
+const selectedGroups = ref(route.query.group ? [String(route.query.group)] : [])
 const viewMode = ref('grid') // 'grid' | 'list'
+
+watch(
+  () => route.query,
+  (newQuery) => {
+    if (newQuery.group) {
+      selectedGroups.value = [String(newQuery.group)]
+    }
+    if (newQuery.search !== undefined) {
+      searchQuery.value = String(newQuery.search)
+    }
+  }
+)
 
 // Pagination state
 const currentPage = ref(1)

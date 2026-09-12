@@ -1,5 +1,6 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
+import { RouterLink } from 'vue-router'
 import { categories } from '@/data/categories'
 import { megaMenuCategories } from '@/data/megaMenuData'
 import { useI18n } from '@/composables/useI18n'
@@ -109,7 +110,7 @@ onUnmounted(() => {
       <!-- Category Links in the header bar -->
       <ul class="category-nav__list">
         <li v-for="category in categories" :key="category.key || category.label">
-          <a :href="category.href">{{ category.key ? t(`categories.${category.key}`, category.label) : category.label }}</a>
+          <RouterLink :to="category.href">{{ category.key ? t(`categories.${category.key}`, category.label) : category.label }}</RouterLink>
         </li>
       </ul>
     </div>
