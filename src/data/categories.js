@@ -7,6 +7,5 @@ export const categories = [
   { label: 'Food & Beverage', href: '/categories/food-beverage' },
   { label: 'Logistics', href: '/categories/logistics' },
   { label: 'Real Estate', href: '/categories/real-estate' },
-  { label: 'Services', href: '/categories/services' },
-  { label: 'More', href: '/categories' }
+  { label: 'Services', href: '/categories/services' }
 ]
