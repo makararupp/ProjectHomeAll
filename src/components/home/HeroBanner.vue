@@ -6,25 +6,22 @@ import slide1 from '@/assets/images/slide1.jpg'
 import slide2 from '@/assets/images/slide2.jpg'
 import slide3 from '@/assets/images/slide3.jpg'
 
-// 3 JPG images with links and click actions
+// 3 JPG images for carousel banner
 const slides = [
   {
     id: 1,
     image: slide1,
-    alt: 'Business solutions slide 1',
-    link: '/products'
+    alt: 'Business solutions slide 1'
   },
   {
     id: 2,
     image: slide2,
-    alt: 'Business solutions slide 2',
-    link: '/categories'
+    alt: 'Business solutions slide 2'
   },
   {
     id: 3,
     image: slide3,
-    alt: 'Business solutions slide 3',
-    link: '/about'
+    alt: 'Business solutions slide 3'
   }
 ]
 
@@ -79,17 +76,15 @@ onBeforeUnmount(() => {
           ‹
         </button>
 
-        <a
-          :href="slides[activeSlide].link"
+        <div
           class="hero__image"
           :aria-label="slides[activeSlide].alt"
-          @click="handleSlideClick(slides[activeSlide])"
         >
           <ImagePlaceholder
             label="HomeAll"
             :image="slides[activeSlide].image"
           />
-        </a>
+        </div>
 
         <button
           type="button"
@@ -174,7 +169,6 @@ onBeforeUnmount(() => {
   height: 100%;
   min-height: 320px;
   display: block;
-  cursor: pointer;
 }
 
 .hero__image:hover :deep(img) {
