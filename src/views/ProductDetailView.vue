@@ -48,7 +48,7 @@ watch(
 
 // Pagination state
 const currentPage = ref(1)
-const itemsPerPage = ref(6) // 6 items per page (2 rows of 3)
+const itemsPerPage = ref(8) // 8 items per page (2 rows of 4 boxes)
 
 // Filter products based on search input and selected item groups
 const filteredProducts = computed(() => {
@@ -196,14 +196,9 @@ onUnmounted(() => {
 
       <!-- Page Heading & Subtitle -->
       <header class="products-header">
-        <div class="products-header__heading-row">
-          <h1 class="page-heading" :class="{ 'is-khmer': isKhmer }">
-            {{ t('products.allProducts', 'All Products') }}
-          </h1>
-          <!-- <span class="products-header__count-badge">
-            {{ filteredProducts.length }} {{ t('products.productsText', 'products') }}
-          </span> -->
-        </div>
+        <h1 class="page-heading" :class="{ 'is-khmer': isKhmer }">
+          {{ t('products.allProducts', 'All Products') }}
+        </h1>
         <p class="products-header__subtitle" :class="{ 'is-khmer': isKhmer }">
           {{ isKhmer ? 'ស្វែងរក និងជ្រើសរើសសម្ភារៈសំណង់ គ្រឿងដែក និងផលិតផលគុណភាពខ្ពស់គ្រប់ប្រភេទ' : 'Explore our comprehensive catalog of verified construction, steel, and industrial materials.' }}
         </p>
@@ -934,11 +929,11 @@ onUnmounted(() => {
   background-color: var(--color-brand);
 }
 
-/* Products Grid (3 columns matching mockup) */
+/* Products Grid (4 columns / 4 boxes per row) */
 .products-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
 }
 
 /* Products List View */
@@ -952,8 +947,8 @@ onUnmounted(() => {
 .product-card {
   background-color: #ffffff;
   border: 1px solid #e5e7eb;
-  border-radius: 16px;
-  padding: 18px;
+  border-radius: 14px;
+  padding: 14px;
   display: flex;
   flex-direction: column;
   cursor: pointer;
@@ -966,21 +961,21 @@ onUnmounted(() => {
 
 .product-card:hover,
 .product-card:focus-visible {
-  transform: translateY(-6px);
+  transform: translateY(-5px);
   border-color: #34c759;
-  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.08), 0 4px 10px rgba(52, 199, 89, 0.08);
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.08), 0 4px 10px rgba(52, 199, 89, 0.08);
 }
 
 .product-card__image-wrap {
   width: 100%;
-  aspect-ratio: 1.18;
+  aspect-ratio: 1.15;
   background-color: #f8fafc;
   border: 1px solid #f1f5f9;
-  border-radius: 12px;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
   overflow: hidden;
   position: relative;
 }
@@ -1047,10 +1042,10 @@ onUnmounted(() => {
 
 .product-card__title {
   font-family: var(--font-family-title);
-  font-size: 16.5px;
+  font-size: 15px;
   font-weight: 600;
   color: #111827;
-  margin: 0 0 6px 0;
+  margin: 0 0 4px 0;
   line-height: 1.35;
   transition: color 0.2s ease;
 }
@@ -1060,9 +1055,9 @@ onUnmounted(() => {
 }
 
 .product-card__category {
-  font-size: 13px;
+  font-size: 12.5px;
   color: #6b7280;
-  margin: 0 0 12px 0;
+  margin: 0 0 10px 0;
 }
 
 .product-card__footer {
@@ -1620,7 +1615,13 @@ onUnmounted(() => {
 }
 
 /* Responsive */
-@media (max-width: 1024px) {
+@media (max-width: 1280px) {
+  .products-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 960px) {
   .products-grid {
     grid-template-columns: repeat(2, 1fr);
   }

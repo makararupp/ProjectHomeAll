@@ -8,7 +8,13 @@
     "Wiremesh",
     "roughcast",
     "purlin",
-    "skimcoat"
+    "skimcoat",
+    "agro",
+    "Kampot",
+    "quickview",
+    "Quickview",
+    "scgty",
+    "SCGTY"
   ],
   "cSpell.ignoreRegExpList": [
     "[\\u1780-\\u17FF\\u19E0-\\u19FF]+"
