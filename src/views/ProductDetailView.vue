@@ -512,6 +512,11 @@ function clearAllFilters() {
   padding: 4px 10px 4px 14px;
   min-height: 38px;
   margin-bottom: 24px;
+  transition: border-color var(--transition-fast);
+}
+
+.toolbar:focus-within {
+  border-color: var(--color-brand);
 }
 
 .toolbar__search {
@@ -570,14 +575,14 @@ function clearAllFilters() {
 }
 
 .toolbar__view-btn:hover {
-  color: #374151;
-  border-color: #d1d5db;
+  color: var(--color-brand-dark);
+  border-color: var(--color-brand);
 }
 
 .toolbar__view-btn.is-active {
-  color: #111827;
-  border-color: #9ca3af;
-  background-color: #f9fafb;
+  color: #ffffff;
+  border-color: var(--color-brand);
+  background-color: var(--color-brand);
 }
 
 /* Products Grid (3 columns matching mockup) */
