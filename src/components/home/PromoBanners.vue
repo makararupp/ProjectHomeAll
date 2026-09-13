@@ -55,7 +55,7 @@ const { isKhmer } = useI18n()
   flex-direction: column;
   align-items: center;
   text-align: center;
-  cursor: default;
+  cursor: pointer;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
