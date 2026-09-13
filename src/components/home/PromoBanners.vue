@@ -39,7 +39,7 @@ const { isKhmer } = useI18n()
 <style scoped>
 .category-showcase {
   padding: 24px 0 16px 0;
-  background-color: var(--color-bg-page, #f7f8fa);
+  background-color: #ffffff;
 }
 
 .category-showcase__grid {
@@ -91,7 +91,7 @@ const { isKhmer } = useI18n()
 .category-item:hover .category-item__image-wrap {
   transform: scale(1.06);
   box-shadow: 0 8px 18px -2px rgba(15, 23, 42, 0.1), 0 2px 6px rgba(15, 23, 42, 0.04);
-  border-color: rgba(52, 199, 89, 0.5);
+  border-color: #cbd5e1;
 }
 
 .category-item__img {
@@ -121,11 +121,10 @@ const { isKhmer } = useI18n()
   -webkit-box-orient: vertical;
   overflow: hidden;
   max-width: 95px;
-  transition: color 0.2s ease;
 }
 
 .category-item:hover .category-item__title {
-  color: var(--color-brand, #34c759);
+  color: #1f2937;
 }
 
 /* Responsive: 5 per row on tablets */
