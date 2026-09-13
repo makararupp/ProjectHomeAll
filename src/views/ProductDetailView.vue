@@ -36,35 +36,82 @@ const searchQuery = ref(route.query.search ? String(route.query.search) : '')
 const selectedGroups = ref(route.query.group ? [String(route.query.group)] : [])
 const viewMode = ref('grid') // 'grid' | 'list'
 
-// Flyout submenu state
+// Flyout submenu state: supports hover preview and pinned selection on click
 const hoveredGroup = ref(null)
+const pinnedFlyoutGroup = ref(route.query.group ? String(route.query.group) : null)
+const selectedSubcategoryName = ref('')
+
+const activeFlyoutName = computed(() => {
+  return hoveredGroup.value || pinnedFlyoutGroup.value
+})
 
 const currentFlyoutGroup = computed(() => {
-  if (!hoveredGroup.value) return null
-  return itemGroupCategories.find((c) => c.name === hoveredGroup.value)
+  if (!activeFlyoutName.value) return null
+  return itemGroupCategories.find((c) => c.name === activeFlyoutName.value)
+})
+
+const activeFlyoutIndex = computed(() => {
+  if (!currentFlyoutGroup.value) return -1
+  return itemGroupCategories.findIndex((c) => c.name === currentFlyoutGroup.value.name)
+})
+
+const flyoutStyle = computed(() => {
+  if (activeFlyoutIndex.value < 0) return { top: '0px' }
+  const rowHeight = 46.5
+  const rawTop = activeFlyoutIndex.value * rowHeight
+  const maxTop = Math.max(0, (itemGroupCategories.length - 6) * rowHeight)
+  const top = Math.min(rawTop, maxTop)
+  return {
+    top: `${top}px`
+  }
 })
 
 function selectGroup(groupName) {
   if (selectedGroups.value.includes(groupName)) {
+    // If clicking already selected category, deselect and close
     selectedGroups.value = []
+    pinnedFlyoutGroup.value = null
+    selectedSubcategoryName.value = ''
+    if (searchQuery.value) searchQuery.value = ''
   } else {
+    // Select category and pin flyout panel open
     selectedGroups.value = [groupName]
+    pinnedFlyoutGroup.value = groupName
+    selectedSubcategoryName.value = ''
+    if (searchQuery.value) searchQuery.value = ''
   }
   currentPage.value = 1
 }
 
 function selectSubcategory(subName, parentGroupName) {
   selectedGroups.value = [parentGroupName]
+  pinnedFlyoutGroup.value = parentGroupName
+  selectedSubcategoryName.value = subName
   searchQuery.value = subName
-  hoveredGroup.value = null
   currentPage.value = 1
 }
+
+const currentDisplayTitle = computed(() => {
+  if (selectedSubcategoryName.value) {
+    return selectedSubcategoryName.value
+  }
+  if (selectedGroups.value.length > 0) {
+    const groupName = selectedGroups.value[0]
+    if (isKhmer.value) {
+      const cat = itemGroupCategories.find((c) => c.name === groupName)
+      return cat?.nameKm || getGroupLabel(groupName)
+    }
+    return getGroupLabel(groupName)
+  }
+  return t('products.allProducts', 'All Products')
+})
 
 watch(
   () => route.query,
   (newQuery) => {
     if (newQuery.group) {
       selectedGroups.value = [String(newQuery.group)]
+      pinnedFlyoutGroup.value = String(newQuery.group)
     }
     if (newQuery.search !== undefined) {
       searchQuery.value = String(newQuery.search)
@@ -122,6 +169,8 @@ function goToPage(page) {
 
 function clearAllFilters() {
   selectedGroups.value = []
+  pinnedFlyoutGroup.value = null
+  selectedSubcategoryName.value = ''
   searchQuery.value = ''
   hoveredGroup.value = null
   currentPage.value = 1
@@ -218,7 +267,7 @@ onUnmounted(() => {
           </li>
           <li class="breadcrumb__item">
             <span class="breadcrumb__current" aria-current="page">
-              {{ selectedGroups.length > 0 ? (isKhmer ? (itemGroupCategories.find(c => c.name === selectedGroups[0])?.nameKm || getGroupLabel(selectedGroups[0])) : getGroupLabel(selectedGroups[0])) : t('products.allProducts', 'All Products') }}
+              {{ currentDisplayTitle }}
             </span>
           </li>
         </ol>
@@ -227,7 +276,7 @@ onUnmounted(() => {
       <!-- Page Heading & Subtitle -->
       <header class="products-header">
         <h1 class="page-heading" :class="{ 'is-khmer': isKhmer }">
-          {{ t('products.allProducts', 'All Products') }}
+          {{ currentDisplayTitle }}
         </h1>
         <p class="products-header__subtitle" :class="{ 'is-khmer': isKhmer }">
           {{ isKhmer ? 'ស្វែងរក និងជ្រើសរើសសម្ភារៈសំណង់ គ្រឿងដែក និងផលិតផលគុណភាពខ្ពស់គ្រប់ប្រភេទ' : 'Explore our comprehensive catalog of verified construction, steel, and industrial materials.' }}
@@ -291,19 +340,16 @@ onUnmounted(() => {
                 <div
                   v-if="currentFlyoutGroup"
                   class="category-flyout-panel"
+                  :style="flyoutStyle"
                   @mouseenter="hoveredGroup = currentFlyoutGroup.name"
                   @mouseleave="hoveredGroup = null"
                 >
-                  <div class="category-flyout-header">
-                    <span class="category-flyout-title">
-                      {{ isKhmer ? currentFlyoutGroup.nameKm : getGroupLabel(currentFlyoutGroup.name) }}
-                    </span>
-                  </div>
                   <ul class="category-flyout-list">
                     <li
                       v-for="sub in currentFlyoutGroup.subcategories"
                       :key="sub"
                       class="category-flyout-item"
+                      :class="{ 'is-active-sub': selectedSubcategoryName === sub }"
                       @click.stop="selectSubcategory(sub, currentFlyoutGroup.name)"
                     >
                       <span class="category-flyout-item__text">{{ sub }}</span>
@@ -904,16 +950,16 @@ onUnmounted(() => {
 /* Right Flyout Submenu Panel */
 .category-flyout-panel {
   position: absolute;
-  top: 0;
-  left: calc(100% + 4px);
+  left: calc(100% + 2px);
   min-width: 250px;
   max-width: 320px;
   background-color: #ffffff;
   border: 1px solid #e5e7eb;
   border-radius: 6px;
   box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
-  padding: 10px 0;
-  z-index: 60;
+  padding: 8px 0;
+  z-index: 70;
+  transition: top 0.18s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Hover bridge so moving mouse to flyout doesn't trigger mouseleave */
@@ -922,22 +968,8 @@ onUnmounted(() => {
   position: absolute;
   top: 0;
   bottom: 0;
-  left: -8px;
-  width: 8px;
-}
-
-.category-flyout-header {
-  padding: 4px 18px 8px 18px;
-  border-bottom: 1px solid #f1f5f9;
-  margin-bottom: 6px;
-}
-
-.category-flyout-title {
-  font-size: 11.5px;
-  font-weight: 700;
-  color: #9ca3af;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  left: -10px;
+  width: 10px;
 }
 
 .category-flyout-list {
@@ -947,8 +979,8 @@ onUnmounted(() => {
 }
 
 .category-flyout-item {
-  padding: 9px 20px;
-  font-size: 14px;
+  padding: 10px 22px;
+  font-size: 14.5px;
   color: #374151;
   cursor: pointer;
   transition: all 0.15s ease;
@@ -960,7 +992,13 @@ onUnmounted(() => {
   background-color: #f0fdf4;
   color: var(--color-brand-dark, #269c46);
   font-weight: 600;
-  padding-left: 24px;
+  padding-left: 26px;
+}
+
+.category-flyout-item.is-active-sub {
+  background-color: #eaf8ee;
+  color: var(--color-brand-dark, #269c46);
+  font-weight: 700;
 }
 
 .flyout-fade-enter-active,
