@@ -63,7 +63,7 @@ const { t } = useI18n()
 /* Full-Width Blue Banner */
 .about-banner {
   width: 100%;
-  background-color: #2563eb;
+  background-color: #ffffff;
   min-height: 60px;
   padding: 16px 24px;
   display: flex;
@@ -75,7 +75,7 @@ const { t } = useI18n()
 .about-banner__title {
   font-size: 24px;
   font-weight: 700;
-  color: var(--color-text-white);
+  color: #111827;
   margin: 0;
   letter-spacing: 0.02em;
 }
