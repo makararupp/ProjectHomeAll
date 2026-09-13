@@ -6,16 +6,16 @@ const year = new Date().getFullYear()
 
 <template>
   <footer class="app-footer">
-    <div class="container app-footer__top">
-      <div class="app-footer__brand">
-        <p class="app-footer__tagline">
+    <div class="container app-footer_top">
+      <div class="app-footer_brand">
+        <p class="app-footer_tagline">
           Your business marketplace for products, services and opportunities.
         </p>
-        <p class="app-footer__address">Tolaka St, Krong Siem Reap 171201</p>
+        <p class="app-footer_address">Tolaka St, Krong Siem Reap 171201</p>
       </div>
 
-      <div class="app-footer__columns">
-        <div v-for="column in footerColumns" :key="column.title" class="app-footer__column">
+      <div class="app-footer_columns">
+        <div v-for="column in footerColumns" :key="column.title" class="app-footer_column">
           <h3>{{ column.title }}</h3>
           <ul>
             <li v-for="link in column.links" :key="link.label">
@@ -26,11 +26,11 @@ const year = new Date().getFullYear()
       </div>
     </div>
 
-    <div class="app-footer__divider container" />
+    <div class="app-footer_divider container" />
 
-    <div class="container app-footer__bottom">
+    <div class="container app-footer_bottom">
       <p>&copy; {{ year }} HomeAll. All rights reserved.</p>
-      <ul class="app-footer__social">
+      <ul class="app-footer_social">
         <li v-for="social in socialLinks" :key="social.label">
           <a :href="social.href" target="_blank" rel="noopener">{{ social.label }}</a>
         </li>
@@ -45,59 +45,59 @@ const year = new Date().getFullYear()
   padding-top: var(--space-12);
 }
 
-.app-footer__top {
+.app-footer_top {
   display: grid;
   grid-template-columns: minmax(240px, 340px) 1fr;
   gap: var(--space-10);
   padding-bottom: var(--space-10);
 }
 
-.app-footer__tagline {
+.app-footer_tagline {
   font-size: var(--font-size-base);
   color: var(--color-text-primary);
   line-height: 1.6;
   max-width: 340px;
 }
 
-.app-footer__address {
+.app-footer_address {
   margin-top: var(--space-6);
   font-size: var(--font-size-sm);
   color: var(--color-text-primary);
 }
 
-.app-footer__columns {
+.app-footer_columns {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: var(--space-6);
 }
 
-.app-footer__column h3 {
+.app-footer_column h3 {
   font-size: var(--font-size-lg);
   font-weight: 600;
   color: var(--color-text-heading);
   margin-bottom: var(--space-4);
 }
 
-.app-footer__column ul {
+.app-footer_column ul {
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
 }
 
-.app-footer__column a {
+.app-footer_column a {
   font-size: var(--font-size-sm);
   color: var(--color-text-primary);
 }
 
-.app-footer__column a:hover {
+.app-footer_column a:hover {
   color: var(--color-brand);
 }
 
-.app-footer__divider {
+.app-footer_divider {
   border-top: 1px solid var(--color-border-softer);
 }
 
-.app-footer__bottom {
+.app-footer_bottom {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -106,25 +106,25 @@ const year = new Date().getFullYear()
   color: var(--color-text-primary);
 }
 
-.app-footer__social {
+.app-footer_social {
   display: flex;
   gap: var(--space-6);
 }
 
-.app-footer__social a:hover {
+.app-footer_social a:hover {
   color: var(--color-brand);
 }
 
 @media (max-width: 900px) {
-  .app-footer__top {
+  .app-footer_top {
     grid-template-columns: 1fr;
   }
 
-  .app-footer__columns {
+  .app-footer_columns {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .app-footer__bottom {
+  .app-footer_bottom {
     flex-direction: column;
     gap: var(--space-3);
     align-items: flex-start;

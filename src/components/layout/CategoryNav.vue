@@ -105,11 +105,11 @@ onUnmounted(() => {
 
 <template>
   <nav ref="navRef" class="category-nav" aria-label="Categories">
-    <div class="category-nav__inner">
+    <div class="category-nav_inner">
       <!-- "All Categories" Mega Menu Trigger -->
       <button
         type="button"
-        class="category-nav__trigger"
+        class="category-nav_trigger"
         :class="{ 'is-active': isOpen }"
         :aria-expanded="isOpen"
         aria-haspopup="true"
@@ -117,14 +117,14 @@ onUnmounted(() => {
         @mouseleave="scheduleCloseMenu"
         @click="toggleMenu"
       >
-        <span class="category-nav__trigger-icon" :class="{ 'is-open': isOpen }" aria-hidden="true">
+        <span class="category-nav_trigger-icon" :class="{ 'is-open': isOpen }" aria-hidden="true">
           <span />
           <span />
           <span />
         </span>
-        <span class="category-nav__trigger-text">{{ t('categories.allCategories', 'All Categories') }}</span>
+        <span class="category-nav_trigger-text">{{ t('categories.allCategories', 'All Categories') }}</span>
         <svg
-          class="category-nav__caret"
+          class="category-nav_caret"
           :class="{ 'is-flipped': isOpen }"
           viewBox="0 0 20 20"
           fill="currentColor"
@@ -137,12 +137,12 @@ onUnmounted(() => {
       </button>
 
       <!-- Category Links in the header bar -->
-      <ul class="category-nav__list">
+      <ul class="category-nav_list">
         <li v-for="category in categories" :key="category.key || category.label">
           <RouterLink
             v-if="category.href"
             :to="category.href"
-            class="category-nav__link"
+            class="category-nav_link"
             :class="{ 'is-active': activeCategoryKey === category.key }"
             @click="activeCategoryKey = category.key"
           >
@@ -151,7 +151,7 @@ onUnmounted(() => {
           <button
             v-else
             type="button"
-            class="category-nav__link category-nav__link--btn"
+            class="category-nav_link category-nav_link--btn"
             :class="{ 'is-active': activeCategoryKey === category.key }"
             @click="selectCategoryLink(category)"
           >
@@ -171,20 +171,20 @@ onUnmounted(() => {
         @mouseenter="openMenu"
         @mouseleave="scheduleCloseMenu"
       >
-        <div class="mega-menu__container">
+        <div class="mega-menu_container">
           <!-- Left Sidebar: Category List -->
-          <aside class="mega-menu__sidebar" aria-label="Category Navigation">
-            <ul class="mega-menu__sidebar-list">
+          <aside class="mega-menu_sidebar" aria-label="Category Navigation">
+            <ul class="mega-menu_sidebar-list">
               <li
                 v-for="(cat, index) in megaMenuCategories"
                 :key="cat.id"
-                class="mega-menu__sidebar-item"
+                class="mega-menu_sidebar-item"
                 :class="{ 'is-active': selectedCategoryIndex === index }"
                 @mouseenter="selectCategory(index)"
                 @click="selectCategory(index)"
               >
                 <!-- Sidebar Category Icon -->
-                <span class="mega-menu__sidebar-icon" aria-hidden="true">
+                <span class="mega-menu_sidebar-icon" aria-hidden="true">
                   <!-- Star -->
                   <svg v-if="cat.icon === 'star'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
@@ -229,40 +229,40 @@ onUnmounted(() => {
                   </svg>
                 </span>
 
-                <span class="mega-menu__sidebar-name">{{ t(`categories.${getCategoryKey(cat.id)}`, cat.name) }}</span>
+                <span class="mega-menu_sidebar-name">{{ t(`categories.${getCategoryKey(cat.id)}`, cat.name) }}</span>
               </li>
             </ul>
           </aside>
 
           <!-- Right Content Area: Subcategory Circular Grid -->
-          <section class="mega-menu__content">
+          <section class="mega-menu_content">
             <!-- Active Category Title -->
-            <div class="mega-menu__header">
-              <h3 class="mega-menu__title">{{ t(`categories.${getCategoryKey(megaMenuCategories[selectedCategoryIndex].id)}`, megaMenuCategories[selectedCategoryIndex].name) }}</h3>
+            <div class="mega-menu_header">
+              <h3 class="mega-menu_title">{{ t(`categories.${getCategoryKey(megaMenuCategories[selectedCategoryIndex].id)}`, megaMenuCategories[selectedCategoryIndex].name) }}</h3>
             </div>
 
             <!-- Circular Product Items Grid -->
-            <div class="mega-menu__grid">
+            <div class="mega-menu_grid">
               <a
                 v-for="item in megaMenuCategories[selectedCategoryIndex].items"
                 :key="item.name"
                 href="#product"
-                class="mega-menu__item"
+                class="mega-menu_item"
                 @click.prevent="isOpen = false"
               >
-                <div class="mega-menu__circle-wrap">
-                  <div class="mega-menu__circle">
+                <div class="mega-menu_circle-wrap">
+                  <div class="mega-menu_circle">
                     <!-- Product Image from project -->
                     <img
                       v-if="item.image"
                       :src="item.image"
                       :alt="item.name"
-                      class="mega-menu__circle-img"
+                      class="mega-menu_circle-img"
                       loading="lazy"
                     />
 
                     <!-- Fallback Product Icon / Graphic -->
-                    <span v-else class="mega-menu__circle-icon" aria-hidden="true">
+                    <span v-else class="mega-menu_circle-icon" aria-hidden="true">
                       <!-- Car -->
                       <svg v-if="item.icon === 'car'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
                         <path d="M5 17h14M4 14l2-6h12l2 6M7 17a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM17 17a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" />
@@ -310,7 +310,7 @@ onUnmounted(() => {
                     </span>
 
                     <!-- Blue diagonal arrow badge (like in screenshot) -->
-                    <span v-if="item.hasBadge" class="mega-menu__badge" aria-label="Trending">
+                    <span v-if="item.hasBadge" class="mega-menu_badge" aria-label="Trending">
                       <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5">
                         <path d="M3 9L9 3M9 3H4M9 3V8" />
                       </svg>
@@ -318,21 +318,21 @@ onUnmounted(() => {
                   </div>
                 </div>
 
-                <span class="mega-menu__item-name">{{ item.name }}</span>
+                <span class="mega-menu_item-name">{{ item.name }}</span>
               </a>
             </div>
 
             <!-- Secondary Featured Section (matching screenshot bottom section) -->
             <div
               v-if="megaMenuCategories[selectedCategoryIndex].secondarySection"
-              class="mega-menu__secondary"
+              class="mega-menu_secondary"
             >
-              <h4 class="mega-menu__secondary-title">
+              <h4 class="mega-menu_secondary-title">
                 {{ t('categories.consumerElectronics', megaMenuCategories[selectedCategoryIndex].secondarySection.title) }}
               </h4>
               <a
                 :href="megaMenuCategories[selectedCategoryIndex].secondarySection.linkHref"
-                class="mega-menu__secondary-link"
+                class="mega-menu_secondary-link"
               >
                 {{ t('categories.browseFeatured', megaMenuCategories[selectedCategoryIndex].secondarySection.linkText) }}
                 <span aria-hidden="true">→</span>
@@ -355,7 +355,7 @@ onUnmounted(() => {
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
 }
 
-.category-nav__inner {
+.category-nav_inner {
   height: 100%;
   display: flex;
   align-items: center;
@@ -365,7 +365,7 @@ onUnmounted(() => {
 }
 
 /* "All Categories" Trigger Button */
-.category-nav__trigger {
+.category-nav_trigger {
   display: inline-flex;
   align-items: center;
   gap: 10px;
@@ -382,19 +382,19 @@ onUnmounted(() => {
   user-select: none;
 }
 
-.category-nav__trigger:hover,
-.category-nav__trigger.is-active {
+.category-nav_trigger:hover,
+.category-nav_trigger.is-active {
   background: rgba(0, 0, 0, 0.18);
 }
 
-.category-nav__trigger-icon {
+.category-nav_trigger-icon {
   display: inline-flex;
   flex-direction: column;
   gap: 3.5px;
   transition: transform var(--transition-fast);
 }
 
-.category-nav__trigger-icon span {
+.category-nav_trigger-icon span {
   width: 15px;
   height: 2px;
   border-radius: var(--radius-pill);
@@ -402,28 +402,28 @@ onUnmounted(() => {
   transition: all 0.2s ease;
 }
 
-.category-nav__trigger-icon.is-open span:nth-child(1) {
+.category-nav_trigger-icon.is-open span:nth-child(1) {
   transform: translateY(5.5px) rotate(45deg);
 }
 
-.category-nav__trigger-icon.is-open span:nth-child(2) {
+.category-nav_trigger-icon.is-open span:nth-child(2) {
   opacity: 0;
 }
 
-.category-nav__trigger-icon.is-open span:nth-child(3) {
+.category-nav_trigger-icon.is-open span:nth-child(3) {
   transform: translateY(-5.5px) rotate(-45deg);
 }
 
-.category-nav__caret {
+.category-nav_caret {
   transition: transform 0.2s ease;
 }
 
-.category-nav__caret.is-flipped {
+.category-nav_caret.is-flipped {
   transform: rotate(180deg);
 }
 
 /* Category Horizontal Links */
-.category-nav__list {
+.category-nav_list {
   display: flex;
   align-items: center;
   gap: var(--space-2);
@@ -431,11 +431,11 @@ onUnmounted(() => {
   scrollbar-width: none;
 }
 
-.category-nav__list::-webkit-scrollbar {
+.category-nav_list::-webkit-scrollbar {
   display: none;
 }
 
-.category-nav__link {
+.category-nav_link {
   display: inline-flex;
   align-items: center;
   padding: 5px 12px;
@@ -458,12 +458,12 @@ onUnmounted(() => {
   user-select: none;
 }
 
-.category-nav__link:hover {
+.category-nav_link:hover {
   background-color: rgba(255, 255, 255, 0.16);
   color: #ffffff;
 }
 
-.category-nav__link.is-active {
+.category-nav_link.is-active {
   background-color: rgba(0, 0, 0, 0.22);
   color: #ffffff;
   font-weight: 700;
@@ -483,7 +483,7 @@ onUnmounted(() => {
   pointer-events: auto;
 }
 
-.mega-menu__container {
+.mega-menu_container {
   display: flex;
   max-width: 1344px;
   margin: 0 auto;
@@ -498,7 +498,7 @@ onUnmounted(() => {
 }
 
 /* Left Sidebar */
-.mega-menu__sidebar {
+.mega-menu_sidebar {
   width: 270px;
   flex-shrink: 0;
   background-color: #f9fafb;
@@ -506,22 +506,22 @@ onUnmounted(() => {
   overflow-y: auto;
 }
 
-.mega-menu__sidebar::-webkit-scrollbar {
+.mega-menu_sidebar::-webkit-scrollbar {
   width: 4px;
 }
 
-.mega-menu__sidebar::-webkit-scrollbar-thumb {
+.mega-menu_sidebar::-webkit-scrollbar-thumb {
   background-color: #d1d5db;
   border-radius: 4px;
 }
 
-.mega-menu__sidebar-list {
+.mega-menu_sidebar-list {
   display: flex;
   flex-direction: column;
   padding: 8px 0;
 }
 
-.mega-menu__sidebar-item {
+.mega-menu_sidebar-item {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -535,20 +535,20 @@ onUnmounted(() => {
   user-select: none;
 }
 
-.mega-menu__sidebar-item:hover {
+.mega-menu_sidebar-item:hover {
   background-color: #f3f4f6;
   color: #111827;
 }
 
 /* Active Category indicator (matches user screenshot black bar) */
-.mega-menu__sidebar-item.is-active {
+.mega-menu_sidebar-item.is-active {
   background-color: #ffffff;
   color: #111827;
   font-weight: 600;
   border-left-color: #111827;
 }
 
-.mega-menu__sidebar-icon {
+.mega-menu_sidebar-icon {
   width: 18px;
   height: 18px;
   display: flex;
@@ -558,18 +558,18 @@ onUnmounted(() => {
   color: #6b7280;
 }
 
-.mega-menu__sidebar-item.is-active .mega-menu__sidebar-icon {
+.mega-menu_sidebar-item.is-active .mega-menu_sidebar-icon {
   color: #111827;
 }
 
-.mega-menu__sidebar-name {
+.mega-menu_sidebar-name {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 /* Right Content Area */
-.mega-menu__content {
+.mega-menu_content {
   flex: 1;
   padding: 24px 32px;
   overflow-y: auto;
@@ -577,11 +577,11 @@ onUnmounted(() => {
   flex-direction: column;
 }
 
-.mega-menu__header {
+.mega-menu_header {
   margin-bottom: 20px;
 }
 
-.mega-menu__title {
+.mega-menu_title {
   font-size: 17px;
   font-weight: 700;
   color: #111827;
@@ -589,14 +589,14 @@ onUnmounted(() => {
 }
 
 /* 7-Column Circular Items Grid (matches screenshot) */
-.mega-menu__grid {
+.mega-menu_grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 20px 10px;
   margin-bottom: 28px;
 }
 
-.mega-menu__item {
+.mega-menu_item {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -605,16 +605,16 @@ onUnmounted(() => {
   transition: transform 0.2s ease;
 }
 
-.mega-menu__item:hover {
+.mega-menu_item:hover {
   transform: translateY(-2px);
 }
 
-.mega-menu__circle-wrap {
+.mega-menu_circle-wrap {
   position: relative;
   margin-bottom: 8px;
 }
 
-.mega-menu__circle {
+.mega-menu_circle {
   width: 68px;
   height: 68px;
   border-radius: 50%;
@@ -629,7 +629,7 @@ onUnmounted(() => {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
 }
 
-.mega-menu__circle-img {
+.mega-menu_circle-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -637,11 +637,11 @@ onUnmounted(() => {
   transition: transform 0.2s ease;
 }
 
-.mega-menu__item:hover .mega-menu__circle-img {
+.mega-menu_item:hover .mega-menu_circle-img {
   transform: scale(1.08);
 }
 
-.mega-menu__item:hover .mega-menu__circle {
+.mega-menu_item:hover .mega-menu_circle {
   border-color: var(--color-brand);
   box-shadow: 0 6px 16px rgba(52, 199, 89, 0.15);
   border-color: #cbd5e1;
@@ -649,7 +649,7 @@ onUnmounted(() => {
   background: #ffffff;
 }
 
-.mega-menu__circle-icon {
+.mega-menu_circle-icon {
   width: 32px;
   height: 32px;
   display: flex;
@@ -659,13 +659,13 @@ onUnmounted(() => {
   transition: color 0.2s ease;
 }
 
-.mega-menu__item:hover .mega-menu__circle-icon {
+.mega-menu_item:hover .mega-menu_circle-icon {
   color: var(--color-brand);
   color: #111827;
 }
 
 /* Diagonal Blue Arrow Badge (from screenshot) */
-.mega-menu__badge {
+.mega-menu_badge {
   position: absolute;
   top: 1px;
   right: 1px;
@@ -680,12 +680,12 @@ onUnmounted(() => {
   box-shadow: 0 2px 4px rgba(37, 99, 235, 0.3);
 }
 
-.mega-menu__badge svg {
+.mega-menu_badge svg {
   width: 10px;
   height: 10px;
 }
 
-.mega-menu__item-name {
+.mega-menu_item-name {
   font-size: 11.5px;
   font-weight: 500;
   color: #374151;
@@ -699,14 +699,14 @@ onUnmounted(() => {
   transition: color 0.15s ease;
 }
 
-.mega-menu__item:hover .mega-menu__item-name {
+.mega-menu_item:hover .mega-menu_item-name {
   color: var(--color-brand-dark);
   color: #111827;
   font-weight: 600;
 }
 
 /* Secondary Section at Bottom */
-.mega-menu__secondary {
+.mega-menu_secondary {
   margin-top: auto;
   padding-top: 16px;
   border-top: 1px solid #f3f4f6;
@@ -715,13 +715,13 @@ onUnmounted(() => {
   justify-content: space-between;
 }
 
-.mega-menu__secondary-title {
+.mega-menu_secondary-title {
   font-size: 15px;
   font-weight: 700;
   color: #111827;
 }
 
-.mega-menu__secondary-link {
+.mega-menu_secondary-link {
   display: inline-flex;
   align-items: center;
   gap: 4px;
@@ -733,7 +733,7 @@ onUnmounted(() => {
   transition: color var(--transition-fast);
 }
 
-.mega-menu__secondary-link:hover {
+.mega-menu_secondary-link:hover {
   color: #1d4ed8;
 }
 
@@ -754,41 +754,41 @@ onUnmounted(() => {
 
 /* Responsive Adjustments */
 @media (max-width: 1200px) {
-  .mega-menu__grid {
+  .mega-menu_grid {
     grid-template-columns: repeat(5, 1fr);
   }
 }
 
 @media (max-width: 900px) {
-  .mega-menu__container {
+  .mega-menu_container {
     flex-direction: column;
     max-height: 80vh;
   }
 
-  .mega-menu__sidebar {
+  .mega-menu_sidebar {
     width: 100%;
     border-right: none;
     border-bottom: 1px solid #edf0f2;
     max-height: 140px;
   }
 
-  .mega-menu__sidebar-list {
+  .mega-menu_sidebar-list {
     flex-direction: row;
     overflow-x: auto;
   }
 
-  .mega-menu__sidebar-item {
+  .mega-menu_sidebar-item {
     border-left: none;
     border-bottom: 3px solid transparent;
     padding: 10px 14px;
   }
 
-  .mega-menu__sidebar-item.is-active {
+  .mega-menu_sidebar-item.is-active {
     border-left-color: transparent;
     border-bottom-color: #111827;
   }
 
-  .mega-menu__grid {
+  .mega-menu_grid {
     grid-template-columns: repeat(4, 1fr);
   }
 }

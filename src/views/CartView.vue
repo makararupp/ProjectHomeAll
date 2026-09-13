@@ -40,26 +40,26 @@ function getItemLineTotal(item) {
     <main class="cart-main container">
       <!-- Breadcrumb Navigation -->
       <nav class="cart-breadcrumb" aria-label="Breadcrumb">
-        <RouterLink to="/" class="cart-breadcrumb__link">
+        <RouterLink to="/" class="cart-breadcrumb_link">
           {{ t('structuralMaterials.breadcrumbHome', 'Home') }}
         </RouterLink>
-        <span class="cart-breadcrumb__separator" aria-hidden="true">&gt;</span>
-        <span class="cart-breadcrumb__current" aria-current="page">
+        <span class="cart-breadcrumb_separator" aria-hidden="true">&gt;</span>
+        <span class="cart-breadcrumb_current" aria-current="page">
           {{ t('header.cart', 'Shopping Cart') }}
         </span>
       </nav>
 
       <!-- Page Header -->
       <header class="cart-header">
-        <div class="cart-header__title-group">
-          <h1 class="cart-header__title" :class="{ 'is-khmer': isKhmer }">
+        <div class="cart-header_title-group">
+          <h1 class="cart-header_title" :class="{ 'is-khmer': isKhmer }">
             {{ t('header.cart', 'Shopping Cart') }}
           </h1>
-          <span v-if="totalCount > 0" class="cart-header__badge">
+          <span v-if="totalCount > 0" class="cart-header_badge">
             {{ totalCount }} {{ totalCount === 1 ? 'item' : 'items' }}
           </span>
         </div>
-        <p class="cart-header__subtitle">
+        <p class="cart-header_subtitle">
           {{ t('products.subtitle', 'Review your selected items and proceed to fast, secure checkout.') }}
         </p>
       </header>
@@ -68,12 +68,12 @@ function getItemLineTotal(item) {
       <div v-if="cartItems.length > 0" class="cart-layout">
         <!-- Left: Items List -->
         <div class="cart-items-panel">
-          <div class="cart-items-panel__header">
-            <span class="cart-items-panel__col-product">Product</span>
-            <span class="cart-items-panel__col-price">Price</span>
-            <span class="cart-items-panel__col-qty">Quantity</span>
-            <span class="cart-items-panel__col-total">Total</span>
-            <span class="cart-items-panel__col-action"></span>
+          <div class="cart-items-panel_header">
+            <span class="cart-items-panel_col-product">Product</span>
+            <span class="cart-items-panel_col-price">Price</span>
+            <span class="cart-items-panel_col-qty">Quantity</span>
+            <span class="cart-items-panel_col-total">Total</span>
+            <span class="cart-items-panel_col-action"></span>
           </div>
 
           <div class="cart-items-list">
@@ -83,41 +83,41 @@ function getItemLineTotal(item) {
               class="cart-item-row"
             >
               <!-- Item Image and Details -->
-              <div class="cart-item-row__product">
-                <div class="cart-item-row__img-wrap">
+              <div class="cart-item-row_product">
+                <div class="cart-item-row_img-wrap">
                   <img
                     v-if="item.image"
                     :src="item.image"
                     :alt="item.title"
-                    class="cart-item-row__img"
+                    class="cart-item-row_img"
                   />
-                  <div v-else class="cart-item-row__placeholder">
+                  <div v-else class="cart-item-row_placeholder">
                     📦
                   </div>
                 </div>
-                <div class="cart-item-row__info">
-                  <h2 class="cart-item-row__title">
+                <div class="cart-item-row_info">
+                  <h2 class="cart-item-row_title">
                     {{ item.title }}
                   </h2>
-                  <span v-if="item.category" class="cart-item-row__category">
+                  <span v-if="item.category" class="cart-item-row_category">
                     {{ item.category }}
                   </span>
                 </div>
               </div>
 
               <!-- Unit Price -->
-              <div class="cart-item-row__price">
-                <span class="cart-item-row__mobile-label">Unit Price:</span>
-                <span class="cart-item-row__price-val">{{ item.price }}</span>
+              <div class="cart-item-row_price">
+                <span class="cart-item-row_mobile-label">Unit Price:</span>
+                <span class="cart-item-row_price-val">{{ item.price }}</span>
               </div>
 
               <!-- Quantity Controls -->
-              <div class="cart-item-row__qty">
-                <span class="cart-item-row__mobile-label">Quantity:</span>
+              <div class="cart-item-row_qty">
+                <span class="cart-item-row_mobile-label">Quantity:</span>
                 <div class="qty-stepper">
                   <button
                     type="button"
-                    class="qty-stepper__btn"
+                    class="qty-stepper_btn"
                     :disabled="item.quantity <= 1"
                     aria-label="Decrease quantity"
                     @click="updateQuantity(item.id, item.quantity - 1)"
@@ -127,13 +127,13 @@ function getItemLineTotal(item) {
                   <input
                     type="number"
                     min="1"
-                    class="qty-stepper__input"
+                    class="qty-stepper_input"
                     :value="item.quantity"
                     @change="updateQuantity(item.id, $event.target.value)"
                   />
                   <button
                     type="button"
-                    class="qty-stepper__btn"
+                    class="qty-stepper_btn"
                     aria-label="Increase quantity"
                     @click="updateQuantity(item.id, item.quantity + 1)"
                   >
@@ -143,16 +143,16 @@ function getItemLineTotal(item) {
               </div>
 
               <!-- Line Total -->
-              <div class="cart-item-row__total">
-                <span class="cart-item-row__mobile-label">Total:</span>
-                <span class="cart-item-row__total-val">{{ formatCurrency(getItemLineTotal(item)) }}</span>
+              <div class="cart-item-row_total">
+                <span class="cart-item-row_mobile-label">Total:</span>
+                <span class="cart-item-row_total-val">{{ formatCurrency(getItemLineTotal(item)) }}</span>
               </div>
 
               <!-- Remove Item -->
-              <div class="cart-item-row__actions">
+              <div class="cart-item-row_actions">
                 <button
                   type="button"
-                  class="cart-item-row__remove-btn"
+                  class="cart-item-row_remove-btn"
                   title="Remove item"
                   :aria-label="`Remove ${item.title}`"
                   @click="removeFromCart(item.id)"
@@ -166,7 +166,7 @@ function getItemLineTotal(item) {
           </div>
 
           <!-- Bottom Actions: Continue Shopping & Clear Cart -->
-          <div class="cart-items-panel__footer">
+          <div class="cart-items-panel_footer">
             <RouterLink to="/products" class="cart-back-btn">
               <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16">
                 <path fill-rule="evenodd" d="M9.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L7.414 9H15a1 1 0 110 2H7.414l2.293 2.293a1 1 0 010 1.414z" clip-rule="evenodd" />
@@ -187,37 +187,37 @@ function getItemLineTotal(item) {
         <!-- Right: Order Summary -->
         <aside class="cart-summary-panel">
           <div class="cart-summary-card">
-            <h2 class="cart-summary-card__title">Order Summary</h2>
+            <h2 class="cart-summary-card_title">Order Summary</h2>
 
-            <div class="cart-summary-card__rows">
+            <div class="cart-summary-card_rows">
               <div class="summary-row">
-                <span class="summary-row__label">Subtotal ({{ totalCount }} items)</span>
-                <span class="summary-row__val">{{ formatCurrency(totalPrice) }}</span>
+                <span class="summary-row_label">Subtotal ({{ totalCount }} items)</span>
+                <span class="summary-row_val">{{ formatCurrency(totalPrice) }}</span>
               </div>
               <div class="summary-row">
-                <span class="summary-row__label">Shipping</span>
-                <span class="summary-row__val summary-row__val--free">Free</span>
+                <span class="summary-row_label">Shipping</span>
+                <span class="summary-row_val summary-row_val--free">Free</span>
               </div>
               <div class="summary-row">
-                <span class="summary-row__label">Estimated Tax</span>
-                <span class="summary-row__val">$0.00</span>
+                <span class="summary-row_label">Estimated Tax</span>
+                <span class="summary-row_val">$0.00</span>
               </div>
               <div class="summary-divider"></div>
               <div class="summary-row summary-row--grand">
-                <span class="summary-row__label">Total</span>
-                <span class="summary-row__val summary-row__val--total">{{ formatCurrency(totalPrice) }}</span>
+                <span class="summary-row_label">Total</span>
+                <span class="summary-row_val summary-row_val--total">{{ formatCurrency(totalPrice) }}</span>
               </div>
             </div>
 
             <!-- Guarantee Badges -->
             <div class="cart-trust-badges">
               <div class="trust-badge">
-                <span class="trust-badge__icon">🛡️</span>
-                <span class="trust-badge__text">100% Genuine &amp; Verified Goods</span>
+                <span class="trust-badge_icon">🛡️</span>
+                <span class="trust-badge_text">100% Genuine &amp; Verified Goods</span>
               </div>
               <div class="trust-badge">
-                <span class="trust-badge__icon">🚚</span>
-                <span class="trust-badge__text">Safe, Fast Nationwide Delivery</span>
+                <span class="trust-badge_icon">🚚</span>
+                <span class="trust-badge_text">Safe, Fast Nationwide Delivery</span>
               </div>
             </div>
 
@@ -237,18 +237,18 @@ function getItemLineTotal(item) {
 
       <!-- Empty Cart State -->
       <div v-else class="cart-empty-state">
-        <div class="cart-empty-state__icon">
+        <div class="cart-empty-state_icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="64" height="64">
             <circle cx="9" cy="21" r="1" />
             <circle cx="20" cy="21" r="1" />
             <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
           </svg>
         </div>
-        <h2 class="cart-empty-state__title">Your shopping cart is empty</h2>
-        <p class="cart-empty-state__desc">
+        <h2 class="cart-empty-state_title">Your shopping cart is empty</h2>
+        <p class="cart-empty-state_desc">
           Looks like you haven't added any products to your cart yet. Explore our extensive selection of industrial materials, steel, and household goods.
         </p>
-        <RouterLink to="/products" class="cart-empty-state__btn">
+        <RouterLink to="/products" class="cart-empty-state_btn">
           <span>Start Shopping</span>
           <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16">
             <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
@@ -285,21 +285,21 @@ function getItemLineTotal(item) {
   margin-bottom: 20px;
 }
 
-.cart-breadcrumb__link {
+.cart-breadcrumb_link {
   color: #64748b;
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
-.cart-breadcrumb__link:hover {
+.cart-breadcrumb_link:hover {
   color: #15803d;
 }
 
-.cart-breadcrumb__separator {
+.cart-breadcrumb_separator {
   color: #cbd5e1;
 }
 
-.cart-breadcrumb__current {
+.cart-breadcrumb_current {
   color: #111827;
   font-weight: 600;
 }
@@ -309,13 +309,13 @@ function getItemLineTotal(item) {
   margin-bottom: 28px;
 }
 
-.cart-header__title-group {
+.cart-header_title-group {
   display: flex;
   align-items: center;
   gap: 12px;
 }
 
-.cart-header__title {
+.cart-header_title {
   font-size: 28px;
   font-weight: 700;
   color: #111827;
@@ -323,7 +323,7 @@ function getItemLineTotal(item) {
   letter-spacing: -0.02em;
 }
 
-.cart-header__badge {
+.cart-header_badge {
   background: #dcfce7;
   color: #15803d;
   font-size: 12px;
@@ -333,7 +333,7 @@ function getItemLineTotal(item) {
   border: 1px solid #bbf7d0;
 }
 
-.cart-header__subtitle {
+.cart-header_subtitle {
   margin: 6px 0 0;
   color: #64748b;
   font-size: 14px;
@@ -356,7 +356,7 @@ function getItemLineTotal(item) {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
 }
 
-.cart-items-panel__header {
+.cart-items-panel_header {
   display: grid;
   grid-template-columns: 2.5fr 1fr 1.3fr 1fr 40px;
   gap: 16px;
@@ -388,13 +388,13 @@ function getItemLineTotal(item) {
   border-bottom: none;
 }
 
-.cart-item-row__product {
+.cart-item-row_product {
   display: flex;
   align-items: center;
   gap: 16px;
 }
 
-.cart-item-row__img-wrap {
+.cart-item-row_img-wrap {
   width: 68px;
   height: 68px;
   border-radius: 10px;
@@ -407,24 +407,24 @@ function getItemLineTotal(item) {
   flex-shrink: 0;
 }
 
-.cart-item-row__img {
+.cart-item-row_img {
   width: 100%;
   height: 100%;
   object-fit: contain;
   padding: 4px;
 }
 
-.cart-item-row__placeholder {
+.cart-item-row_placeholder {
   font-size: 24px;
 }
 
-.cart-item-row__info {
+.cart-item-row_info {
   display: flex;
   flex-direction: column;
   min-width: 0;
 }
 
-.cart-item-row__title {
+.cart-item-row_title {
   font-size: 14.5px;
   font-weight: 600;
   color: #111827;
@@ -432,16 +432,16 @@ function getItemLineTotal(item) {
   line-height: 1.35;
 }
 
-.cart-item-row__category {
+.cart-item-row_category {
   font-size: 12px;
   color: #64748b;
 }
 
-.cart-item-row__mobile-label {
+.cart-item-row_mobile-label {
   display: none;
 }
 
-.cart-item-row__price-val {
+.cart-item-row_price-val {
   font-size: 14.5px;
   font-weight: 600;
   color: #374151;
@@ -457,7 +457,7 @@ function getItemLineTotal(item) {
   background: #ffffff;
 }
 
-.qty-stepper__btn {
+.qty-stepper_btn {
   width: 32px;
   height: 32px;
   display: flex;
@@ -472,17 +472,17 @@ function getItemLineTotal(item) {
   transition: all 0.15s ease;
 }
 
-.qty-stepper__btn:hover:not(:disabled) {
+.qty-stepper_btn:hover:not(:disabled) {
   background: #e2e8f0;
   color: #111827;
 }
 
-.qty-stepper__btn:disabled {
+.qty-stepper_btn:disabled {
   color: #cbd5e1;
   cursor: not-allowed;
 }
 
-.qty-stepper__input {
+.qty-stepper_input {
   width: 42px;
   height: 32px;
   text-align: center;
@@ -497,19 +497,19 @@ function getItemLineTotal(item) {
   -moz-appearance: textfield;
 }
 
-.qty-stepper__input::-webkit-inner-spin-button,
-.qty-stepper__input::-webkit-outer-spin-button {
+.qty-stepper_input::-webkit-inner-spin-button,
+.qty-stepper_input::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
-.cart-item-row__total-val {
+.cart-item-row_total-val {
   font-size: 15px;
   font-weight: 700;
   color: #15803d;
 }
 
-.cart-item-row__remove-btn {
+.cart-item-row_remove-btn {
   width: 32px;
   height: 32px;
   border-radius: 8px;
@@ -523,14 +523,14 @@ function getItemLineTotal(item) {
   transition: all 0.2s ease;
 }
 
-.cart-item-row__remove-btn:hover {
+.cart-item-row_remove-btn:hover {
   background: #ef4444;
   color: #ffffff;
   border-color: #ef4444;
 }
 
 /* Panel Footer */
-.cart-items-panel__footer {
+.cart-items-panel_footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -583,7 +583,7 @@ function getItemLineTotal(item) {
   top: 90px;
 }
 
-.cart-summary-card__title {
+.cart-summary-card_title {
   font-size: 18px;
   font-weight: 700;
   color: #111827;
@@ -592,7 +592,7 @@ function getItemLineTotal(item) {
   border-bottom: 1px solid #f1f5f9;
 }
 
-.cart-summary-card__rows {
+.cart-summary-card_rows {
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -607,12 +607,12 @@ function getItemLineTotal(item) {
   color: #64748b;
 }
 
-.summary-row__val {
+.summary-row_val {
   font-weight: 600;
   color: #111827;
 }
 
-.summary-row__val--free {
+.summary-row_val--free {
   color: #15803d;
   font-weight: 700;
 }
@@ -628,7 +628,7 @@ function getItemLineTotal(item) {
   color: #111827;
 }
 
-.summary-row__val--total {
+.summary-row_val--total {
   font-size: 20px;
   font-weight: 800;
   color: #15803d;
@@ -654,7 +654,7 @@ function getItemLineTotal(item) {
   font-weight: 500;
 }
 
-.trust-badge__icon {
+.trust-badge_icon {
   font-size: 14px;
 }
 
@@ -696,7 +696,7 @@ function getItemLineTotal(item) {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
 }
 
-.cart-empty-state__icon {
+.cart-empty-state_icon {
   width: 100px;
   height: 100px;
   border-radius: 50%;
@@ -708,14 +708,14 @@ function getItemLineTotal(item) {
   margin-bottom: 20px;
 }
 
-.cart-empty-state__title {
+.cart-empty-state_title {
   font-size: 22px;
   font-weight: 700;
   color: #111827;
   margin: 0 0 8px;
 }
 
-.cart-empty-state__desc {
+.cart-empty-state_desc {
   font-size: 14.5px;
   color: #64748b;
   max-width: 480px;
@@ -723,7 +723,7 @@ function getItemLineTotal(item) {
   margin: 0 0 24px;
 }
 
-.cart-empty-state__btn {
+.cart-empty-state_btn {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -738,7 +738,7 @@ function getItemLineTotal(item) {
   transition: all 0.2s ease;
 }
 
-.cart-empty-state__btn:hover {
+.cart-empty-state_btn:hover {
   background: linear-gradient(135deg, #15803d, #166534);
   transform: translateY(-2px);
 }
@@ -749,7 +749,7 @@ function getItemLineTotal(item) {
     grid-template-columns: 1fr;
   }
 
-  .cart-items-panel__header {
+  .cart-items-panel_header {
     display: none;
   }
 
@@ -760,13 +760,13 @@ function getItemLineTotal(item) {
     padding-right: 36px;
   }
 
-  .cart-item-row__actions {
+  .cart-item-row_actions {
     position: absolute;
     top: 18px;
     right: 0;
   }
 
-  .cart-item-row__mobile-label {
+  .cart-item-row_mobile-label {
     display: inline-block;
     font-size: 12px;
     color: #94a3b8;
@@ -774,9 +774,9 @@ function getItemLineTotal(item) {
     font-weight: 600;
   }
 
-  .cart-item-row__price,
-  .cart-item-row__qty,
-  .cart-item-row__total {
+  .cart-item-row_price,
+  .cart-item-row_qty,
+  .cart-item-row_total {
     display: flex;
     align-items: center;
   }

@@ -19,10 +19,10 @@ function getServiceKey(id) {
 
 <template>
   <a :href="service.href" class="service-card">
-    <span class="service-card__icon">
+    <span class="service-card_icon">
       <IconBase :name="service.icon" :size="22" />
     </span>
-    <span class="service-card__title">{{ t(`servicesSection.${getServiceKey(service.id)}`, service.title) }}</span>
+    <span class="service-card_title">{{ t(`servicesSection.${getServiceKey(service.id)}`, service.title) }}</span>
   </a>
 </template>
 
@@ -48,7 +48,7 @@ function getServiceKey(id) {
   transform: translateY(-2px);
 }
 
-.service-card__icon {
+.service-card_icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -60,13 +60,13 @@ function getServiceKey(id) {
   transition: all var(--transition-fast);
 }
 
-.service-card:hover .service-card__icon {
+.service-card:hover .service-card_icon {
   background-color: var(--color-brand);
   color: #ffffff;
   transform: scale(1.05);
 }
 
-.service-card__title {
+.service-card_title {
   font-size: 13.5px;
   font-weight: 400; /* Regular lightweight font matching the screenshot */
   color: #6b7280; /* Soft gray text color matching the screenshot */
@@ -75,7 +75,7 @@ function getServiceKey(id) {
   transition: color var(--transition-fast);
 }
 
-.service-card:hover .service-card__title {
+.service-card:hover .service-card_title {
   color: var(--color-text-primary);
 }
 </style>

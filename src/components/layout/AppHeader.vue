@@ -67,19 +67,19 @@ onUnmounted(() => {
 
 <template>
   <header class="app-header">
-    <div class="app-header__inner">
+    <div class="app-header_inner">
       
       <!-- Brand Logo in front of Home from project (src/assets/images/logo.jpg) -->
-      <RouterLink to="/" class="app-header__logo" title="HomeAll">
-        <img :src="logoImg" alt="HomeAll" class="app-header__logo-img" />
+      <RouterLink to="/" class="app-header_logo" title="HomeAll">
+        <img :src="logoImg" alt="HomeAll" class="app-header_logo-img" />
       </RouterLink>
 
-      <nav class="app-header__nav" aria-label="Primary">
+      <nav class="app-header_nav" aria-label="Primary">
         <ul>
           <li v-for="link in navLinks" :key="link.key || link.label">
-            <RouterLink :to="link.href" class="app-header__nav-link">
+            <RouterLink :to="link.href" class="app-header_nav-link">
               <span>{{ link.key ? t(`nav.${link.key}`, link.label) : link.label }}</span>
-              <span v-if="link.hasDropdown" class="app-header__caret" aria-hidden="true">⌄</span>
+              <span v-if="link.hasDropdown" class="app-header_caret" aria-hidden="true">⌄</span>
             </RouterLink>
           </li>
         </ul>
@@ -87,7 +87,7 @@ onUnmounted(() => {
       
       <form
         v-if="showSearch"
-        class="app-header__search"
+        class="app-header_search"
         role="search"
         @submit.prevent="handleSearch"
       >
@@ -99,7 +99,7 @@ onUnmounted(() => {
           :placeholder="t('header.searchPlaceholder', 'Search products')"
         />
         <BaseButton variant="primary" size="md">
-          <button type="submit" class="app-header__search-submit">{{ t('header.searchBtn', 'Search') }}</button>
+          <button type="submit" class="app-header_search-submit">{{ t('header.searchBtn', 'Search') }}</button>
         </BaseButton>
       </form>
 
@@ -107,16 +107,16 @@ onUnmounted(() => {
       <div ref="langRef" class="lang-selector">
         <button
           type="button"
-          class="lang-selector__btn"
+          class="lang-selector_btn"
           :class="{ 'is-open': isLangOpen }"
           :aria-expanded="isLangOpen"
           aria-haspopup="true"
           @click="toggleLangDropdown"
         >
-          <span class="lang-selector__globe" aria-hidden="true">🌐</span>
-          <span class="lang-selector__code">{{ currentLang.displayCode }}</span>
+          <span class="lang-selector_globe" aria-hidden="true">🌐</span>
+          <span class="lang-selector_code">{{ currentLang.displayCode }}</span>
           <svg
-            class="lang-selector__caret"
+            class="lang-selector_caret"
             :class="{ 'is-flipped': isLangOpen }"
             viewBox="0 0 20 20"
             fill="currentColor"
@@ -130,18 +130,18 @@ onUnmounted(() => {
 
         <!-- Dropdown Menu -->
         <transition name="lang-fade">
-          <div v-if="isLangOpen" class="lang-selector__dropdown" role="menu">
+          <div v-if="isLangOpen" class="lang-selector_dropdown" role="menu">
             <button
               v-for="lang in languages"
               :key="lang.id"
               type="button"
-              class="lang-selector__option"
+              class="lang-selector_option"
               :class="{ 'is-selected': currentLang.id === lang.id }"
               role="menuitem"
               @click="selectLanguage(lang)"
             >
-              <span class="lang-selector__item-code">{{ lang.code }}</span>
-              <span class="lang-selector__item-name" :lang="lang.id">{{ lang.name }}</span>
+              <span class="lang-selector_item-code">{{ lang.code }}</span>
+              <span class="lang-selector_item-name" :lang="lang.id">{{ lang.name }}</span>
             </button>
           </div>
         </transition>
@@ -149,36 +149,36 @@ onUnmounted(() => {
 
       <!-- Wishlist Action (matching reference image) -->
       <RouterLink to="/wishlist" class="header-action-item" title="Wishlist">
-        <div class="header-action-item__icon-wrap">
-          <svg class="header-action-item__icon header-action-item__icon--wishlist" viewBox="0 0 24 24" fill="currentColor">
+        <div class="header-action-item_icon-wrap">
+          <svg class="header-action-item_icon header-action-item_icon--wishlist" viewBox="0 0 24 24" fill="currentColor">
             <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
           </svg>
-          <span class="header-action-item__badge">0</span>
+          <span class="header-action-item_badge">0</span>
         </div>
-        <span class="header-action-item__title">{{ t('header.wishlist', 'Wishlist') }}</span>
+        <span class="header-action-item_title">{{ t('header.wishlist', 'Wishlist') }}</span>
       </RouterLink>
 
       <!-- Cart (Card) Action -->
       <RouterLink to="/cart" class="header-action-item" :class="{ 'is-bumped': isCartBumping }" title="Cart">
-        <div class="header-action-item__icon-wrap" :class="{ 'is-bumped': isCartBumping }">
-          <svg class="header-action-item__icon header-action-item__icon--cart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <div class="header-action-item_icon-wrap" :class="{ 'is-bumped': isCartBumping }">
+          <svg class="header-action-item_icon header-action-item_icon--cart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="9" cy="21" r="1" />
             <circle cx="20" cy="21" r="1" />
             <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
           </svg>
           <span
-            class="header-action-item__badge"
+            class="header-action-item_badge"
             :class="{ 'has-items': totalCount > 0, 'is-bumped': isCartBumping }"
           >
             {{ totalCount > 99 ? '99+' : totalCount }}
           </span>
         </div>
-        <span class="header-action-item__title">{{ t('header.cart', 'Cart') }}</span>
+        <span class="header-action-item_title">{{ t('header.cart', 'Cart') }}</span>
       </RouterLink>
 
-      <div v-if="showAuth" class="app-header__auth">
-        <RouterLink to="/sign-in" class="app-header__auth-link">{{ t('header.signIn', 'Sign in') }}</RouterLink>
-        <RouterLink to="/register" class="app-header__auth-link app-header__auth-link--strong">{{ t('header.register', 'Register') }}</RouterLink>
+      <div v-if="showAuth" class="app-header_auth">
+        <RouterLink to="/sign-in" class="app-header_auth-link">{{ t('header.signIn', 'Sign in') }}</RouterLink>
+        <RouterLink to="/register" class="app-header_auth-link app-header_auth-link--strong">{{ t('header.register', 'Register') }}</RouterLink>
       </div>
     </div>
 
@@ -186,19 +186,19 @@ onUnmounted(() => {
     <Teleport to="body">
       <Transition name="cart-toast-fade">
         <div v-if="isToastVisible" class="global-cart-toast" role="status" aria-live="polite">
-          <div class="global-cart-toast__icon">
+          <div class="global-cart-toast_icon">
             <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16">
               <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
             </svg>
           </div>
-          <div class="global-cart-toast__content">
-            <p class="global-cart-toast__title">{{ t('products.addedToCart', 'Added to cart successfully!') }}</p>
-            <p class="global-cart-toast__detail">{{ toastMessage }}</p>
+          <div class="global-cart-toast_content">
+            <p class="global-cart-toast_title">{{ t('products.addedToCart', 'Added to cart successfully!') }}</p>
+            <p class="global-cart-toast_detail">{{ toastMessage }}</p>
           </div>
-          <RouterLink to="/cart" class="global-cart-toast__btn" @click="hideCartToast">
+          <RouterLink to="/cart" class="global-cart-toast_btn" @click="hideCartToast">
             {{ t('header.cart', 'Cart') }}
           </RouterLink>
-          <button type="button" class="global-cart-toast__close" aria-label="Close" @click="hideCartToast">
+          <button type="button" class="global-cart-toast_close" aria-label="Close" @click="hideCartToast">
             &times;
           </button>
         </div>
@@ -217,7 +217,7 @@ onUnmounted(() => {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
 }
 
-.app-header__inner {
+.app-header_inner {
   height: var(--header-height);
   display: flex;
   align-items: center;
@@ -226,7 +226,7 @@ onUnmounted(() => {
   padding: 0 var(--space-8);
 }
 
-.app-header__logo {
+.app-header_logo {
   font-size: var(--font-size-3xl);
   font-weight: 700;
   color: var(--color-text-primary);
@@ -237,7 +237,7 @@ onUnmounted(() => {
   padding: 4px 0;
 }
 
-.app-header__logo-img {
+.app-header_logo-img {
   height: 44px;
   width: auto;
   max-width: 120px;
@@ -247,16 +247,16 @@ onUnmounted(() => {
   transition: transform var(--transition-fast);
 }
 
-.app-header__logo:hover .app-header__logo-img {
+.app-header_logo:hover .app-header_logo-img {
   transform: scale(1.04);
 }
 
-.app-header__nav ul {
+.app-header_nav ul {
   display: flex;
   gap: var(--space-6);
 }
 
-.app-header__nav-link {
+.app-header_nav-link {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -266,11 +266,11 @@ onUnmounted(() => {
   transition: color var(--transition-fast);
 }
 
-.app-header__nav-link:hover {
+.app-header_nav-link:hover {
   color: #34c759;
 }
 
-.app-header__nav-home-img {
+.app-header_nav-home-img {
   width: 18px;
   height: 18px;
   object-fit: contain;
@@ -281,24 +281,24 @@ onUnmounted(() => {
   transition: transform var(--transition-fast);
 }
 
-.app-header__nav-link:hover .app-header__nav-home-img {
+.app-header_nav-link:hover .app-header_nav-home-img {
   transform: scale(1.08);
 }
 
-.app-header__caret {
+.app-header_caret {
   color: var(--color-text-nav);
   font-size: var(--font-size-md);
   transition: color var(--transition-fast);
 }
 
-.app-header__search {
+.app-header_search {
   margin-left: auto;
   flex: 1;
   display: flex;
   max-width: 460px;
 }
 
-.app-header__search input {
+.app-header_search input {
   flex: 1;
   height: 38px;
   padding: 0 var(--space-3);
@@ -309,19 +309,19 @@ onUnmounted(() => {
   color: var(--color-text-primary);
 }
 
-.app-header__search input::placeholder {
+.app-header_search input::placeholder {
   color: var(--color-text-faint);
   font-size: 13px;
 }
 
-.app-header__search .base-button {
+.app-header_search .base-button {
   border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
   padding: 0;
   width: 80px;
   height: 38px;
 }
 
-.app-header__search-submit {
+.app-header_search-submit {
   width: 100%;
   height: 100%;
   color: inherit;
@@ -329,24 +329,24 @@ onUnmounted(() => {
   font-weight: 600;
 }
 
-.app-header__auth {
+.app-header_auth {
   display: flex;
   align-items: center;
   gap: var(--space-6);
   flex-shrink: 0;
 }
 
-.app-header__auth-link {
+.app-header_auth-link {
   font-size: var(--font-size-md);
   font-weight: 500;
   color: var(--color-text-primary);
 }
 
-.app-header__auth-link--strong {
+.app-header_auth-link--strong {
   font-weight: 600;
 }
 
-.app-header__auth-link:hover {
+.app-header_auth-link:hover {
   color: var(--color-brand);
 }
 
@@ -368,7 +368,7 @@ onUnmounted(() => {
   flex-shrink: 0;
 }
 
-.lang-selector__btn {
+.lang-selector_btn {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -383,35 +383,35 @@ onUnmounted(() => {
   user-select: none;
 }
 
-.lang-selector__btn:hover,
-.lang-selector__btn.is-open {
+.lang-selector_btn:hover,
+.lang-selector_btn.is-open {
   border-color: #9ca3af;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
 }
 
-.lang-selector__globe {
+.lang-selector_globe {
   font-size: 15px;
   line-height: 1;
 }
 
-.lang-selector__code {
+.lang-selector_code {
   font-size: 14px;
   font-weight: 700;
   color: #1f2937;
   letter-spacing: 0.02em;
 }
 
-.lang-selector__caret {
+.lang-selector_caret {
   color: #6b7280;
   transition: transform 0.2s ease;
 }
 
-.lang-selector__caret.is-flipped {
+.lang-selector_caret.is-flipped {
   transform: rotate(180deg);
 }
 
 /* Dropdown Menu */
-.lang-selector__dropdown {
+.lang-selector_dropdown {
   position: absolute;
   top: calc(100% + 6px);
   left: 0;
@@ -425,7 +425,7 @@ onUnmounted(() => {
   overflow: hidden;
 }
 
-.lang-selector__option {
+.lang-selector_option {
   width: 100%;
   display: flex;
   align-items: center;
@@ -439,33 +439,33 @@ onUnmounted(() => {
   transition: background-color var(--transition-fast), color var(--transition-fast);
 }
 
-.lang-selector__option:hover {
+.lang-selector_option:hover {
   background-color: #f9fafb;
 }
 
-.lang-selector__option.is-selected {
+.lang-selector_option.is-selected {
   background-color: #f0f7ff;
   color: #2563eb;
 }
 
-.lang-selector__item-code {
+.lang-selector_item-code {
   font-size: 13px;
   font-weight: 700;
   width: 24px;
   color: inherit;
 }
 
-.lang-selector__option:not(.is-selected) .lang-selector__item-code {
+.lang-selector_option:not(.is-selected) .lang-selector_item-code {
   color: #4b5563;
 }
 
-.lang-selector__item-name {
+.lang-selector_item-name {
   font-size: 13.5px;
   font-weight: 500;
   color: inherit;
 }
 
-.lang-selector__option:not(.is-selected) .lang-selector__item-name {
+.lang-selector_option:not(.is-selected) .lang-selector_item-name {
   color: #374151;
 }
 
@@ -499,7 +499,7 @@ onUnmounted(() => {
   transform: translateY(-1px);
 }
 
-.header-action-item__icon-wrap {
+.header-action-item_icon-wrap {
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -508,29 +508,29 @@ onUnmounted(() => {
   height: 24px;
 }
 
-.header-action-item__icon {
+.header-action-item_icon {
   width: 22px;
   height: 22px;
   transition: color var(--transition-fast);
 }
 
-.header-action-item__icon--wishlist {
+.header-action-item_icon--wishlist {
   color: #3b82f6;
 }
 
-.header-action-item__icon--cart {
+.header-action-item_icon--cart {
   color: #374151;
 }
 
-.header-action-item:hover .header-action-item__icon--cart {
+.header-action-item:hover .header-action-item_icon--cart {
   color: var(--color-brand);
 }
 
-.header-action-item:hover .header-action-item__icon--wishlist {
+.header-action-item:hover .header-action-item_icon--wishlist {
   color: #ef4444;
 }
 
-.header-action-item__badge {
+.header-action-item_badge {
   position: absolute;
   top: -7px;
   right: -9px;
@@ -551,7 +551,7 @@ onUnmounted(() => {
   transition: all 0.22s ease;
 }
 
-.header-action-item__badge.has-items {
+.header-action-item_badge.has-items {
   background: linear-gradient(135deg, #16a34a, #15803d);
   box-shadow: 0 2px 6px rgba(22, 163, 74, 0.45);
 }
@@ -574,7 +574,7 @@ onUnmounted(() => {
   }
 }
 
-.header-action-item__badge.is-bumped {
+.header-action-item_badge.is-bumped {
   animation: cartBadgeBump 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
@@ -590,12 +590,12 @@ onUnmounted(() => {
   }
 }
 
-.header-action-item__icon-wrap.is-bumped .header-action-item__icon--cart {
+.header-action-item_icon-wrap.is-bumped .header-action-item_icon--cart {
   animation: cartIconWiggle 0.45s ease;
   color: #16a34a;
 }
 
-.header-action-item__title {
+.header-action-item_title {
   font-size: 11.5px;
   font-weight: 500;
   color: #4b5563;
@@ -604,7 +604,7 @@ onUnmounted(() => {
   transition: color var(--transition-fast);
 }
 
-.header-action-item:hover .header-action-item__title {
+.header-action-item:hover .header-action-item_title {
   color: #111827;
 }
 
@@ -626,7 +626,7 @@ onUnmounted(() => {
   max-width: 420px;
 }
 
-.global-cart-toast__icon {
+.global-cart-toast_icon {
   width: 28px;
   height: 28px;
   border-radius: 50%;
@@ -638,12 +638,12 @@ onUnmounted(() => {
   flex-shrink: 0;
 }
 
-.global-cart-toast__content {
+.global-cart-toast_content {
   flex: 1;
   min-width: 0;
 }
 
-.global-cart-toast__title {
+.global-cart-toast_title {
   margin: 0;
   font-size: 13px;
   font-weight: 600;
@@ -651,7 +651,7 @@ onUnmounted(() => {
   line-height: 1.3;
 }
 
-.global-cart-toast__detail {
+.global-cart-toast_detail {
   margin: 2px 0 0;
   font-size: 12px;
   color: #4b5563;
@@ -661,7 +661,7 @@ onUnmounted(() => {
   max-width: 220px;
 }
 
-.global-cart-toast__btn {
+.global-cart-toast_btn {
   font-size: 12px;
   font-weight: 600;
   color: #15803d;
@@ -674,13 +674,13 @@ onUnmounted(() => {
   transition: all 0.2s ease;
 }
 
-.global-cart-toast__btn:hover {
+.global-cart-toast_btn:hover {
   background: #16a34a;
   color: #ffffff;
   border-color: #16a34a;
 }
 
-.global-cart-toast__close {
+.global-cart-toast_close {
   background: none;
   border: none;
   color: #9ca3af;
@@ -690,7 +690,7 @@ onUnmounted(() => {
   line-height: 1;
 }
 
-.global-cart-toast__close:hover {
+.global-cart-toast_close:hover {
   color: #374151;
 }
 
@@ -707,7 +707,7 @@ onUnmounted(() => {
 }
 
 @media (max-width: 1024px) {
-  .app-header__nav {
+  .app-header_nav {
     display: none;
   }
 }

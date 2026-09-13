@@ -36,11 +36,11 @@ function handleAddToCart(product) {
 <template>
   <section class="featured" aria-labelledby="featured-heading">
     <div class="container">
-      <h2 id="featured-heading" class="featured__title">{{ t('featured.title', 'Feature Product') }}</h2>
+      <h2 id="featured-heading" class="featured_title">{{ t('featured.title', 'Feature Product') }}</h2>
       <div class="section-underline" />
-      <p class="featured__subtitle">{{ t('featured.subtitle', 'Popular products from trusted suppliers') }}</p>
+      <p class="featured_subtitle">{{ t('featured.subtitle', 'Popular products from trusted suppliers') }}</p>
 
-      <div class="featured__grid">
+      <div class="featured_grid">
         <ProductCard
           v-for="product in visibleProducts"
           :key="product.id"
@@ -49,12 +49,12 @@ function handleAddToCart(product) {
         />
       </div>
 
-      <div class="featured__footer">
+      <div class="featured_footer">
         <!-- Load More button: reveals more products in the grid -->
         <button
           v-if="hasMore"
           type="button"
-          class="featured__btn"
+          class="featured_btn"
           @click="loadMore"
         >
           {{ t('featured.viewMore', 'View More Products') }}
@@ -64,10 +64,10 @@ function handleAddToCart(product) {
         <RouterLink
           v-else
           to="/products"
-          class="featured__btn featured__btn--store"
+          class="featured_btn featured_btn--store"
         >
           {{ t('featured.viewAll', 'View All Products in Store') }}
-          <span class="featured__btn-icon" aria-hidden="true">→</span>
+          <span class="featured_btn-icon" aria-hidden="true">→</span>
         </RouterLink>
       </div>
     </div>
@@ -79,31 +79,31 @@ function handleAddToCart(product) {
   padding: var(--space-10) 0;
 }
 
-.featured__title {
+.featured_title {
   font-size: 22px;
   font-weight: 700;
   color: var(--color-text-heading);
 }
 
-.featured__subtitle {
+.featured_subtitle {
   font-size: var(--font-size-sm);
   color: var(--color-text-secondary);
   margin-bottom: var(--space-6);
 }
 
-.featured__grid {
+.featured_grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: var(--space-4);
 }
 
-.featured__footer {
+.featured_footer {
   display: flex;
   justify-content: center;
   margin-top: var(--space-6);
 }
 
-.featured__btn {
+.featured_btn {
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
@@ -120,35 +120,35 @@ function handleAddToCart(product) {
   transition: all var(--transition-fast);
 }
 
-.featured__btn:hover {
+.featured_btn:hover {
   background-color: var(--color-brand);
   color: var(--color-text-white);
   transform: translateY(-2px);
   box-shadow: 0 4px 14px rgba(52, 199, 89, 0.25);
 }
 
-.featured__btn-icon {
+.featured_btn-icon {
   font-size: 14px;
   font-weight: 700;
   transition: transform var(--transition-fast);
 }
 
-.featured__btn:hover .featured__btn-icon {
+.featured_btn:hover .featured_btn-icon {
   transform: scale(1.2);
 }
 
-.featured__btn--store:hover .featured__btn-icon {
+.featured_btn--store:hover .featured_btn-icon {
   transform: translateX(4px);
 }
 
 @media (max-width: 1024px) {
-  .featured__grid {
+  .featured_grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 560px) {
-  .featured__grid {
+  .featured_grid {
     grid-template-columns: 1fr;
   }
 }

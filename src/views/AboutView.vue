@@ -15,7 +15,7 @@ const { t } = useI18n()
 
     <!-- Full-Width Blue Top Banner -->
     <div class="about-banner">
-      <h1 class="about-banner__title">{{ t('about.title', 'About Us') }}</h1>
+      <h1 class="about-banner_title">{{ t('about.title', 'About Us') }}</h1>
     </div>
 
     <!-- Main Section with 1 Static Image (No Background Image) -->
@@ -72,7 +72,7 @@ const { t } = useI18n()
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
-.about-banner__title {
+.about-banner_title {
   font-size: 24px;
   font-weight: 700;
   color: #111827;

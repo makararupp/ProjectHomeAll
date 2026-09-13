@@ -8,18 +8,18 @@ const { isKhmer } = useI18n()
 <template>
   <section class="category-showcase" aria-label="Product categories showcase">
     <div class="container">
-      <div class="category-showcase__grid">
+      <div class="category-showcase_grid">
         <div
           v-for="item in categoryShowcase"
           :key="item.id"
           class="category-item"
         >
           <!-- Thumbnail Image Container -->
-          <div class="category-item__image-wrap">
+          <div class="category-item_image-wrap">
             <img
               :src="item.image"
               :alt="item.title"
-              class="category-item__img"
+              class="category-item_img"
               loading="lazy"
               width="80"
               height="80"
@@ -27,7 +27,7 @@ const { isKhmer } = useI18n()
           </div>
 
           <!-- Category Title -->
-          <span class="category-item__title">
+          <span class="category-item_title">
             {{ isKhmer ? item.titleKm : item.title }}
           </span>
         </div>
@@ -42,7 +42,7 @@ const { isKhmer } = useI18n()
   background-color: #ffffff;
 }
 
-.category-showcase__grid {
+.category-showcase_grid {
   display: grid;
   grid-template-columns: repeat(10, 1fr);
   gap: 16px 10px;
@@ -72,7 +72,7 @@ const { isKhmer } = useI18n()
 }
 
 /* Thumbnail Frame */
-.category-item__image-wrap {
+.category-item_image-wrap {
   width: 78px;
   height: 78px;
   display: flex;
@@ -88,13 +88,13 @@ const { isKhmer } = useI18n()
               border-color 0.28s ease;
 }
 
-.category-item:hover .category-item__image-wrap {
+.category-item:hover .category-item_image-wrap {
   transform: scale(1.06);
   box-shadow: 0 8px 18px -2px rgba(15, 23, 42, 0.1), 0 2px 6px rgba(15, 23, 42, 0.04);
   border-color: #cbd5e1;
 }
 
-.category-item__img {
+.category-item_img {
   width: 100%;
   height: 100%;
   object-fit: contain;
@@ -104,12 +104,12 @@ const { isKhmer } = useI18n()
   transition: transform 0.25s ease;
 }
 
-.category-item:hover .category-item__img {
+.category-item:hover .category-item_img {
   transform: scale(1.05);
 }
 
 /* Label text */
-.category-item__title {
+.category-item_title {
   margin-top: 8px;
   font-size: 12px;
   font-weight: 700;
@@ -123,40 +123,40 @@ const { isKhmer } = useI18n()
   max-width: 95px;
 }
 
-.category-item:hover .category-item__title {
+.category-item:hover .category-item_title {
   color: #1f2937;
 }
 
 /* Responsive: 5 per row on tablets */
 @media (max-width: 1024px) {
-  .category-showcase__grid {
+  .category-showcase_grid {
     grid-template-columns: repeat(5, 1fr);
     gap: 16px 12px;
   }
 
-  .category-item__image-wrap {
+  .category-item_image-wrap {
     width: 72px;
     height: 72px;
   }
 
-  .category-item__title {
+  .category-item_title {
     font-size: 11.5px;
   }
 }
 
 /* Responsive: 4 per row on small tablets / large phones */
 @media (max-width: 768px) {
-  .category-showcase__grid {
+  .category-showcase_grid {
     grid-template-columns: repeat(4, 1fr);
     gap: 14px 10px;
   }
 
-  .category-item__image-wrap {
+  .category-item_image-wrap {
     width: 68px;
     height: 68px;
   }
 
-  .category-item__title {
+  .category-item_title {
     font-size: 11px;
   }
 }
@@ -167,18 +167,18 @@ const { isKhmer } = useI18n()
     padding: 16px 0 10px 0;
   }
 
-  .category-showcase__grid {
+  .category-showcase_grid {
     grid-template-columns: repeat(3, 1fr);
     gap: 12px 8px;
   }
 
-  .category-item__image-wrap {
+  .category-item_image-wrap {
     width: 64px;
     height: 64px;
     border-radius: 10px;
   }
 
-  .category-item__title {
+  .category-item_title {
     font-size: 10.5px;
     max-width: 85px;
   }

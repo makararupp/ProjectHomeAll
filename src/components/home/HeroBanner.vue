@@ -60,32 +60,32 @@ onBeforeUnmount(() => {
 
 <template>
   <section class="hero" aria-label="Featured business solutions">
-    <div class="container hero__inner">
-      <div class="hero__card">
+    <div class="container hero_inner">
+      <div class="hero_card">
         <!-- Ambient decorative background glow -->
-        <div class="hero__card-glow" aria-hidden="true"></div>
+        <div class="hero_card-glow" aria-hidden="true"></div>
 
         <!-- Small Eyebrow Pill with Live Pulse Dot -->
-        <div class="hero__badge">
-          <span class="hero__badge-dot-wrap">
-            <span class="hero__badge-ping"></span>
-            <span class="hero__badge-dot"></span>
+        <div class="hero_badge">
+          <span class="hero_badge-dot-wrap">
+            <span class="hero_badge-ping"></span>
+            <span class="hero_badge-dot"></span>
           </span>
-          <span class="hero__badge-text">{{ t('hero.eyebrow', 'BUSINESS SOLUTIONS') }}</span>
+          <span class="hero_badge-text">{{ t('hero.eyebrow', 'BUSINESS SOLUTIONS') }}</span>
         </div>
 
         <!-- Hero Heading with Brand Gradient Accent (Small & Punchy) -->
-        <h1 class="hero__heading" :class="{ 'hero__heading--km': isKhmer }">
+        <h1 class="hero_heading" :class="{ 'hero_heading--km': isKhmer }">
           <template v-if="!isKhmer">
-            Everything your <span class="hero__heading-accent">business needs</span>
+            Everything your <span class="hero_heading-accent">business needs</span>
           </template>
           <template v-else>
-            <span class="hero__heading-accent">{{ t('hero.heading', 'អ្វីៗគ្រប់យ៉ាងដែលអាជីវកម្មរបស់អ្នកត្រូវការ') }}</span>
+            <span class="hero_heading-accent">{{ t('hero.heading', 'អ្វីៗគ្រប់យ៉ាងដែលអាជីវកម្មរបស់អ្នកត្រូវការ') }}</span>
           </template>
         </h1>
 
         <!-- Compact Subtitle -->
-        <p class="hero__subtitle" :class="{ 'hero__subtitle--km': isKhmer }">
+        <p class="hero_subtitle" :class="{ 'hero_subtitle--km': isKhmer }">
           {{ isKhmer
             ? 'ប្រភពផ្គត់ផ្គង់សម្ភារៈសំណង់ ដែកថែប និងដំណោះស្រាយអាជីវកម្មលំដាប់ខ្ពស់។'
             : 'One-stop marketplace for construction materials, steel structures, and equipment.'
@@ -93,20 +93,20 @@ onBeforeUnmount(() => {
         </p>
 
         <!-- Compact Action Button -->
-        <div class="hero__actions">
-          <RouterLink to="/products" class="hero__cta-primary">
+        <div class="hero_actions">
+          <RouterLink to="/products" class="hero_cta-primary">
             <span>{{ t('hero.exploreProducts', 'Explore Products') }}</span>
-            <svg class="hero__cta-arrow" viewBox="0 0 20 20" fill="currentColor" width="15" height="15" aria-hidden="true">
+            <svg class="hero_cta-arrow" viewBox="0 0 20 20" fill="currentColor" width="15" height="15" aria-hidden="true">
               <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
             </svg>
           </RouterLink>
         </div>
       </div>
 
-      <div class="hero__carousel">
+      <div class="hero_carousel">
         <button
           type="button"
-          class="hero__arrow hero__arrow--prev"
+          class="hero_arrow hero_arrow--prev"
           aria-label="Previous slide"
           @click="prevSlide"
         >
@@ -114,7 +114,7 @@ onBeforeUnmount(() => {
         </button>
 
         <div
-          class="hero__image"
+          class="hero_image"
           :aria-label="slides[activeSlide].alt"
         >
           <ImagePlaceholder
@@ -125,20 +125,20 @@ onBeforeUnmount(() => {
 
         <button
           type="button"
-          class="hero__arrow hero__arrow--next"
+          class="hero_arrow hero_arrow--next"
           aria-label="Next slide"
           @click="nextSlide"
         >
           ›
         </button>
 
-        <div class="hero__dots" role="tablist" aria-label="Slide selector">
+        <div class="hero_dots" role="tablist" aria-label="Slide selector">
           <button
             v-for="index in slideCount"
             :key="index"
             type="button"
-            class="hero__dot"
-            :class="{ 'hero__dot--active': activeSlide === index - 1 }"
+            class="hero_dot"
+            :class="{ 'hero_dot--active': activeSlide === index - 1 }"
             :aria-selected="activeSlide === index - 1"
             role="tab"
             :aria-label="`Go to slide ${index}`"
@@ -157,7 +157,7 @@ onBeforeUnmount(() => {
   position: relative;
 }
 
-.hero__inner {
+.hero_inner {
   display: grid;
   grid-template-columns: minmax(300px, 460px) 1fr;
   gap: 24px;
@@ -165,7 +165,7 @@ onBeforeUnmount(() => {
 }
 
 /* Hero Card - Compact & Cool */
-.hero__card {
+.hero_card {
   background: #ffffff;
   border-radius: 16px;
   padding: 28px 30px;
@@ -180,12 +180,12 @@ onBeforeUnmount(() => {
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-.hero__card:hover {
+.hero_card:hover {
   box-shadow: 0 14px 30px -5px rgba(0, 0, 0, 0.08);
 }
 
 /* Ambient Corner Glow */
-.hero__card-glow {
+.hero_card-glow {
   position: absolute;
   top: -40px;
   right: -40px;
@@ -197,7 +197,7 @@ onBeforeUnmount(() => {
 }
 
 /* Eyebrow Badge - Small & Sleek */
-.hero__badge {
+.hero_badge {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -210,7 +210,7 @@ onBeforeUnmount(() => {
   box-shadow: 0 1px 3px rgba(34, 197, 94, 0.06);
 }
 
-.hero__badge-dot-wrap {
+.hero_badge-dot-wrap {
   position: relative;
   display: flex;
   align-items: center;
@@ -219,7 +219,7 @@ onBeforeUnmount(() => {
   height: 6px;
 }
 
-.hero__badge-ping {
+.hero_badge-ping {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -229,7 +229,7 @@ onBeforeUnmount(() => {
   animation: badgePing 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
 
-.hero__badge-dot {
+.hero_badge-dot {
   position: relative;
   width: 6px;
   height: 6px;
@@ -244,7 +244,7 @@ onBeforeUnmount(() => {
   }
 }
 
-.hero__badge-text {
+.hero_badge-text {
   font-size: 10.5px;
   font-weight: 700;
   color: #15803d;
@@ -254,7 +254,7 @@ onBeforeUnmount(() => {
 
 /* Heading - Incremented & Sharp */
 /* Heading - Compact & Sharp */
-.hero__heading {
+.hero_heading {
   font-size: 32px;
   font-size: 26px;
   font-weight: 800;
@@ -265,13 +265,13 @@ onBeforeUnmount(() => {
   letter-spacing: -0.02em;
 }
 
-.hero__heading--km {
+.hero_heading--km {
   font-size: 29px;
   font-size: 23px;
   line-height: 1.35;
 }
 
-.hero__heading-accent {
+.hero_heading-accent {
   background: linear-gradient(135deg, #15803d 0%, #16a34a 50%, #059669 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -279,7 +279,7 @@ onBeforeUnmount(() => {
 }
 
 /* Subtitle - Small & Crisp */
-.hero__subtitle {
+.hero_subtitle {
   font-size: 13px;
   color: #64748b;
   line-height: 1.5;
@@ -287,19 +287,19 @@ onBeforeUnmount(() => {
   max-width: 380px;
 }
 
-.hero__subtitle--km {
+.hero_subtitle--km {
   font-size: 12.5px;
   line-height: 1.55;
 }
 
 /* Actions - Compact CTA Button */
-.hero__actions {
+.hero_actions {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-.hero__cta-primary {
+.hero_cta-primary {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -314,22 +314,22 @@ onBeforeUnmount(() => {
   transition: all 0.22s cubic-bezier(0.2, 0, 0.2, 1);
 }
 
-.hero__cta-primary:hover {
+.hero_cta-primary:hover {
   background: linear-gradient(135deg, #15803d 0%, #166534 100%);
   transform: translateY(-1px);
   box-shadow: 0 8px 20px -2px rgba(22, 163, 74, 0.42);
 }
 
-.hero__cta-arrow {
+.hero_cta-arrow {
   transition: transform 0.2s ease;
 }
 
-.hero__cta-primary:hover .hero__cta-arrow {
+.hero_cta-primary:hover .hero_cta-arrow {
   transform: translateX(3px);
 }
 
 /* Carousel Side - Balanced Height */
-.hero__carousel {
+.hero_carousel {
   position: relative;
   border-radius: 16px;
   overflow: hidden;
@@ -339,14 +339,14 @@ onBeforeUnmount(() => {
   border: 1px solid rgba(226, 232, 240, 0.9);
 }
 
-.hero__image {
+.hero_image {
   width: 100%;
   height: 100%;
   min-height: 260px;
   display: block;
 }
 
-.hero__arrow {
+.hero_arrow {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -368,21 +368,21 @@ onBeforeUnmount(() => {
   transition: all 0.18s ease;
 }
 
-.hero__arrow:hover {
+.hero_arrow:hover {
   background: #ffffff;
   color: #15803d;
   transform: translateY(-50%) scale(1.06);
 }
 
-.hero__arrow--prev {
+.hero_arrow--prev {
   left: 10px;
 }
 
-.hero__arrow--next {
+.hero_arrow--next {
   right: 10px;
 }
 
-.hero__dots {
+.hero_dots {
   position: absolute;
   left: 50%;
   bottom: 12px;
@@ -397,7 +397,7 @@ onBeforeUnmount(() => {
   border-radius: 999px;
 }
 
-.hero__dot {
+.hero_dot {
   width: 6px;
   height: 6px;
   border-radius: 50%;
@@ -408,23 +408,23 @@ onBeforeUnmount(() => {
   transition: all 0.25s ease;
 }
 
-.hero__dot--active {
+.hero_dot--active {
   width: 18px;
   border-radius: 999px;
   background-color: #ffffff;
 }
 
 @media (max-width: 900px) {
-  .hero__inner {
+  .hero_inner {
     grid-template-columns: 1fr;
     gap: 18px;
   }
 
-  .hero__card {
+  .hero_card {
     padding: 22px 20px;
   }
 
-  .hero__heading {
+  .hero_heading {
     font-size: 22px;
   }
 }

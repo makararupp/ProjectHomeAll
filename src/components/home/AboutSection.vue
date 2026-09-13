@@ -8,14 +8,14 @@ const { t } = useI18n()
 <template>
   <section class="about" aria-labelledby="about-heading">
     <div class="container">
-      <div class="about__card">
-        <div class="about__copy">
-          <h2 id="about-heading" class="about__title">{{ t('about.title', 'About Us') }}</h2>
-          <div class="section-underline about__underline" />
-          <p class="about__lead">
+      <div class="about_card">
+        <div class="about_copy">
+          <h2 id="about-heading" class="about_title">{{ t('about.title', 'About Us') }}</h2>
+          <div class="section-underline about_underline" />
+          <p class="about_lead">
             {{ t('about.lead', 'We connect businesses with products, services and trusted partners across industries.') }}
           </p>
-          <p class="about__sub">
+          <p class="about_sub">
             {{ t('about.sub', 'Built for sourcing, selling, renting and growing your business.') }}
           </p>
         </div>
@@ -31,7 +31,7 @@ const { t } = useI18n()
   padding-bottom: var(--space-10);
 }
 
-.about__card {
+.about_card {
   background-color: var(--color-bg-surface);
   border: 1px solid var(--color-border-strong, var(--color-border));
   border-color: var(--color-border-softer);
@@ -43,32 +43,32 @@ const { t } = useI18n()
   gap: var(--space-6);
 }
 
-.about__title {
+.about_title {
   font-size: 22px;
   font-weight: 700;
   color: var(--color-text-heading);
 }
 
-.about__underline {
+.about_underline {
   width: 56px;
   margin-top: var(--space-2);
   margin-bottom: var(--space-4);
 }
 
-.about__lead {
+.about_lead {
   font-size: 15px;
   color: #5f6368;
   margin-bottom: var(--space-2);
   max-width: 640px;
 }
 
-.about__sub {
+.about_sub {
   font-size: 13.5px;
   color: var(--color-text-secondary);
 }
 
 @media (max-width: 768px) {
-  .about__card {
+  .about_card {
     flex-direction: column;
     align-items: flex-start;
   }

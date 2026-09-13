@@ -23,19 +23,19 @@ function handleLogin() {
 <template>
   <div class="signin-page">
     <!-- Back to Home Link -->
-    <RouterLink to="/" class="signin-page__home-link" title="ត្រឡប់ទៅទំព័រដើម">
+    <RouterLink to="/" class="signin-page_home-link" title="ត្រឡប់ទៅទំព័រដើម">
       &larr; ទំព័រដើម
     </RouterLink>
 
     <!-- Left Illustration Area -->
-    <div class="signin-page__visual" aria-hidden="true">
+    <div class="signin-page_visual" aria-hidden="true">
       <!-- Background Diagonal Mint Shape -->
-      <svg class="signin-page__bg-shape" viewBox="0 0 700 900" preserveAspectRatio="none">
+      <svg class="signin-page_bg-shape" viewBox="0 0 700 900" preserveAspectRatio="none">
         <polygon points="0,0 260,0 580,900 0,900" fill="#daf2ed" />
       </svg>
 
       <!-- Vector Artwork (Cabinet, Plant, Folders, Picture Frame) -->
-      <svg class="signin-page__artwork" viewBox="0 0 600 700" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg class="signin-page_artwork" viewBox="0 0 600 700" fill="none" xmlns="http://www.w3.org/2000/svg">
         <!-- Picture Frame on Wall -->
         <rect x="30" y="80" width="120" height="150" rx="4" fill="#ffffff" stroke="#134e4a" stroke-width="4" />
         <rect x="42" y="96" width="96" height="118" fill="#f8faf9" stroke="#134e4a" stroke-width="3" />
@@ -111,11 +111,11 @@ function handleLogin() {
     </div>
 
     <!-- Right Login Card Area -->
-    <div class="signin-page__content">
+    <div class="signin-page_content">
       <div class="signin-card">
-        <h1 class="signin-card__title">ចូល​គណនី</h1>
+        <h1 class="signin-card_title">ចូល​គណនី</h1>
 
-        <form class="signin-card__form" @submit.prevent="handleLogin">
+        <form class="signin-card_form" @submit.prevent="handleLogin">
           <!-- Username / Account input -->
           <div class="signin-input-group">
             <span class="signin-input-icon" aria-hidden="true">
@@ -155,10 +155,10 @@ function handleLogin() {
           </div>
 
           <!-- Error Feedback if any -->
-          <p v-if="errorMessage" class="signin-card__error">{{ errorMessage }}</p>
+          <p v-if="errorMessage" class="signin-card_error">{{ errorMessage }}</p>
 
           <!-- Submit Button -->
-          <div class="signin-card__btn-wrap">
+          <div class="signin-card_btn-wrap">
             <button type="submit" class="signin-btn">
               ចូលប្រើប្រាស់
             </button>
@@ -188,7 +188,7 @@ function handleLogin() {
 }
 
 /* Back to Home Link */
-.signin-page__home-link {
+.signin-page_home-link {
   position: absolute;
   top: 24px;
   right: 28px;
@@ -205,13 +205,13 @@ function handleLogin() {
   transition: all 0.2s ease;
 }
 
-.signin-page__home-link:hover {
+.signin-page_home-link:hover {
   background: #0d9488;
   color: #ffffff;
 }
 
 /* Left Illustration Container */
-.signin-page__visual {
+.signin-page_visual {
   position: absolute;
   top: 0;
   left: 0;
@@ -221,7 +221,7 @@ function handleLogin() {
   z-index: 1;
 }
 
-.signin-page__bg-shape {
+.signin-page_bg-shape {
   position: absolute;
   top: 0;
   left: 0;
@@ -229,7 +229,7 @@ function handleLogin() {
   height: 100%;
 }
 
-.signin-page__artwork {
+.signin-page_artwork {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -240,7 +240,7 @@ function handleLogin() {
 }
 
 /* Right Content Area with Login Card */
-.signin-page__content {
+.signin-page_content {
   position: relative;
   z-index: 2;
   width: 100%;
@@ -263,7 +263,7 @@ function handleLogin() {
   box-sizing: border-box;
 }
 
-.signin-card__title {
+.signin-card_title {
   text-align: center;
   font-size: 32px;
   font-weight: 700;
@@ -272,7 +272,7 @@ function handleLogin() {
   letter-spacing: 0.02em;
 }
 
-.signin-card__form {
+.signin-card_form {
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -318,7 +318,7 @@ function handleLogin() {
   color: #9ca3af;
 }
 
-.signin-card__error {
+.signin-card_error {
   color: #dc2626;
   font-size: 13px;
   margin: -4px 0 0;
@@ -326,7 +326,7 @@ function handleLogin() {
 }
 
 /* Submit Button Wrap */
-.signin-card__btn-wrap {
+.signin-card_btn-wrap {
   display: flex;
   justify-content: center;
   margin-top: 10px;
@@ -374,11 +374,11 @@ function handleLogin() {
     padding: 30px 16px;
   }
 
-  .signin-page__visual {
+  .signin-page_visual {
     display: none;
   }
 
-  .signin-page__content {
+  .signin-page_content {
     justify-content: center;
     padding: 0;
   }

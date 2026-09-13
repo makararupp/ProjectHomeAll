@@ -17,25 +17,25 @@ const { t, isKhmer } = useI18n()
     <main class="category-main container">
       <!-- Breadcrumb Navigation: Home > Product Categories > Construction -->
       <nav class="category-breadcrumb" aria-label="Breadcrumb">
-        <RouterLink to="/" class="category-breadcrumb__link">
+        <RouterLink to="/" class="category-breadcrumb_link">
           {{ t('constructionPage.breadcrumbHome', 'Home') }}
         </RouterLink>
-        <span class="category-breadcrumb__separator" aria-hidden="true">&gt;</span>
-        <RouterLink to="/products" class="category-breadcrumb__link">
+        <span class="category-breadcrumb_separator" aria-hidden="true">&gt;</span>
+        <RouterLink to="/products" class="category-breadcrumb_link">
           {{ t('constructionPage.breadcrumbCategories', 'Product Categories') }}
         </RouterLink>
-        <span class="category-breadcrumb__separator" aria-hidden="true">&gt;</span>
-        <span class="category-breadcrumb__current" aria-current="page">
+        <span class="category-breadcrumb_separator" aria-hidden="true">&gt;</span>
+        <span class="category-breadcrumb_current" aria-current="page">
           {{ t('constructionPage.breadcrumbCurrent', 'Construction') }}
         </span>
       </nav>
 
       <!-- Page Heading & Subtitle -->
       <header class="category-header">
-        <h1 class="category-header__title" :class="{ 'is-khmer': isKhmer }">
+        <h1 class="category-header_title" :class="{ 'is-khmer': isKhmer }">
           {{ t('constructionPage.pageTitle', 'Construction') }}
         </h1>
-        <p class="category-header__subtitle" :class="{ 'is-khmer': isKhmer }">
+        <p class="category-header_subtitle" :class="{ 'is-khmer': isKhmer }">
           {{ t('constructionPage.pageSubtitle', 'High-standard construction materials, renovation solutions, and specialized architectural project installations.') }}
         </p>
       </header>
@@ -43,22 +43,22 @@ const { t, isKhmer } = useI18n()
       <!-- Section 1: Construction & Architectural Works (c2 to c6) -->
       <section class="catalog-section" aria-labelledby="construction-works-heading">
         <div class="section-bar">
-          <h2 id="construction-works-heading" class="section-bar__title" :class="{ 'is-khmer': isKhmer }">
+          <h2 id="construction-works-heading" class="section-bar_title" :class="{ 'is-khmer': isKhmer }">
             {{ t('constructionPage.worksTitle', 'Construction & Architectural Works') }}
           </h2>
 
-          <div class="section-bar__actions">
+          <div class="section-bar_actions">
             <RouterLink
               to="/products?group=Construction"
-              class="section-bar__btn"
+              class="section-bar_btn"
               :class="{ 'is-khmer': isKhmer }"
             >
               {{ t('constructionPage.viewAllWorks', 'View Construction Works') }}
             </RouterLink>
 
-            <span class="section-bar__page">1 / 1</span>
+            <span class="section-bar_page">1 / 1</span>
 
-            <div class="section-bar__arrows">
+            <div class="section-bar_arrows">
               <button
                 type="button"
                 class="arrow-btn"
@@ -92,16 +92,16 @@ const { t, isKhmer } = useI18n()
             class="catalog-item"
             :title="t(`constructionPage.${item.key}`, item.name)"
           >
-            <div class="catalog-item__box">
+            <div class="catalog-item_box">
               <img
                 :src="item.image"
                 :alt="t(`constructionPage.${item.key}`, item.name)"
-                class="catalog-item__img"
+                class="catalog-item_img"
                 loading="lazy"
               />
             </div>
 
-            <span class="catalog-item__name" :class="{ 'is-khmer': isKhmer }">
+            <span class="catalog-item_name" :class="{ 'is-khmer': isKhmer }">
               {{ t(`constructionPage.${item.key}`, item.name) }}
             </span>
           </RouterLink>
@@ -111,22 +111,22 @@ const { t, isKhmer } = useI18n()
       <!-- Section 2: Construction Materials (c1 + Structural items) -->
       <section class="catalog-section" aria-labelledby="construction-materials-heading">
         <div class="section-bar">
-          <h2 id="construction-materials-heading" class="section-bar__title" :class="{ 'is-khmer': isKhmer }">
+          <h2 id="construction-materials-heading" class="section-bar_title" :class="{ 'is-khmer': isKhmer }">
             {{ t('constructionPage.materialsTitle', 'Key Construction Materials') }}
           </h2>
 
-          <div class="section-bar__actions">
+          <div class="section-bar_actions">
             <RouterLink
               to="/products?group=Construction"
-              class="section-bar__btn"
+              class="section-bar_btn"
               :class="{ 'is-khmer': isKhmer }"
             >
               {{ t('constructionPage.viewAllMaterials', 'View Construction Materials') }}
             </RouterLink>
 
-            <span class="section-bar__page">1 / 1</span>
+            <span class="section-bar_page">1 / 1</span>
 
-            <div class="section-bar__arrows">
+            <div class="section-bar_arrows">
               <button
                 type="button"
                 class="arrow-btn"
@@ -160,16 +160,16 @@ const { t, isKhmer } = useI18n()
             class="catalog-item"
             :title="t(`constructionPage.${item.key}`, item.name)"
           >
-            <div class="catalog-item__box">
+            <div class="catalog-item_box">
               <img
                 :src="item.image"
                 :alt="t(`constructionPage.${item.key}`, item.name)"
-                class="catalog-item__img catalog-item__img--contain"
+                class="catalog-item_img catalog-item_img--contain"
                 loading="lazy"
               />
             </div>
 
-            <span class="catalog-item__name" :class="{ 'is-khmer': isKhmer }">
+            <span class="catalog-item_name" :class="{ 'is-khmer': isKhmer }">
               {{ t(`constructionPage.${item.key}`, item.name) }}
             </span>
           </RouterLink>
@@ -208,24 +208,24 @@ const { t, isKhmer } = useI18n()
   color: #4b5563;
 }
 
-.category-breadcrumb__link {
+.category-breadcrumb_link {
   color: #4b5563;
   text-decoration: none;
   transition: color var(--transition-fast);
 }
 
-.category-breadcrumb__link:hover {
+.category-breadcrumb_link:hover {
   color: #111827;
   text-decoration: underline;
 }
 
-.category-breadcrumb__separator {
+.category-breadcrumb_separator {
   color: #9ca3af;
   font-size: 12px;
   user-select: none;
 }
 
-.category-breadcrumb__current {
+.category-breadcrumb_current {
   color: #111827;
   font-weight: 600;
 }
@@ -235,7 +235,7 @@ const { t, isKhmer } = useI18n()
   margin-bottom: 22px;
 }
 
-.category-header__title {
+.category-header_title {
   font-size: 26px;
   font-weight: 700;
   color: #111827;
@@ -243,20 +243,20 @@ const { t, isKhmer } = useI18n()
   margin-bottom: 8px;
 }
 
-.category-header__title.is-khmer {
+.category-header_title.is-khmer {
   font-family: var(--font-family-khmer, inherit);
   font-size: 24px;
   line-height: 1.4;
 }
 
-.category-header__subtitle {
+.category-header_subtitle {
   font-size: 14px;
   color: #4b5563;
   max-width: 960px;
   line-height: 1.5;
 }
 
-.category-header__subtitle.is-khmer {
+.category-header_subtitle.is-khmer {
   font-family: var(--font-family-khmer, inherit);
   font-size: 14px;
   line-height: 1.6;
@@ -283,24 +283,24 @@ const { t, isKhmer } = useI18n()
   gap: 12px;
 }
 
-.section-bar__title {
+.section-bar_title {
   font-size: 16px;
   font-weight: 700;
   color: #111827;
 }
 
-.section-bar__title.is-khmer {
+.section-bar_title.is-khmer {
   font-family: var(--font-family-khmer, inherit);
   font-size: 15.5px;
 }
 
-.section-bar__actions {
+.section-bar_actions {
   display: flex;
   align-items: center;
   gap: 12px;
 }
 
-.section-bar__btn {
+.section-bar_btn {
   display: inline-flex;
   align-items: center;
   padding: 5px 14px;
@@ -314,25 +314,25 @@ const { t, isKhmer } = useI18n()
   text-decoration: none;
 }
 
-.section-bar__btn:hover {
+.section-bar_btn:hover {
   background-color: #f9fafb;
   border-color: #9ca3af;
   color: #111827;
 }
 
-.section-bar__btn.is-khmer {
+.section-bar_btn.is-khmer {
   font-family: var(--font-family-khmer, inherit);
   font-size: 12.5px;
 }
 
-.section-bar__page {
+.section-bar_page {
   font-size: 13px;
   color: #6b7280;
   font-weight: 500;
   padding: 0 4px;
 }
 
-.section-bar__arrows {
+.section-bar_arrows {
   display: inline-flex;
   align-items: center;
   gap: 4px;
@@ -377,7 +377,7 @@ const { t, isKhmer } = useI18n()
   cursor: pointer;
 }
 
-.catalog-item__box {
+.catalog-item_box {
   width: 100%;
   aspect-ratio: 1 / 1;
   background-color: #ffffff;
@@ -391,13 +391,13 @@ const { t, isKhmer } = useI18n()
   overflow: hidden;
 }
 
-.catalog-item:hover .catalog-item__box {
+.catalog-item:hover .catalog-item_box {
   transform: translateY(-2px);
   border-color: #e2e8f0;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
-.catalog-item__img {
+.catalog-item_img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -405,16 +405,16 @@ const { t, isKhmer } = useI18n()
   transition: transform 0.2s ease;
 }
 
-.catalog-item__img--contain {
+.catalog-item_img--contain {
   object-fit: contain;
 }
 
-.catalog-item:hover .catalog-item__img {
+.catalog-item:hover .catalog-item_img {
   transform: scale(1.04);
 }
 
 /* Product Name Label */
-.catalog-item__name {
+.catalog-item_name {
   margin-top: 8px;
   font-size: 12px;
   font-weight: 500;
@@ -431,13 +431,13 @@ const { t, isKhmer } = useI18n()
   transition: color var(--transition-fast);
 }
 
-.catalog-item__name.is-khmer {
+.catalog-item_name.is-khmer {
   font-family: var(--font-family-khmer, inherit);
   font-size: 11.5px;
   line-height: 1.4;
 }
 
-.catalog-item:hover .catalog-item__name {
+.catalog-item:hover .catalog-item_name {
   color: #111827;
 }
 
@@ -466,7 +466,7 @@ const { t, isKhmer } = useI18n()
     align-items: flex-start;
   }
 
-  .section-bar__actions {
+  .section-bar_actions {
     width: 100%;
     justify-content: space-between;
   }
@@ -478,7 +478,7 @@ const { t, isKhmer } = useI18n()
     gap: 12px 8px;
   }
 
-  .category-header__title {
+  .category-header_title {
     font-size: 22px;
   }
 }

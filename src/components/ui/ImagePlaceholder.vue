@@ -28,16 +28,16 @@ const imageSrc = computed(() => {
       v-if="imageSrc"
       :src="imageSrc"
       :alt="label"
-      class="image-placeholder__img"
+      class="image-placeholder_img"
     />
 
     <!-- Fallback mark and text when no image is set -->
     <template v-else>
-      <svg viewBox="0 0 64 64" class="image-placeholder__mark" aria-hidden="true">
+      <svg viewBox="0 0 64 64" class="image-placeholder_mark" aria-hidden="true">
         <rect width="64" height="64" rx="14" fill="var(--color-brand)" />
         <path d="M32 14 16 27v23h12v-14h8v14h12V27L32 14z" fill="#ffffff" />
       </svg>
-      <span class="image-placeholder__label">{{ label }}</span>
+      <span class="image-placeholder_label">{{ label }}</span>
     </template>
   </div>
 </template>
@@ -55,19 +55,19 @@ const imageSrc = computed(() => {
   overflow: hidden;
 }
 
-.image-placeholder__img {
+.image-placeholder_img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
 }
 
-.image-placeholder__mark {
+.image-placeholder_mark {
   width: 56px;
   height: 56px;
 }
 
-.image-placeholder__label {
+.image-placeholder_label {
   font-weight: 700;
   font-size: var(--font-size-lg);
   color: var(--color-text-heading);

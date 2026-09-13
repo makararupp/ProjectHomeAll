@@ -256,17 +256,17 @@ onUnmounted(() => {
     <main class="products-main container">
       <!-- Breadcrumbs restored to old redirect style -->
       <nav class="breadcrumb" aria-label="Breadcrumbs">
-        <ol class="breadcrumb__list">
-          <li class="breadcrumb__item">
-            <RouterLink to="/" class="breadcrumb__link">{{ t('products.breadcrumbHome', 'Home') }}</RouterLink>
-            <span class="breadcrumb__separator" aria-hidden="true">›</span>
+        <ol class="breadcrumb_list">
+          <li class="breadcrumb_item">
+            <RouterLink to="/" class="breadcrumb_link">{{ t('products.breadcrumbHome', 'Home') }}</RouterLink>
+            <span class="breadcrumb_separator" aria-hidden="true">›</span>
           </li>
-          <li class="breadcrumb__item">
-            <RouterLink to="/" class="breadcrumb__link">{{ t('products.breadcrumbVillage', 'Homeall Village') }}</RouterLink>
-            <span class="breadcrumb__separator" aria-hidden="true">›</span>
+          <li class="breadcrumb_item">
+            <RouterLink to="/" class="breadcrumb_link">{{ t('products.breadcrumbVillage', 'Homeall Village') }}</RouterLink>
+            <span class="breadcrumb_separator" aria-hidden="true">›</span>
           </li>
-          <li class="breadcrumb__item">
-            <span class="breadcrumb__current" aria-current="page">
+          <li class="breadcrumb_item">
+            <span class="breadcrumb_current" aria-current="page">
               {{ currentDisplayTitle }}
             </span>
           </li>
@@ -278,7 +278,7 @@ onUnmounted(() => {
         <h1 class="page-heading" :class="{ 'is-khmer': isKhmer }">
           {{ currentDisplayTitle }}
         </h1>
-        <p class="products-header__subtitle" :class="{ 'is-khmer': isKhmer }">
+        <p class="products-header_subtitle" :class="{ 'is-khmer': isKhmer }">
           {{ isKhmer ? 'ស្វែងរក និងជ្រើសរើសសម្ភារៈសំណង់ គ្រឿងដែក និងផលិតផលគុណភាពខ្ពស់គ្រប់ប្រភេទ' : 'Explore our comprehensive catalog of verified construction, steel, and industrial materials.' }}
         </p>
       </header>
@@ -315,11 +315,11 @@ onUnmounted(() => {
                   @mouseenter="hoveredGroup = group.name"
                   @click="selectGroup(group.name)"
                 >
-                  <span class="category-menu-row__text">
+                  <span class="category-menu-row_text">
                     {{ isKhmer ? group.nameKm : getGroupLabel(group.name) }}
                   </span>
                   <svg
-                    class="category-menu-row__chevron"
+                    class="category-menu-row_chevron"
                     viewBox="0 0 20 20"
                     fill="currentColor"
                     width="16"
@@ -352,7 +352,7 @@ onUnmounted(() => {
                       :class="{ 'is-active-sub': selectedSubcategoryName === sub }"
                       @click.stop="selectSubcategory(sub, currentFlyoutGroup.name)"
                     >
-                      <span class="category-flyout-item__text">{{ sub }}</span>
+                      <span class="category-flyout-item_text">{{ sub }}</span>
                     </li>
                   </ul>
                 </div>
@@ -365,10 +365,10 @@ onUnmounted(() => {
         <section class="catalog-content">
           <!-- Top Search & View Control Bar -->
           <div class="toolbar">
-            <div class="toolbar__search">
+            <div class="toolbar_search">
               <!-- Search Icon -->
               <svg
-                class="toolbar__search-icon"
+                class="toolbar_search-icon"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -384,17 +384,17 @@ onUnmounted(() => {
               <input
                 v-model="searchQuery"
                 type="text"
-                class="toolbar__search-input"
+                class="toolbar_search-input"
                 :placeholder="t('products.searchPlaceholder', 'Search products')"
                 :aria-label="t('products.searchPlaceholder', 'Search products')"
               />
             </div>
 
             <!-- View Mode Switcher -->
-            <div class="toolbar__views" role="group" aria-label="View toggle">
+            <div class="toolbar_views" role="group" aria-label="View toggle">
               <button
                 type="button"
-                class="toolbar__view-btn"
+                class="toolbar_view-btn"
                 :class="{ 'is-active': viewMode === 'grid' }"
                 title="Grid view"
                 aria-label="Grid view"
@@ -416,7 +416,7 @@ onUnmounted(() => {
 
               <button
                 type="button"
-                class="toolbar__view-btn"
+                class="toolbar_view-btn"
                 :class="{ 'is-active': viewMode === 'list' }"
                 title="List view"
                 aria-label="List view"
@@ -452,19 +452,19 @@ onUnmounted(() => {
               @keydown.enter="openProductModal(product)"
             >
               <!-- Card Image Box -->
-              <div class="product-card__image-wrap">
+              <div class="product-card_image-wrap">
                 <img
                   v-if="product.image"
                   :src="product.image"
                   :alt="product.title"
-                  class="product-card__img"
+                  class="product-card_img"
                   loading="lazy"
                 />
-                <span v-else class="product-card__placeholder">Product image</span>
+                <span v-else class="product-card_placeholder">Product image</span>
 
                 <!-- Quick View Overlay Badge on hover -->
-                <div class="product-card__quickview-overlay">
-                  <span class="product-card__quickview-btn">
+                <div class="product-card_quickview-overlay">
+                  <span class="product-card_quickview-btn">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14">
                       <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
                       <circle cx="12" cy="12" r="3" />
@@ -475,15 +475,15 @@ onUnmounted(() => {
               </div>
 
               <!-- Card Details -->
-              <div class="product-card__body">
-                <h3 class="product-card__title">{{ product.title }}</h3>
-                <p class="product-card__category">{{ getGroupLabel(product.category) }}</p>
+              <div class="product-card_body">
+                <h3 class="product-card_title">{{ product.title }}</h3>
+                <p class="product-card_category">{{ getGroupLabel(product.category) }}</p>
 
-                <div class="product-card__footer">
-                  <div class="product-card__price-wrap">
-                    <p class="product-card__price">{{ product.price }}</p>
+                <div class="product-card_footer">
+                  <div class="product-card_price-wrap">
+                    <p class="product-card_price">{{ product.price }}</p>
                     <p
-                      class="product-card__stock"
+                      class="product-card_stock"
                       :class="product.inStock ? 'stock--in' : 'stock--out'"
                     >
                       <span class="stock-dot" />
@@ -494,7 +494,7 @@ onUnmounted(() => {
                   <!-- Direct Add To Cart Action Button with Icon -->
                   <button
                     type="button"
-                    class="product-card__cart-btn"
+                    class="product-card_cart-btn"
                     :title="t('products.addToCart', 'Add to Cart')"
                     :aria-label="t('products.addToCart', 'Add to Cart')"
                     @click.stop="handleAddToCart(product, 1)"
@@ -512,10 +512,10 @@ onUnmounted(() => {
 
           <!-- Empty State -->
           <div v-else class="catalog-empty">
-            <p class="catalog-empty__text">{{ t('products.noProducts', 'No products found matching your filter.') }}</p>
+            <p class="catalog-empty_text">{{ t('products.noProducts', 'No products found matching your filter.') }}</p>
             <button
               type="button"
-              class="catalog-empty__btn"
+              class="catalog-empty_btn"
               @click="clearAllFilters"
             >
               {{ t('products.clearFilters', 'Clear filters') }}
@@ -534,7 +534,7 @@ onUnmounted(() => {
             <nav class="pagination" aria-label="Products pagination">
               <button
                 type="button"
-                class="pagination__nav-btn"
+                class="pagination_nav-btn"
                 :disabled="currentPage === 1"
                 aria-label="Previous page"
                 @click="goToPage(currentPage - 1)"
@@ -542,12 +542,12 @@ onUnmounted(() => {
                 ‹ {{ t('products.previous', 'Previous') }}
               </button>
 
-              <div class="pagination__pages">
+              <div class="pagination_pages">
                 <button
                   v-for="page in totalPages"
                   :key="page"
                   type="button"
-                  class="pagination__page-btn"
+                  class="pagination_page-btn"
                   :class="{ 'is-active': currentPage === page }"
                   :aria-current="currentPage === page ? 'page' : null"
                   @click="goToPage(page)"
@@ -558,7 +558,7 @@ onUnmounted(() => {
 
               <button
                 type="button"
-                class="pagination__nav-btn"
+                class="pagination_nav-btn"
                 :disabled="currentPage === totalPages"
                 aria-label="Next page"
                 @click="goToPage(currentPage + 1)"
@@ -614,7 +614,7 @@ onUnmounted(() => {
                   :alt="selectedProduct.title"
                   class="product-modal-img"
                 />
-                <span v-else class="product-card__placeholder">Product image</span>
+                <span v-else class="product-card_placeholder">Product image</span>
               </div>
 
               <!-- Right: Info & Actions -->
@@ -711,8 +711,8 @@ onUnmounted(() => {
       <!-- Cart Toast Notification -->
       <Transition name="toast-fade">
         <div v-if="isToastVisible" class="cart-toast" role="status" aria-live="polite">
-          <div class="cart-toast__icon">✓</div>
-          <span class="cart-toast__msg">{{ toastMessage }}</span>
+          <div class="cart-toast_icon">✓</div>
+          <span class="cart-toast_msg">{{ toastMessage }}</span>
         </div>
       </Transition>
     </Teleport>
@@ -739,7 +739,7 @@ onUnmounted(() => {
   margin-bottom: var(--space-4);
 }
 
-.breadcrumb__list {
+.breadcrumb_list {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
@@ -750,29 +750,29 @@ onUnmounted(() => {
   font-size: var(--font-size-sm);
 }
 
-.breadcrumb__item {
+.breadcrumb_item {
   display: inline-flex;
   align-items: center;
   gap: 8px;
 }
 
-.breadcrumb__link {
+.breadcrumb_link {
   color: #6b7280;
   text-decoration: none;
   transition: color var(--transition-fast);
 }
 
-.breadcrumb__link:hover {
+.breadcrumb_link:hover {
   color: var(--color-brand-dark);
 }
 
-.breadcrumb__separator {
+.breadcrumb_separator {
   color: #9ca3af;
   font-size: 13px;
   user-select: none;
 }
 
-.breadcrumb__current {
+.breadcrumb_current {
   color: #4b5563;
   font-weight: 500;
 }
@@ -784,7 +784,7 @@ onUnmounted(() => {
   border-bottom: 1px solid #f1f5f9;
 }
 
-.products-header__heading-row {
+.products-header_heading-row {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -806,7 +806,7 @@ onUnmounted(() => {
   line-height: 1.4;
 }
 
-.products-header__count-badge {
+.products-header_count-badge {
   display: inline-flex;
   align-items: center;
   padding: 3px 10px;
@@ -818,14 +818,14 @@ onUnmounted(() => {
   color: #4b5563;
 }
 
-.products-header__subtitle {
+.products-header_subtitle {
   font-size: 14px;
   color: #6b7280;
   margin: 4px 0 0 0;
   line-height: 1.5;
 }
 
-.products-header__subtitle.is-khmer {
+.products-header_subtitle.is-khmer {
   font-size: 13.5px;
   line-height: 1.6;
 }
@@ -919,11 +919,11 @@ onUnmounted(() => {
   border-bottom-right-radius: 5px;
 }
 
-.category-menu-row__text {
+.category-menu-row_text {
   flex: 1;
 }
 
-.category-menu-row__chevron {
+.category-menu-row_chevron {
   width: 15px;
   height: 15px;
   color: #9ca3af;
@@ -940,9 +940,9 @@ onUnmounted(() => {
   color: #ffffff !important;
 }
 
-.category-menu-row.is-active .category-menu-row__chevron,
-.category-menu-row.is-hovered .category-menu-row__chevron,
-.category-menu-row:hover .category-menu-row__chevron {
+.category-menu-row.is-active .category-menu-row_chevron,
+.category-menu-row.is-hovered .category-menu-row_chevron,
+.category-menu-row:hover .category-menu-row_chevron {
   color: #ffffff !important;
   transform: translateX(2px);
 }
@@ -1036,21 +1036,21 @@ onUnmounted(() => {
   border-color: var(--color-brand);
 }
 
-.toolbar__search {
+.toolbar_search {
   flex: 1;
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.toolbar__search-icon {
+.toolbar_search-icon {
   width: 14px;
   height: 14px;
   color: #9ca3af;
   flex-shrink: 0;
 }
 
-.toolbar__search-input {
+.toolbar_search-input {
   flex: 1;
   border: none;
   outline: none;
@@ -1061,18 +1061,18 @@ onUnmounted(() => {
   padding: 4px 0;
 }
 
-.toolbar__search-input::placeholder {
+.toolbar_search-input::placeholder {
   color: #9ca3af;
   font-size: 13px;
 }
 
-.toolbar__views {
+.toolbar_views {
   display: flex;
   align-items: center;
   gap: 4px;
 }
 
-.toolbar__view-btn {
+.toolbar_view-btn {
   width: 28px;
   height: 28px;
   display: flex;
@@ -1086,17 +1086,17 @@ onUnmounted(() => {
   transition: all var(--transition-fast);
 }
 
-.toolbar__view-btn svg {
+.toolbar_view-btn svg {
   width: 13px;
   height: 13px;
 }
 
-.toolbar__view-btn:hover {
+.toolbar_view-btn:hover {
   color: var(--color-brand-dark);
   border-color: var(--color-brand);
 }
 
-.toolbar__view-btn.is-active {
+.toolbar_view-btn.is-active {
   color: #ffffff;
   border-color: var(--color-brand);
   background-color: var(--color-brand);
@@ -1139,7 +1139,7 @@ onUnmounted(() => {
   box-shadow: 0 12px 26px rgba(0, 0, 0, 0.08), 0 4px 10px rgba(52, 199, 89, 0.08);
 }
 
-.product-card__image-wrap {
+.product-card_image-wrap {
   width: 100%;
   aspect-ratio: 1.15;
   background-color: #f8fafc;
@@ -1153,7 +1153,7 @@ onUnmounted(() => {
   position: relative;
 }
 
-.product-card__img {
+.product-card_img {
   width: 100%;
   height: 100%;
   object-fit: contain;
@@ -1161,11 +1161,11 @@ onUnmounted(() => {
   transition: transform 0.35s cubic-bezier(0.2, 0, 0.2, 1);
 }
 
-.product-card:hover .product-card__img {
+.product-card:hover .product-card_img {
   transform: scale(1.06);
 }
 
-.product-card__placeholder {
+.product-card_placeholder {
   font-size: 14px;
   color: #9ca3af;
   font-weight: 400;
@@ -1173,7 +1173,7 @@ onUnmounted(() => {
 }
 
 /* Quick View Overlay on Image */
-.product-card__quickview-overlay {
+.product-card_quickview-overlay {
   position: absolute;
   bottom: 8px;
   left: 0;
@@ -1187,12 +1187,12 @@ onUnmounted(() => {
   z-index: 2;
 }
 
-.product-card:hover .product-card__quickview-overlay {
+.product-card:hover .product-card_quickview-overlay {
   opacity: 1;
   transform: translateY(0);
 }
 
-.product-card__quickview-btn {
+.product-card_quickview-btn {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -1207,13 +1207,13 @@ onUnmounted(() => {
   border: 1px solid #bbf7d0;
 }
 
-.product-card__body {
+.product-card_body {
   display: flex;
   flex-direction: column;
   flex: 1;
 }
 
-.product-card__title {
+.product-card_title {
   font-family: var(--font-family-title);
   font-size: 15px;
   font-weight: 600;
@@ -1223,17 +1223,17 @@ onUnmounted(() => {
   transition: color 0.2s ease;
 }
 
-.product-card:hover .product-card__title {
+.product-card:hover .product-card_title {
   color: #15803d;
 }
 
-.product-card__category {
+.product-card_category {
   font-size: 12.5px;
   color: #6b7280;
   margin: 0 0 10px 0;
 }
 
-.product-card__footer {
+.product-card_footer {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
@@ -1242,19 +1242,19 @@ onUnmounted(() => {
   gap: 8px;
 }
 
-.product-card__price-wrap {
+.product-card_price-wrap {
   display: flex;
   flex-direction: column;
 }
 
-.product-card__price {
+.product-card_price {
   font-size: 19px;
   font-weight: 700;
   color: #111827;
   margin: 0 0 4px 0;
 }
 
-.product-card__stock {
+.product-card_stock {
   font-size: 12.5px;
   font-weight: 500;
   margin: 0;
@@ -1280,7 +1280,7 @@ onUnmounted(() => {
 }
 
 /* Product Card Cart Button */
-.product-card__cart-btn {
+.product-card_cart-btn {
   width: 38px;
   height: 38px;
   border-radius: 10px;
@@ -1295,7 +1295,7 @@ onUnmounted(() => {
   flex-shrink: 0;
 }
 
-.product-card__cart-btn:hover {
+.product-card_cart-btn:hover {
   background-color: #16a34a;
   border-color: #16a34a;
   color: #ffffff;
@@ -1310,7 +1310,7 @@ onUnmounted(() => {
   gap: 24px;
 }
 
-.product-card--list .product-card__image-wrap {
+.product-card--list .product-card_image-wrap {
   width: 160px;
   height: 130px;
   aspect-ratio: auto;
@@ -1318,7 +1318,7 @@ onUnmounted(() => {
   flex-shrink: 0;
 }
 
-.product-card--list .product-card__body {
+.product-card--list .product-card_body {
   flex: 1;
 }
 
@@ -1347,7 +1347,7 @@ onUnmounted(() => {
   user-select: none;
 }
 
-.pagination__nav-btn {
+.pagination_nav-btn {
   display: inline-flex;
   align-items: center;
   padding: 8px 14px;
@@ -1361,24 +1361,24 @@ onUnmounted(() => {
   transition: all var(--transition-fast);
 }
 
-.pagination__nav-btn:hover:not(:disabled) {
+.pagination_nav-btn:hover:not(:disabled) {
   background-color: #f9fafb;
   border-color: #d1d5db;
   color: #111827;
 }
 
-.pagination__nav-btn:disabled {
+.pagination_nav-btn:disabled {
   opacity: 0.4;
   cursor: not-allowed;
 }
 
-.pagination__pages {
+.pagination_pages {
   display: flex;
   align-items: center;
   gap: 6px;
 }
 
-.pagination__page-btn {
+.pagination_page-btn {
   min-width: 36px;
   height: 36px;
   padding: 0 8px;
@@ -1395,13 +1395,13 @@ onUnmounted(() => {
   transition: all var(--transition-fast);
 }
 
-.pagination__page-btn:hover:not(.is-active) {
+.pagination_page-btn:hover:not(.is-active) {
   background-color: #f9fafb;
   border-color: #d1d5db;
   color: #111827;
 }
 
-.pagination__page-btn.is-active {
+.pagination_page-btn.is-active {
   background-color: #111827;
   border-color: #111827;
   color: #ffffff;
@@ -1417,13 +1417,13 @@ onUnmounted(() => {
   border-radius: 12px;
 }
 
-.catalog-empty__text {
+.catalog-empty_text {
   font-size: 16px;
   color: #6b7280;
   margin-bottom: 16px;
 }
 
-.catalog-empty__btn {
+.catalog-empty_btn {
   background-color: #111827;
   color: #ffffff;
   border: none;
@@ -1435,7 +1435,7 @@ onUnmounted(() => {
   transition: opacity var(--transition-fast);
 }
 
-.catalog-empty__btn:hover {
+.catalog-empty_btn:hover {
   opacity: 0.9;
 }
 
@@ -1740,7 +1740,7 @@ onUnmounted(() => {
   font-weight: 500;
 }
 
-.cart-toast__icon {
+.cart-toast_icon {
   width: 24px;
   height: 24px;
   border-radius: 50%;
@@ -1810,7 +1810,7 @@ onUnmounted(() => {
     width: 100%;
   }
 
-  .filter-group__list {
+  .filter-group_list {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
   }
@@ -1821,7 +1821,7 @@ onUnmounted(() => {
     grid-template-columns: 1fr;
   }
 
-  .filter-group__list {
+  .filter-group_list {
     grid-template-columns: 1fr;
   }
 
@@ -1830,7 +1830,7 @@ onUnmounted(() => {
     align-items: flex-start;
   }
 
-  .product-card--list .product-card__image-wrap {
+  .product-card--list .product-card_image-wrap {
     width: 100%;
     height: auto;
     aspect-ratio: 1.18;

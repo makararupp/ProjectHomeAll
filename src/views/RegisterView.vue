@@ -49,19 +49,19 @@ function handleSubmit() {
 <template>
   <div class="register-page">
     <!-- Back to Home Link -->
-    <RouterLink to="/" class="register-page__home-link" title="ត្រឡប់ទៅទំព័រដើម">
+    <RouterLink to="/" class="register-page_home-link" title="ត្រឡប់ទៅទំព័រដើម">
       &larr; ទំព័រដើម
     </RouterLink>
 
     <!-- Left Illustration Area -->
-    <div class="register-page__visual" aria-hidden="true">
+    <div class="register-page_visual" aria-hidden="true">
       <!-- Background Diagonal Mint Shape -->
-      <svg class="register-page__bg-shape" viewBox="0 0 700 900" preserveAspectRatio="none">
+      <svg class="register-page_bg-shape" viewBox="0 0 700 900" preserveAspectRatio="none">
         <polygon points="0,0 260,0 580,900 0,900" fill="#daf2ed" />
       </svg>
 
       <!-- Vector Artwork (Cabinet, Plant, Folders, Picture Frame) -->
-      <svg class="register-page__artwork" viewBox="0 0 600 700" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg class="register-page_artwork" viewBox="0 0 600 700" fill="none" xmlns="http://www.w3.org/2000/svg">
         <!-- Picture Frame on Wall -->
         <rect x="30" y="80" width="120" height="150" rx="4" fill="#ffffff" stroke="#134e4a" stroke-width="4" />
         <rect x="42" y="96" width="96" height="118" fill="#f8faf9" stroke="#134e4a" stroke-width="3" />
@@ -137,22 +137,22 @@ function handleSubmit() {
     </div>
 
     <!-- Right Reset/Register Card Area -->
-    <div class="register-page__content">
+    <div class="register-page_content">
       <div class="register-card">
         <!-- Top Lock Icon Badge -->
-        <div class="register-card__badge" aria-hidden="true">
+        <div class="register-card_badge" aria-hidden="true">
           <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#009688" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
             <path d="M7 11V7a5 5 0 0 1 10 0v4" />
           </svg>
         </div>
 
-        <h1 class="register-card__title">កំណត់លេខសម្ងាត់ថ្មី</h1>
-        <p class="register-card__desc">
+        <h1 class="register-card_title">កំណត់លេខសម្ងាត់ថ្មី</h1>
+        <p class="register-card_desc">
           បញ្ចូលអ៊ីមែលរបស់អ្នក ដើម្បីទទួលបានលេខកូដ ៦ ខ្ទង់ រួចកំណត់លេខសម្ងាត់ថ្មី។
         </p>
 
-        <form class="register-card__form" @submit.prevent="handleSubmit">
+        <form class="register-card_form" @submit.prevent="handleSubmit">
           <!-- 1. Email input -->
           <div class="register-input-group">
             <span class="register-input-icon" aria-hidden="true">
@@ -237,11 +237,11 @@ function handleSubmit() {
           </div>
 
           <!-- Error / Success Feedback -->
-          <p v-if="errorMessage" class="register-card__error">{{ errorMessage }}</p>
-          <p v-if="successMessage" class="register-card__success">{{ successMessage }}</p>
+          <p v-if="errorMessage" class="register-card_error">{{ errorMessage }}</p>
+          <p v-if="successMessage" class="register-card_success">{{ successMessage }}</p>
 
           <!-- Submit Button -->
-          <div class="register-card__btn-wrap">
+          <div class="register-card_btn-wrap">
             <button type="submit" class="register-btn">
               ប្ដូរលេខសម្ងាត់
             </button>
@@ -249,9 +249,9 @@ function handleSubmit() {
         </form>
 
         <!-- Link back to Sign In -->
-        <p class="register-card__bottom-link">
+        <p class="register-card_bottom-link">
           ចាំបានហើយ?
-          <RouterLink to="/sign-in" class="register-card__link-text">
+          <RouterLink to="/sign-in" class="register-card_link-text">
             ត្រឡប់ទៅចូលប្រើប្រាស់
           </RouterLink>
         </p>
@@ -279,7 +279,7 @@ function handleSubmit() {
 }
 
 /* Back to Home Link */
-.register-page__home-link {
+.register-page_home-link {
   position: absolute;
   top: 24px;
   right: 28px;
@@ -296,13 +296,13 @@ function handleSubmit() {
   transition: all 0.2s ease;
 }
 
-.register-page__home-link:hover {
+.register-page_home-link:hover {
   background: #0d9488;
   color: #ffffff;
 }
 
 /* Left Illustration Container */
-.register-page__visual {
+.register-page_visual {
   position: absolute;
   top: 0;
   left: 0;
@@ -312,7 +312,7 @@ function handleSubmit() {
   z-index: 1;
 }
 
-.register-page__bg-shape {
+.register-page_bg-shape {
   position: absolute;
   top: 0;
   left: 0;
@@ -320,7 +320,7 @@ function handleSubmit() {
   height: 100%;
 }
 
-.register-page__artwork {
+.register-page_artwork {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -331,7 +331,7 @@ function handleSubmit() {
 }
 
 /* Right Content Area with Card */
-.register-page__content {
+.register-page_content {
   position: relative;
   z-index: 2;
   width: 100%;
@@ -358,7 +358,7 @@ function handleSubmit() {
 }
 
 /* Badge with Lock Icon */
-.register-card__badge {
+.register-card_badge {
   width: 44px;
   height: 44px;
   border-radius: 10px;
@@ -369,7 +369,7 @@ function handleSubmit() {
   margin-bottom: 14px;
 }
 
-.register-card__title {
+.register-card_title {
   text-align: center;
   font-size: 24px;
   font-weight: 700;
@@ -377,7 +377,7 @@ function handleSubmit() {
   margin: 0 0 10px 0;
 }
 
-.register-card__desc {
+.register-card_desc {
   text-align: center;
   font-size: 13px;
   line-height: 1.6;
@@ -385,7 +385,7 @@ function handleSubmit() {
   margin: 0 0 20px 0;
 }
 
-.register-card__form {
+.register-card_form {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -457,14 +457,14 @@ function handleSubmit() {
   cursor: not-allowed;
 }
 
-.register-card__error {
+.register-card_error {
   color: #dc2626;
   font-size: 12.5px;
   margin: -2px 0 0;
   text-align: center;
 }
 
-.register-card__success {
+.register-card_success {
   color: #059669;
   font-size: 12.5px;
   margin: -2px 0 0;
@@ -472,7 +472,7 @@ function handleSubmit() {
 }
 
 /* Submit Button Wrap */
-.register-card__btn-wrap {
+.register-card_btn-wrap {
   display: flex;
   justify-content: center;
   margin-top: 6px;
@@ -501,21 +501,21 @@ function handleSubmit() {
 }
 
 /* Bottom Sign In Link */
-.register-card__bottom-link {
+.register-card_bottom-link {
   font-size: 13px;
   color: #6b7280;
   margin: 18px 0 0 0;
   text-align: center;
 }
 
-.register-card__link-text {
+.register-card_link-text {
   color: #009688;
   text-decoration: none;
   font-weight: 600;
   margin-left: 4px;
 }
 
-.register-card__link-text:hover {
+.register-card_link-text:hover {
   text-decoration: underline;
 }
 
@@ -539,11 +539,11 @@ function handleSubmit() {
     padding: 30px 16px;
   }
 
-  .register-page__visual {
+  .register-page_visual {
     display: none;
   }
 
-  .register-page__content {
+  .register-page_content {
     justify-content: center;
     padding: 0;
   }
