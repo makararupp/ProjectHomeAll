@@ -205,16 +205,20 @@ onUnmounted(() => {
     <CategoryNav />
 
     <main class="products-main container">
-      <!-- Breadcrumbs matching screenshot -->
+      <!-- Breadcrumbs restored to old redirect style -->
       <nav class="breadcrumb" aria-label="Breadcrumbs">
         <ol class="breadcrumb__list">
           <li class="breadcrumb__item">
             <RouterLink to="/" class="breadcrumb__link">{{ t('products.breadcrumbHome', 'Home') }}</RouterLink>
-            <span class="breadcrumb__separator" aria-hidden="true">/</span>
+            <span class="breadcrumb__separator" aria-hidden="true">›</span>
+          </li>
+          <li class="breadcrumb__item">
+            <RouterLink to="/" class="breadcrumb__link">{{ t('products.breadcrumbVillage', 'Homeall Village') }}</RouterLink>
+            <span class="breadcrumb__separator" aria-hidden="true">›</span>
           </li>
           <li class="breadcrumb__item">
             <span class="breadcrumb__current" aria-current="page">
-              {{ selectedGroups.length > 0 ? `"${isKhmer ? (itemGroupCategories.find(c => c.name === selectedGroups[0])?.nameKm || getGroupLabel(selectedGroups[0])) : getGroupLabel(selectedGroups[0])}"` : '"All Categories"' }}
+              {{ selectedGroups.length > 0 ? (isKhmer ? (itemGroupCategories.find(c => c.name === selectedGroups[0])?.nameKm || getGroupLabel(selectedGroups[0])) : getGroupLabel(selectedGroups[0])) : t('products.allProducts', 'All Products') }}
             </span>
           </li>
         </ol>
@@ -816,7 +820,7 @@ onUnmounted(() => {
 .category-menu-clear {
   background: none;
   border: none;
-  color: #d97706;
+  color: var(--color-brand-dark, #269c46);
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
@@ -825,7 +829,7 @@ onUnmounted(() => {
 }
 
 .category-menu-clear:hover {
-  color: #b45309;
+  color: var(--color-brand, #34c759);
   text-decoration: underline;
 }
 
@@ -882,11 +886,11 @@ onUnmounted(() => {
   transition: color 0.18s ease, transform 0.18s ease;
 }
 
-/* Golden Amber Active & Hover states matching reference screenshot */
+/* Brand Green Active & Hover states matching main project theme */
 .category-menu-row.is-active,
 .category-menu-row.is-hovered,
 .category-menu-row:hover {
-  background-color: #d97706 !important;
+  background-color: var(--color-brand, #34c759) !important;
   color: #ffffff !important;
 }
 
@@ -953,8 +957,8 @@ onUnmounted(() => {
 }
 
 .category-flyout-item:hover {
-  background-color: #fffbeb;
-  color: #b45309;
+  background-color: #f0fdf4;
+  color: var(--color-brand-dark, #269c46);
   font-weight: 600;
   padding-left: 24px;
 }
