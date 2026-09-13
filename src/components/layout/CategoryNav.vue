@@ -642,6 +642,8 @@ onUnmounted(() => {
 }
 
 .mega-menu__item:hover .mega-menu__circle {
+  border-color: var(--color-brand);
+  box-shadow: 0 6px 16px rgba(52, 199, 89, 0.15);
   border-color: #cbd5e1;
   box-shadow: 0 4px 14px rgba(15, 23, 42, 0.08);
   background: #ffffff;
@@ -658,6 +660,7 @@ onUnmounted(() => {
 }
 
 .mega-menu__item:hover .mega-menu__circle-icon {
+  color: var(--color-brand);
   color: #111827;
 }
 
@@ -697,6 +700,7 @@ onUnmounted(() => {
 }
 
 .mega-menu__item:hover .mega-menu__item-name {
+  color: var(--color-brand-dark);
   color: #111827;
   font-weight: 600;
 }
