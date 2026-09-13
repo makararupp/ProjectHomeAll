@@ -4,7 +4,7 @@ import { RouterLink, useRoute } from 'vue-router'
 import AppHeader from '@/components/layout/AppHeader.vue'
 import CategoryNav from '@/components/layout/CategoryNav.vue'
 import AppFooter from '@/components/layout/AppFooter.vue'
-import { allProducts, itemGroups } from '@/data/products'
+import { allProducts, itemGroups, itemGroupCategories } from '@/data/products'
 import { useI18n } from '@/composables/useI18n'
 import { useCart } from '@/composables/useCart'
 
@@ -35,6 +35,30 @@ const route = useRoute()
 const searchQuery = ref(route.query.search ? String(route.query.search) : '')
 const selectedGroups = ref(route.query.group ? [String(route.query.group)] : [])
 const viewMode = ref('grid') // 'grid' | 'list'
+
+// Flyout submenu state
+const hoveredGroup = ref(null)
+
+const currentFlyoutGroup = computed(() => {
+  if (!hoveredGroup.value) return null
+  return itemGroupCategories.find((c) => c.name === hoveredGroup.value)
+})
+
+function selectGroup(groupName) {
+  if (selectedGroups.value.includes(groupName)) {
+    selectedGroups.value = []
+  } else {
+    selectedGroups.value = [groupName]
+  }
+  currentPage.value = 1
+}
+
+function selectSubcategory(subName, parentGroupName) {
+  selectedGroups.value = [parentGroupName]
+  searchQuery.value = subName
+  hoveredGroup.value = null
+  currentPage.value = 1
+}
 
 watch(
   () => route.query,
@@ -99,6 +123,7 @@ function goToPage(page) {
 function clearAllFilters() {
   selectedGroups.value = []
   searchQuery.value = ''
+  hoveredGroup.value = null
   currentPage.value = 1
 }
 
@@ -180,19 +205,17 @@ onUnmounted(() => {
     <CategoryNav />
 
     <main class="products-main container">
-      <!-- Breadcrumbs -->
+      <!-- Breadcrumbs matching screenshot -->
       <nav class="breadcrumb" aria-label="Breadcrumbs">
         <ol class="breadcrumb__list">
           <li class="breadcrumb__item">
             <RouterLink to="/" class="breadcrumb__link">{{ t('products.breadcrumbHome', 'Home') }}</RouterLink>
-            <span class="breadcrumb__separator" aria-hidden="true">›</span>
+            <span class="breadcrumb__separator" aria-hidden="true">/</span>
           </li>
           <li class="breadcrumb__item">
-            <RouterLink to="/" class="breadcrumb__link">{{ t('products.breadcrumbVillage', 'Homeall Village') }}</RouterLink>
-            <span class="breadcrumb__separator" aria-hidden="true">›</span>
-          </li>
-          <li class="breadcrumb__item">
-            <span class="breadcrumb__current" aria-current="page">{{ t('products.allProducts', 'All Products') }}</span>
+            <span class="breadcrumb__current" aria-current="page">
+              {{ selectedGroups.length > 0 ? `"${isKhmer ? (itemGroupCategories.find(c => c.name === selectedGroups[0])?.nameKm || getGroupLabel(selectedGroups[0])) : getGroupLabel(selectedGroups[0])}"` : '"All Categories"' }}
+            </span>
           </li>
         </ol>
       </nav>
@@ -209,51 +232,82 @@ onUnmounted(() => {
 
       <!-- Layout: Filters Sidebar + Content Area -->
       <div class="catalog-layout">
-        <!-- Left Sidebar: Filters -->
-        <aside class="catalog-sidebar" aria-label="Product Filters">
-          <div class="filter-header">
-            <h2 class="filter-header__title">{{ t('products.filters', 'Filters') }}</h2>
-            <button
-              type="button"
-              class="filter-header__clear"
-              @click="clearAllFilters"
-            >
-              {{ t('products.clearAll', 'Clear All') }}
-            </button>
-          </div>
+        <!-- Left Sidebar: Categories Navigation Menu with Flyout Submenu -->
+        <aside class="catalog-sidebar" aria-label="Product Categories Navigation">
+          <div class="category-menu-container" @mouseleave="hoveredGroup = null">
+            <!-- Header matching screenshot: "Categories" -->
+            <div class="category-menu-header">
+              <h2 class="category-menu-title">{{ isKhmer ? 'ប្រភេទ' : 'Categories' }}</h2>
+              <button
+                v-if="selectedGroups.length > 0 || searchQuery"
+                type="button"
+                class="category-menu-clear"
+                @click="clearAllFilters"
+              >
+                {{ t('products.clearAll', 'Clear All') }}
+              </button>
+            </div>
 
-          <div class="filter-divider" />
-
-          <!-- Item Group Section -->
-          <div class="filter-group">
-            <h3 class="filter-group__title">{{ t('products.itemGroup', 'ITEM GROUP') }}</h3>
-            <ul class="filter-group__list">
-              <li v-for="group in itemGroups" :key="group" class="filter-item">
-                <label class="filter-item__label">
-                  <input
-                    v-model="selectedGroups"
-                    type="checkbox"
-                    :value="group"
-                    class="filter-item__checkbox"
-                  />
-                  <span class="filter-item__custom-box" aria-hidden="true">
-                    <svg
-                      v-if="selectedGroups.includes(group)"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      class="check-icon"
-                    >
-                      <polyline points="3.5 8.5 6.5 11.5 12.5 4.5" />
-                    </svg>
+            <!-- Category List Card -->
+            <div class="category-menu-card">
+              <ul class="category-menu-list">
+                <li
+                  v-for="group in itemGroupCategories"
+                  :key="group.name"
+                  class="category-menu-row"
+                  :class="{
+                    'is-active': selectedGroups.includes(group.name),
+                    'is-hovered': hoveredGroup === group.name
+                  }"
+                  @mouseenter="hoveredGroup = group.name"
+                  @click="selectGroup(group.name)"
+                >
+                  <span class="category-menu-row__text">
+                    {{ isKhmer ? group.nameKm : getGroupLabel(group.name) }}
                   </span>
-                  <span class="filter-item__text">{{ getGroupLabel(group) }}</span>
-                </label>
-              </li>
-            </ul>
+                  <svg
+                    class="category-menu-row__chevron"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    width="16"
+                    height="16"
+                    aria-hidden="true"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </li>
+              </ul>
+
+              <!-- Flyout Submenu Panel to the right matching screenshot -->
+              <transition name="flyout-fade">
+                <div
+                  v-if="currentFlyoutGroup"
+                  class="category-flyout-panel"
+                  @mouseenter="hoveredGroup = currentFlyoutGroup.name"
+                  @mouseleave="hoveredGroup = null"
+                >
+                  <div class="category-flyout-header">
+                    <span class="category-flyout-title">
+                      {{ isKhmer ? currentFlyoutGroup.nameKm : getGroupLabel(currentFlyoutGroup.name) }}
+                    </span>
+                  </div>
+                  <ul class="category-flyout-list">
+                    <li
+                      v-for="sub in currentFlyoutGroup.subcategories"
+                      :key="sub"
+                      class="category-flyout-item"
+                      @click.stop="selectSubcategory(sub, currentFlyoutGroup.name)"
+                    >
+                      <span class="category-flyout-item__text">{{ sub }}</span>
+                    </li>
+                  </ul>
+                </div>
+              </transition>
+            </div>
           </div>
         </aside>
 
@@ -733,113 +787,187 @@ onUnmounted(() => {
   align-items: flex-start;
 }
 
-/* Left Sidebar */
+/* Left Sidebar: Category Menu & Flyout */
 .catalog-sidebar {
-  width: 220px;
+  width: 240px;
   flex-shrink: 0;
+  position: relative;
 }
 
-.filter-header {
+.category-menu-container {
+  position: relative;
+  width: 100%;
+}
+
+.category-menu-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 12px;
 }
 
-.filter-header__title {
+.category-menu-title {
   font-size: 17px;
   font-weight: 700;
   color: #111827;
   margin: 0;
 }
 
-.filter-header__clear {
+.category-menu-clear {
   background: none;
   border: none;
-  color: #6b7280;
+  color: #d97706;
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
   padding: 0;
   transition: color var(--transition-fast);
 }
 
-.filter-header__clear:hover {
-  color: #111827;
+.category-menu-clear:hover {
+  color: #b45309;
   text-decoration: underline;
 }
 
-.filter-divider {
-  height: 1px;
-  background-color: #e5e7eb;
-  margin-bottom: 20px;
+.category-menu-card {
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+  position: relative;
+  overflow: visible;
 }
 
-.filter-group__title {
-  font-size: 12px;
-  font-weight: 700;
-  color: #6b7280;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  margin: 0 0 16px 0;
-}
-
-.filter-group__list {
+.category-menu-list {
   list-style: none;
   padding: 0;
   margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
 }
 
-.filter-item__label {
+.category-menu-row {
   display: flex;
   align-items: center;
-  gap: 12px;
+  justify-content: space-between;
+  padding: 13px 16px;
+  border-bottom: 1px solid #f1f5f9;
   cursor: pointer;
+  font-size: 14.5px;
+  font-weight: 500;
+  color: #1f2937;
+  transition: background-color 0.18s ease, color 0.18s ease;
   user-select: none;
 }
 
-.filter-item__checkbox {
-  position: absolute;
-  opacity: 0;
-  width: 0;
-  height: 0;
+.category-menu-row:first-child {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
 }
 
-.filter-item__custom-box {
-  width: 18px;
-  height: 18px;
-  border: 1.5px solid #d1d5db;
-  border-radius: 4px;
-  background-color: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.category-menu-row:last-child {
+  border-bottom: none;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.category-menu-row__text {
+  flex: 1;
+}
+
+.category-menu-row__chevron {
+  width: 15px;
+  height: 15px;
+  color: #9ca3af;
   flex-shrink: 0;
-  transition: all var(--transition-fast);
+  margin-left: 8px;
+  transition: color 0.18s ease, transform 0.18s ease;
 }
 
-.filter-item__checkbox:checked + .filter-item__custom-box {
-  border-color: #111827;
-  background-color: #111827;
-  color: #ffffff;
+/* Golden Amber Active & Hover states matching reference screenshot */
+.category-menu-row.is-active,
+.category-menu-row.is-hovered,
+.category-menu-row:hover {
+  background-color: #d97706 !important;
+  color: #ffffff !important;
 }
 
-.check-icon {
-  width: 12px;
-  height: 12px;
+.category-menu-row.is-active .category-menu-row__chevron,
+.category-menu-row.is-hovered .category-menu-row__chevron,
+.category-menu-row:hover .category-menu-row__chevron {
+  color: #ffffff !important;
+  transform: translateX(2px);
 }
 
-.filter-item__text {
+/* Right Flyout Submenu Panel */
+.category-flyout-panel {
+  position: absolute;
+  top: 0;
+  left: calc(100% + 4px);
+  min-width: 250px;
+  max-width: 320px;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+  padding: 10px 0;
+  z-index: 60;
+}
+
+/* Hover bridge so moving mouse to flyout doesn't trigger mouseleave */
+.category-flyout-panel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -8px;
+  width: 8px;
+}
+
+.category-flyout-header {
+  padding: 4px 18px 8px 18px;
+  border-bottom: 1px solid #f1f5f9;
+  margin-bottom: 6px;
+}
+
+.category-flyout-title {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.category-flyout-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.category-flyout-item {
+  padding: 9px 20px;
   font-size: 14px;
   color: #374151;
-  line-height: 1.25;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
 }
 
-.filter-item__label:hover .filter-item__text {
-  color: #111827;
+.category-flyout-item:hover {
+  background-color: #fffbeb;
+  color: #b45309;
+  font-weight: 600;
+  padding-left: 24px;
+}
+
+.flyout-fade-enter-active,
+.flyout-fade-leave-active {
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+
+.flyout-fade-enter-from,
+.flyout-fade-leave-to {
+  opacity: 0;
+  transform: translateX(-6px);
 }
 
 /* Right Content Area */

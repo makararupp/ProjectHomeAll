@@ -114,17 +114,113 @@ export const products = [
 ]
 
 /**
- * Filter Item Groups shown in the sidebar of All Products.
+ * Filter Item Groups shown in the sidebar of All Products with subcategories.
  */
-export const itemGroups = [
-  'Steel Product',
-  'Copper Pipes',
-  'Agricultural Products',
-  'Kitchen Products',
-  'Seasoning & Spice',
-  'PVC Material',
-  'Bathroom Appliances'
+export const itemGroupCategories = [
+  {
+    id: 'steel-product',
+    name: 'Steel Product',
+    nameKm: 'ផលិតផលដែក',
+    subcategories: [
+      'Steel Pipes 15×15',
+      'SCGTY Steel Plate',
+      'Heavy Steel Flange',
+      'Steel Tubes & Rebar',
+      'Metal Roofing Sheet',
+      'Angle Steel'
+    ]
+  },
+  {
+    id: 'copper-pipes',
+    name: 'Copper Pipes',
+    nameKm: 'បំពង់ស្ពាន់',
+    subcategories: [
+      'Copper Pipe 1/2"',
+      'Straight Copper Tubes',
+      'Flexible Copper Coil',
+      'Copper Fittings & Elbows'
+    ]
+  },
+  {
+    id: 'agricultural-products',
+    name: 'Agricultural Products',
+    nameKm: 'ផលិតផលកសិកម្ម',
+    subcategories: [
+      'Agricultural Seeds',
+      'Water Booster Pumps',
+      'PVC Garden Hose',
+      'Farm & Irrigation Tools'
+    ]
+  },
+  {
+    id: 'kitchen-products',
+    name: 'Kitchen Products',
+    nameKm: 'ផលិតផលផ្ទះបាយ',
+    subcategories: [
+      'Cookware Pot Set',
+      'Kitchen Appliances',
+      'Stainless Kitchen Sinks',
+      'Kitchen Storage Racks'
+    ]
+  },
+  {
+    id: 'seasoning-spice',
+    name: 'Seasoning & Spice',
+    nameKm: 'គ្រឿងទេស និងរសជាតិ',
+    subcategories: [
+      'Kampot Pepper',
+      'Organic Spices',
+      'Natural Cooking Seasoning'
+    ]
+  },
+  {
+    id: 'pvc-material',
+    name: 'PVC Material',
+    nameKm: 'សម្ភារៈ PVC',
+    subcategories: [
+      'PVC Water Pipes 20mm',
+      'PVC Pipe 25×50',
+      'PVC Elbow 90°',
+      'Double Union Ball Valve',
+      'Compact Ball Valve',
+      'Industrial Gear Valve',
+      'Red Butterfly Valve'
+    ]
+  },
+  {
+    id: 'bathroom-appliances',
+    name: 'Bathroom Appliances',
+    nameKm: 'បរិក្ខារបន្ទប់ទឹក',
+    subcategories: [
+      'Bathroom TH-001',
+      'Shower Head Set',
+      'Water Taps & Faucets',
+      'Sanitary Ware Set'
+    ]
+  },
+  {
+    id: 'floor-tile',
+    name: 'Floor Tile',
+    nameKm: 'ក្បឿងការ៉ូ',
+    subcategories: [
+      'Floor Tile 15×15',
+      'Floor Tile 60×60',
+      'Wall Ceramic Tile'
+    ]
+  },
+  {
+    id: 'plastic-resin',
+    name: 'Plastic Resin',
+    nameKm: 'ជ័រផ្លាស្ទិក',
+    subcategories: [
+      'High Quality Plastic Resin',
+      'Industrial Pellets',
+      'Polymer Material'
+    ]
+  }
 ]
+
+export const itemGroups = itemGroupCategories.map((c) => c.name)
 
 /**
  * Full product catalog for "All Products" view.
