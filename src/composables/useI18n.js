@@ -8,6 +8,7 @@ export const translations = {
     nav: {
       home: 'Home',
       product: 'Product',
+      services: 'Services',
       about: 'About Us',
       new: 'New'
     },
@@ -188,6 +189,7 @@ export const translations = {
     nav: {
       home: 'ទំព័រដើម',
       product: 'ផលិតផល',
+      services: 'សេវាកម្ម',
       about: 'អំពីយើង',
       new: 'ថ្មីៗ'
     },

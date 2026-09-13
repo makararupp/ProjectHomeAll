@@ -59,7 +59,20 @@ const router = createRouter({
       component: () => import('@/views/FoodView.vue')
     }
   ],
-  scrollBehavior() {
+  scrollBehavior(to, from, savedPosition) {
+    if (to.hash) {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          resolve({
+            el: to.hash,
+            behavior: 'smooth'
+          })
+        }, 100)
+      })
+    }
+    if (savedPosition) {
+      return savedPosition
+    }
     return { top: 0 }
   }
 })

@@ -7,13 +7,13 @@ const { t } = useI18n()
 </script>
 
 <template>
-  <section class="services" aria-labelledby="services-heading">
+  <section class="services" id="services-section" aria-labelledby="services-heading">
     <div class="container">
       <h2 id="services-heading" class="services_title">{{ t('servicesSection.title', 'Explore Our Services') }}</h2>
       <div class="section-underline" />
       <p class="services_subtitle">{{ t('servicesSection.subtitle', 'Discover specialized solutions for every business need') }}</p>
 
-      <div class="services_grid">
+      <div id="services" class="services_grid">
         <ServiceCard v-for="service in services" :key="service.id" :service="service" />
       </div>
     </div>
@@ -23,6 +23,11 @@ const { t } = useI18n()
 <style scoped>
 .services {
   padding: var(--space-10) 0;
+}
+
+#services,
+.services_grid {
+  scroll-margin-top: 125px;
 }
 
 .services_title {
