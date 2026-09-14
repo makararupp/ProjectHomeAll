@@ -370,11 +370,13 @@ function handleSubmit() {
 }
 
 .register-card_title {
+  font-family: var(--font-family-title, 'Khmer OS', 'Khmer OS System', 'Khmer OS Muol Light', 'Khmer', 'Kantumruy Pro', 'Battambang', sans-serif);
   text-align: center;
   font-size: 24px;
   font-weight: 700;
   color: #1f2937;
   margin: 0 0 10px 0;
+  line-height: 1.35;
 }
 
 .register-card_desc {

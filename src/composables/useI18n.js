@@ -191,6 +191,15 @@ export const translations = {
       clearAll: 'Clear Wishlist',
       addToCart: 'Add to Cart',
       remove: 'Remove'
+    },
+    comparePage: {
+      title: 'Compare',
+      breadcrumbHome: 'Home',
+      breadcrumbCompare: '"Compare"',
+      comparison: 'Comparison',
+      resetList: 'Reset Compare List',
+      emptyMessage: 'Your comparison list is empty',
+      startShopping: 'Browse Products'
     }
   },
   km: {
@@ -380,6 +389,15 @@ export const translations = {
       clearAll: 'សម្អាតទាំងអស់',
       addToCart: 'ដាក់ក្នុងកន្ត្រក',
       remove: 'លុបចេញ'
+    },
+    comparePage: {
+      title: 'ប្រៀបធៀប',
+      breadcrumbHome: 'ទំព័រដើម',
+      breadcrumbCompare: '"ប្រៀបធៀប"',
+      comparison: 'ការប្រៀបធៀប',
+      resetList: 'សម្អាតបញ្ជីប្រៀបធៀប',
+      emptyMessage: 'បញ្ជីប្រៀបធៀបរបស់អ្នកទទេ',
+      startShopping: 'ស្វែងរកផលិតផល'
     }
   }
 }

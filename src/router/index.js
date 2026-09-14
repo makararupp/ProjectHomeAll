@@ -25,6 +25,12 @@ const router = createRouter({
       component: () => import('@/views/CartView.vue')
     },
     {
+      path: '/compare',
+      alias: ['/Compare'],
+      name: 'compare',
+      component: () => import('@/views/CompareView.vue')
+    },
+    {
       path: '/wishlist',
       alias: ['/Wishlist'],
       name: 'wishlist',

@@ -152,7 +152,7 @@ onUnmounted(() => {
       </div>
 
       <!-- Compare Action (In front of Wishlist) -->
-      <RouterLink to="/all-categories" class="header-action-item" title="Compare">
+      <RouterLink to="/compare" class="header-action-item" title="Compare">
         <div class="header-action-item_icon-wrap">
           <svg class="header-action-item_icon header-action-item_icon--compare" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M3 12a9 9 0 0 1 15-6.7L21 8" />
@@ -365,6 +365,7 @@ onUnmounted(() => {
 }
 
 .app-header_auth-link {
+  font-family: var(--font-family-title, 'Khmer OS', 'Khmer OS System', 'Khmer OS Muol Light', 'Khmer', 'Kantumruy Pro', 'Battambang', sans-serif);
   font-size: var(--font-size-md);
   font-weight: 500;
   color: var(--color-text-primary);

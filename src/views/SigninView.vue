@@ -264,12 +264,14 @@ function handleLogin() {
 }
 
 .signin-card_title {
+  font-family: var(--font-family-title, 'Khmer OS', 'Khmer OS System', 'Khmer OS Muol Light', 'Khmer', 'Kantumruy Pro', 'Battambang', sans-serif);
   text-align: center;
-  font-size: 32px;
+  font-size: 30px;
   font-weight: 700;
   color: #111827;
-  margin: 0 0 32px 0;
-  letter-spacing: 0.02em;
+  margin: 0 0 30px 0;
+  letter-spacing: 0.01em;
+  line-height: 1.35;
 }
 
 .signin-card_form {
