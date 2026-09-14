@@ -524,16 +524,15 @@ watch([selectedBrand, sortBy, minPrice, maxPrice, activeSubCategory, itemsPerPag
   font-size: 13px;
   font-weight: 600;
   color: #1f2937;
-  padding: 4px 8px;
-  border-radius: 4px;
+  padding: 3px 0;
   cursor: pointer;
   text-align: left;
-  transition: all 0.15s ease;
+  background: transparent;
+  transition: color 0.15s ease;
 }
 
 .sidebar-nav_btn:hover {
-  background-color: #f0fdf4;
-  color: var(--color-brand-dark, #269c46);
+  color: #111827;
 }
 
 .sidebar-arrow {
@@ -552,23 +551,22 @@ watch([selectedBrand, sortBy, minPrice, maxPrice, activeSubCategory, itemsPerPag
 .sidebar-sub-link {
   font-size: 13px;
   color: #4b5563;
-  padding: 4px 8px;
-  border-radius: 4px;
+  padding: 3px 0;
   cursor: pointer;
   text-align: left;
-  transition: all 0.15s ease;
-  width: 100%;
+  background: transparent;
+  border: none;
+  transition: color 0.15s ease;
 }
 
 .sidebar-sub-link:hover {
-  background-color: #f0fdf4;
-  color: var(--color-brand-dark, #269c46);
+  color: #111827;
 }
 
 .sidebar-sub-link.is-active {
-  background-color: #eaf8ee;
-  color: var(--color-brand-dark, #269c46);
+  color: #111827;
   font-weight: 700;
+  background: transparent;
 }
 
 /* Price Range Slider */

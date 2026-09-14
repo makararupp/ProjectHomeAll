@@ -249,43 +249,44 @@ function handleAddToCart(item) {
   padding-bottom: 60px;
 }
 
-/* Golden-Amber Breadcrumb Bar */
+/* Breadcrumb Bar */
 .wishlist-banner {
-  background-color: #c7ccd1;
-  border-radius: 4px;
-  padding: 10px 20px;
+  background-color: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  padding: 10px 18px;
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 14px;
-  font-weight: 700;
-  color: #111827;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #374151;
   margin-top: 24px;
   margin-bottom: 24px;
 }
 
 .wishlist-banner_link {
-  color: #111827;
+  color: #4b5563;
   text-decoration: underline;
   text-underline-offset: 2px;
-  font-weight: 700;
+  font-weight: 600;
   cursor: pointer;
-  transition: opacity 0.2s ease;
+  transition: color 0.2s ease;
 }
 
 .wishlist-banner_link:hover {
-  opacity: 0.8;
+  color: #111827;
 }
 
 .wishlist-banner_sep {
-  color: #111827;
-  font-weight: 700;
+  color: #9ca3af;
+  font-weight: 500;
   user-select: none;
 }
 
 .wishlist-banner_current {
   color: #111827;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 /* Page Heading */
