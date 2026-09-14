@@ -40,7 +40,6 @@ export const translations = {
       commercialEquipment: 'Commercial Equipment & Machinery',
       constructionMachinery: 'Construction & Building Machinery',
       lightsLighting: 'Lights & Lighting',
-      //apparelAccessories: 'Apparel & Accessories',
       homeGarden: 'Home & Garden'
     },
     products: {
@@ -60,7 +59,6 @@ export const translations = {
       next: 'Next',
       noProducts: 'No products found matching your filter.',
       clearFilters: 'Clear filters',
-      // Item groups & categories
       steelProduct: 'Steel Product',
       copperPipes: 'Copper Pipes',
       agriculturalProducts: 'Agricultural Products',
@@ -128,7 +126,7 @@ export const translations = {
       steelChain: 'Steel Chain',
       hotRolledStructuralSteel: 'Hot Rolled Structural Steel',
       squareSteel: 'Square Steel',
-      // Cement Section
+      
       cement: 'Cement',
       viewCement: 'View Cement',
       roughcast: 'Roughcast',
@@ -299,7 +297,6 @@ export const translations = {
       commercialEquipment: 'ឧបករណ៍ពាណិជ្ជកម្ម និងគ្រឿងចក្រ',
       constructionMachinery: 'គ្រឿងចក្រសំណង់ និងអាគារ',
       lightsLighting: 'អំពូលភ្លើង និងការបំភ្លឺ',
-    //  apparelAccessories: 'សម្លៀកបំពាក់ និងគ្រឿងតុបតែង',
       homeGarden: 'ផ្ទះ និងសួនច្បារ'
     },
     products: {
@@ -319,7 +316,6 @@ export const translations = {
       next: 'បន្ទាប់',
       noProducts: 'រកមិនឃើញផលិតផលដែលត្រូវនឹងការស្វែងរករបស់អ្នកឡើយ។',
       clearFilters: 'សម្អាតតម្រង',
-      // Item groups & categories
       steelProduct: 'ផលិតផលដែក',
       copperPipes: 'បំពង់ស្ពាន់',
       agriculturalProducts: 'ផលិតផលកសិកម្ម',
@@ -387,7 +383,6 @@ export const translations = {
       steelChain: 'ច្រវាក់ដែក (Steel Chain)',
       hotRolledStructuralSteel: 'ដែកថែបកែច្នៃក្តៅ (Hot Rolled)',
       squareSteel: 'ដែកជ្រុងរឹង (Square Steel)',
-      // Cement Section
       cement: 'ស៊ីម៉ងត៍ (Cement)',
       viewCement: 'មើលស៊ីម៉ងត៍ទាំងអស់',
       roughcast: 'ស៊ីម៉ងត៍បូកគ្រើម (Roughcast)',
@@ -495,10 +490,10 @@ export const translations = {
       otpIncorrect: 'លេខកូដ OTP មិនត្រឹមត្រូវទេ។ សូមព្យាយាមម្ដងទៀត។',
       verifySuccess: 'ផ្ទៀងផ្ទាត់បានជោគជ័យ! កំពុងបញ្ជូនបន្ត...',
       googleSuccess: 'ចូលគណនី Google ជោគជ័យ! កំពុងបញ្ជូនបន្ត...',
-      emailService: '📧 សេវាអ៊ីមែល',
-      smsService: '📱 សេវាសារ SMS',
+      emailService: 'សេវាអ៊ីមែល',
+      smsService: 'សេវាសារ SMS',
       codeFor: 'លេខកូដផ្ទៀងផ្ទាត់សម្រាប់',
-      autoFill: '⚡ បំពេញលេខកូដស្វ័យប្រវត្តិ'
+      autoFill: 'បំពេញលេខកូដស្វ័យប្រវត្តិ'
     },
     catalog: {
       breadcrumbHome: 'ទំព័រដើម',

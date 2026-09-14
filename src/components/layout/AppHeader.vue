@@ -365,7 +365,7 @@ onUnmounted(() => {
 }
 
 .app-header_auth-link {
-  font-family: var(--font-family-title, 'Khmer OS', 'Khmer OS System', 'Khmer OS Muol Light', 'Khmer', 'Kantumruy Pro', 'Battambang', sans-serif);
+  font-family: var(--font-family-title, 'Khmer OS', 'Khmer OS System', 'Khmer OS MSOL Light', 'Khmer', 'Kantumruy Pro', 'Battambang', sans-serif);
   font-size: var(--font-size-md);
   font-weight: 500;
   color: var(--color-text-primary);
