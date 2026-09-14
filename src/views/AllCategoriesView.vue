@@ -163,7 +163,7 @@ watch([selectedBrand, sortBy, minPrice, maxPrice, activeSubCategory, itemsPerPag
                 class="sidebar-nav_btn"
                 @click="activeSubCategory = 'Custom PC Builder'"
               >
-                <span class="sidebar-arrow">&lt;</span> All Categories
+                All Categories
               </button>
 
               <button
@@ -171,7 +171,7 @@ watch([selectedBrand, sortBy, minPrice, maxPrice, activeSubCategory, itemsPerPag
                 class="sidebar-nav_btn"
                 @click="activeSubCategory = 'Custom PC Builder'"
               >
-                <span class="sidebar-arrow">&lt;</span> Computer
+                Computer
               </button>
 
               <ul class="sidebar-sub-list">
@@ -230,7 +230,7 @@ watch([selectedBrand, sortBy, minPrice, maxPrice, activeSubCategory, itemsPerPag
                 class="price-reset-btn"
                 @click="resetPrice"
               >
-                <span class="sidebar-arrow">&lt;</span> Price
+                Price
               </button>
             </div>
           </div>
@@ -533,11 +533,6 @@ watch([selectedBrand, sortBy, minPrice, maxPrice, activeSubCategory, itemsPerPag
 
 .sidebar-nav_btn:hover {
   color: #111827;
-}
-
-.sidebar-arrow {
-  color: #6b7280;
-  font-weight: 700;
 }
 
 .sidebar-sub-list {
