@@ -98,6 +98,26 @@ function handleAddProduct(product, index = 0, quantity = 1) {
   showToast(`"${item.title}" added to cart!`)
 }
 
+// Compare state & actions
+const compareList = ref([])
+
+function isProductCompared(product, index = 0) {
+  const item = getProductForCart(product, index)
+  return compareList.value.includes(item.id)
+}
+
+function handleToggleCompare(product, index = 0) {
+  const item = getProductForCart(product, index)
+  const foundIdx = compareList.value.indexOf(item.id)
+  if (foundIdx > -1) {
+    compareList.value.splice(foundIdx, 1)
+    showToast(`"${item.title}" removed from compare`)
+  } else {
+    compareList.value.push(item.id)
+    showToast(`"${item.title}" added to compare list!`)
+  }
+}
+
 // Category selection
 function selectCategoryAndSub(catName, subName) {
   activeCategory.value = catName
@@ -536,63 +556,54 @@ watch([selectedBrand, sortBy, minPrice, maxPrice, activeSubCategory, itemsPerPag
                   @click="openProductModal(product, (currentPage - 1) * itemsPerPage + idx)"
                 />
 
-                <!-- Top-Right Wishlist Heart Button on Image -->
-                <button
-                  type="button"
-                  class="card-img_wishlist-btn"
-                  :class="{ 'is-in-wishlist': isProductWishlisted(product, (currentPage - 1) * itemsPerPage + idx) }"
-                  :title="isProductWishlisted(product, (currentPage - 1) * itemsPerPage + idx) ? 'Remove from Wishlist' : 'Add to Wishlist'"
-                  :aria-label="isProductWishlisted(product, (currentPage - 1) * itemsPerPage + idx) ? 'Remove from Wishlist' : 'Add to Wishlist'"
-                  @click.stop="handleToggleWishlist(product, (currentPage - 1) * itemsPerPage + idx)"
-                >
-                  <svg viewBox="0 0 24 24" :fill="isProductWishlisted(product, (currentPage - 1) * itemsPerPage + idx) ? '#ef4444' : 'none'" :stroke="isProductWishlisted(product, (currentPage - 1) * itemsPerPage + idx) ? '#ef4444' : '#6b7280'" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
-                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
-                  </svg>
-                </button>
-
-                <!-- Image Overlay with Action Buttons on Hover -->
-                <div class="card-img_overlay">
-                  <!-- View Quick Button -->
-                  <button
-                    type="button"
-                    class="card-img_action-btn card-img_action-btn--quick"
-                    title="View Quick"
-                    @click.stop="openProductModal(product, (currentPage - 1) * itemsPerPage + idx)"
-                  >
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14">
-                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-                      <circle cx="12" cy="12" r="3" />
-                    </svg>
-                    <span>View Quick</span>
-                  </button>
-
-                  <!-- Add to Cart Button -->
-                  <button
-                    type="button"
-                    class="card-img_action-btn card-img_action-btn--cart"
-                    title="Add to Cart"
-                    @click.stop="handleAddProduct(product, (currentPage - 1) * itemsPerPage + idx)"
-                  >
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14">
-                      <circle cx="9" cy="21" r="1" />
-                      <circle cx="20" cy="21" r="1" />
-                      <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
-                    </svg>
-                    <span>Add Cart</span>
-                  </button>
-
+                <!-- Vertical Circular Action Stack (Target style matching screenshot) -->
+                <div class="card-action-stack">
                   <!-- Wishlist Button -->
                   <button
                     type="button"
-                    class="card-img_action-btn card-img_action-btn--wish"
-                    :class="{ 'is-in-wishlist': isProductWishlisted(product, (currentPage - 1) * itemsPerPage + idx) }"
-                    title="Wishlist"
+                    class="card-circle-btn card-circle-btn--wish"
+                    :class="{ 'is-active': isProductWishlisted(product, (currentPage - 1) * itemsPerPage + idx) }"
+                    :title="isProductWishlisted(product, (currentPage - 1) * itemsPerPage + idx) ? 'Remove from Wishlist' : 'Add to Wishlist'"
+                    :aria-label="isProductWishlisted(product, (currentPage - 1) * itemsPerPage + idx) ? 'Remove from Wishlist' : 'Add to Wishlist'"
+                    data-tooltip="Wishlist"
                     @click.stop="handleToggleWishlist(product, (currentPage - 1) * itemsPerPage + idx)"
                   >
-                    <svg viewBox="0 0 24 24" :fill="isProductWishlisted(product, (currentPage - 1) * itemsPerPage + idx) ? '#ef4444' : 'none'" :stroke="isProductWishlisted(product, (currentPage - 1) * itemsPerPage + idx) ? '#ef4444' : 'currentColor'" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14">
+                    <svg viewBox="0 0 24 24" :fill="isProductWishlisted(product, (currentPage - 1) * itemsPerPage + idx) ? '#ef4444' : 'none'" :stroke="isProductWishlisted(product, (currentPage - 1) * itemsPerPage + idx) ? '#ef4444' : '#1e293b'" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="17" height="17">
                       <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
                     </svg>
-                    <span>WishList</span>
+                  </button>
+
+                  <!-- Compare Button -->
+                  <button
+                    type="button"
+                    class="card-circle-btn card-circle-btn--compare"
+                    :class="{ 'is-active': isProductCompared(product, (currentPage - 1) * itemsPerPage + idx) }"
+                    :title="isProductCompared(product, (currentPage - 1) * itemsPerPage + idx) ? 'Remove from Compare' : 'Add to Compare'"
+                    :aria-label="isProductCompared(product, (currentPage - 1) * itemsPerPage + idx) ? 'Remove from Compare' : 'Add to Compare'"
+                    data-tooltip="Compare"
+                    @click.stop="handleToggleCompare(product, (currentPage - 1) * itemsPerPage + idx)"
+                  >
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="17" height="17">
+                      <path d="M3 12a9 9 0 0 1 15-6.7L21 8" />
+                      <path d="M21 3v5h-5" />
+                      <path d="M21 12a9 9 0 0 1-15 6.7L3 16" />
+                      <path d="M3 21v-5h5" />
+                    </svg>
+                  </button>
+
+                  <!-- Quick View Button -->
+                  <button
+                    type="button"
+                    class="card-circle-btn card-circle-btn--quick"
+                    title="Quick View"
+                    aria-label="Quick View"
+                    data-tooltip="Quick View"
+                    @click.stop="openProductModal(product, (currentPage - 1) * itemsPerPage + idx)"
+                  >
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="17" height="17">
+                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                      <circle cx="12" cy="12" r="3" />
+                    </svg>
                   </button>
                 </div>
               </div>
@@ -1379,87 +1390,127 @@ watch([selectedBrand, sortBy, minPrice, maxPrice, activeSubCategory, itemsPerPag
   transform: scale(1.04);
 }
 
-/* Floating Wishlist Heart Button on Image */
-.card-img_wishlist-btn {
+/* Floating Circular Action Stack (Target style from screenshot) */
+.card-action-stack {
   position: absolute;
-  top: 8px;
-  right: 8px;
-  width: 32px;
-  height: 32px;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 4;
+  pointer-events: none;
+}
+
+.card-circle-btn {
+  pointer-events: auto;
+  position: relative;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   background: #ffffff;
-  border: 1px solid #e5e7eb;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
   display: flex;
   align-items: center;
   justify-content: center;
+  color: #334155;
   cursor: pointer;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-  transition: all 0.2s ease;
-  z-index: 3;
+  padding: 0;
+  outline: none;
+  opacity: 0;
+  transform: translateX(10px);
+  transition: opacity 0.22s ease, transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 
-.card-img_wishlist-btn:hover {
-  transform: scale(1.1);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+/* Staggered smooth entrance on card hover */
+.catalog-card:hover .card-circle-btn {
+  opacity: 1;
+  transform: translateX(0);
 }
 
-.card-img_wishlist-btn.is-in-wishlist {
+.catalog-card:hover .card-circle-btn:nth-child(1) {
+  transition-delay: 0s;
+}
+
+.catalog-card:hover .card-circle-btn:nth-child(2) {
+  transition-delay: 0.04s;
+}
+
+.catalog-card:hover .card-circle-btn:nth-child(3) {
+  transition-delay: 0.08s;
+}
+
+/* Keep active buttons visible */
+.card-circle-btn.is-active {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Button hover state */
+.card-circle-btn:hover {
+  transform: scale(1.1) !important;
+  background: #ffffff;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.16), 0 2px 4px rgba(0, 0, 0, 0.08);
+  border-color: rgba(0, 0, 0, 0.14);
+}
+
+/* Individual button hover colors */
+.card-circle-btn--wish:hover {
+  color: #ef4444;
+}
+
+.card-circle-btn--wish.is-active {
+  color: #ef4444;
   border-color: #fecaca;
   background: #fff5f5;
 }
 
-/* Hover Overlay Action Bar on Image (View Quick, Add Cart, WishList) */
-.card-img_overlay {
+.card-circle-btn--compare:hover {
+  color: #0284c7;
+}
+
+.card-circle-btn--compare.is-active {
+  color: #0284c7;
+  border-color: #bae6fd;
+  background: #f0f9ff;
+}
+
+.card-circle-btn--quick:hover {
+  color: #059669;
+}
+
+/* Tooltip styling on hover */
+.card-circle-btn::after {
+  content: attr(data-tooltip);
   position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 8px 4px;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.72) 0%, rgba(0, 0, 0, 0.3) 70%, transparent 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  opacity: 0;
-  transform: translateY(6px);
-  transition: all 0.25s ease;
-  z-index: 2;
-}
-
-.catalog-card:hover .card-img_overlay {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.card-img_action-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 3px;
-  padding: 5px 6px;
-  font-size: 10px;
+  right: calc(100% + 8px);
+  top: 50%;
+  transform: translateY(-50%) translateX(4px);
+  background: #1e293b;
+  color: #ffffff;
+  font-size: 11px;
   font-weight: 600;
+  padding: 4px 8px;
   border-radius: 4px;
-  border: none;
-  cursor: pointer;
-  background: #ffffff;
-  color: #1f2937;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  transition: all 0.15s ease;
   white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
-.card-img_action-btn:hover {
-  background: #111827;
-  color: #ffffff;
+.card-circle-btn:hover::after {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
 }
 
-.card-img_action-btn--wish.is-in-wishlist {
-  color: #ef4444;
-}
-
-.card-img_action-btn--wish.is-in-wishlist:hover {
-  background: #ef4444;
-  color: #ffffff;
+/* Touch screens: always keep action buttons visible */
+@media (hover: none) {
+  .card-circle-btn {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 /* Price Row */
