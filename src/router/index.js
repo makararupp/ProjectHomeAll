@@ -63,6 +63,12 @@ const router = createRouter({
       alias: ['/food', '/food-beverage'],
       name: 'category-food',
       component: () => import('@/views/FoodView.vue')
+    },
+    {
+      path: '/all-categories',
+      alias: ['/categories/all', '/custom-pc', '/categories/computer'],
+      name: 'all-categories',
+      component: () => import('@/views/AllCategoriesView.vue')
     }
   ],
   scrollBehavior(to, from, savedPosition) {

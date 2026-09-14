@@ -266,12 +266,12 @@ onUnmounted(() => {
 
             <!-- Circular Product Items Grid -->
             <div class="mega-menu_grid">
-              <a
+              <RouterLink
                 v-for="item in megaMenuCategories[selectedCategoryIndex].items"
                 :key="item.name"
-                href="#product"
+                :to="{ path: '/all-categories', query: { category: megaMenuCategories[selectedCategoryIndex].name, sub: item.name } }"
                 class="mega-menu_item"
-                @click.prevent="isOpen = false"
+                @click="isOpen = false"
               >
                 <div class="mega-menu_circle-wrap">
                   <div class="mega-menu_circle">
@@ -342,7 +342,7 @@ onUnmounted(() => {
                 </div>
 
                 <span class="mega-menu_item-name">{{ item.name }}</span>
-              </a>
+              </RouterLink>
             </div>
 
             <!-- Secondary Featured Section (matching screenshot bottom section) -->
