@@ -1,34 +1,215 @@
 <script setup>
-import { ref, computed, onMounted, watch } from 'vue'
+import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
 import AppHeader from '@/components/layout/AppHeader.vue'
 import CategoryNav from '@/components/layout/CategoryNav.vue'
 import AppFooter from '@/components/layout/AppFooter.vue'
 import { customPcProducts } from '@/data/customPcProducts'
+import { megaMenuCategories } from '@/data/megaMenuData'
 import { useCart } from '@/composables/useCart'
+import { useWishlist } from '@/composables/useWishlist'
 import { useI18n } from '@/composables/useI18n'
 
 const route = useRoute()
 const { t, isKhmer } = useI18n()
 const { addToCart } = useCart()
+const { toggleWishlist, isInWishlist } = useWishlist()
 
-// Sidebar categories & subcategories
-const subCategories = [
-  'Desktop',
-  'Desktop - All-In-One',
-  'Laptop',
-  'Laptop - 2-in-1 & Tablet',
-  'Laptop - Premium Model',
-  'Custom PC Builder'
+// Active categories state
+const activeCategory = ref(megaMenuCategories[0]?.name || 'Categories for you')
+const activeSubCategory = ref(megaMenuCategories[0]?.items[0]?.name || 'Floor Tiles')
+const expandedCategory = ref(megaMenuCategories[0]?.name || 'Categories for you')
+
+// Dynamic title models so titles follow the main title (activeSubCategory)
+const modelVariations = [
+  'Standard Edition',
+  'Premium Quality',
+  'Heavy Duty Pro',
+  'Ultra Grade Plus',
+  'Commercial Edition',
+  'Classic High-Durability',
+  'Selected Series',
+  'Pro Performance',
+  'Industrial Grade',
+  'Elite Platinum',
+  'Advanced Series',
+  'Master Selection'
 ]
 
-const activeSubCategory = ref('Custom PC Builder')
+function getDisplayTitle(product, idx = 0) {
+  const base = activeSubCategory.value || 'Floor Tiles'
+  const variation = modelVariations[idx % modelVariations.length]
+  return `${base} — ${variation}`
+}
+
+function getDisplaySubtitle(product, idx = 0) {
+  const cat = activeSubCategory.value || 'Floor Tiles'
+  return `Authentic ${cat} — Professional high-grade selection for residential & industrial projects.`
+}
+
+function getDisplaySpecs(product, idx = 0) {
+  const cat = activeSubCategory.value || 'Floor Tiles'
+  return [
+    `Category: Certified ${cat} Standard`,
+    'Durability: High-strength wear & weather proof',
+    'Finish: Premium protective coating',
+    'Standard: ISO 9001 factory verified',
+    'Warranty: 100% Genuine product warranty',
+    'Packaging: Export standard safety packing'
+  ]
+}
+
+function getProductForCart(product, index = 0) {
+  const title = getDisplayTitle(product, index)
+  return {
+    id: `${product.id}-${(activeSubCategory.value || 'item').toLowerCase().replace(/[^a-z0-9]/g, '-')}`,
+    title: title,
+    name: title,
+    price: `$${product.price}.00`,
+    category: activeSubCategory.value || 'General',
+    image: product.image,
+    brand: product.brand || '',
+    unit: 'Unit',
+    inStock: product.inStock,
+    rating: product.rating,
+    specs: getDisplaySpecs(product, index),
+    subtitle: getDisplaySubtitle(product, index)
+  }
+}
+
+function isProductWishlisted(product, index = 0) {
+  const item = getProductForCart(product, index)
+  return isInWishlist(item.id) || isInWishlist(product.id)
+}
+
+function handleToggleWishlist(product, index = 0) {
+  const item = getProductForCart(product, index)
+  toggleWishlist(item)
+  if (isProductWishlisted(product, index)) {
+    showToast(`"${item.title}" added to wishlist!`)
+  } else {
+    showToast(`"${item.title}" removed from wishlist`)
+  }
+}
+
+function handleAddProduct(product, index = 0, quantity = 1) {
+  const item = getProductForCart(product, index)
+  addToCart(item, quantity)
+  showToast(`"${item.title}" added to cart!`)
+}
+
+// Category selection
+function selectCategoryAndSub(catName, subName) {
+  activeCategory.value = catName
+  activeSubCategory.value = subName
+  expandedCategory.value = catName
+}
+
+function toggleCategoryGroup(catName) {
+  if (expandedCategory.value === catName) {
+    expandedCategory.value = ''
+  } else {
+    expandedCategory.value = catName
+  }
+}
+
+function resetToAllCategories() {
+  activeCategory.value = megaMenuCategories[0]?.name || 'Categories for you'
+  activeSubCategory.value = megaMenuCategories[0]?.items[0]?.name || 'Floor Tiles'
+  expandedCategory.value = activeCategory.value
+}
+
+// Quick View Modal State
+const selectedProduct = ref(null)
+const selectedProductIndex = ref(0)
+const modalQuantity = ref(1)
+const isModalOpen = ref(false)
+
+function openProductModal(product, index = 0) {
+  selectedProduct.value = product
+  selectedProductIndex.value = index
+  modalQuantity.value = 1
+  isModalOpen.value = true
+}
+
+function closeProductModal() {
+  isModalOpen.value = false
+  selectedProduct.value = null
+}
+
+function increaseModalQuantity() {
+  modalQuantity.value++
+}
+
+function decreaseModalQuantity() {
+  if (modalQuantity.value > 1) {
+    modalQuantity.value--
+  }
+}
+
+function handleModalAddToCart() {
+  if (!selectedProduct.value) return
+  handleAddProduct(selectedProduct.value, selectedProductIndex.value, modalQuantity.value)
+  closeProductModal()
+}
+
+function handleModalToggleWishlist() {
+  if (!selectedProduct.value) return
+  handleToggleWishlist(selectedProduct.value, selectedProductIndex.value)
+}
+
+function handleKeydown(e) {
+  if (e.key === 'Escape' && isModalOpen.value) {
+    closeProductModal()
+  }
+}
+
+// Sync categories from Route query
+function syncFromRoute() {
+  if (route.query.category) {
+    activeCategory.value = route.query.category
+    expandedCategory.value = route.query.category
+  }
+  if (route.query.sub) {
+    activeSubCategory.value = route.query.sub
+    if (!route.query.category) {
+      const found = megaMenuCategories.find((c) => c.items.some((i) => i.name === route.query.sub))
+      if (found) {
+        activeCategory.value = found.name
+        expandedCategory.value = found.name
+      }
+    }
+  }
+}
+
+onMounted(() => {
+  syncFromRoute()
+  window.addEventListener('keydown', handleKeydown)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('keydown', handleKeydown)
+})
+
+watch(
+  () => route.query,
+  () => {
+    syncFromRoute()
+  },
+  { deep: true }
+)
 
 // Filters
 const selectedBrand = ref('')
 const sortBy = ref('newest')
 const minPrice = ref(405)
 const maxPrice = ref(1942)
+
+// Dynamic available brands from catalog
+const availableBrands = computed(() => {
+  const brands = new Set(customPcProducts.map((p) => p.brand).filter(Boolean))
+  return Array.from(brands).sort()
+})
 
 // Toast feedback
 const toastText = ref('')
@@ -44,41 +225,10 @@ function showToast(msg) {
   }, 2500)
 }
 
-function handleAddProduct(product) {
-  addToCart({
-    id: product.id,
-    name: product.title,
-    price: `$${product.price}.00`,
-    image: product.image,
-    category: activeSubCategory.value
-  })
-  showToast(`"${product.title}" added to cart!`)
-}
-
-function selectSubCategory(sub) {
-  activeSubCategory.value = sub
-}
-
 function resetPrice() {
   minPrice.value = 405
   maxPrice.value = 1942
 }
-
-// Watch route queries if arriving from mega menu
-onMounted(() => {
-  if (route.query.sub) {
-    activeSubCategory.value = route.query.sub
-  }
-})
-
-watch(
-  () => route.query.sub,
-  (newSub) => {
-    if (newSub) {
-      activeSubCategory.value = newSub
-    }
-  }
-)
 
 // Filter & Sort Logic
 const filteredProducts = computed(() => {
@@ -139,15 +289,31 @@ watch([selectedBrand, sortBy, minPrice, maxPrice, activeSubCategory, itemsPerPag
     <CategoryNav />
 
     <main class="catalog-main container">
-      <!-- Breadcrumbs: Home / All Categories / Computer / Custom PC Builder -->
+      <!-- Breadcrumbs: Home / All Categories / Category / SubCategory -->
       <nav class="catalog-breadcrumbs" aria-label="Breadcrumb">
         <RouterLink to="/" class="catalog-breadcrumb_link">Home</RouterLink>
         <span class="catalog-breadcrumb_sep">/</span>
-        <RouterLink to="/all-categories" class="catalog-breadcrumb_link">All Categories</RouterLink>
-        <span class="catalog-breadcrumb_sep">/</span>
-        <span class="catalog-breadcrumb_link">Computer</span>
-        <span class="catalog-breadcrumb_sep">/</span>
-        <span class="catalog-breadcrumb_current" aria-current="page">{{ activeSubCategory }}</span>
+        <button
+          type="button"
+          class="catalog-breadcrumb_link catalog-breadcrumb_btn"
+          @click="resetToAllCategories"
+        >
+          All Categories
+        </button>
+        <template v-if="activeCategory">
+          <span class="catalog-breadcrumb_sep">/</span>
+          <button
+            type="button"
+            class="catalog-breadcrumb_link catalog-breadcrumb_btn"
+            @click="expandedCategory = activeCategory"
+          >
+            {{ activeCategory }}
+          </button>
+        </template>
+        <template v-if="activeSubCategory">
+          <span class="catalog-breadcrumb_sep">/</span>
+          <span class="catalog-breadcrumb_current" aria-current="page">{{ activeSubCategory }}</span>
+        </template>
       </nav>
 
       <!-- Main Layout: Sidebar + Content -->
@@ -160,36 +326,50 @@ watch([selectedBrand, sortBy, minPrice, maxPrice, activeSubCategory, itemsPerPag
             <div class="sidebar-nav">
               <button
                 type="button"
-                class="sidebar-nav_btn"
-                @click="activeSubCategory = 'Custom PC Builder'"
+                class="sidebar-nav_btn sidebar-all-btn"
+                :class="{ 'is-active-main': !activeCategory || activeCategory === megaMenuCategories[0]?.name }"
+                @click="resetToAllCategories"
               >
                 All Categories
               </button>
 
-              <button
-                type="button"
-                class="sidebar-nav_btn"
-                @click="activeSubCategory = 'Custom PC Builder'"
+              <!-- Dynamic Categories Accordion from megaMenuCategories -->
+              <div
+                v-for="cat in megaMenuCategories"
+                :key="cat.id"
+                class="sidebar-cat-group"
               >
-                Computer
-              </button>
-
-              <ul class="sidebar-sub-list">
-                <li
-                  v-for="sub in subCategories"
-                  :key="sub"
-                  class="sidebar-sub-item"
+                <button
+                  type="button"
+                  class="sidebar-cat-header"
+                  :class="{ 'is-expanded': expandedCategory === cat.name, 'is-active-cat': activeCategory === cat.name }"
+                  @click="toggleCategoryGroup(cat.name)"
                 >
-                  <button
-                    type="button"
-                    class="sidebar-sub-link"
-                    :class="{ 'is-active': activeSubCategory === sub }"
-                    @click="selectSubCategory(sub)"
+                  <span class="sidebar-cat-name">{{ cat.name }}</span>
+                  <span class="sidebar-cat-icon">{{ expandedCategory === cat.name ? '−' : '+' }}</span>
+                </button>
+
+                <!-- Subcategories -->
+                <ul
+                  v-if="expandedCategory === cat.name"
+                  class="sidebar-sub-list"
+                >
+                  <li
+                    v-for="sub in cat.items"
+                    :key="sub.name"
+                    class="sidebar-sub-item"
                   >
-                    {{ sub }}
-                  </button>
-                </li>
-              </ul>
+                    <button
+                      type="button"
+                      class="sidebar-sub-link"
+                      :class="{ 'is-active': activeSubCategory === sub.name }"
+                      @click="selectCategoryAndSub(cat.name, sub.name)"
+                    >
+                      {{ sub.name }}
+                    </button>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
 
@@ -234,6 +414,43 @@ watch([selectedBrand, sortBy, minPrice, maxPrice, activeSubCategory, itemsPerPag
               </button>
             </div>
           </div>
+
+          <!-- Brands Filter Section in Sidebar -->
+          <div class="sidebar-section sidebar-section--brands">
+            <div class="sidebar-brands-header">
+              <h3 class="sidebar-subtitle">Brands</h3>
+              <button
+                v-if="selectedBrand"
+                type="button"
+                class="sidebar-brands-reset"
+                @click="selectedBrand = ''"
+              >
+                Reset
+              </button>
+            </div>
+
+            <div class="sidebar-brands-list">
+              <button
+                type="button"
+                class="sidebar-brand-item"
+                :class="{ 'is-active': selectedBrand === '' }"
+                @click="selectedBrand = ''"
+              >
+                <span class="sidebar-brand-name">All Brands</span>
+              </button>
+
+              <button
+                v-for="b in availableBrands"
+                :key="b"
+                type="button"
+                class="sidebar-brand-item"
+                :class="{ 'is-active': selectedBrand === b }"
+                @click="selectedBrand = selectedBrand === b ? '' : b"
+              >
+                <span class="sidebar-brand-name">{{ b }}</span>
+              </button>
+            </div>
+          </div>
         </aside>
 
         <!-- Right Main Catalog Content -->
@@ -251,8 +468,9 @@ watch([selectedBrand, sortBy, minPrice, maxPrice, activeSubCategory, itemsPerPag
                 <div class="select-wrapper">
                   <select id="brand-select" v-model="selectedBrand" class="filter-select">
                     <option value="">All Brands</option>
-                    <option value="Intel">Intel</option>
-                    <option value="AMD">AMD</option>
+                    <option v-for="b in availableBrands" :key="b" :value="b">
+                      {{ b }}
+                    </option>
                   </select>
                   <svg class="select-caret" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
@@ -278,31 +496,118 @@ watch([selectedBrand, sortBy, minPrice, maxPrice, activeSubCategory, itemsPerPag
             </div>
           </div>
 
+          <!-- Active Filter Chips (Brand) -->
+          <div v-if="selectedBrand" class="active-filter-chips">
+            <span class="active-filter-label">Active Filter:</span>
+            <span class="filter-chip">
+              Brand: <strong>{{ selectedBrand }}</strong>
+              <button
+                type="button"
+                class="filter-chip-remove"
+                title="Remove brand filter"
+                @click="selectedBrand = ''"
+              >
+                ✕
+              </button>
+            </span>
+            <button
+              type="button"
+              class="clear-all-chips"
+              @click="selectedBrand = ''"
+            >
+              Reset brand
+            </button>
+          </div>
+
           <!-- Product Grid (4 columns matching reference screenshot) -->
           <div v-if="filteredProducts.length > 0" class="catalog-grid">
             <article
-              v-for="product in paginatedProducts"
+              v-for="(product, idx) in paginatedProducts"
               :key="product.id"
               class="catalog-card"
             >
-              <!-- Product Image Area -->
+              <!-- Product Image Area with WishList, AddCart, and View Quick -->
               <div class="catalog-card_image-wrap">
                 <img
                   :src="product.image"
-                  :alt="product.title"
+                  :alt="getDisplayTitle(product, (currentPage - 1) * itemsPerPage + idx)"
                   class="catalog-card_img"
                   loading="lazy"
+                  @click="openProductModal(product, (currentPage - 1) * itemsPerPage + idx)"
                 />
+
+                <!-- Top-Right Wishlist Heart Button on Image -->
+                <button
+                  type="button"
+                  class="card-img_wishlist-btn"
+                  :class="{ 'is-in-wishlist': isProductWishlisted(product, (currentPage - 1) * itemsPerPage + idx) }"
+                  :title="isProductWishlisted(product, (currentPage - 1) * itemsPerPage + idx) ? 'Remove from Wishlist' : 'Add to Wishlist'"
+                  :aria-label="isProductWishlisted(product, (currentPage - 1) * itemsPerPage + idx) ? 'Remove from Wishlist' : 'Add to Wishlist'"
+                  @click.stop="handleToggleWishlist(product, (currentPage - 1) * itemsPerPage + idx)"
+                >
+                  <svg viewBox="0 0 24 24" :fill="isProductWishlisted(product, (currentPage - 1) * itemsPerPage + idx) ? '#ef4444' : 'none'" :stroke="isProductWishlisted(product, (currentPage - 1) * itemsPerPage + idx) ? '#ef4444' : '#6b7280'" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                  </svg>
+                </button>
+
+                <!-- Image Overlay with Action Buttons on Hover -->
+                <div class="card-img_overlay">
+                  <!-- View Quick Button -->
+                  <button
+                    type="button"
+                    class="card-img_action-btn card-img_action-btn--quick"
+                    title="View Quick"
+                    @click.stop="openProductModal(product, (currentPage - 1) * itemsPerPage + idx)"
+                  >
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14">
+                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                      <circle cx="12" cy="12" r="3" />
+                    </svg>
+                    <span>View Quick</span>
+                  </button>
+
+                  <!-- Add to Cart Button -->
+                  <button
+                    type="button"
+                    class="card-img_action-btn card-img_action-btn--cart"
+                    title="Add to Cart"
+                    @click.stop="handleAddProduct(product, (currentPage - 1) * itemsPerPage + idx)"
+                  >
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14">
+                      <circle cx="9" cy="21" r="1" />
+                      <circle cx="20" cy="21" r="1" />
+                      <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                    </svg>
+                    <span>Add Cart</span>
+                  </button>
+
+                  <!-- Wishlist Button -->
+                  <button
+                    type="button"
+                    class="card-img_action-btn card-img_action-btn--wish"
+                    :class="{ 'is-in-wishlist': isProductWishlisted(product, (currentPage - 1) * itemsPerPage + idx) }"
+                    title="Wishlist"
+                    @click.stop="handleToggleWishlist(product, (currentPage - 1) * itemsPerPage + idx)"
+                  >
+                    <svg viewBox="0 0 24 24" :fill="isProductWishlisted(product, (currentPage - 1) * itemsPerPage + idx) ? '#ef4444' : 'none'" :stroke="isProductWishlisted(product, (currentPage - 1) * itemsPerPage + idx) ? '#ef4444' : 'currentColor'" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14">
+                      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                    </svg>
+                    <span>WishList</span>
+                  </button>
+                </div>
               </div>
 
-              <!-- Price Row with Cart Button -->
+              <!-- Price Row with Brand Badge and Cart Button -->
               <div class="catalog-card_price-row">
-                <span class="catalog-card_price">${{ product.price }}</span>
+                <div class="catalog-card_price-group">
+                  <span class="catalog-card_price">${{ product.price }}</span>
+                  <span v-if="product.brand" class="catalog-card_brand-tag">{{ product.brand }}</span>
+                </div>
                 <button
                   type="button"
                   class="catalog-card_cart-btn"
                   title="Add to cart"
-                  @click="handleAddProduct(product)"
+                  @click="handleAddProduct(product, (currentPage - 1) * itemsPerPage + idx)"
                 >
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="9" cy="21" r="1" />
@@ -312,9 +617,12 @@ watch([selectedBrand, sortBy, minPrice, maxPrice, activeSubCategory, itemsPerPag
                 </button>
               </div>
 
-              <!-- Product Title -->
-              <h2 class="catalog-card_title">
-                {{ product.title }}
+              <!-- Product Title (Follows Main Title / Active SubCategory) -->
+              <h2
+                class="catalog-card_title"
+                @click="openProductModal(product, (currentPage - 1) * itemsPerPage + idx)"
+              >
+                {{ getDisplayTitle(product, (currentPage - 1) * itemsPerPage + idx) }}
               </h2>
 
               <!-- Rating & Stock Status -->
@@ -334,7 +642,7 @@ watch([selectedBrand, sortBy, minPrice, maxPrice, activeSubCategory, itemsPerPag
 
               <!-- Subtitle / Spec Summary Headline -->
               <p class="catalog-card_subtitle">
-                {{ product.subtitle }}
+                {{ getDisplaySubtitle(product, (currentPage - 1) * itemsPerPage + idx) }}
               </p>
 
               <!-- Dashed Divider -->
@@ -343,8 +651,8 @@ watch([selectedBrand, sortBy, minPrice, maxPrice, activeSubCategory, itemsPerPag
               <!-- Technical Specifications Bullets -->
               <ul class="catalog-card_specs">
                 <li
-                  v-for="(spec, idx) in product.specs"
-                  :key="idx"
+                  v-for="(spec, sIdx) in getDisplaySpecs(product, (currentPage - 1) * itemsPerPage + idx)"
+                  :key="sIdx"
                   class="catalog-card_spec-item"
                 >
                   <span class="spec-dot">•</span>
@@ -423,6 +731,125 @@ watch([selectedBrand, sortBy, minPrice, maxPrice, activeSubCategory, itemsPerPag
       </div>
     </main>
 
+    <!-- Quick View / Product Detail Modal Dialog -->
+    <Teleport to="body">
+      <Transition name="modal-fade">
+        <div
+          v-if="isModalOpen && selectedProduct"
+          class="catalog-modal_backdrop"
+          role="dialog"
+          aria-modal="true"
+          :aria-label="getDisplayTitle(selectedProduct, selectedProductIndex)"
+          @click.self="closeProductModal"
+        >
+          <div class="catalog-modal_card">
+            <button
+              type="button"
+              class="catalog-modal_close"
+              aria-label="Close"
+              @click="closeProductModal"
+            >
+              ✕
+            </button>
+
+            <div class="catalog-modal_grid">
+              <!-- Left: Image Box -->
+              <div class="catalog-modal_image-box">
+                <img
+                  :src="selectedProduct.image"
+                  :alt="getDisplayTitle(selectedProduct, selectedProductIndex)"
+                  class="catalog-modal_img"
+                />
+              </div>
+
+              <!-- Right: Content & Actions -->
+              <div class="catalog-modal_content">
+                <div class="catalog-modal_badge-row">
+                  <span class="catalog-modal_category">{{ activeSubCategory }}</span>
+                  <span v-if="selectedProduct.brand" class="catalog-modal_brand-tag">Brand: {{ selectedProduct.brand }}</span>
+                  <span class="catalog-modal_stock">In Stock</span>
+                </div>
+
+                <h2 class="catalog-modal_title">
+                  {{ getDisplayTitle(selectedProduct, selectedProductIndex) }}
+                </h2>
+
+                <div class="catalog-modal_price-row">
+                  <span class="catalog-modal_price">${{ selectedProduct.price }}.00</span>
+                  <div class="catalog-modal_rating">
+                    <span v-for="star in 5" :key="star" class="star-icon" :class="{ 'is-filled': star <= selectedProduct.rating }">★</span>
+                  </div>
+                </div>
+
+                <p class="catalog-modal_desc">
+                  {{ getDisplaySubtitle(selectedProduct, selectedProductIndex) }}
+                </p>
+
+                <!-- Technical Specs -->
+                <ul class="catalog-modal_specs">
+                  <li
+                    v-for="(spec, sIdx) in getDisplaySpecs(selectedProduct, selectedProductIndex)"
+                    :key="sIdx"
+                    class="catalog-modal_spec-item"
+                  >
+                    <span class="spec-dot">•</span>
+                    <span>{{ spec }}</span>
+                  </li>
+                </ul>
+
+                <!-- Quantity & Actions -->
+                <div class="catalog-modal_actions">
+                  <div class="modal-quantity-control">
+                    <button
+                      type="button"
+                      class="modal-qty-btn"
+                      :disabled="modalQuantity <= 1"
+                      @click="decreaseModalQuantity"
+                    >
+                      −
+                    </button>
+                    <span class="modal-qty-val">{{ modalQuantity }}</span>
+                    <button
+                      type="button"
+                      class="modal-qty-btn"
+                      @click="increaseModalQuantity"
+                    >
+                      +
+                    </button>
+                  </div>
+
+                  <button
+                    type="button"
+                    class="modal-cart-btn"
+                    @click="handleModalAddToCart"
+                  >
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
+                      <circle cx="9" cy="21" r="1" />
+                      <circle cx="20" cy="21" r="1" />
+                      <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                    </svg>
+                    <span>Add to Cart</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    class="modal-wish-btn"
+                    :class="{ 'is-in-wishlist': isProductWishlisted(selectedProduct, selectedProductIndex) }"
+                    @click="handleModalToggleWishlist"
+                  >
+                    <svg viewBox="0 0 24 24" :fill="isProductWishlisted(selectedProduct, selectedProductIndex) ? '#ef4444' : 'none'" :stroke="isProductWishlisted(selectedProduct, selectedProductIndex) ? '#ef4444' : 'currentColor'" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
+                      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                    </svg>
+                    <span>{{ isProductWishlisted(selectedProduct, selectedProductIndex) ? 'Wishlisted' : 'Wishlist' }}</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Transition>
+    </Teleport>
+
     <!-- Toast Notification -->
     <transition name="toast-fade">
       <div v-if="isToastOpen" class="catalog-toast">
@@ -466,10 +893,20 @@ watch([selectedBrand, sortBy, minPrice, maxPrice, activeSubCategory, itemsPerPag
 .catalog-breadcrumb_link {
   color: #6b7280;
   transition: color 0.2s ease;
+  text-decoration: none;
 }
 
 .catalog-breadcrumb_link:hover {
   color: #111827;
+}
+
+.catalog-breadcrumb_btn {
+  background: transparent;
+  border: none;
+  padding: 0;
+  font-family: inherit;
+  font-size: 13px;
+  cursor: pointer;
 }
 
 .catalog-breadcrumb_sep {
@@ -478,8 +915,8 @@ watch([selectedBrand, sortBy, minPrice, maxPrice, activeSubCategory, itemsPerPag
 }
 
 .catalog-breadcrumb_current {
-  color: #4b5563;
-  font-weight: 500;
+  color: #111827;
+  font-weight: 600;
 }
 
 /* Layout Grid: Sidebar + Content */
@@ -514,7 +951,7 @@ watch([selectedBrand, sortBy, minPrice, maxPrice, activeSubCategory, itemsPerPag
 .sidebar-nav {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
 }
 
 .sidebar-nav_btn {
@@ -524,29 +961,7 @@ watch([selectedBrand, sortBy, minPrice, maxPrice, activeSubCategory, itemsPerPag
   font-size: 13px;
   font-weight: 600;
   color: #1f2937;
-  padding: 3px 0;
-  cursor: pointer;
-  text-align: left;
-  background: transparent;
-  transition: color 0.15s ease;
-}
-
-.sidebar-nav_btn:hover {
-  color: #111827;
-}
-
-.sidebar-sub-list {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  margin-top: 4px;
-  margin-left: 12px;
-}
-
-.sidebar-sub-link {
-  font-size: 13px;
-  color: #4b5563;
-  padding: 3px 0;
+  padding: 4px 0;
   cursor: pointer;
   text-align: left;
   background: transparent;
@@ -554,14 +969,93 @@ watch([selectedBrand, sortBy, minPrice, maxPrice, activeSubCategory, itemsPerPag
   transition: color 0.15s ease;
 }
 
+.sidebar-nav_btn:hover {
+  color: #111827;
+}
+
+.sidebar-all-btn {
+  font-size: 13px;
+  font-weight: 700;
+  color: #111827;
+  padding: 4px 0 6px;
+  border-bottom: 1px solid #f1f5f9;
+  margin-bottom: 4px;
+}
+
+.sidebar-cat-group {
+  margin-bottom: 2px;
+}
+
+.sidebar-cat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  text-align: left;
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+  padding: 5px 6px;
+  border-radius: 4px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.sidebar-cat-header:hover {
+  color: #111827;
+  background: #f3f4f6;
+}
+
+.sidebar-cat-header.is-active-cat {
+  color: #111827;
+  font-weight: 700;
+}
+
+.sidebar-cat-name {
+  flex: 1;
+}
+
+.sidebar-cat-icon {
+  font-size: 14px;
+  font-weight: 700;
+  color: #9ca3af;
+  margin-left: 6px;
+}
+
+.sidebar-sub-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: 2px;
+  margin-bottom: 6px;
+  margin-left: 6px;
+  padding-left: 8px;
+  border-left: 2px solid #e5e7eb;
+}
+
+.sidebar-sub-link {
+  font-size: 13px;
+  color: #4b5563;
+  padding: 4px 6px;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: left;
+  background: transparent;
+  border: none;
+  transition: all 0.15s ease;
+}
+
 .sidebar-sub-link:hover {
   color: #111827;
+  background: #f3f4f6;
 }
 
 .sidebar-sub-link.is-active {
   color: #111827;
-  font-weight: 700;
-  background: transparent;
+  font-weight: 600;
+  background: #e5e7eb;
 }
 
 /* Price Range Slider */
@@ -640,6 +1134,124 @@ watch([selectedBrand, sortBy, minPrice, maxPrice, activeSubCategory, itemsPerPag
   color: #1f2937;
   margin-top: 6px;
   cursor: pointer;
+}
+
+/* Sidebar Brands Section */
+.sidebar-section--brands {
+  border-top: 1px solid #f1f5f9;
+  padding-top: 20px;
+}
+
+.sidebar-brands-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.sidebar-brands-header .sidebar-subtitle {
+  margin: 0;
+}
+
+.sidebar-brands-reset {
+  font-size: 11px;
+  color: #2563eb;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+}
+
+.sidebar-brands-list {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.sidebar-brand-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 5px 6px;
+  border-radius: 4px;
+  font-size: 13px;
+  color: #4b5563;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-align: left;
+}
+
+.sidebar-brand-item:hover {
+  background: #f3f4f6;
+  color: #111827;
+}
+
+.sidebar-brand-item.is-active {
+  background: #e5e7eb;
+  color: #111827;
+  font-weight: 600;
+}
+
+/* Active Filter Chips */
+.active-filter-chips {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+
+.active-filter-label {
+  font-size: 12px;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.filter-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #111827;
+  background: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  padding: 3px 10px;
+  border-radius: 16px;
+}
+
+.filter-chip strong {
+  color: #111827;
+}
+
+.filter-chip-remove {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #6b7280;
+  font-size: 11px;
+  padding: 0 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.15s ease;
+}
+
+.filter-chip-remove:hover {
+  color: #ef4444;
+}
+
+.clear-all-chips {
+  background: none;
+  border: none;
+  font-size: 12px;
+  color: #2563eb;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
 }
 
 /* Right Content Area */
@@ -741,16 +1353,19 @@ watch([selectedBrand, sortBy, minPrice, maxPrice, activeSubCategory, itemsPerPag
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
 }
 
-/* Product Image Box */
+/* Product Image Box with Overlay and Action Buttons */
 .catalog-card_image-wrap {
+  position: relative;
   width: 100%;
-  height: 160px;
+  height: 180px;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 12px;
   overflow: hidden;
   background: #ffffff;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
 .catalog-card_img {
@@ -764,6 +1379,89 @@ watch([selectedBrand, sortBy, minPrice, maxPrice, activeSubCategory, itemsPerPag
   transform: scale(1.04);
 }
 
+/* Floating Wishlist Heart Button on Image */
+.card-img_wishlist-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s ease;
+  z-index: 3;
+}
+
+.card-img_wishlist-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.card-img_wishlist-btn.is-in-wishlist {
+  border-color: #fecaca;
+  background: #fff5f5;
+}
+
+/* Hover Overlay Action Bar on Image (View Quick, Add Cart, WishList) */
+.card-img_overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 8px 4px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.72) 0%, rgba(0, 0, 0, 0.3) 70%, transparent 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: all 0.25s ease;
+  z-index: 2;
+}
+
+.catalog-card:hover .card-img_overlay {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card-img_action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 5px 6px;
+  font-size: 10px;
+  font-weight: 600;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  background: #ffffff;
+  color: #1f2937;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.card-img_action-btn:hover {
+  background: #111827;
+  color: #ffffff;
+}
+
+.card-img_action-btn--wish.is-in-wishlist {
+  color: #ef4444;
+}
+
+.card-img_action-btn--wish.is-in-wishlist:hover {
+  background: #ef4444;
+  color: #ffffff;
+}
+
 /* Price Row */
 .catalog-card_price-row {
   display: flex;
@@ -772,11 +1470,28 @@ watch([selectedBrand, sortBy, minPrice, maxPrice, activeSubCategory, itemsPerPag
   margin-bottom: 6px;
 }
 
+.catalog-card_price-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .catalog-card_price {
   font-size: 20px;
   font-weight: 700;
   color: #111827;
   letter-spacing: -0.02em;
+}
+
+.catalog-card_brand-tag {
+  font-size: 11px;
+  font-weight: 600;
+  color: #4b5563;
+  background: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  padding: 1px 6px;
+  border-radius: 4px;
+  letter-spacing: 0.01em;
 }
 
 .catalog-card_cart-btn {
@@ -808,6 +1523,12 @@ watch([selectedBrand, sortBy, minPrice, maxPrice, activeSubCategory, itemsPerPag
   color: #111827;
   margin: 0 0 6px;
   line-height: 1.35;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.catalog-card_title:hover {
+  color: #2563eb;
 }
 
 /* Meta: Stars + Stock */
@@ -1081,6 +1802,286 @@ watch([selectedBrand, sortBy, minPrice, maxPrice, activeSubCategory, itemsPerPag
   .catalog-filters {
     width: 100%;
     justify-content: space-between;
+  }
+}
+
+/* Quick View Modal Styles */
+.catalog-modal_backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(4px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.catalog-modal_card {
+  background: #ffffff;
+  border-radius: 12px;
+  max-width: 760px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  position: relative;
+  padding: 24px;
+}
+
+.catalog-modal_close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: #f3f4f6;
+  color: #4b5563;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+  z-index: 5;
+}
+
+.catalog-modal_close:hover {
+  background: #e5e7eb;
+  color: #111827;
+}
+
+.catalog-modal_grid {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.catalog-modal_image-box {
+  aspect-ratio: 1;
+  background: #f9fafb;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #e5e7eb;
+  padding: 12px;
+}
+
+.catalog-modal_img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.catalog-modal_content {
+  display: flex;
+  flex-direction: column;
+}
+
+.catalog-modal_badge-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.catalog-modal_category {
+  font-size: 12px;
+  font-weight: 600;
+  color: #4b5563;
+  background: #f3f4f6;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.catalog-modal_brand-tag {
+  font-size: 12px;
+  font-weight: 600;
+  color: #1d4ed8;
+  background: #eff6ff;
+  border: 1px solid #dbeafe;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.catalog-modal_stock {
+  font-size: 12px;
+  font-weight: 600;
+  color: #16a34a;
+  background: #dcfce7;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.catalog-modal_title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #111827;
+  line-height: 1.35;
+  margin: 0 0 10px;
+}
+
+.catalog-modal_price-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.catalog-modal_price {
+  font-size: 22px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.catalog-modal_rating {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.catalog-modal_desc {
+  font-size: 13px;
+  color: #4b5563;
+  line-height: 1.5;
+  margin: 0 0 14px;
+}
+
+.catalog-modal_specs {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 18px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: #f9fafb;
+  padding: 12px 14px;
+  border-radius: 6px;
+  border: 1px solid #f3f4f6;
+}
+
+.catalog-modal_spec-item {
+  font-size: 12px;
+  color: #374151;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.catalog-modal_actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid #f3f4f6;
+}
+
+.modal-quantity-control {
+  display: flex;
+  align-items: center;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.modal-qty-btn {
+  width: 32px;
+  height: 36px;
+  background: #f9fafb;
+  border: none;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #374151;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s ease;
+}
+
+.modal-qty-btn:hover:not(:disabled) {
+  background: #e5e7eb;
+}
+
+.modal-qty-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.modal-qty-val {
+  width: 36px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.modal-cart-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #111827;
+  color: #ffffff;
+  padding: 9px 18px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.modal-cart-btn:hover {
+  background: #1f2937;
+}
+
+.modal-wish-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #ffffff;
+  color: #374151;
+  border: 1px solid #d1d5db;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.modal-wish-btn:hover {
+  border-color: #9ca3af;
+  background: #f9fafb;
+}
+
+.modal-wish-btn.is-in-wishlist {
+  border-color: #ef4444;
+  color: #ef4444;
+}
+
+/* Modal Transition */
+.modal-fade-enter-active,
+.modal-fade-leave-active {
+  transition: opacity 0.2s ease;
+}
+
+.modal-fade-enter-from,
+.modal-fade-leave-to {
+  opacity: 0;
+}
+
+@media (max-width: 640px) {
+  .catalog-modal_grid {
+    grid-template-columns: 1fr;
   }
 }
 </style>
