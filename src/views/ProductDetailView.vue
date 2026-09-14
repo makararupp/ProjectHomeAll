@@ -932,18 +932,19 @@ onUnmounted(() => {
   transition: color 0.18s ease, transform 0.18s ease;
 }
 
-/* Brand Green Active & Hover states matching main project theme */
+/* Normal neutral Active & Hover states */
 .category-menu-row.is-active,
 .category-menu-row.is-hovered,
 .category-menu-row:hover {
-  background-color: var(--color-brand, #34c759) !important;
-  color: #ffffff !important;
+  background-color: #edeff2 !important;
+  color: #111827 !important;
+  font-weight: 600;
 }
 
 .category-menu-row.is-active .category-menu-row_chevron,
 .category-menu-row.is-hovered .category-menu-row_chevron,
 .category-menu-row:hover .category-menu-row_chevron {
-  color: #ffffff !important;
+  color: #111827 !important;
   transform: translateX(2px);
 }
 
@@ -989,15 +990,15 @@ onUnmounted(() => {
 }
 
 .category-flyout-item:hover {
-  background-color: #f0fdf4;
-  color: var(--color-brand-dark, #269c46);
+  background-color: #f3f4f6;
+  color: #111827;
   font-weight: 600;
   padding-left: 26px;
 }
 
 .category-flyout-item.is-active-sub {
-  background-color: #eaf8ee;
-  color: var(--color-brand-dark, #269c46);
+  background-color: #edeff2;
+  color: #111827;
   font-weight: 700;
 }
 
