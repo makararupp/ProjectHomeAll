@@ -8,12 +8,14 @@ import { customPcProducts } from '@/data/customPcProducts'
 import { megaMenuCategories } from '@/data/megaMenuData'
 import { useCart } from '@/composables/useCart'
 import { useWishlist } from '@/composables/useWishlist'
+import { useCompare } from '@/composables/useCompare'
 import { useI18n } from '@/composables/useI18n'
 
 const route = useRoute()
 const { t, isKhmer } = useI18n()
 const { addToCart } = useCart()
 const { toggleWishlist, isInWishlist } = useWishlist()
+const { toggleCompare, isInCompare, compareCount } = useCompare()
 
 // Active categories state
 const activeCategory = ref(megaMenuCategories[0]?.name || 'Categories for you')
@@ -99,22 +101,18 @@ function handleAddProduct(product, index = 0, quantity = 1) {
 }
 
 // Compare state & actions
-const compareList = ref([])
-
 function isProductCompared(product, index = 0) {
   const item = getProductForCart(product, index)
-  return compareList.value.includes(item.id)
+  return isInCompare(item.id) || isInCompare(product.id)
 }
 
 function handleToggleCompare(product, index = 0) {
   const item = getProductForCart(product, index)
-  const foundIdx = compareList.value.indexOf(item.id)
-  if (foundIdx > -1) {
-    compareList.value.splice(foundIdx, 1)
-    showToast(`"${item.title}" removed from compare`)
+  toggleCompare(item)
+  if (isProductCompared(product, index)) {
+    showToast(`"${item.title}" added to comparison!`)
   } else {
-    compareList.value.push(item.id)
-    showToast(`"${item.title}" added to compare list!`)
+    showToast(`"${item.title}" removed from comparison`)
   }
 }
 

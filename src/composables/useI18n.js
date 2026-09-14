@@ -18,7 +18,8 @@ export const translations = {
       signIn: 'Sign in',
       register: 'Register',
       cart: 'Cart',
-      wishlist: 'Wishlist'
+      wishlist: 'Wishlist',
+      compare: 'Compare'
     },
     hero: {
       eyebrow: 'BUSINESS SOLUTIONS',
@@ -206,7 +207,8 @@ export const translations = {
       signIn: 'ចូលគណនី',
       register: 'ចុះឈ្មោះ',
       cart: 'កន្ត្រក',
-      wishlist: 'ទំនិញពេញចិត្ត'
+      wishlist: 'ទំនិញពេញចិត្ត',
+      compare: 'ប្រៀបធៀប'
     },
     hero: {
       eyebrow: 'ដំណោះស្រាយអាជីវកម្ម',

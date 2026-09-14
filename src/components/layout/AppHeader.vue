@@ -7,10 +7,12 @@ import logoImg from '@/assets/images/logo.jpg'
 import { useI18n } from '@/composables/useI18n'
 import { useCart } from '@/composables/useCart'
 import { useWishlist } from '@/composables/useWishlist'
+import { useCompare } from '@/composables/useCompare'
 
 const { t, setLocale, currentLocale } = useI18n()
 const { totalCount, isCartBumping, toastMessage, isToastVisible, hideCartToast } = useCart()
 const { wishlistCount } = useWishlist()
+const { compareCount } = useCompare()
 
 defineProps({
   showSearch: {
@@ -148,6 +150,25 @@ onUnmounted(() => {
           </div>
         </transition>
       </div>
+
+      <!-- Compare Action (In front of Wishlist) -->
+      <RouterLink to="/all-categories" class="header-action-item" title="Compare">
+        <div class="header-action-item_icon-wrap">
+          <svg class="header-action-item_icon header-action-item_icon--compare" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 0 1 15-6.7L21 8" />
+            <path d="M21 3v5h-5" />
+            <path d="M21 12a9 9 0 0 1-15 6.7L3 16" />
+            <path d="M3 21v-5h5" />
+          </svg>
+          <span
+            class="header-action-item_badge"
+            :class="{ 'has-items': compareCount > 0 }"
+          >
+            {{ compareCount > 99 ? '99+' : compareCount }}
+          </span>
+        </div>
+        <span class="header-action-item_title">{{ t('header.compare', 'Compare') }}</span>
+      </RouterLink>
 
       <!-- Wishlist Action (matching reference image) -->
       <RouterLink to="/wishlist" class="header-action-item" title="Wishlist">
@@ -521,12 +542,20 @@ onUnmounted(() => {
   transition: color var(--transition-fast);
 }
 
+.header-action-item_icon--compare {
+  color: #374151;
+}
+
 .header-action-item_icon--wishlist {
   color: #3b82f6;
 }
 
 .header-action-item_icon--cart {
   color: #374151;
+}
+
+.header-action-item:hover .header-action-item_icon--compare {
+  color: #0284c7;
 }
 
 .header-action-item:hover .header-action-item_icon--cart {
