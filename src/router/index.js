@@ -25,6 +25,12 @@ const router = createRouter({
       component: () => import('@/views/CartView.vue')
     },
     {
+      path: '/wishlist',
+      alias: ['/Wishlist'],
+      name: 'wishlist',
+      component: () => import('@/views/WishlistView.vue')
+    },
+    {
       path: '/new',
       name: 'new',
       component: () => import('@/views/NewView.vue')

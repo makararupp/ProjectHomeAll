@@ -181,6 +181,15 @@ export const translations = {
       grilledChickenRicePlatter: 'Grilled Chicken Rice Platter',
       crispyChickenPlatter: 'Crispy Chicken & Fries Basket',
       bbqPartyFeast: 'Family BBQ & Burger Party Feast'
+    },
+    wishlistPage: {
+      breadcrumbMain: 'Main',
+      breadcrumbWishlist: 'Wishlist',
+      title: 'Wishlist',
+      emptyTitle: "There isn't anything added yet",
+      clearAll: 'Clear Wishlist',
+      addToCart: 'Add to Cart',
+      remove: 'Remove'
     }
   },
   km: {
@@ -360,6 +369,15 @@ export const translations = {
       grilledChickenRicePlatter: 'បាយសាច់មាន់អាំងចង្កាក់ និងដំឡូងបារាំង',
       crispyChickenPlatter: 'កន្ត្រកមាន់បំពង និងដំឡូងបារាំង',
       bbqPartyFeast: 'ឈុតជប់លៀង BBQ និងប៊ឺហ្គឺគ្រួសារ'
+    },
+    wishlistPage: {
+      breadcrumbMain: 'ទំព័រដើម',
+      breadcrumbWishlist: 'ទំនិញពេញចិត្ត',
+      title: 'ទំនិញពេញចិត្ត',
+      emptyTitle: 'មិនទាន់មានទំនិញត្រូវបានបន្ថែមនៅឡើយទេ',
+      clearAll: 'សម្អាតទាំងអស់',
+      addToCart: 'ដាក់ក្នុងកន្ត្រក',
+      remove: 'លុបចេញ'
     }
   }
 }
