@@ -866,7 +866,7 @@ onUnmounted(() => {
 .category-menu-clear {
   background: none;
   border: none;
-  color: var(--color-brand-dark, #269c46);
+  color: #6b7280;
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
@@ -875,7 +875,7 @@ onUnmounted(() => {
 }
 
 .category-menu-clear:hover {
-  color: var(--color-brand, #34c759);
+  color: #111827;
   text-decoration: underline;
 }
 
@@ -932,19 +932,23 @@ onUnmounted(() => {
   transition: color 0.18s ease, transform 0.18s ease;
 }
 
-/* Normal soft mint brand theme Active & Hover states */
+/* Normal neutral Active & Hover states */
 .category-menu-row.is-active,
 .category-menu-row.is-hovered,
 .category-menu-row:hover {
-  background-color: #eaf8ee !important;
-  color: var(--color-brand-dark, #269c46) !important;
+  background-color: #f3f4f6 !important;
+  color: #111827 !important;
   font-weight: 600;
+}
+
+.category-menu-row.is-active {
+  background-color: #e5e7eb !important;
 }
 
 .category-menu-row.is-active .category-menu-row_chevron,
 .category-menu-row.is-hovered .category-menu-row_chevron,
 .category-menu-row:hover .category-menu-row_chevron {
-  color: var(--color-brand-dark, #269c46) !important;
+  color: #111827 !important;
   transform: translateX(2px);
 }
 
@@ -990,15 +994,15 @@ onUnmounted(() => {
 }
 
 .category-flyout-item:hover {
-  background-color: #f0fdf4;
-  color: var(--color-brand-dark, #269c46);
+  background-color: #f3f4f6;
+  color: #111827;
   font-weight: 600;
   padding-left: 26px;
 }
 
 .category-flyout-item.is-active-sub {
-  background-color: #eaf8ee;
-  color: var(--color-brand-dark, #269c46);
+  background-color: #e5e7eb;
+  color: #111827;
   font-weight: 700;
 }
 
@@ -1034,7 +1038,7 @@ onUnmounted(() => {
 }
 
 .toolbar:focus-within {
-  border-color: var(--color-brand);
+  border-color: #9ca3af;
 }
 
 .toolbar_search {
