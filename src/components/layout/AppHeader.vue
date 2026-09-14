@@ -206,7 +206,7 @@ onUnmounted(() => {
 
       <div v-if="showAuth" class="app-header_auth">
         <RouterLink to="/sign-in" class="app-header_auth-link">{{ t('header.signIn', 'Sign in') }}</RouterLink>
-        <RouterLink to="/register" class="app-header_auth-link app-header_auth-link--strong">{{ t('header.register', 'Register') }}</RouterLink>
+        <RouterLink to="/register" class="app-header_auth-link">{{ t('header.register', 'Register') }}</RouterLink>
       </div>
     </div>
 

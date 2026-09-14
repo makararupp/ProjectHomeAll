@@ -309,14 +309,14 @@ watch([selectedBrand, sortBy, minPrice, maxPrice, activeSubCategory, itemsPerPag
     <main class="catalog-main container">
       <!-- Breadcrumbs: Home / All Categories / Category / SubCategory -->
       <nav class="catalog-breadcrumbs" aria-label="Breadcrumb">
-        <RouterLink to="/" class="catalog-breadcrumb_link">Home</RouterLink>
+        <RouterLink to="/" class="catalog-breadcrumb_link">{{ t('catalog.breadcrumbHome', 'Home') }}</RouterLink>
         <span class="catalog-breadcrumb_sep">/</span>
         <button
           type="button"
           class="catalog-breadcrumb_link catalog-breadcrumb_btn"
           @click="resetToAllCategories"
         >
-          All Categories
+          {{ t('catalog.allCategories', 'All Categories') }}
         </button>
         <template v-if="activeCategory">
           <span class="catalog-breadcrumb_sep">/</span>
@@ -339,7 +339,7 @@ watch([selectedBrand, sortBy, minPrice, maxPrice, activeSubCategory, itemsPerPag
         <!-- Left Sidebar Filter -->
         <aside class="catalog-sidebar">
           <div class="sidebar-section">
-            <h2 class="sidebar-title">Categories</h2>
+            <h2 class="sidebar-title">{{ t('catalog.categoriesTitle', 'Categories') }}</h2>
             
             <div class="sidebar-nav">
               <button
@@ -348,7 +348,7 @@ watch([selectedBrand, sortBy, minPrice, maxPrice, activeSubCategory, itemsPerPag
                 :class="{ 'is-active-main': !activeCategory || activeCategory === megaMenuCategories[0]?.name }"
                 @click="resetToAllCategories"
               >
-                All Categories
+                {{ t('catalog.allCategories', 'All Categories') }}
               </button>
 
               <!-- Dynamic Categories Accordion from megaMenuCategories -->
@@ -393,7 +393,7 @@ watch([selectedBrand, sortBy, minPrice, maxPrice, activeSubCategory, itemsPerPag
 
           <!-- Price Range Section -->
           <div class="sidebar-section sidebar-section--price">
-            <h3 class="sidebar-subtitle">Price range</h3>
+            <h3 class="sidebar-subtitle">{{ t('catalog.priceRange', 'Price range') }}</h3>
 
             <!-- Dual Range Sliders -->
             <div class="price-slider-wrap">
@@ -428,7 +428,7 @@ watch([selectedBrand, sortBy, minPrice, maxPrice, activeSubCategory, itemsPerPag
                 class="price-reset-btn"
                 @click="resetPrice"
               >
-                Price
+                {{ t('catalog.price', 'Price') }}
               </button>
             </div>
           </div>
@@ -436,14 +436,14 @@ watch([selectedBrand, sortBy, minPrice, maxPrice, activeSubCategory, itemsPerPag
           <!-- Brands Filter Section in Sidebar -->
           <div class="sidebar-section sidebar-section--brands">
             <div class="sidebar-brands-header">
-              <h3 class="sidebar-subtitle">Brands</h3>
+              <h3 class="sidebar-subtitle">{{ t('catalog.brands', 'Brands') }}</h3>
               <button
                 v-if="selectedBrand"
                 type="button"
                 class="sidebar-brands-reset"
                 @click="selectedBrand = ''"
               >
-                Reset
+                {{ t('catalog.reset', 'Reset') }}
               </button>
             </div>
 
@@ -454,7 +454,7 @@ watch([selectedBrand, sortBy, minPrice, maxPrice, activeSubCategory, itemsPerPag
                 :class="{ 'is-active': selectedBrand === '' }"
                 @click="selectedBrand = ''"
               >
-                <span class="sidebar-brand-name">All Brands</span>
+                <span class="sidebar-brand-name">{{ t('catalog.allBrands', 'All Brands') }}</span>
               </button>
 
               <button
@@ -482,10 +482,10 @@ watch([selectedBrand, sortBy, minPrice, maxPrice, activeSubCategory, itemsPerPag
             <div class="catalog-filters">
               <!-- Brands Dropdown -->
               <div class="filter-group">
-                <label for="brand-select" class="filter-label">Brands</label>
+                <label for="brand-select" class="filter-label">{{ t('catalog.brands', 'Brands') }}</label>
                 <div class="select-wrapper">
                   <select id="brand-select" v-model="selectedBrand" class="filter-select">
-                    <option value="">All Brands</option>
+                    <option value="">{{ t('catalog.allBrands', 'All Brands') }}</option>
                     <option v-for="b in availableBrands" :key="b" :value="b">
                       {{ b }}
                     </option>
@@ -498,13 +498,13 @@ watch([selectedBrand, sortBy, minPrice, maxPrice, activeSubCategory, itemsPerPag
 
               <!-- Sort By Dropdown -->
               <div class="filter-group">
-                <label for="sort-select" class="filter-label">Sort by</label>
+                <label for="sort-select" class="filter-label">{{ t('catalog.sortBy', 'Sort by') }}</label>
                 <div class="select-wrapper">
                   <select id="sort-select" v-model="sortBy" class="filter-select">
-                    <option value="newest">Newest</option>
-                    <option value="price-asc">Price: Low to High</option>
-                    <option value="price-desc">Price: High to Low</option>
-                    <option value="rating">Top Rated</option>
+                    <option value="newest">{{ t('catalog.newest', 'Newest') }}</option>
+                    <option value="price-asc">{{ t('catalog.priceAsc', 'Price: Low to High') }}</option>
+                    <option value="price-desc">{{ t('catalog.priceDesc', 'Price: High to Low') }}</option>
+                    <option value="rating">{{ t('catalog.topRated', 'Top Rated') }}</option>
                   </select>
                   <svg class="select-caret" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
@@ -516,7 +516,7 @@ watch([selectedBrand, sortBy, minPrice, maxPrice, activeSubCategory, itemsPerPag
 
           <!-- Active Filter Chips (Brand) -->
           <div v-if="selectedBrand" class="active-filter-chips">
-            <span class="active-filter-label">Active Filter:</span>
+            <span class="active-filter-label">{{ t('catalog.activeFilter', 'Active Filter:') }}</span>
             <span class="filter-chip">
               Brand: <strong>{{ selectedBrand }}</strong>
               <button
@@ -533,7 +533,7 @@ watch([selectedBrand, sortBy, minPrice, maxPrice, activeSubCategory, itemsPerPag
               class="clear-all-chips"
               @click="selectedBrand = ''"
             >
-              Reset brand
+              {{ t('catalog.resetBrand', 'Reset brand') }}
             </button>
           </div>
 
