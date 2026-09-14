@@ -71,6 +71,18 @@ const router = createRouter({
       component: () => import('@/views/FoodView.vue')
     },
     {
+      path: '/categories/logistics',
+      alias: ['/logistics', '/categories/logistic', '/services/logistic'],
+      name: 'category-logistics',
+      component: () => import('@/views/LogisticsView.vue')
+    },
+    {
+      path: '/categories/real-estate',
+      alias: ['/real-estate', '/realestate', '/categories/realestate', '/services/real-estate'],
+      name: 'category-real-estate',
+      component: () => import('@/views/RealEstateView.vue')
+    },
+    {
       path: '/all-categories',
       alias: ['/categories/all', '/custom-pc', '/categories/computer'],
       name: 'all-categories',

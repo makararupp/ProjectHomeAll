@@ -28,6 +28,8 @@ function getActiveKeyFromPath(path) {
   if (path.includes('industrial-parts')) return 'industrialParts'
   if (path.includes('construction')) return 'construction'
   if (path.includes('food-beverage') || path.includes('/food')) return 'foodBeverage'
+  if (path.includes('logistics') || path.includes('logistic')) return 'logistics'
+  if (path.includes('real-estate') || path.includes('realestate')) return 'realEstate'
   return ''
 }
 
@@ -39,7 +41,7 @@ watch(
     const key = getActiveKeyFromPath(path)
     if (key) {
       activeCategoryKey.value = key
-    } else if (['industrialParts', 'construction', 'foodBeverage'].includes(activeCategoryKey.value)) {
+    } else if (['industrialParts', 'construction', 'foodBeverage', 'logistics', 'realEstate'].includes(activeCategoryKey.value)) {
       activeCategoryKey.value = ''
     }
   }

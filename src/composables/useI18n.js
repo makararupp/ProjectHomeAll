@@ -58,6 +58,7 @@ export const translations = {
       previous: 'Previous',
       next: 'Next',
       noProducts: 'No products found matching your filter.',
+      noProductsFound: 'No products found',
       clearFilters: 'Clear filters',
       steelProduct: 'Steel Product',
       copperPipes: 'Copper Pipes',
@@ -180,6 +181,19 @@ export const translations = {
       grilledChickenRicePlatter: 'Grilled Chicken Rice Platter',
       crispyChickenPlatter: 'Crispy Chicken & Fries Basket',
       bbqPartyFeast: 'Family BBQ & Burger Party Feast'
+    },
+    logisticsPage: {
+      breadcrumbHome: 'Home',
+      breadcrumbCategories: 'Product Categories',
+      breadcrumbCurrent: 'Logistics',
+      pageTitle: 'Logistics',
+      pageSubtitle: 'Reliable freight transportation, nationwide distribution, centralized warehousing, and supply chain cargo management.',
+      noProductsTitle: 'No Products Found',
+      noProductsDesc: 'There are currently no products or active listings available in the Logistics category. You can explore our other departments or browse the full product catalog.',
+      browseAllBtn: 'Browse All Categories',
+      exploreConstructionBtn: 'Construction Materials',
+      exploreFoodBtn: 'Food & Beverage',
+      backHomeBtn: 'Back to Home'
     },
     wishlistPage: {
       breadcrumbMain: 'Main',
@@ -315,6 +329,7 @@ export const translations = {
       previous: 'ថយក្រោយ',
       next: 'បន្ទាប់',
       noProducts: 'រកមិនឃើញផលិតផលដែលត្រូវនឹងការស្វែងរករបស់អ្នកឡើយ។',
+      noProductsFound: 'រកមិនឃើញផលិតផលទេ',
       clearFilters: 'សម្អាតតម្រង',
       steelProduct: 'ផលិតផលដែក',
       copperPipes: 'បំពង់ស្ពាន់',
@@ -436,6 +451,19 @@ export const translations = {
       grilledChickenRicePlatter: 'បាយសាច់មាន់អាំងចង្កាក់ និងដំឡូងបារាំង',
       crispyChickenPlatter: 'កន្ត្រកមាន់បំពង និងដំឡូងបារាំង',
       bbqPartyFeast: 'ឈុតជប់លៀង BBQ និងប៊ឺហ្គឺគ្រួសារ'
+    },
+    logisticsPage: {
+      breadcrumbHome: 'ទំព័រដើម',
+      breadcrumbCategories: 'ប្រភេទផលិតផល',
+      breadcrumbCurrent: 'សេវាដឹកជញ្ជូន',
+      pageTitle: 'សេវាដឹកជញ្ជូន (Logistics)',
+      pageSubtitle: 'សេវាកម្មដឹកជញ្ជូនទំនិញទូទាំងប្រទេស ឃ្លាំងស្តុកកណ្តាល ការគ្រប់គ្រងទំនិញ និងដំណោះស្រាយខ្សែសង្វាក់ផ្គត់ផ្គង់រហ័សទាន់ចិត្ត។',
+      noProductsTitle: 'រកមិនឃើញផលិតផលទេ',
+      noProductsDesc: 'បច្ចុប្បន្នមិនទាន់មានផលិតផល ឬបញ្ជីទំនិញក្នុងផ្នែកសេវាដឹកជញ្ជូននៅឡើយទេ។ លោកអ្នកអាចស្វែងរកប្រភេទផលិតផលផ្សេងៗ ឬមើលកាតាឡុកទំនិញពេញលេញ។',
+      browseAllBtn: 'មើលប្រភេទផលិតផលទាំងអស់',
+      exploreConstructionBtn: 'សម្ភារៈសំណង់',
+      exploreFoodBtn: 'ម្ហូបអាហារ និងភេសជ្ជៈ',
+      backHomeBtn: 'ត្រឡប់ទៅទំព័រដើម'
     },
     wishlistPage: {
       breadcrumbMain: 'ទំព័រដើម',
