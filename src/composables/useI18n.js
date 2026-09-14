@@ -36,13 +36,11 @@ export const translations = {
       categoriesForYou: 'Categories for you',
       consumerElectronics: 'Consumer Electronics',
       browseFeatured: 'Browse featured selections',
-      sportsEntertainment: 'Sports & Entertainment',
       commercialEquipment: 'Commercial Equipment & Machinery',
       constructionMachinery: 'Construction & Building Machinery',
       lightsLighting: 'Lights & Lighting',
-      apparelAccessories: 'Apparel & Accessories',
-      homeGarden: 'Home & Garden',
-      sportswearApparel: 'Sportswear & Outdoor Apparel'
+      //apparelAccessories: 'Apparel & Accessories',
+      homeGarden: 'Home & Garden'
     },
     products: {
       breadcrumbHome: 'Home',
@@ -217,13 +215,11 @@ export const translations = {
       categoriesForYou: 'ប្រភេទសម្រាប់អ្នក',
       consumerElectronics: 'គ្រឿងអេឡិចត្រូនិក',
       browseFeatured: 'មើលការជ្រើសរើសពិសេស',
-      sportsEntertainment: 'កីឡា និងការកម្សាន្ត',
       commercialEquipment: 'ឧបករណ៍ពាណិជ្ជកម្ម និងគ្រឿងចក្រ',
       constructionMachinery: 'គ្រឿងចក្រសំណង់ និងអាគារ',
       lightsLighting: 'អំពូលភ្លើង និងការបំភ្លឺ',
-      apparelAccessories: 'សម្លៀកបំពាក់ និងគ្រឿងតុបតែង',
-      homeGarden: 'ផ្ទះ និងសួនច្បារ',
-      sportswearApparel: 'សម្លៀកបំពាក់កីឡា'
+    //  apparelAccessories: 'សម្លៀកបំពាក់ និងគ្រឿងតុបតែង',
+      homeGarden: 'ផ្ទះ និងសួនច្បារ'
     },
     products: {
       breadcrumbHome: 'ទំព័រដើម',

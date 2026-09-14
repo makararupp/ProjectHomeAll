@@ -1,3 +1,4 @@
+
 /**
  * Data for the "All Categories" Mega Menu
  * Modeled after the Alibaba-style mega menu with sidebar categories
@@ -69,27 +70,7 @@ export const megaMenuCategories = [
       linkHref: '/categories/audio'
     }
   },
-  {
-    id: 'sports-entertainment',
-    name: 'Sports & Entertainment',
-    icon: 'badminton',
-    items: [
-      { name: 'Mountain Bikes', image: pro7, icon: 'bike', hasBadge: true },
-      { name: 'Camping Tents', image: pro8, icon: 'tent' },
-      { name: 'Fitness Trackers', image: pro9, icon: 'watch' },
-      { name: 'Yoga Mats', image: pro10, icon: 'mat' },
-      { name: 'Fishing Rods', image: pro11, icon: 'fish' },
-      { name: 'Skateboards', image: pro12, icon: 'board' },
-      { name: 'Adjustable Dumbbells', image: pro1, icon: 'dumbbell' },
-      { name: 'Paddle Boards', image: pro2, icon: 'surf' },
-      { name: 'Treadmills', image: pro3, icon: 'treadmill' },
-      { name: 'Sleeping Bags', image: pro4, icon: 'tent' },
-      { name: 'Tennis Rackets', image: pro5, icon: 'racket' },
-      { name: 'Hiking Backpacks', image: pro6, icon: 'bag', hasBadge: true },
-      { name: 'Boxing Gloves', image: pro7, icon: 'glove' },
-      { name: 'Water Bottles', image: pro8, icon: 'bottle' }
-    ]
-  },
+
   {
     id: 'commercial-equipment',
     name: 'Commercial Equipment & Machinery',
@@ -132,20 +113,20 @@ export const megaMenuCategories = [
       { name: 'Garden Pathway Lights', image: pro1, icon: 'garden' }
     ]
   },
-  {
-    id: 'apparel-accessories',
-    name: 'Apparel & Accessories',
-    icon: 'dress',
-    items: [
-      { name: "Women's Dresses", image: pro9, icon: 'dress', hasBadge: true },
-      { name: 'Leather Bags', image: pro8, icon: 'bag' },
-      { name: 'Sunglasses', image: pro7, icon: 'glasses' },
-      { name: 'Belts & Buckles', image: pro6, icon: 'belt' },
-      { name: 'Silk Scarves', image: pro5, icon: 'scarf' },
-      { name: 'Casual Hats', image: pro4, icon: 'hat' },
-      { name: 'Fashion Jewelry', image: pro3, icon: 'ring' }
-    ]
-  },
+  // {
+  //   id: 'apparel-accessories',
+  //   name: 'Apparel & Accessories',
+  //   icon: 'dress',
+  //   items: [
+  //     { name: "Women's Dresses", image: pro9, icon: 'dress', hasBadge: true },
+  //     { name: 'Leather Bags', image: pro8, icon: 'bag' },
+  //     { name: 'Sunglasses', image: pro7, icon: 'glasses' },
+  //     { name: 'Belts & Buckles', image: pro6, icon: 'belt' },
+  //     { name: 'Silk Scarves', image: pro5, icon: 'scarf' },
+  //     { name: 'Casual Hats', image: pro4, icon: 'hat' },
+  //     { name: 'Fashion Jewelry', image: pro3, icon: 'ring' }
+  //   ]
+  // },
   {
     id: 'home-garden',
     name: 'Home & Garden',
@@ -159,19 +140,6 @@ export const megaMenuCategories = [
       { name: 'Electric Blenders', image: pro1, icon: 'blender' },
       { name: 'Storage Organizers', image: pro12, icon: 'box' }
     ]
-  },
-  {
-    id: 'sportswear-apparel',
-    name: 'Sportswear & Outdoor Apparel',
-    icon: 'shirt',
-    items: [
-      { name: 'Compression Tops', image: pro8, icon: 'shirt', hasBadge: true },
-      { name: 'Running Shorts', image: pro9, icon: 'shorts' },
-      { name: 'Waterproof Jackets', image: pro10, icon: 'jacket' },
-      { name: 'Hiking Pants', image: pro11, icon: 'pants' },
-      { name: 'Thermal Base Layers', image: pro12, icon: 'thermal' },
-      { name: 'Sports Socks', image: pro7, icon: 'socks' },
-      { name: 'Reflective Vests', image: pro6, icon: 'vest' }
-    ]
   }
 ]
+
