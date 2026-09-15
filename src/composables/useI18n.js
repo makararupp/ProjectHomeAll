@@ -95,8 +95,8 @@ export const translations = {
       retailsWholesale: 'Retails & Wholesale',
       foodBeverage: 'Food & Beverage',
       logistic: 'Logistic',
-      realEstate: 'Buy-rent real estate',
-      salonSkincare: 'Salon & Skin care',
+      realEstate: 'Buy-rent',
+      salonSkincare: 'Salon',
       consignment: 'Consignment Products'
     },
     structuralMaterials: {
@@ -366,8 +366,8 @@ export const translations = {
       retailsWholesale: 'លក់រាយ និងលក់ដុំ',
       foodBeverage: 'ម្ហូបអាហារ និងភេសជ្ជៈ',
       logistic: 'សេវាដឹកជញ្ជូន',
-      realEstate: 'ទិញ-ជួល អចលនទ្រព្យ',
-      salonSkincare: 'ហាងកែសម្ផស្ស និងថែរក្សាស្បែក',
+      realEstate: 'ទិញ-ជួល',
+      salonSkincare: 'ហាងកែសម្ផស្ស',
       consignment: 'ទំនិញផ្ញើលក់'
     },
     structuralMaterials: {

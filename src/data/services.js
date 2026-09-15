@@ -1,9 +1,4 @@
-/**
- * "Explore Our Services" cards.
- * `icon` refers to an id resolved by the IconBase component
- * (see components/ui/IconBase.vue).
- */
-export const services = [
+ export const services = [
   {
     id: 'retails-wholesale',
     icon: 'store',
