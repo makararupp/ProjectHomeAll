@@ -181,7 +181,7 @@ function handleAddToCart(item) {
                 <img
                   v-if="item.image"
                   :src="item.image"
-                  :alt="item.name"
+                  :alt="item.title || item.name"
                   class="wishlist-item-image"
                 />
                 <div v-else class="wishlist-item-image-placeholder">
@@ -194,7 +194,7 @@ function handleAddToCart(item) {
               </div>
 
               <div class="wishlist-item-info">
-                <h3 class="wishlist-item-name">{{ item.name }}</h3>
+                <h3 class="wishlist-item-name">{{ item.title || item.name }}</h3>
                 <p class="wishlist-item-price">{{ item.price }}</p>
               </div>
 

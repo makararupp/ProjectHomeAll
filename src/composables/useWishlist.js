@@ -44,16 +44,19 @@ export function useWishlist() {
     if (!product || !product.id) return
     const exists = wishlistItems.value.find((item) => item.id === product.id)
     if (!exists) {
+      const displayName = product.title || product.name || 'Product'
       wishlistItems.value.push({
         id: product.id,
-        name: product.name,
+        name: displayName,
+        title: displayName,
         price: product.price,
+        unit: product.unit || '',
         image: product.image,
         category: product.category || 'General',
         addedAt: new Date().toISOString()
       })
       saveWishlist()
-      showWishlistToast(`"${product.name}" added to wishlist`)
+      showWishlistToast(`"${displayName}" added to wishlist`)
     }
   }
 
@@ -62,7 +65,8 @@ export function useWishlist() {
     if (idx !== -1) {
       const removed = wishlistItems.value.splice(idx, 1)[0]
       saveWishlist()
-      showWishlistToast(`"${removed.name}" removed from wishlist`)
+      const displayName = removed.title || removed.name || 'Product'
+      showWishlistToast(`"${displayName}" removed from wishlist`)
     }
   }
 

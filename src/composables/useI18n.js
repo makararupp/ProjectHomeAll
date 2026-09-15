@@ -77,6 +77,7 @@ export const translations = {
       title: 'Feature Product',
       subtitle: 'Popular products from trusted suppliers',
       viewMore: 'View More Products',
+      showMore: 'Show More',
       viewAll: 'View All Products in Store',
       addToCart: 'Add to Card',
       quickAdd: 'Quick Add'
@@ -350,6 +351,7 @@ export const translations = {
       title: 'ផលិតផលពិសេស',
       subtitle: 'ផលិតផលពេញនិយមពីអ្នកផ្គត់ផ្គង់ដែលគួរឱ្យទុកចិត្ត',
       viewMore: 'មើលផលិតផលបន្ថែម',
+      showMore: 'បង្ហាញបន្ថែម',
       viewAll: 'មើលផលិតផលទាំងអស់ក្នុងហាង',
       addToCart: 'បញ្ចូលទៅកន្ត្រក',
       quickAdd: 'បញ្ជាទិញរហ័ស'

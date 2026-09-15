@@ -126,19 +126,19 @@ function handleAddToCart(event) {
 <style scoped>
 .product-card {
   background-color: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 14px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 16px;
   padding: 10px 10px 12px 10px;
   display: flex;
   flex-direction: column;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
 }
 
 .product-card:hover {
-  border-color: #3b82f6; /* Blue highlight border like the screenshot */
-  box-shadow: 0 8px 20px -4px rgba(37, 99, 235, 0.14), 0 2px 6px rgba(0, 0, 0, 0.04);
-  transform: translateY(-2px);
+  border-color: #3b82f6; /* Vivid blue border matching screenshot */
+  box-shadow: 0 14px 28px -4px rgba(59, 130, 246, 0.22), 0 4px 12px rgba(0, 0, 0, 0.05);
+  transform: translateY(-5px); /* Smooth popup lift on hover */
 }
 
 .product-card_link {
@@ -221,28 +221,32 @@ function handleAddToCart(event) {
 
 .product-card_quick-btn {
   flex: 1;
-  height: 36px;
-  padding: 0 10px;
-  background-color: #2563eb; /* Vibrant blue matching screenshot */
+  height: 38px;
+  padding: 0 12px;
+  background-color: #3b5bf5; /* Vibrant blue matching screenshot */
   color: #ffffff;
   border: none;
   border-radius: 8px;
-  font-size: 12.5px;
-  font-weight: 600;
+  font-size: 13px;
+  font-weight: 700;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: 7px;
   cursor: pointer;
   white-space: nowrap;
-  transition: all 0.2s ease;
-  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.25);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 2px 6px rgba(59, 91, 245, 0.25);
 }
 
 .product-card_quick-btn:hover:not(:disabled) {
-  background-color: #1d4ed8;
-  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.35);
-  transform: translateY(-1px);
+  background-color: #2446ea;
+  box-shadow: 0 6px 16px rgba(59, 91, 245, 0.42);
+  transform: translateY(-2px);
+}
+
+.product-card_quick-btn:active:not(:disabled) {
+  transform: translateY(0);
 }
 
 .product-card_quick-btn:disabled,
@@ -269,8 +273,8 @@ function handleAddToCart(event) {
 
 /* Circular Heart Wishlist Button */
 .product-card_wishlist-btn {
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
   border: 1px solid #e2e8f0;
   background-color: #ffffff;
@@ -280,20 +284,22 @@ function handleAddToCart(event) {
   justify-content: center;
   cursor: pointer;
   flex-shrink: 0;
-  transition: all 0.2s ease;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .product-card_wishlist-btn:hover {
   border-color: #fca5a5;
   color: #ef4444;
   background-color: #fff1f2;
-  transform: scale(1.06);
+  transform: scale(1.12);
+  box-shadow: 0 3px 8px rgba(239, 68, 68, 0.18);
 }
 
 .product-card_wishlist-btn.is-active {
   border-color: #fecaca;
   background-color: #fff1f2;
   color: #ef4444;
+  transform: scale(1.05);
 }
 
 /* Out of Stock Card */

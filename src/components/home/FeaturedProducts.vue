@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
+import { ref, computed } from 'vue'
 import { products } from '@/data/products'
 import ProductCard from './ProductCard.vue'
 import { useI18n } from '@/composables/useI18n'
@@ -8,12 +8,10 @@ import { useCart } from '@/composables/useCart'
 const { t, isKhmer } = useI18n()
 const { addToCart } = useCart()
 
-// Number of products to show initially
-const initialCount = 5
+// Number of products to show initially (10 = 2 full rows of 5 cards)
+const initialCount = 10
 const visibleCount = ref(initialCount)
 const isLoading = ref(false)
-const sentinelRef = ref(null)
-let observer = null
 
 // Slice products currently visible
 const visibleProducts = computed(() => {
@@ -25,49 +23,20 @@ const hasMore = computed(() => {
   return visibleCount.value < products.length
 })
 
-// Automatically load more products
-function loadMore() {
+// Load 5 more products (1 full row) when "Show More" is clicked
+function handleShowMore() {
   if (!hasMore.value || isLoading.value) return
   isLoading.value = true
 
   setTimeout(() => {
     visibleCount.value = Math.min(products.length, visibleCount.value + 5)
     isLoading.value = false
-
-    nextTick(() => {
-      if (sentinelRef.value && observer && hasMore.value) {
-        observer.unobserve(sentinelRef.value)
-        observer.observe(sentinelRef.value)
-      }
-    })
-  }, 350)
+  }, 250)
 }
 
 function handleAddToCart(product) {
   addToCart(product, 1)
 }
-
-onMounted(() => {
-  if ('IntersectionObserver' in window) {
-    observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting && hasMore.value && !isLoading.value) {
-          loadMore()
-        }
-      },
-      { rootMargin: '180px' }
-    )
-    if (sentinelRef.value) {
-      observer.observe(sentinelRef.value)
-    }
-  }
-})
-
-onUnmounted(() => {
-  if (observer) {
-    observer.disconnect()
-  }
-})
 </script>
 
 <template>
@@ -86,12 +55,17 @@ onUnmounted(() => {
         />
       </div>
 
-      <!-- Auto-loading Sentinel trigger & Spinner -->
-      <div v-if="hasMore" ref="sentinelRef" class="featured_sentinel">
-        <div v-if="isLoading" class="featured_loading">
-          <span class="loading-spinner" aria-hidden="true" />
-          <span class="loading-text">{{ isKhmer ? 'កំពុងផ្ទុកបន្ថែម...' : 'Loading more products...' }}</span>
-        </div>
+      <!-- Show More Action Button (Matching screenshot) -->
+      <div v-if="hasMore" class="featured_actions">
+        <button
+          type="button"
+          class="featured_show-more-btn"
+          :disabled="isLoading"
+          @click="handleShowMore"
+        >
+          <span v-if="isLoading" class="loading-spinner" aria-hidden="true" />
+          <span>{{ isLoading ? (isKhmer ? 'កំពុងផ្ទុក...' : 'Loading...') : t('featured.showMore', 'Show More') }}</span>
+        </button>
       </div>
     </div>
   </section>
@@ -120,30 +94,51 @@ onUnmounted(() => {
   gap: 16px;
 }
 
-/* Auto-loading Sentinel & Indicator */
-.featured_sentinel {
-  width: 100%;
-  min-height: 48px;
+/* Show More Button (Matching user screenshot) */
+.featured_actions {
   display: flex;
-  align-items: center;
   justify-content: center;
-  margin-top: var(--space-6);
+  align-items: center;
+  margin-top: 36px;
 }
 
-.featured_loading {
+.featured_show-more-btn {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  color: #64748b;
-  font-size: 13.5px;
-  font-weight: 500;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 24px;
+  background: transparent;
+  color: #3b5bf5; /* Vibrant blue matching screenshot */
+  font-size: 15.5px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+  border-radius: 8px;
+}
+
+.featured_show-more-btn:hover:not(:disabled) {
+  color: #1d4ed8;
+  background-color: #eff6ff;
+  transform: translateY(-1px);
+}
+
+.featured_show-more-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.featured_show-more-btn:disabled {
+  opacity: 0.7;
+  cursor: wait;
 }
 
 .loading-spinner {
-  width: 20px;
-  height: 20px;
-  border: 2.5px solid #e2e8f0;
-  border-top-color: #2563eb;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #cbd5e1;
+  border-top-color: #3b5bf5;
   border-radius: 50%;
   animation: spin 0.75s linear infinite;
 }

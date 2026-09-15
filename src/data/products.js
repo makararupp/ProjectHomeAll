@@ -120,6 +120,86 @@ export const products = [
     price: '$4.20',
     unit: '/ piece',
     image: pro12
+  },
+  {
+    id: 'cement-scg-power',
+    title: 'ស៊ីម៉ងត៍ SCG គុណភាពខ្ពស់ 50kg',
+    category: 'Construction',
+    price: '$5.50',
+    unit: '/ bag',
+    image: cementImg
+  },
+  {
+    id: 'bricks-red-standard',
+    title: 'ឥដ្ឋក្រហម សំណង់ស្តង់ដារ 8x8x18',
+    category: 'Concrete Products',
+    price: '$0.18',
+    unit: '/ piece',
+    image: bricksImg
+  },
+  {
+    id: 'roof-tile-prestige',
+    title: 'ក្បឿងដំបូល សេរ៉ាមិច Prestige',
+    category: 'Roof',
+    price: '$1.85',
+    unit: '/ piece',
+    image: roofImg
+  },
+  {
+    id: 'metal-sheet-blue',
+    title: 'ស័ង្កសីពណ៌ កម្រាស់ 0.40mm SCG',
+    category: 'Roof',
+    price: '$8.20',
+    unit: '/ sheet',
+    image: metalSheetImg
+  },
+  {
+    id: 'power-drill-cordless',
+    title: 'ម៉ាស៊ីនស្វានឥតខ្សែ Brushless 20V',
+    category: 'Hardware Tools',
+    price: '$48.00',
+    unit: '/ set',
+    image: powerToolsImg
+  },
+  {
+    id: 'paints-interior-deluxe',
+    title: 'ថ្នាំលាបជញ្ជាំងខាងក្នុង Deluxe 18L',
+    category: 'Paints & Equipments',
+    price: '$24.50',
+    unit: '/ can',
+    image: paintsImg
+  },
+  {
+    id: 'electrical-cable-copper',
+    title: 'ខ្សែភ្លើងស្ពាន់សុទ្ធ THW 1x2.5mm',
+    category: 'Electrical System',
+    price: '$35.00',
+    unit: '/ roll',
+    image: electricalImg
+  },
+  {
+    id: 'hardware-toolkit-pro',
+    title: 'ប្រអប់ឧបករណ៍ជាងចម្រុះ Pro 108 មុខ',
+    category: 'Hardware Tools',
+    price: '$29.00',
+    unit: '/ box',
+    image: hardwareToolsImg
+  },
+  {
+    id: 'water-pump-automatic',
+    title: 'ម៉ាស៊ីនបូមទឹកស្វ័យប្រវត្តិ 370W',
+    category: 'Water Pipes',
+    price: '$65.00',
+    unit: '/ unit',
+    image: waterPumpImg
+  },
+  {
+    id: 'water-storage-tank',
+    title: 'ធុងស្តុកទឹក មិនជ្រាប 1500L Anti-Bacteria',
+    category: 'Water Pipes',
+    price: '$145.00',
+    unit: '/ unit',
+    image: tankImg
   }
 ]
 
