@@ -78,7 +78,8 @@ export const translations = {
       subtitle: 'Popular products from trusted suppliers',
       viewMore: 'View More Products',
       viewAll: 'View All Products in Store',
-      addToCart: 'Add to Card'
+      addToCart: 'Add to Card',
+      quickAdd: 'Quick Add'
     },
     about: {
       title: 'About Us',
@@ -350,7 +351,8 @@ export const translations = {
       subtitle: 'ផលិតផលពេញនិយមពីអ្នកផ្គត់ផ្គង់ដែលគួរឱ្យទុកចិត្ត',
       viewMore: 'មើលផលិតផលបន្ថែម',
       viewAll: 'មើលផលិតផលទាំងអស់ក្នុងហាង',
-      addToCart: 'បញ្ចូលទៅកន្ត្រក'
+      addToCart: 'បញ្ចូលទៅកន្ត្រក',
+      quickAdd: 'បញ្ជាទិញរហ័ស'
     },
     about: {
       title: 'អំពីយើង',

@@ -143,11 +143,18 @@ function handleAddToCart(product) {
 
 @media (max-width: 1024px) {
   .featured_grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
-@media (max-width: 560px) {
+@media (max-width: 768px) {
+  .featured_grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+}
+
+@media (max-width: 480px) {
   .featured_grid {
     grid-template-columns: 1fr;
   }
