@@ -96,4 +96,14 @@ defineProps({
 .base-button--ghost:hover {
   color: var(--color-brand-dark);
 }
+
+.base-button:disabled,
+.base-button.is-disabled {
+  background-color: #e5e7eb !important;
+  border-color: #e5e7eb !important;
+  color: #9ca3af !important;
+  cursor: not-allowed;
+  pointer-events: none;
+  box-shadow: none !important;
+}
 </style>

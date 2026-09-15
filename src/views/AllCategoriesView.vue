@@ -95,6 +95,7 @@ function handleToggleWishlist(product, index = 0) {
 }
 
 function handleAddProduct(product, index = 0, quantity = 1) {
+  if (product && product.inStock === false) return
   const item = getProductForCart(product, index)
   addToCart(item, quantity)
   showToast(`"${item.title}" added to cart!`)
@@ -615,8 +616,11 @@ watch([selectedBrand, sortBy, minPrice, maxPrice, activeSubCategory, itemsPerPag
                 <button
                   type="button"
                   class="catalog-card_cart-btn"
-                  title="Add to cart"
-                  @click="handleAddProduct(product, (currentPage - 1) * itemsPerPage + idx)"
+                  :class="{ 'is-disabled': product.inStock === false }"
+                  :disabled="product.inStock === false"
+                  :title="product.inStock === false ? 'Out of stock' : 'Add to cart'"
+                  :aria-label="product.inStock === false ? 'Out of stock' : 'Add to cart'"
+                  @click="product.inStock !== false && handleAddProduct(product, (currentPage - 1) * itemsPerPage + idx)"
                 >
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="9" cy="21" r="1" />
@@ -1560,9 +1564,21 @@ watch([selectedBrand, sortBy, minPrice, maxPrice, activeSubCategory, itemsPerPag
   height: 18px;
 }
 
-.catalog-card_cart-btn:hover {
+.catalog-card_cart-btn:hover:not(:disabled) {
   background: #f3f4f6;
   color: #2563eb;
+}
+
+.catalog-card_cart-btn:disabled,
+.catalog-card_cart-btn.is-disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.catalog-card_cart-btn:disabled:hover,
+.catalog-card_cart-btn.is-disabled:hover {
+  background: transparent;
+  color: #111827;
 }
 
 /* Title */

@@ -64,7 +64,7 @@ export function useCart() {
   })
 
   function addToCart(product, quantity = 1) {
-    if (!product) return
+    if (!product || product.inStock === false) return
 
     const qty = Math.max(1, parseInt(quantity, 10) || 1)
     const existingIndex = cartItems.value.findIndex(item => item.id === product.id)

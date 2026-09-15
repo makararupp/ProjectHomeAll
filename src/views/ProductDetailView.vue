@@ -217,6 +217,7 @@ function showToast(message) {
 }
 
 function handleAddToCart(product, qty = 1) {
+  if (!product || !product.inStock) return
   addToCart(product, qty)
   showToast(`${t('products.addedToCart', 'Added to cart successfully!')} (${product.title} x${qty})`)
   if (isModalOpen.value) {
@@ -444,7 +445,10 @@ onUnmounted(() => {
               v-for="product in paginatedProducts"
               :key="product.id"
               class="product-card"
-              :class="{ 'product-card--list': viewMode === 'list' }"
+              :class="{
+                'product-card--list': viewMode === 'list',
+                'is-out-of-stock': !product.inStock
+              }"
               tabindex="0"
               role="button"
               :aria-label="product.title"
@@ -495,9 +499,11 @@ onUnmounted(() => {
                   <button
                     type="button"
                     class="product-card_cart-btn"
-                    :title="t('products.addToCart', 'Add to Cart')"
-                    :aria-label="t('products.addToCart', 'Add to Cart')"
-                    @click.stop="handleAddToCart(product, 1)"
+                    :class="{ 'is-disabled': !product.inStock }"
+                    :disabled="!product.inStock"
+                    :title="!product.inStock ? t('products.outOfStock', 'Out of stock') : t('products.addToCart', 'Add to Cart')"
+                    :aria-label="!product.inStock ? t('products.outOfStock', 'Out of stock') : t('products.addToCart', 'Add to Cart')"
+                    @click.stop="product.inStock && handleAddToCart(product, 1)"
                   >
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
                       <circle cx="9" cy="21" r="1" />
@@ -668,11 +674,15 @@ onUnmounted(() => {
 
                 <!-- Quantity and Add to Cart -->
                 <div class="product-modal-actions">
-                  <div class="quantity-picker" aria-label="Quantity selector">
+                  <div
+                    class="quantity-picker"
+                    :class="{ 'is-disabled': !selectedProduct.inStock }"
+                    aria-label="Quantity selector"
+                  >
                     <button
                       type="button"
                       class="qty-btn"
-                      :disabled="modalQuantity <= 1"
+                      :disabled="!selectedProduct.inStock || modalQuantity <= 1"
                       aria-label="Decrease quantity"
                       @click="decreaseModalQuantity"
                     >
@@ -682,6 +692,7 @@ onUnmounted(() => {
                     <button
                       type="button"
                       class="qty-btn"
+                      :disabled="!selectedProduct.inStock"
                       aria-label="Increase quantity"
                       @click="increaseModalQuantity"
                     >
@@ -692,14 +703,16 @@ onUnmounted(() => {
                   <button
                     type="button"
                     class="product-modal-add-btn"
-                    @click="handleAddToCart(selectedProduct, modalQuantity)"
+                    :class="{ 'is-disabled': !selectedProduct.inStock }"
+                    :disabled="!selectedProduct.inStock"
+                    @click="selectedProduct.inStock && handleAddToCart(selectedProduct, modalQuantity)"
                   >
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18">
                       <circle cx="9" cy="21" r="1" />
                       <circle cx="20" cy="21" r="1" />
                       <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
                     </svg>
-                    <span>{{ t('products.addToCart', 'Add to Cart') }}</span>
+                    <span>{{ !selectedProduct.inStock ? t('products.outOfStock', 'Out of stock') : t('products.addToCart', 'Add to Cart') }}</span>
                   </button>
                 </div>
               </div>
@@ -1300,12 +1313,28 @@ onUnmounted(() => {
   flex-shrink: 0;
 }
 
-.product-card_cart-btn:hover {
+.product-card_cart-btn:hover:not(:disabled) {
   background-color: #16a34a;
   border-color: #16a34a;
   color: #ffffff;
   transform: scale(1.08);
   box-shadow: 0 4px 12px rgba(22, 163, 74, 0.25);
+}
+
+.product-card_cart-btn:disabled,
+.product-card_cart-btn.is-disabled {
+  background-color: #f3f4f6;
+  border-color: #e5e7eb;
+  color: #9ca3af;
+  cursor: not-allowed;
+  opacity: 0.65;
+  transform: none;
+  box-shadow: none;
+}
+
+.product-card.is-out-of-stock .product-card_img {
+  filter: grayscale(25%);
+  opacity: 0.85;
 }
 
 /* List View Variant */
@@ -1721,10 +1750,29 @@ onUnmounted(() => {
   transition: all 0.2s ease;
 }
 
-.product-modal-add-btn:hover {
+.product-modal-add-btn:hover:not(:disabled) {
   background-color: #15803d;
   box-shadow: 0 6px 18px rgba(22, 163, 74, 0.4);
   transform: translateY(-1px);
+}
+
+.product-modal-add-btn:disabled,
+.product-modal-add-btn.is-disabled {
+  background-color: #e5e7eb;
+  border-color: #e5e7eb;
+  color: #9ca3af;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+.quantity-picker.is-disabled {
+  opacity: 0.55;
+  background-color: #f9fafb;
+}
+
+.quantity-picker.is-disabled .qty-val {
+  color: #9ca3af;
 }
 
 /* Floating Toast Notification */
