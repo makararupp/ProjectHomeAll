@@ -19,11 +19,15 @@ const { t } = useI18n()
           {{ t('nav.home', 'Home') }}
         </RouterLink>
         <span class="breadcrumb-separator">&gt;</span>
+        <RouterLink to="/products" class="breadcrumb-link">
+          {{ t('categories.allCategories', 'All Categories') }}
+        </RouterLink>
+        <span class="breadcrumb-separator">&gt;</span>
         <span class="breadcrumb-current">
           {{ t('servicesSection.retailsWholesale', 'Retails & Wholesale') }}
         </span>
       </nav>
-    </main>
+    </main> 
 
     <AppFooter />
   </div>

@@ -99,6 +99,18 @@ const router = createRouter({
       alias: ['/retails-wholesale', '/services/retail-wholesale'],
       name: 'retails-wholesale',
       component: () => import('@/views/RetailsWholesaleView.vue')
+    },
+    {
+      path: '/services/salon-skincare',
+      alias: ['/salon-skincare', '/services/salon', '/categories/salon-skincare', '/salon'],
+      name: 'salon-skincare',
+      component: () => import('@/views/SalonView.vue')
+    },
+    {
+      path: '/services/consignment',
+      alias: ['/consignment', '/services/consignment-products', '/categories/consignment'],
+      name: 'consignment',
+      component: () => import('@/views/ConsignmentView.vue')
     }
   ],
   scrollBehavior(to, from, savedPosition) {

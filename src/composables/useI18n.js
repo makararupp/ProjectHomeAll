@@ -40,7 +40,8 @@ export const translations = {
       commercialEquipment: 'Commercial Equipment & Machinery',
       constructionMachinery: 'Construction & Building Machinery',
       lightsLighting: 'Lights & Lighting',
-      homeGarden: 'Home & Garden'
+      homeGarden: 'Home & Garden',
+      shopByCategory: 'Shop by Category'
     },
     products: {
       breadcrumbHome: 'Home',
@@ -311,7 +312,8 @@ export const translations = {
       commercialEquipment: 'ឧបករណ៍ពាណិជ្ជកម្ម និងគ្រឿងចក្រ',
       constructionMachinery: 'គ្រឿងចក្រសំណង់ និងអាគារ',
       lightsLighting: 'អំពូលភ្លើង និងការបំភ្លឺ',
-      homeGarden: 'ផ្ទះ និងសួនច្បារ'
+      homeGarden: 'ផ្ទះ និងសួនច្បារ',
+      shopByCategory: 'ទិញតាមប្រភេទ'
     },
     products: {
       breadcrumbHome: 'ទំព័រដើម',
