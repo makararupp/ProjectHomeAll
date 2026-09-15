@@ -93,6 +93,12 @@ const router = createRouter({
       alias: ['/categories/all', '/custom-pc', '/categories/computer'],
       name: 'all-categories',
       component: () => import('@/views/AllCategoriesView.vue')
+    },
+    {
+      path: '/services/retails-wholesale',
+      alias: ['/retails-wholesale', '/services/retail-wholesale'],
+      name: 'retails-wholesale',
+      component: () => import('@/views/RetailsWholesaleView.vue')
     }
   ],
   scrollBehavior(to, from, savedPosition) {

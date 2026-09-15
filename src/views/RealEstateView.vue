@@ -14,7 +14,6 @@ const { t, isKhmer } = useI18n()
     <CategoryNav />
 
     <main class="category-main container">
-      <!-- Breadcrumb Navigation: Home > Product Categories > Real Estate -->
       <nav class="category-breadcrumb" aria-label="Breadcrumb">
         <RouterLink to="/" class="category-breadcrumb_link">
           {{ t('nav.home', 'Home') }}
