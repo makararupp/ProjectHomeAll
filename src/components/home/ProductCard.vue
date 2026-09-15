@@ -4,9 +4,11 @@ import { RouterLink } from 'vue-router'
 import ImagePlaceholder from '@/components/ui/ImagePlaceholder.vue'
 import { useI18n } from '@/composables/useI18n'
 import { useWishlist } from '@/composables/useWishlist'
+import { useCompare } from '@/composables/useCompare'
 
 const { t } = useI18n()
 const { isInWishlist, addToWishlist, removeFromWishlist } = useWishlist()
+const { isInCompare, toggleCompare } = useCompare()
 
 const props = defineProps({
   product: {
@@ -21,6 +23,18 @@ const isJustAdded = ref(false)
 const isWishlisted = computed(() => {
   return isInWishlist(props.product.id)
 })
+
+const isCompared = computed(() => {
+  return isInCompare(props.product.id)
+})
+
+function handleToggleCompare(event) {
+  if (event) {
+    event.preventDefault()
+    event.stopPropagation()
+  }
+  toggleCompare(props.product)
+}
 
 function handleToggleWishlist(event) {
   event.preventDefault()
@@ -72,18 +86,19 @@ function handleAddToCart(event) {
       </div>
     </RouterLink>
 
-    <!-- Bottom Action Row: Blue Quick Button + Circular Heart Wishlist -->
+    <!-- Bottom Action Row: Blue Quick Button (Icon -> Expands) + Circular Compare + Circular Wishlist -->
     <div class="product-card_actions">
-      <!-- Blue Quick Add Button -->
+      <!-- Blue Quick Add Button: starts as Icon, smoothly expands to show title and icon on select/hover -->
       <button
         type="button"
         class="product-card_quick-btn"
         :class="{ 'is-added': isJustAdded, 'is-disabled': product.inStock === false }"
         :disabled="product.inStock === false"
         :title="product.inStock === false ? t('products.outOfStock', 'Out of stock') : t('featured.quickAdd', 'Quick Add')"
+        :aria-label="product.inStock === false ? t('products.outOfStock', 'Out of stock') : t('featured.quickAdd', 'Quick Add')"
         @click="handleAddToCart"
       >
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="15" height="15" class="btn-cart-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" class="btn-cart-icon">
           <circle cx="9" cy="21" r="1" />
           <circle cx="20" cy="21" r="1" />
           <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
@@ -97,13 +112,39 @@ function handleAddToCart(event) {
         </span>
       </button>
 
+      <!-- Circular Compare Button -->
+      <button
+        type="button"
+        class="product-card_action-btn product-card_compare-btn"
+        :class="{ 'is-active': isCompared }"
+        :title="isCompared ? t('compare.remove', 'Remove from compare') : t('header.compare', 'Compare')"
+        :aria-label="isCompared ? t('compare.remove', 'Remove from compare') : t('header.compare', 'Compare')"
+        @click="handleToggleCompare"
+      >
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          width="16"
+          height="16"
+        >
+          <path d="M16 3l4 4-4 4" />
+          <path d="M20 7H4" />
+          <path d="M8 21l-4-4 4-4" />
+          <path d="M4 17h16" />
+        </svg>
+      </button>
+
       <!-- Circular Heart Wishlist Button -->
       <button
         type="button"
-        class="product-card_wishlist-btn"
+        class="product-card_action-btn product-card_wishlist-btn"
         :class="{ 'is-active': isWishlisted }"
-        :title="isWishlisted ? 'Remove from wishlist' : 'Add to wishlist'"
-        :aria-label="isWishlisted ? 'Remove from wishlist' : 'Add to wishlist'"
+        :title="isWishlisted ? t('wishlistPage.remove', 'Remove from wishlist') : t('header.wishlist', 'Wishlist')"
+        :aria-label="isWishlisted ? t('wishlistPage.remove', 'Remove from wishlist') : t('header.wishlist', 'Wishlist')"
         @click="handleToggleWishlist"
       >
         <svg
@@ -211,7 +252,7 @@ function handleAddToCart(event) {
   color: #6b7280;
 }
 
-/* Actions Row: Blue Button + Circular Heart Button */
+/* Actions Row: Quick Add (Icon -> Expands on select/hover) + Compare + Wishlist */
 .product-card_actions {
   display: flex;
   align-items: center;
@@ -219,30 +260,59 @@ function handleAddToCart(event) {
   margin-top: auto;
 }
 
+/* Quick Add Button:
+   Default: Icon-only button (compact circle/rounded shape)
+   When Selected / Hovered: Expands to show both Title and Icon */
 .product-card_quick-btn {
-  flex: 1;
   height: 38px;
-  padding: 0 12px;
+  min-width: 38px;
+  padding: 0 11px;
   background-color: #3b5bf5; /* Vibrant blue matching screenshot */
   color: #ffffff;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   font-size: 13px;
   font-weight: 700;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 7px;
   cursor: pointer;
   white-space: nowrap;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   box-shadow: 0 2px 6px rgba(59, 91, 245, 0.25);
+  flex-shrink: 0;
 }
 
-.product-card_quick-btn:hover:not(:disabled) {
+.btn-cart-icon {
+  flex-shrink: 0;
+}
+
+.product-card_quick-btn .btn-text {
+  max-width: 0;
+  opacity: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  margin-left: 0;
+  transition: max-width 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease, margin 0.2s ease;
+}
+
+/* Expand Quick Add on hover, focus-visible, or when selected/added */
+.product-card_quick-btn:hover:not(:disabled),
+.product-card_quick-btn:focus-visible,
+.product-card_quick-btn.is-added {
+  flex: 1;
+  padding: 0 14px;
   background-color: #2446ea;
   box-shadow: 0 6px 16px rgba(59, 91, 245, 0.42);
   transform: translateY(-2px);
+}
+
+.product-card_quick-btn:hover:not(:disabled) .btn-text,
+.product-card_quick-btn:focus-visible .btn-text,
+.product-card_quick-btn.is-added .btn-text {
+  max-width: 95px;
+  opacity: 1;
+  margin-left: 6px;
 }
 
 .product-card_quick-btn:active:not(:disabled) {
@@ -260,19 +330,11 @@ function handleAddToCart(event) {
 
 .product-card_quick-btn.is-added {
   background-color: #16a34a;
+  box-shadow: 0 4px 12px rgba(22, 163, 74, 0.35);
 }
 
-.btn-cart-icon {
-  flex-shrink: 0;
-}
-
-.btn-text {
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-/* Circular Heart Wishlist Button */
-.product-card_wishlist-btn {
+/* Shared Circular Style for Action Buttons (Compare & Wishlist) */
+.product-card_action-btn {
   width: 38px;
   height: 38px;
   border-radius: 50%;
@@ -287,6 +349,23 @@ function handleAddToCart(event) {
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* Compare Button */
+.product-card_compare-btn:hover {
+  border-color: #93c5fd;
+  color: #2563eb;
+  background-color: #eff6ff;
+  transform: scale(1.12);
+  box-shadow: 0 3px 8px rgba(37, 99, 235, 0.18);
+}
+
+.product-card_compare-btn.is-active {
+  border-color: #93c5fd;
+  background-color: #eff6ff;
+  color: #2563eb;
+  transform: scale(1.05);
+}
+
+/* Wishlist Button */
 .product-card_wishlist-btn:hover {
   border-color: #fca5a5;
   color: #ef4444;
