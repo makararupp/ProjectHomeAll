@@ -66,7 +66,7 @@ const router = createRouter({
     },
     {
       path: '/categories/food-beverage',
-      alias: ['/food', '/food-beverage'],
+      alias: ['/food', '/food-beverage', '/services/food-beverage'],
       name: 'category-food',
       component: () => import('@/views/FoodView.vue')
     },

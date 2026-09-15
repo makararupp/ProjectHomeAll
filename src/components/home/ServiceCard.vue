@@ -1,4 +1,5 @@
 <script setup>
+import { RouterLink } from 'vue-router'
 import IconBase from '@/components/ui/IconBase.vue'
 import { useI18n } from '@/composables/useI18n'
 
@@ -18,12 +19,12 @@ function getServiceKey(id) {
 </script>
 
 <template>
-  <a :href="service.href" class="service-card">
+  <RouterLink :to="service.href" class="service-card">
     <span class="service-card_icon">
       <IconBase :name="service.icon" :size="22" />
     </span>
     <span class="service-card_title">{{ t(`servicesSection.${getServiceKey(service.id)}`, service.title) }}</span>
-  </a>
+  </RouterLink>
 </template>
 
 <style scoped>

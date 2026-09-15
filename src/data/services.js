@@ -9,7 +9,7 @@
     id: 'food-beverage',
     icon: 'food',
     title: 'Food & Beverage',
-    href: '/services/food-beverage'
+    href: '/categories/food-beverage'
   },
   {
     id: 'logistic',
