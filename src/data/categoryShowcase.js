@@ -20,7 +20,7 @@ import hardwareTools from '@/assets/images/categories/hardware-tools.png'
 import powerTools from '@/assets/images/categories/power-tools.png'
 
 export const categoryShowcase = [
-  { id: 'steel-products', title: 'Steel Products', titleKm: 'ផលិតផលដែក', image: steelProducts },
+  { id: 'steel-products', title: 'Steel Products', titleKm: 'ផលិតផលដែក', image: steelProducts, href: '/categories/steel-products' },
   { id: 'cement', title: 'Cement', titleKm: 'ស៊ីម៉ង់ត៍', image: cement },
   { id: 'water-pipes', title: 'Water Pipes', titleKm: 'បំពង់ទឹក', image: waterPipes },
   { id: 'electrical-system', title: 'Electrical System', titleKm: 'ប្រព័ន្ធអគ្គិសនី', image: electricalSystem },

@@ -1,4 +1,5 @@
 <script setup>
+import { RouterLink } from 'vue-router'
 import { categoryShowcase } from '@/data/categoryShowcase'
 import { useI18n } from '@/composables/useI18n'
 
@@ -9,9 +10,11 @@ const { isKhmer } = useI18n()
   <section class="category-showcase" aria-label="Product categories showcase">
     <div class="container">
       <div class="category-showcase_grid">
-        <div
+        <component
+          :is="item.href ? RouterLink : 'div'"
           v-for="item in categoryShowcase"
           :key="item.id"
+          :to="item.href || undefined"
           class="category-item"
         >
           <!-- Thumbnail Image Container -->
@@ -30,7 +33,7 @@ const { isKhmer } = useI18n()
           <span class="category-item_title">
             {{ isKhmer ? item.titleKm : item.title }}
           </span>
-        </div>
+        </component>
       </div>
     </div>
   </section>
@@ -55,6 +58,8 @@ const { isKhmer } = useI18n()
   flex-direction: column;
   align-items: center;
   text-align: center;
+  text-decoration: none;
+  color: inherit;
   cursor: pointer;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
@@ -67,9 +72,9 @@ const { isKhmer } = useI18n()
 }
 
 /* Strictly NO active click state */
-.category-item:active {
+/* .category-item:active {
   transform: translateY(-4px) !important;
-}
+} */
 
 /* Thumbnail Frame */
 .category-item_image-wrap {
