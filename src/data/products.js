@@ -10,6 +10,16 @@ import pro9 from '@/assets/images/pro9.png'
 import pro10 from '@/assets/images/pro10.png'
 import pro11 from '@/assets/images/pro11.png'
 import pro12 from '@/assets/images/pro12.png'
+import cementImg from '@/assets/images/categories/cement.png'
+import bricksImg from '@/assets/images/categories/bricks.png'
+import roofImg from '@/assets/images/categories/roof.png'
+import metalSheetImg from '@/assets/images/categories/metal-sheet.png'
+import powerToolsImg from '@/assets/images/categories/power-tools.png'
+import paintsImg from '@/assets/images/categories/paints-equipments.png'
+import electricalImg from '@/assets/images/categories/electrical-system.png'
+import hardwareToolsImg from '@/assets/images/categories/hardware-tools.png'
+import waterPumpImg from '@/assets/images/categories/water-pump.png'
+import tankImg from '@/assets/images/categories/tank.png'
 
 /**
  * "Feature Product" cards for the homepage.

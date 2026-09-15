@@ -1,17 +1,19 @@
 <script setup>
-import { ref, computed } from 'vue'
-import { RouterLink } from 'vue-router'
+import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
 import { products } from '@/data/products'
 import ProductCard from './ProductCard.vue'
 import { useI18n } from '@/composables/useI18n'
 import { useCart } from '@/composables/useCart'
 
-const { t } = useI18n()
+const { t, isKhmer } = useI18n()
 const { addToCart } = useCart()
 
 // Number of products to show initially
-const initialCount = 4
+const initialCount = 5
 const visibleCount = ref(initialCount)
+const isLoading = ref(false)
+const sentinelRef = ref(null)
+let observer = null
 
 // Slice products currently visible
 const visibleProducts = computed(() => {
@@ -23,14 +25,49 @@ const hasMore = computed(() => {
   return visibleCount.value < products.length
 })
 
-// Load 4 more products into the grid
+// Automatically load more products
 function loadMore() {
-  visibleCount.value += 4
+  if (!hasMore.value || isLoading.value) return
+  isLoading.value = true
+
+  setTimeout(() => {
+    visibleCount.value = Math.min(products.length, visibleCount.value + 5)
+    isLoading.value = false
+
+    nextTick(() => {
+      if (sentinelRef.value && observer && hasMore.value) {
+        observer.unobserve(sentinelRef.value)
+        observer.observe(sentinelRef.value)
+      }
+    })
+  }, 350)
 }
 
 function handleAddToCart(product) {
   addToCart(product, 1)
 }
+
+onMounted(() => {
+  if ('IntersectionObserver' in window) {
+    observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && hasMore.value && !isLoading.value) {
+          loadMore()
+        }
+      },
+      { rootMargin: '180px' }
+    )
+    if (sentinelRef.value) {
+      observer.observe(sentinelRef.value)
+    }
+  }
+})
+
+onUnmounted(() => {
+  if (observer) {
+    observer.disconnect()
+  }
+})
 </script>
 
 <template>
@@ -49,26 +86,12 @@ function handleAddToCart(product) {
         />
       </div>
 
-      <div class="featured_footer">
-        <!-- Load More button: reveals more products in the grid -->
-        <button
-          v-if="hasMore"
-          type="button"
-          class="featured_btn"
-          @click="loadMore"
-        >
-          {{ t('featured.viewMore', 'View More Products') }}
-        </button>
-
-        <!-- Once all featured products are displayed, offer to browse the full catalog -->
-        <RouterLink
-          v-else
-          to="/products"
-          class="featured_btn featured_btn--store"
-        >
-          {{ t('featured.viewAll', 'View All Products in Store') }}
-          <span class="featured_btn-icon" aria-hidden="true">→</span>
-        </RouterLink>
+      <!-- Auto-loading Sentinel trigger & Spinner -->
+      <div v-if="hasMore" ref="sentinelRef" class="featured_sentinel">
+        <div v-if="isLoading" class="featured_loading">
+          <span class="loading-spinner" aria-hidden="true" />
+          <span class="loading-text">{{ isKhmer ? 'កំពុងផ្ទុកបន្ថែម...' : 'Loading more products...' }}</span>
+        </div>
       </div>
     </div>
   </section>
@@ -93,52 +116,48 @@ function handleAddToCart(product) {
 
 .featured_grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: var(--space-4);
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
 }
 
-.featured_footer {
+/* Auto-loading Sentinel & Indicator */
+.featured_sentinel {
+  width: 100%;
+  min-height: 48px;
   display: flex;
+  align-items: center;
   justify-content: center;
   margin-top: var(--space-6);
 }
 
-.featured_btn {
+.featured_loading {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-2);
-  padding: 8px 22px;
-  background-color: var(--color-bg-surface);
-  border: 1.5px solid var(--color-brand);
-  border-radius: var(--radius-sm);
-  color: var(--color-brand-dark);
-  font-size: var(--font-size-sm);
-  font-weight: 600;
-  font-family: inherit;
-  cursor: pointer;
-  text-decoration: none;
-  transition: all var(--transition-fast);
+  gap: 10px;
+  color: #64748b;
+  font-size: 13.5px;
+  font-weight: 500;
 }
 
-.featured_btn:hover {
-  background-color: var(--color-brand);
-  color: var(--color-text-white);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 14px rgba(52, 199, 89, 0.25);
+.loading-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2.5px solid #e2e8f0;
+  border-top-color: #2563eb;
+  border-radius: 50%;
+  animation: spin 0.75s linear infinite;
 }
 
-.featured_btn-icon {
-  font-size: 14px;
-  font-weight: 700;
-  transition: transform var(--transition-fast);
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
-.featured_btn:hover .featured_btn-icon {
-  transform: scale(1.2);
-}
-
-.featured_btn--store:hover .featured_btn-icon {
-  transform: translateX(4px);
+@media (max-width: 1200px) {
+  .featured_grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
 
 @media (max-width: 1024px) {
