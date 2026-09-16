@@ -41,6 +41,13 @@ textarea {
   font-family: inherit;
 }
 
+code,
+kbd,
+samp,
+pre {
+  font-family: var(--font-family-code);
+}
+
 button {
   cursor: pointer;
   border: none;

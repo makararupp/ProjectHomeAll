@@ -1261,9 +1261,13 @@ onMounted(() => {
 
 .top-selling-code {
   font-size: 12px;
+  font-family: var(--font-family-code);
+  font-size: 11.5px;
   color: #64748b;
   margin: 0 0 4px 0;
   font-weight: 600;
+  font-weight: 500;
+  letter-spacing: 0.3px;
 }
 
 .top-selling-price {
