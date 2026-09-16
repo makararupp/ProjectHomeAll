@@ -7,9 +7,13 @@ import AppFooter from '@/components/layout/AppFooter.vue'
 import { allProducts, itemGroups, itemGroupCategories } from '@/data/products'
 import { useI18n } from '@/composables/useI18n'
 import { useCart } from '@/composables/useCart'
+import { useWishlist } from '@/composables/useWishlist'
+import { useCompare } from '@/composables/useCompare'
 
 const { t, isKhmer } = useI18n()
 const { addToCart } = useCart()
+const { isInWishlist, addToWishlist, removeFromWishlist } = useWishlist()
+const { isInCompare, toggleCompare } = useCompare()
 
 // Helper to map item group and category name to translated string
 function getGroupLabel(name) {
@@ -228,6 +232,44 @@ function showToast(message) {
   }, 3200)
 }
 
+// Quick card button animation state
+const justAddedId = ref(null)
+let justAddedTimer = null
+
+function handleToggleCompare(product, event) {
+  if (event) {
+    event.stopPropagation()
+  }
+  if (!product || !product.id) return
+  toggleCompare(product)
+}
+
+function handleToggleWishlist(product, event) {
+  if (event) {
+    event.stopPropagation()
+  }
+  if (!product || !product.id) return
+  if (isInWishlist(product.id)) {
+    removeFromWishlist(product.id)
+  } else {
+    addToWishlist(product)
+  }
+}
+
+function handleCardAddToCart(product, event) {
+  if (event) {
+    event.stopPropagation()
+  }
+  if (!product || product.inStock === false) return
+  addToCart(product, 1)
+  justAddedId.value = product.id
+  if (justAddedTimer) clearTimeout(justAddedTimer)
+  justAddedTimer = setTimeout(() => {
+    justAddedId.value = null
+  }, 1200)
+  showToast(`${t('products.addedToCart', 'Added to cart successfully!')} (${product.title} x1)`)
+}
+
 function handleAddToCart(product, qty = 1) {
   if (!product || !product.inStock) return
   addToCart(product, qty)
@@ -260,6 +302,7 @@ onUnmounted(() => {
   window.removeEventListener('keydown', handleKeydown)
   document.removeEventListener('click', handleClickOutsideCategoryMenu)
   if (toastTimer) clearTimeout(toastTimer)
+  if (justAddedTimer) clearTimeout(justAddedTimer)
 })
 </script>
 
@@ -479,17 +522,6 @@ onUnmounted(() => {
                   loading="lazy"
                 />
                 <span v-else class="product-card_placeholder">Product image</span>
-
-                <!-- Quick View Overlay Badge on hover -->
-                <div class="product-card_quickview-overlay">
-                  <span class="product-card_quickview-btn">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14">
-                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-                      <circle cx="12" cy="12" r="3" />
-                    </svg>
-                    {{ t('products.quickView', 'Quick View') }}
-                  </span>
-                </div>
               </div>
 
               <!-- Card Details -->
@@ -497,32 +529,89 @@ onUnmounted(() => {
                 <h3 class="product-card_title">{{ product.title }}</h3>
                 <p class="product-card_category">{{ getGroupLabel(product.category) }}</p>
 
-                <div class="product-card_footer">
-                  <div class="product-card_price-wrap">
-                    <p class="product-card_price">{{ product.price }}</p>
-                    <p
-                      class="product-card_stock"
-                      :class="product.inStock ? 'stock--in' : 'stock--out'"
-                    >
-                      <span class="stock-dot" />
-                      {{ product.inStock ? t('products.stockIn', 'Stock In') : t('products.outOfStock', 'Out of stock') }}
-                    </p>
-                  </div>
+                <div class="product-card_price-wrap">
+                  <p class="product-card_price">{{ product.price }}</p>
+                  <p
+                    class="product-card_stock"
+                    :class="product.inStock ? 'stock--in' : 'stock--out'"
+                  >
+                    <span class="stock-dot" />
+                    {{ product.inStock ? t('products.stockIn', 'Stock In') : t('products.outOfStock', 'Out of stock') }}
+                  </p>
+                </div>
 
-                  <!-- Direct Add To Cart Action Button with Icon -->
+                <!-- Bottom Action Row: Quick Add Button (Icon -> Expands) + Circular Compare + Circular Wishlist -->
+                <div class="product-card_actions" @click.stop>
+                  <!-- Quick Add Button: starts as Icon, smoothly expands to show title and icon on select/hover -->
                   <button
                     type="button"
-                    class="product-card_cart-btn"
-                    :class="{ 'is-disabled': !product.inStock }"
-                    :disabled="!product.inStock"
-                    :title="!product.inStock ? t('products.outOfStock', 'Out of stock') : t('products.addToCart', 'Add to Cart')"
-                    :aria-label="!product.inStock ? t('products.outOfStock', 'Out of stock') : t('products.addToCart', 'Add to Cart')"
-                    @click.stop="product.inStock && handleAddToCart(product, 1)"
+                    class="product-card_quick-btn"
+                    :class="{ 'is-added': justAddedId === product.id, 'is-disabled': product.inStock === false }"
+                    :disabled="product.inStock === false"
+                    :title="product.inStock === false ? t('products.outOfStock', 'Out of stock') : t('featured.quickAdd', 'Quick Add')"
+                    :aria-label="product.inStock === false ? t('products.outOfStock', 'Out of stock') : t('featured.quickAdd', 'Quick Add')"
+                    @click="handleCardAddToCart(product, $event)"
                   >
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" class="btn-cart-icon">
                       <circle cx="9" cy="21" r="1" />
                       <circle cx="20" cy="21" r="1" />
                       <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                    </svg>
+                    <span class="btn-text">
+                      {{
+                        product.inStock === false
+                          ? t('products.outOfStock', 'Out of stock')
+                          : (justAddedId === product.id ? t('products.addedToCart', 'Added!') : t('featured.quickAdd', 'Quick Add'))
+                      }}
+                    </span>
+                  </button>
+
+                  <!-- Circular Compare Button -->
+                  <button
+                    type="button"
+                    class="product-card_action-btn product-card_compare-btn"
+                    :class="{ 'is-active': isInCompare(product.id) }"
+                    :title="isInCompare(product.id) ? t('compare.remove', 'Remove from compare') : t('header.compare', 'Compare')"
+                    :aria-label="isInCompare(product.id) ? t('compare.remove', 'Remove from compare') : t('header.compare', 'Compare')"
+                    @click="handleToggleCompare(product, $event)"
+                  >
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      width="16"
+                      height="16"
+                    >
+                      <path d="M16 3l4 4-4 4" />
+                      <path d="M20 7H4" />
+                      <path d="M8 21l-4-4 4-4" />
+                      <path d="M4 17h16" />
+                    </svg>
+                  </button>
+
+                  <!-- Circular Heart Wishlist Button -->
+                  <button
+                    type="button"
+                    class="product-card_action-btn product-card_wishlist-btn"
+                    :class="{ 'is-active': isInWishlist(product.id) }"
+                    :title="isInWishlist(product.id) ? t('wishlistPage.remove', 'Remove from wishlist') : t('header.wishlist', 'Wishlist')"
+                    :aria-label="isInWishlist(product.id) ? t('wishlistPage.remove', 'Remove from wishlist') : t('header.wishlist', 'Wishlist')"
+                    @click="handleToggleWishlist(product, $event)"
+                  >
+                    <svg
+                      viewBox="0 0 24 24"
+                      :fill="isInWishlist(product.id) ? '#ef4444' : 'none'"
+                      :stroke="isInWishlist(product.id) ? '#ef4444' : '#64748b'"
+                      stroke-width="1.8"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      width="16"
+                      height="16"
+                    >
+                      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
                     </svg>
                   </button>
                 </div>
@@ -1204,40 +1293,7 @@ onUnmounted(() => {
   user-select: none;
 }
 
-/* Quick View Overlay on Image */
-.product-card_quickview-overlay {
-  position: absolute;
-  bottom: 8px;
-  left: 0;
-  right: 0;
-  display: flex;
-  justify-content: center;
-  pointer-events: none;
-  opacity: 0;
-  transform: translateY(8px);
-  transition: all 0.22s ease;
-  z-index: 2;
-}
 
-.product-card:hover .product-card_quickview-overlay {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.product-card_quickview-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 14px;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(6px);
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 600;
-  color: #15803d;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
-  border: 1px solid #bbf7d0;
-}
 
 .product-card_body {
   display: flex;
@@ -1265,29 +1321,23 @@ onUnmounted(() => {
   margin: 0 0 10px 0;
 }
 
-.product-card_footer {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  margin-top: auto;
-  padding-top: 10px;
-  gap: 8px;
-}
-
 .product-card_price-wrap {
   display: flex;
-  flex-direction: column;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 12px;
 }
 
 .product-card_price {
-  font-size: 19px;
+  font-size: 18px;
   font-weight: 700;
-  color: #111827;
-  margin: 0 0 4px 0;
+  color: #ea580c;
+  margin: 0;
 }
 
 .product-card_stock {
-  font-size: 12.5px;
+  font-size: 12px;
   font-weight: 500;
   margin: 0;
   display: inline-flex;
@@ -1311,39 +1361,134 @@ onUnmounted(() => {
   color: #ef4444;
 }
 
-/* Product Card Cart Button */
-.product-card_cart-btn {
-  width: 38px;
-  height: 38px;
-  border-radius: 10px;
-  background-color: #f0fdf4;
-  border: 1px solid #bbf7d0;
-  color: #16a34a;
+/* Actions Row matching Feature Product: Quick Add (Icon -> Expands on select/hover) + Compare + Wishlist */
+.product-card_actions {
   display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+  flex-wrap: nowrap;
+}
+
+/* Quick Add Button:
+   Default: Icon-only button (compact circle/rounded shape)
+   When Selected / Hovered: Expands to show both Title and Icon */
+.product-card_quick-btn {
+  height: 38px;
+  min-width: 38px;
+  padding: 0 11px;
+  background-color: #16a34a; /* Vibrant green */
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all 0.2s ease;
+  white-space: nowrap;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 2px 6px rgba(22, 163, 74, 0.25);
   flex-shrink: 0;
 }
 
-.product-card_cart-btn:hover:not(:disabled) {
-  background-color: #16a34a;
-  border-color: #16a34a;
-  color: #ffffff;
-  transform: scale(1.08);
-  box-shadow: 0 4px 12px rgba(22, 163, 74, 0.25);
+.btn-cart-icon {
+  flex-shrink: 0;
 }
 
-.product-card_cart-btn:disabled,
-.product-card_cart-btn.is-disabled {
-  background-color: #f3f4f6;
-  border-color: #e5e7eb;
+.product-card_quick-btn .btn-text {
+  max-width: 0;
+  opacity: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  margin-left: 0;
+  transition: max-width 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease, margin 0.2s ease;
+}
+
+/* Expand Quick Add on hover, focus-visible, or when selected/added */
+.product-card_quick-btn:hover:not(:disabled),
+.product-card_quick-btn:focus-visible,
+.product-card_quick-btn.is-added {
+  flex: 1;
+  padding: 0 14px;
+  background-color: #15803d;
+  box-shadow: 0 6px 16px rgba(22, 163, 74, 0.42);
+  transform: translateY(-2px);
+}
+
+.product-card_quick-btn:hover:not(:disabled) .btn-text,
+.product-card_quick-btn:focus-visible .btn-text,
+.product-card_quick-btn.is-added .btn-text {
+  max-width: 95px;
+  opacity: 1;
+  margin-left: 6px;
+}
+
+.product-card_quick-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.product-card_quick-btn:disabled,
+.product-card_quick-btn.is-disabled {
+  background-color: #e5e7eb;
   color: #9ca3af;
   cursor: not-allowed;
-  opacity: 0.65;
-  transform: none;
   box-shadow: none;
+  transform: none;
+}
+
+.product-card_quick-btn.is-added {
+  background-color: #15803d;
+  box-shadow: 0 4px 12px rgba(22, 163, 74, 0.35);
+}
+
+/* Shared Circular Style for Action Buttons (Compare & Wishlist) */
+.product-card_action-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid #e2e8f0;
+  background-color: #ffffff;
+  color: #64748b;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Compare Button */
+.product-card_compare-btn:hover {
+  border-color: #93c5fd;
+  color: #2563eb;
+  background-color: #eff6ff;
+  transform: scale(1.12);
+  box-shadow: 0 3px 8px rgba(37, 99, 235, 0.18);
+}
+
+.product-card_compare-btn.is-active {
+  border-color: #93c5fd;
+  background-color: #eff6ff;
+  color: #2563eb;
+  transform: scale(1.05);
+}
+
+/* Wishlist Button */
+.product-card_wishlist-btn:hover {
+  border-color: #fca5a5;
+  color: #ef4444;
+  background-color: #fff1f2;
+  transform: scale(1.12);
+  box-shadow: 0 3px 8px rgba(239, 68, 68, 0.18);
+}
+
+.product-card_wishlist-btn.is-active {
+  border-color: #fecaca;
+  background-color: #fff1f2;
+  color: #ef4444;
+  transform: scale(1.05);
 }
 
 .product-card.is-out-of-stock .product-card_img {
@@ -1368,6 +1513,11 @@ onUnmounted(() => {
 
 .product-card--list .product-card_body {
   flex: 1;
+}
+
+.product-card--list .product-card_actions {
+  margin-top: 10px;
+  align-self: flex-start;
 }
 
 /* Pagination Section (Placed directly below the product grid) */
