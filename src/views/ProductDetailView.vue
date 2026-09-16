@@ -37,8 +37,9 @@ const selectedGroups = ref(route.query.group ? [String(route.query.group)] : [])
 const viewMode = ref('grid') // 'grid' | 'list'
 
 // Flyout submenu state: supports hover preview and pinned selection on click
+const categoryMenuRef = ref(null)
 const hoveredGroup = ref(null)
-const pinnedFlyoutGroup = ref(route.query.group ? String(route.query.group) : null)
+const pinnedFlyoutGroup = ref(null)
 const selectedSubcategoryName = ref('')
 
 const activeFlyoutName = computed(() => {
@@ -71,6 +72,7 @@ function selectGroup(groupName) {
     // If clicking already selected category, deselect and close
     selectedGroups.value = []
     pinnedFlyoutGroup.value = null
+    hoveredGroup.value = null
     selectedSubcategoryName.value = ''
     if (searchQuery.value) searchQuery.value = ''
   } else {
@@ -85,10 +87,19 @@ function selectGroup(groupName) {
 
 function selectSubcategory(subName, parentGroupName) {
   selectedGroups.value = [parentGroupName]
-  pinnedFlyoutGroup.value = parentGroupName
+  // Hide flyout submenu upon selecting subcategory
+  pinnedFlyoutGroup.value = null
+  hoveredGroup.value = null
   selectedSubcategoryName.value = subName
   searchQuery.value = subName
   currentPage.value = 1
+}
+
+function handleClickOutsideCategoryMenu(event) {
+  if (categoryMenuRef.value && !categoryMenuRef.value.contains(event.target)) {
+    pinnedFlyoutGroup.value = null
+    hoveredGroup.value = null
+  }
 }
 
 const currentDisplayTitle = computed(() => {
@@ -111,7 +122,8 @@ watch(
   (newQuery) => {
     if (newQuery.group) {
       selectedGroups.value = [String(newQuery.group)]
-      pinnedFlyoutGroup.value = String(newQuery.group)
+      pinnedFlyoutGroup.value = null
+      hoveredGroup.value = null
     }
     if (newQuery.search !== undefined) {
       searchQuery.value = String(newQuery.search)
@@ -233,6 +245,7 @@ function handleKeydown(event) {
 
 onMounted(() => {
   window.addEventListener('keydown', handleKeydown)
+  document.addEventListener('click', handleClickOutsideCategoryMenu)
   // Check if route has an id param or query
   const targetId = route.params.id || route.query.id
   if (targetId) {
@@ -245,6 +258,7 @@ onMounted(() => {
 
 onUnmounted(() => {
   window.removeEventListener('keydown', handleKeydown)
+  document.removeEventListener('click', handleClickOutsideCategoryMenu)
   if (toastTimer) clearTimeout(toastTimer)
 })
 </script>
@@ -288,7 +302,7 @@ onUnmounted(() => {
       <div class="catalog-layout">
         <!-- Left Sidebar: Categories Navigation Menu with Flyout Submenu -->
         <aside class="catalog-sidebar" aria-label="Product Categories Navigation">
-          <div class="category-menu-container" @mouseleave="hoveredGroup = null">
+          <div ref="categoryMenuRef" class="category-menu-container" @mouseleave="hoveredGroup = null">
             <!-- Header matching screenshot: "Categories" -->
             <div class="category-menu-header">
               <h2 class="category-menu-title">{{ isKhmer ? 'ប្រភេទ' : 'Categories' }}</h2>
