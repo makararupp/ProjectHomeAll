@@ -428,4 +428,48 @@ onBeforeUnmount(() => {
     font-size: 22px;
   }
 }
+
+@media (max-width: 640px) {
+  .hero {
+    padding-top: var(--space-4);
+    padding-bottom: var(--space-4);
+  }
+
+  .hero_carousel,
+  .hero_image {
+    min-height: 200px;
+  }
+
+  .hero_card {
+    padding: 18px 16px;
+    border-radius: 12px;
+  }
+
+  .hero_heading {
+    font-size: 20px;
+  }
+
+  .hero_text {
+    font-size: 13.5px;
+  }
+
+  .hero_cta-primary {
+    width: 100%;
+    justify-content: center;
+    padding: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero_carousel,
+  .hero_image {
+    min-height: 170px;
+  }
+
+  .hero_arrow {
+    width: 30px;
+    height: 30px;
+    font-size: 16px;
+  }
+}
 </style>

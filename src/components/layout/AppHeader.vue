@@ -60,12 +60,30 @@ function handleClickOutsideLang(event) {
   }
 }
 
+// Mobile navigation drawer state
+const isMobileMenuOpen = ref(false)
+
+function toggleMobileMenu() {
+  isMobileMenuOpen.value = !isMobileMenuOpen.value
+  if (isMobileMenuOpen.value) {
+    document.body.style.overflow = 'hidden'
+  } else {
+    document.body.style.overflow = ''
+  }
+}
+
+function closeMobileMenu() {
+  isMobileMenuOpen.value = false
+  document.body.style.overflow = ''
+}
+
 onMounted(() => {
   document.addEventListener('click', handleClickOutsideLang)
 })
 
 onUnmounted(() => {
   document.removeEventListener('click', handleClickOutsideLang)
+  document.body.style.overflow = ''
 })
 </script>
 
@@ -73,6 +91,20 @@ onUnmounted(() => {
   <header class="app-header">
     <div class="app-header_inner">
       
+      <!-- Mobile Menu Hamburger Button (< 1024px) -->
+      <button
+        type="button"
+        class="app-header_mobile-toggle"
+        :class="{ 'is-open': isMobileMenuOpen }"
+        :aria-expanded="isMobileMenuOpen"
+        aria-label="Toggle navigation menu"
+        @click="toggleMobileMenu"
+      >
+        <span class="hamburger-bar" />
+        <span class="hamburger-bar" />
+        <span class="hamburger-bar" />
+      </button>
+
       <!-- Brand Logo in front of Home from project (src/assets/images/logo.jpg) -->
       <RouterLink to="/" class="app-header_logo" title="HomeAll">
         <img :src="logoImg" alt="HomeAll" class="app-header_logo-img" />
@@ -230,6 +262,83 @@ onUnmounted(() => {
             &times;
           </button>
         </div>
+      </Transition>
+    </Teleport>
+
+    <!-- Mobile Navigation Drawer -->
+    <Teleport to="body">
+      <Transition name="mobile-nav-fade">
+        <div
+          v-if="isMobileMenuOpen"
+          class="mobile-nav_backdrop"
+          @click="closeMobileMenu"
+        />
+      </Transition>
+      <Transition name="mobile-nav-slide">
+        <aside
+          v-if="isMobileMenuOpen"
+          class="mobile-nav_drawer"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Mobile Navigation"
+        >
+          <div class="mobile-nav_header">
+            <RouterLink to="/" class="mobile-nav_logo" @click="closeMobileMenu">
+              <img :src="logoImg" alt="HomeAll" />
+            </RouterLink>
+            <button
+              type="button"
+              class="mobile-nav_close"
+              aria-label="Close menu"
+              @click="closeMobileMenu"
+            >
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+                <path d="M18 6L6 18M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+
+          <div class="mobile-nav_body">
+            <!-- Search Inside Mobile Menu -->
+            <form class="mobile-nav_search" role="search" @submit.prevent="handleSearch">
+              <input
+                v-model="searchQuery"
+                type="search"
+                :placeholder="t('header.searchPlaceholder', 'Search products')"
+              />
+              <button type="submit" aria-label="Search">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="11" cy="11" r="8" />
+                  <path d="M21 21l-4.35-4.35" />
+                </svg>
+              </button>
+            </form>
+
+            <!-- Navigation Links -->
+            <nav class="mobile-nav_links" aria-label="Mobile Links">
+              <RouterLink
+                v-for="link in navLinks"
+                :key="link.key || link.label"
+                :to="link.href"
+                class="mobile-nav_link"
+                @click="closeMobileMenu"
+              >
+                <span>{{ link.key ? t(`nav.${link.key}`, link.label) : link.label }}</span>
+                <span class="mobile-nav_arrow" aria-hidden="true">›</span>
+              </RouterLink>
+            </nav>
+
+            <!-- Mobile Auth Buttons -->
+            <div class="mobile-nav_auth">
+              <RouterLink to="/sign-in" class="mobile-nav_auth-btn signin" @click="closeMobileMenu">
+                {{ t('header.signIn', 'Sign in') }}
+              </RouterLink>
+              <RouterLink to="/register" class="mobile-nav_auth-btn register" @click="closeMobileMenu">
+                {{ t('header.register', 'Register') }}
+              </RouterLink>
+            </div>
+          </div>
+        </aside>
       </Transition>
     </Teleport>
   </header>
@@ -743,9 +852,280 @@ onUnmounted(() => {
   transform: translateY(16px) scale(0.95);
 }
 
+/* Mobile Hamburger Button */
+.app-header_mobile-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  width: 38px;
+  height: 38px;
+  border-radius: 6px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  flex-shrink: 0;
+  transition: background-color 0.2s ease;
+}
+
+.app-header_mobile-toggle:hover {
+  background-color: #f1f5f9;
+}
+
+.hamburger-bar {
+  width: 20px;
+  height: 2px;
+  background-color: #1f2937;
+  border-radius: 2px;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.app-header_mobile-toggle.is-open .hamburger-bar:nth-child(1) {
+  transform: translateY(6px) rotate(45deg);
+}
+
+.app-header_mobile-toggle.is-open .hamburger-bar:nth-child(2) {
+  opacity: 0;
+}
+
+.app-header_mobile-toggle.is-open .hamburger-bar:nth-child(3) {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+/* Mobile Drawer Backdrop */
+.mobile-nav_backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(4px);
+  z-index: 99998;
+}
+
+/* Mobile Drawer Container */
+.mobile-nav_drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 320px;
+  max-width: 86vw;
+  background-color: #ffffff;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 6px 0 25px rgba(0, 0, 0, 0.15);
+  overflow-y: auto;
+}
+
+.mobile-nav_header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.mobile-nav_logo img {
+  height: 38px;
+  width: auto;
+  max-width: 110px;
+  object-fit: contain;
+}
+
+.mobile-nav_close {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #64748b;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.mobile-nav_close:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+.mobile-nav_body {
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  flex: 1;
+}
+
+.mobile-nav_search {
+  display: flex;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #f8fafc;
+}
+
+.mobile-nav_search input {
+  flex: 1;
+  padding: 10px 14px;
+  border: none;
+  background: transparent;
+  font-size: 13.5px;
+  color: #0f172a;
+}
+
+.mobile-nav_search button {
+  padding: 0 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #64748b;
+}
+
+.mobile-nav_links {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.mobile-nav_link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  border-radius: 8px;
+  color: #1e293b;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.mobile-nav_link:hover,
+.mobile-nav_link.router-link-active {
+  background-color: #f0fdf4;
+  color: var(--color-brand-dark, #269c46);
+  font-weight: 600;
+}
+
+.mobile-nav_arrow {
+  font-size: 18px;
+  color: #94a3b8;
+}
+
+.mobile-nav_auth {
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid #e2e8f0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.mobile-nav_auth-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  border-radius: 6px;
+  font-size: 13.5px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.mobile-nav_auth-btn.signin {
+  background-color: #f8fafc;
+  color: #334155;
+  border: 1px solid #cbd5e1;
+}
+
+.mobile-nav_auth-btn.register {
+  background-color: var(--color-brand, #34c759);
+  color: #ffffff;
+}
+
+/* Drawer Transitions */
+.mobile-nav-fade-enter-active,
+.mobile-nav-fade-leave-active {
+  transition: opacity 0.25s ease;
+}
+.mobile-nav-fade-enter-from,
+.mobile-nav-fade-leave-to {
+  opacity: 0;
+}
+
+.mobile-nav-slide-enter-active,
+.mobile-nav-slide-leave-active {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.mobile-nav-slide-enter-from,
+.mobile-nav-slide-leave-to {
+  transform: translateX(-100%);
+}
+
+/* Responsive Rules for Header Bar */
 @media (max-width: 1024px) {
+  .app-header_mobile-toggle {
+    display: flex;
+  }
+
   .app-header_nav {
     display: none;
+  }
+
+  .app-header_inner {
+    gap: var(--space-4);
+    padding: 0 var(--space-4);
+  }
+}
+
+@media (max-width: 768px) {
+  .header-action-item_title {
+    display: none;
+  }
+
+  .app-header_auth {
+    display: none;
+  }
+
+  .app-header_search {
+    max-width: 200px;
+  }
+
+  .app-header_inner {
+    gap: 10px;
+  }
+}
+
+@media (max-width: 580px) {
+  .app-header_inner {
+    height: auto;
+    padding: 8px 12px;
+    flex-wrap: wrap;
+    row-gap: 8px;
+  }
+
+  .app-header_logo-img {
+    height: 36px;
+    max-width: 95px;
+  }
+
+  .app-header_search {
+    order: 10;
+    max-width: 100%;
+    width: 100%;
+    margin-top: 2px;
+  }
+
+  .lang-selector_code {
+    display: none;
+  }
+
+  .header-action-item {
+    padding: 4px 2px;
   }
 }
 </style>

@@ -882,6 +882,7 @@ function handleBackToInput() {
     flex-direction: column;
     justify-content: center;
     padding: 30px 16px;
+    min-height: auto;
   }
 
   .register-page_visual {
@@ -894,7 +895,20 @@ function handleBackToInput() {
   }
 
   .register-card {
-    max-width: 360px;
+    max-width: 420px;
+    width: 100%;
+  }
+
+  .register-footer {
+    position: static;
+    margin-top: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .register-card {
+    padding: 24px 18px;
+    border-radius: 12px;
   }
 }
 </style>

@@ -395,6 +395,30 @@ function handleAddToCart(item) {
     flex-direction: column;
     align-items: flex-start;
     gap: 8px;
+    padding: 14px 16px;
+  }
+
+  .compare-table-wrap {
+    padding: 14px 10px;
+  }
+
+  .compare-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .compare-product-col {
+    padding: 12px 10px;
+  }
+
+  .compare-col_image-wrap {
+    height: 110px;
+  }
+}
+
+@media (max-width: 360px) {
+  .compare-grid {
+    grid-template-columns: 1fr;
   }
 }
 </style>

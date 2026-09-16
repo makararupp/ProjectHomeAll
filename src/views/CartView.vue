@@ -781,5 +781,33 @@ function getItemLineTotal(item) {
     align-items: center;
   }
 }
+
+@media (max-width: 640px) {
+  .cart-page_content {
+    padding: 16px 0;
+  }
+
+  .cart-summary-card {
+    padding: 18px 16px;
+    border-radius: 12px;
+  }
+
+  .cart-item-row {
+    padding: 14px 12px;
+  }
+
+  .cart-item-row_product {
+    gap: 10px;
+  }
+
+  .cart-item-row_img-wrap {
+    width: 64px;
+    height: 64px;
+  }
+
+  .cart-item-row_title {
+    font-size: 13.5px;
+  }
+}
 </style>
 

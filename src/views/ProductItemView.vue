@@ -1456,16 +1456,110 @@ onMounted(() => {
 @media (max-width: 900px) {
   .product-hero-grid {
     grid-template-columns: 1fr;
-    gap: 28px;
+    gap: 24px;
   }
 
   .product-bottom-grid {
     grid-template-columns: 1fr;
+    gap: 24px;
   }
 
   .spec-table-row {
     grid-template-columns: 1fr;
     gap: 2px;
+  }
+}
+
+@media (max-width: 768px) {
+  .zoom-lens,
+  .zoom-preview-flyout {
+    display: none !important;
+  }
+
+  .main-image-viewport {
+    cursor: default;
+    min-height: 280px;
+    aspect-ratio: 1;
+    padding: 14px;
+  }
+}
+
+@media (max-width: 640px) {
+  .product-main-container {
+    padding-top: 14px;
+    padding-bottom: 36px;
+  }
+
+  .product-info-panel {
+    padding: 18px 16px;
+  }
+
+  .pre-order-btn {
+    max-width: 100%;
+    width: 100%;
+    height: 46px;
+    font-size: 15px;
+  }
+
+  .secondary-actions-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .sub-action-btn {
+    justify-content: center;
+    padding: 9px 10px;
+  }
+
+  .tab-headers {
+    overflow-x: auto;
+    white-space: nowrap;
+    gap: 20px;
+    padding-bottom: 2px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .tab-headers::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tab-btn {
+    font-size: 14.5px;
+    padding-bottom: 8px;
+  }
+
+  .product-tabs-container {
+    padding: 18px 16px;
+  }
+
+  .top-selling-sidebar {
+    padding: 18px 16px;
+  }
+
+  .pricing-matrix {
+    gap: 8px;
+  }
+
+  .matrix-label {
+    width: 75px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 420px) {
+  .main-image-viewport {
+    min-height: 230px;
+  }
+
+  .thumbnail-item {
+    width: 48px;
+    height: 42px;
+  }
+
+  .secondary-actions-wrap {
+    grid-template-columns: 1fr;
   }
 }
 </style>

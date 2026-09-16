@@ -393,4 +393,47 @@ function handleAddToCart(event) {
   filter: grayscale(20%);
   opacity: 0.8;
 }
+
+@media (max-width: 640px) {
+  .product-card {
+    padding: 10px 8px 12px 8px;
+    border-radius: 10px;
+  }
+
+  .product-card_image {
+    padding: 6px;
+    margin-bottom: 6px;
+    border-radius: 8px;
+  }
+
+  .product-card_title {
+    font-size: 12px;
+    min-height: 32px;
+    margin-bottom: 4px;
+  }
+
+  .product-card_price {
+    font-size: 14px;
+  }
+
+  .product-card_price-wrap {
+    margin-bottom: 6px;
+  }
+
+  .product-card_quick-btn {
+    height: 32px;
+    min-width: 32px;
+    padding: 0 8px;
+  }
+
+  .product-card_action-btn {
+    width: 30px;
+    height: 30px;
+  }
+
+  .product-card_action-btn svg {
+    width: 14px;
+    height: 14px;
+  }
+}
 </style>

@@ -170,10 +170,10 @@ function handleAddToCart(product) {
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 360px) {
   .featured_grid {
     grid-template-columns: 1fr;
-    gap: 12px;
+    gap: 10px;
   }
 }
 </style>

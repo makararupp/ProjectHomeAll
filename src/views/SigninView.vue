@@ -391,6 +391,7 @@ function handleLogin() {
     flex-direction: column;
     justify-content: center;
     padding: 30px 16px;
+    min-height: auto;
   }
 
   .signin-page_visual {
@@ -403,7 +404,20 @@ function handleLogin() {
   }
 
   .signin-card {
-    max-width: 360px;
+    max-width: 400px;
+    width: 100%;
+  }
+
+  .signin-footer {
+    position: static;
+    margin-top: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .signin-card {
+    padding: 24px 18px;
+    border-radius: 12px;
   }
 }
 </style>

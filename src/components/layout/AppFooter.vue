@@ -130,4 +130,15 @@ const year = new Date().getFullYear()
     align-items: flex-start;
   }
 }
+
+@media (max-width: 480px) {
+  .app-footer_columns {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .app-footer {
+    padding-top: var(--space-6);
+  }
+}
 </style>

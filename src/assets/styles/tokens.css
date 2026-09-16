@@ -53,8 +53,6 @@
   --radius-pill: 999px;
 
   /* Typography */
-  --font-family-base: 'Battambang', 'Siemreap', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-family-title: 'Siemreap', 'Battambang', sans-serif;
   --font-family-base: 'Inter', 'Battambang', 'Siemreap', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-family-title: 'Inter', 'Siemreap', 'Battambang', sans-serif;
   --font-family-khmer: 'Siemreap', 'Battambang', sans-serif;
@@ -73,7 +71,9 @@
   /* Layout */
   --container-max-width: 1344px;
   --header-height: 72px;
+  --header-height-mobile: 60px;
   --category-nav-height: 42px;
+  --category-nav-height-mobile: 38px;
 
   /* Motion */
   --transition-fast: 150ms ease;

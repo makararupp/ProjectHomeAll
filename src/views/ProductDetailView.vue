@@ -2048,7 +2048,21 @@ onUnmounted(() => {
 
 @media (max-width: 580px) {
   .products-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .product-card {
+    padding: 10px 8px;
+  }
+
+  .product-card_title {
+    font-size: 12px;
+    min-height: 32px;
+  }
+
+  .product-card_price {
+    font-size: 14px;
   }
 
   .filter-group_list {
@@ -2068,6 +2082,19 @@ onUnmounted(() => {
 
   .pagination {
     flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .page-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 360px) {
+  .products-grid {
+    grid-template-columns: 1fr;
   }
 }
 </style>

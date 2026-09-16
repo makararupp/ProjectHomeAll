@@ -529,14 +529,43 @@ function handleAddToCart(item) {
     font-size: 13px;
   }
   .wishlist-card {
-    padding: 40px 16px;
+    padding: 24px 12px;
     min-height: 380px;
   }
   .wishlist-empty_art {
-    width: 220px;
+    width: 200px;
   }
   .wishlist-empty_title {
     font-size: 16px;
+  }
+  .wishlist-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .wishlist-item-card {
+    padding: 10px 8px;
+  }
+  .wishlist-item-image-wrap {
+    height: 120px;
+    margin-bottom: 8px;
+  }
+  .wishlist-item-name {
+    font-size: 13px;
+  }
+  .wishlist-item-actions {
+    flex-direction: column;
+    gap: 6px;
+  }
+  .wishlist-btn--cart {
+    font-size: 12px;
+    padding: 8px 10px;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 360px) {
+  .wishlist-grid {
+    grid-template-columns: 1fr;
   }
 }
 </style>
