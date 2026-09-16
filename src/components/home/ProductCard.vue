@@ -86,9 +86,9 @@ function handleAddToCart(event) {
       </div>
     </RouterLink>
 
-    <!-- Bottom Action Row: Blue Quick Button (Icon -> Expands) + Circular Compare + Circular Wishlist -->
+    <!-- Bottom Action Row: Quick Add Button (Icon -> Expands) + Circular Compare + Circular Wishlist -->
     <div class="product-card_actions">
-      <!-- Blue Quick Add Button: starts as Icon, smoothly expands to show title and icon on select/hover -->
+      <!-- Quick Add Button: starts as Icon, smoothly expands to show title and icon on select/hover -->
       <button
         type="button"
         class="product-card_quick-btn"
@@ -267,7 +267,7 @@ function handleAddToCart(event) {
   height: 38px;
   min-width: 38px;
   padding: 0 11px;
-  background-color: #3b5bf5; /* Vibrant blue matching screenshot */
+  background-color: #16a34a; /* Vibrant green */
   color: #ffffff;
   border: none;
   border-radius: 10px;
@@ -279,7 +279,7 @@ function handleAddToCart(event) {
   cursor: pointer;
   white-space: nowrap;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 2px 6px rgba(59, 91, 245, 0.25);
+  box-shadow: 0 2px 6px rgba(22, 163, 74, 0.25);
   flex-shrink: 0;
 }
 
@@ -302,8 +302,8 @@ function handleAddToCart(event) {
 .product-card_quick-btn.is-added {
   flex: 1;
   padding: 0 14px;
-  background-color: #2446ea;
-  box-shadow: 0 6px 16px rgba(59, 91, 245, 0.42);
+  background-color: #15803d;
+  box-shadow: 0 6px 16px rgba(22, 163, 74, 0.42);
   transform: translateY(-2px);
 }
 
@@ -329,7 +329,7 @@ function handleAddToCart(event) {
 }
 
 .product-card_quick-btn.is-added {
-  background-color: #16a34a;
+  background-color: #15803d;
   box-shadow: 0 4px 12px rgba(22, 163, 74, 0.35);
 }
 
