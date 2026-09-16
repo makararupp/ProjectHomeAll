@@ -360,7 +360,10 @@ onUnmounted(() => {
   align-items: center;
   gap: var(--space-8);
   width: 100%;
-  padding: 0 var(--space-8);
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+  box-sizing: border-box;
 }
 
 .app-header_logo {
