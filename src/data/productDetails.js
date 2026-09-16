@@ -63,44 +63,14 @@ export const topSellingProducts = [
 ]
 
 /**
- * Complete technical description lines matching reference specification format
- */
-export const asusFullDescriptionLines = [
-  '-CPU / Processor: Intel® Core™ 5 Processor 320 (6MB Cache, 1.5 GHz up to 4.6 GHz, 6 cores, 6 Threads)',
-  '- Neural Processor: Intel® NPU up to 16TOPS',
-  '-Operating System: Window 11Home Single Language (64Bit)',
-  '-RAM / Memory: 8GB DDR5 SO-DIMM',
-  '-Storage: 512GB M.2 NVMe™ PCIe® 4.0 SSD',
-  '-Graphic: Intel® Graphics',
-  '-Display: 14.0-inch FHD (1920 x 1080) IPS-level Panel 16:9 aspect ratio LED Backlit, 60Hz, Non-touch screen-Brightness 250nits, Color gamut 45% NTSC, display 84% Screen-to-body ratio',
-  '-Optical Drive: None,',
-  '-Webcam: 720p HD camera With privacy shutter',
-  '-Wireless: Wi-Fi 6(802.11ax) (Dual band) 1*1 + Bluetooth® 5.3 Wireless Card (*Bluetooth® version may change with OS version different.)',
-  '-Network: None',
-  '-Audio: SonicMaster Built-in speaker Built-in array microphone',
-  '-Ports: 1x USB 2.0 Type-A (data speed up to 480Mbps)',
-  '       1x USB 3.2 Gen 1 Type-C (data speed up to 5Gbps)',
-  '       2x USB 3.2 Gen 1 Type-A (data speed up to 5Gbps)',
-  '       1x HDMI 1.4',
-  '       1x 3.5mm Combo Audio Jack',
-  '       1x DC-in',
-  '-Keyboard: Backlit Chiclet Keyboard Precision touchpad',
-  '-Fingerprint: Yes',
-  '-Battery: 42WHrs, 3S1P, 3-cell Li-ion',
-  '-Weight: 1.40 kg (3.09 lbs)',
-  '-Color: Quiet Blue',
-  '-Warranty: 2Years Warranty + 1st Year Local Perfect Warranty'
-]
-
-/**
- * Standard customer reviews
+ * Standard customer reviews for hardware and building supplies
  */
 export const standardReviews = [
   {
     author: 'Sokha R.',
     date: '2026-03-10',
     rating: 5,
-    comment: 'Very high quality product, fast dispatch, and excellent customer service. Perfect for my project!'
+    comment: 'Very high quality product, fast dispatch, and excellent customer service. Perfect for my construction project!'
   },
   {
     author: 'Dara K.',
@@ -111,21 +81,168 @@ export const standardReviews = [
   {
     author: 'Chan V.',
     date: '2026-02-18',
-    rating: 4,
-    comment: 'Solid build and reliable performance. Recommended for construction and plumbing works.'
+    rating: 5,
+    comment: 'Solid build and reliable performance. Recommended for building and plumbing works.'
   }
 ]
 
 /**
- * Detailed specifications for products.
+ * Generate authentic technical description lines that match the specific product and image
+ */
+export function generateDescriptionLines(product) {
+  const title = (product.title || '').toLowerCase()
+  const cat = (product.category || '').toLowerCase()
+  const id = (product.id || '').toLowerCase()
+
+  // 1. PVC Elbows, Pipes & Plumbing fittings
+  if (title.includes('កែង') || id.includes('elbow') || title.includes('elbow') || cat.includes('pvc') || title.includes('ទុយោ') || title.includes('បំពង់ទឹក') || id.includes('pvc')) {
+    return [
+      '-Standard / Certification: ISO 1452 / BS 3505 / TIS 17-2532 Standard Certified',
+      '-Material / Composition: 100% Virgin High-Grade Unplasticized PVC (uPVC)',
+      '-Pressure Rating: PN16 (16 Bar) / Class 13.5 High Pressure Resistance',
+      '-Nominal Sizes: 1/2" to 4" (20mm - 110mm) Heavy-Duty Wall',
+      '-Operating Temperature: 0°C to 60°C continuous flow rating',
+      '-Flow Efficiency: Mirror-smooth hydraulic bore (Hazen-Williams C=150)',
+      '-Chemical Resistance: High resistance to acids, alkalis, salts, and subterranean corrosion',
+      '-Jointing Method: Solvent cement socket welding / elastomeric seal ring',
+      '-Application / Usage: Potable water distribution, municipal plumbing, agricultural irrigation',
+      '-Safety / Environment: Non-toxic, lead-free, NSF/ANSI 61 compliant for drinking water',
+      '-Color: Sky Blue (Potable) / Pearl White / Industrial Grey',
+      '-Warranty: 10 Years Genuine Quality & Anti-Burst Guarantee'
+    ]
+  }
+
+  // 2. Valves (Butterfly, Ball, Double Union, etc.)
+  if (title.includes('វ៉ាល់') || title.includes('valve') || title.includes('វ៉ាន') || id.includes('valve')) {
+    return [
+      '-Valve Classification: Industrial Heavy-Duty Fluid Control Valve',
+      '-Body Construction: Precision Molded UPVC / Epoxy-Coated Ductile Iron GGG40',
+      '-Disc / Ball Element: SS316 Stainless Steel / High-Purity Virgin UPVC',
+      '-Sealing Technology: EPDM / PTFE (Teflon) Resilient Double Seat Seals',
+      '-Working Pressure: PN16 (16 Bar / 232 PSI) Factory Hydro-Tested to 1.5x',
+      '-Flange Compatibility: Fits DIN PN10/16, ANSI Class 150, JIS 10K Flanges',
+      '-Operation Mechanism: Ergonomic Quarter-Turn Lever / Precision Worm Gear Handwheel',
+      '-Flow Characteristic: Full-bore bi-directional tight shut-off (Zero Leakage Class A)',
+      '-Temperature Range: -10°C to +80°C media operating tolerance',
+      '-Maintenance Feature: True-union detachable end sockets for inline maintenance without cutting',
+      '-Warranty: 3 Years Industrial Free-Replacement Guarantee'
+    ]
+  }
+
+  // 3. Steel Products & Flange Gaskets
+  if (title.includes('ដែក') || title.includes('steel') || cat.includes('steel') || title.includes('កង') || id.includes('steel') || id.includes('gasket')) {
+    return [
+      '-Manufacturing Standard: ASTM A53 / JIS G3444 Structural Grade Carbon Steel',
+      '-Steel Grade / Tensile: Q235B / Q345B High-Yield Tensile Structural Steel',
+      '-Yield Strength: >= 235 MPa | Tensile Strength: 370 - 500 MPa',
+      '-Wall Thickness: 2.5mm - 3.2mm precision tolerance calibrated',
+      '-Surface Treatment: Hot-Dip Galvanized (Zinc coating >= 275g/m²) / Anti-Rust Oil Prime',
+      '-Standard Length: 6.0 Meters (Custom cutting available upon request)',
+      '-End Finish: Plain square cut / Beveled ends for structural welding',
+      '-Application: Structural building frames, columns, trusses, bridge lintels, scaffolding',
+      '-Quality Certification: Mill Test Certificate (MTC EN 10204 3.1) Included',
+      '-Warranty: 15 Years Anti-Corrosion & Structural Integrity Guarantee'
+    ]
+  }
+
+  // 4. Floor Tiles & Ceramic / Porcelain
+  if (title.includes('ការចេំ') || title.includes('tile') || cat.includes('tile') || title.includes('ជេក') || id.includes('tile')) {
+    return [
+      '-Material / Composition: Architectural Grade Glazed Porcelain & Ceramic Tile',
+      '-Nominal Dimensions: 15cm x 15cm (150mm x 150mm) Rectified Edge',
+      '-Thickness: 9.0mm Heavy-Duty Wear Resistant Body',
+      '-Surface Finish: Nano-Glazed Anti-Slip Matte Texture (R10 Slip Rating)',
+      '-Water Absorption: <= 0.5% (Impervious to moisture, mold, and mildew)',
+      '-Breaking Strength: >= 1300 N | Modulus of Rupture: >= 35 N/mm²',
+      '-Abrasion Resistance: PEI Class IV (Suitable for high foot-traffic residential & commercial)',
+      '-Stain & Chemical Resistance: Class 5 (Maximum resistance to acids, alkalis, and oils)',
+      '-Packaging Specification: 44 pieces / carton box (approx. 1.0 m² coverage)',
+      '-Manufacturing Standard: ISO 13006 / EN 14411 Annex G Standard Certified',
+      '-Warranty: 5 Years Genuine Color Fastness & Surface Guarantee'
+    ]
+  }
+
+  // 5. Cement, Mortar & Bricks
+  if (title.includes('ស៊ីម៉ងត៍') || title.includes('cement') || cat.includes('cement') || title.includes('ឥដ្ឋ') || title.includes('brick')) {
+    return [
+      '-Product Standard: ASTM C150 Type I / EN 197-1 CEM I 42.5N Ordinary Portland Cement',
+      '-Compressive Strength: 3 Days >= 20 MPa | 28 Days >= 48 MPa',
+      '-Setting Time: Initial >= 45 minutes | Final <= 360 minutes',
+      '-Soundness (Le Chatelier): <= 10mm expansion stability',
+      '-Packaging: 50kg Multi-wall moisture-resistant kraft paper sack',
+      '-Application: Reinforced concrete foundations, high-rise structural casting, mortar & plastering',
+      '-Durability: High sulfate resistance and low alkali reactivity',
+      '-Storage Life: 3 Months in dry, elevated pallet storage',
+      '-Warranty: 100% Factory Batch Certificate Verified'
+    ]
+  }
+
+  // 6. Plastic Resin & Granules
+  if (title.includes('ជ័រ') || title.includes('plastic') || title.includes('resin') || id.includes('plastic') || id.includes('resin')) {
+    return [
+      '-Polymer Grade: Virgin High-Density Polyethylene (HDPE) / Polypropylene (PP)',
+      '-Melt Flow Index (MFI): 0.35 - 2.0 g/10min (190°C/2.16kg ASTM D1238)',
+      '-Density: 0.952 - 0.958 g/cm³ precision extrusion grade',
+      '-Tensile Yield Strength: >= 24 MPa | Elongation at Break: >= 600%',
+      '-Pellet Form: Translucent cylindrical beads, uniform granulation',
+      '-Processing Compatibility: Extrusion pipe lines, blow molding, injection molding',
+      '-Compliance & Safety: RoHS / REACH certified non-toxic food-grade contact',
+      '-Packaging: 25kg multi-ply woven bags with inner barrier liner',
+      '-Warranty: 100% Virgin Material Purity Guaranteed'
+    ]
+  }
+
+  // 7. Bathroom & Sanitaryware
+  if (title.includes('បន្ទប់ទឹក') || title.includes('bathroom') || title.includes('ក្បាលផ្កាឈូក') || id.includes('bathroom')) {
+    return [
+      '-Assembly Includes: Overhead rain shower, handheld spray wand, thermostatic diverter, 1.5m hose',
+      '-Core Material: Solid HPb59-1 Lead-Free Brass Valve Core with SUS304 Arm',
+      '-Finish Treatment: 5-Layer Electroplated Mirror Chrome / Matte Black PVD',
+      '-Water Working Pressure: 0.15 MPa - 0.55 MPa (Air-injection booster technology)',
+      '-Cartridge: Sedal Ceramic Disc Cartridge (Tested to 500,000 drip-free cycles)',
+      '-Spray Jets: Easy-clean anti-clog silicone nozzles (rub clean instantly)',
+      '-Connection Standard: Universal G 1/2" British Standard Pipe fitting',
+      '-Warranty: 5 Years Leak-Free Manufacturer Warranty'
+    ]
+  }
+
+  // 8. Kitchen & Cookware
+  if (title.includes('ផ្ទះបាយ') || title.includes('kitchen') || title.includes('cookware') || id.includes('kitchen')) {
+    return [
+      '-Construction: Triple-Ply Food-Grade SUS304 (18/10) Stainless Steel',
+      '-Base Technology: Encapsulated pure aluminum core for rapid, uniform heat distribution',
+      '-Cooktop Compatibility: Gas, Induction, Ceramic, Electric, and Halogen ranges',
+      '-Handle Ergonomics: Riveted stay-cool hollow cast stainless steel handles',
+      '-Heat Tolerance: Oven-safe up to 260°C (500°F) | Dishwasher safe',
+      '-Food Safety: 100% BPA-Free, PFOA-Free, non-reactive interior',
+      '-Warranty: 5 Years HomeAll Culinary Quality Guarantee'
+    ]
+  }
+
+  // Default fallback matching building supplies
+  return [
+    `-Product Classification: ${product.category || 'High-Grade Construction & Hardware Material'}`,
+    `-Manufacturing Quality: ISO 9001:2015 International Quality Management Certified`,
+    `-Material Grade: Industrial Heavy-Duty Specification`,
+    `-Durability Rating: Weather-resistant, UV-stabilized, and anti-aging formulated`,
+    `-Environmental Safety: Eco-friendly, non-toxic, and RoHS compliant material`,
+    `-Application Range: Residential construction, commercial building, industrial infrastructure`,
+    `-Testing & Inspection: 100% Factory mechanical & stress calibrated`,
+    `-Packaging: Heavy-duty export carton / safety pallet wrapping`,
+    `-Warranty: 2 Years Official HomeAll Comprehensive Warranty`
+  ]
+}
+
+/**
+ * Concrete detailed specifications for known catalog items
  */
 export const productDetailsMap = {
-  'asus-vivobook-14': {
-    id: 'asus-vivobook-14',
-    title: 'ASUS Vivobook 14 (Intel Core 5 Processor 320 / 8GB / 512GB)',
-    brand: 'ASUS',
-    price: 839,
-    unit: '/Pc',
+  'floor-tile': {
+    id: 'floor-tile',
+    title: 'ជេក ការចេំ ខ្នាត 15x15 (Floor Tile Architectural Grade)',
+    brand: 'SCG Standard',
+    price: 12.5,
+    unit: '/ box',
     mainImage: pro1,
     gallery: [
       pro1,
@@ -142,26 +259,196 @@ export const productDetailsMap = {
       pro12
     ],
     quickSpecs: [
-      'CPU: Intel® Core™ 5 Processor 320',
-      'OS: Window 11 Home',
-      'RAM: 8GB DDR5 SO-DIMM',
-      'Storage: 512GB M.2 4.0 SSD',
-      'Graphic: Intel® Graphics',
-      'Display: 14" FHD (1920 x 1080)IPS',
-      'Battery: 3-cell Integrated',
-      'Backlit Chiclet Keyboard',
-      'Weight: 1.40kg',
-      '2years+ 1st Perfect Warranty'
+      'Material: Architectural Grade Porcelain & Ceramic',
+      'Size: 15cm x 15cm (150x150mm) Rectified',
+      'Thickness: 9.0mm Heavy-Duty Wear Resistant',
+      'Finish: Non-Slip Matte (R10 Slip Rating)',
+      'Water Absorption: <= 0.5% (Impervious)',
+      'Coverage: 44 pieces / box (approx. 1.0 m²)',
+      'Standard: ISO 13006 Certified',
+      'Warranty: 5 Years Quality Guarantee'
     ],
-    monthlyPayment: 51,
+    monthlyPayment: 10,
     installmentTitle: 'លក្ខខណ្ឌនៃការបង់',
-    installmentText: 'ទូទាត់ប្រចាំខែត្រឹមតែ $51',
+    installmentText: 'ទូទាត់ប្រចាំខែត្រឹមតែ $10',
     installmentPartner: 'AEON Specialized Bank',
     installmentLogo: null,
     inStock: true,
-    isPreOrder: true,
-    sku: 'ASUS-VIVO-14-320',
-    descriptionLines: asusFullDescriptionLines,
+    isPreOrder: false,
+    sku: 'FT-1515-SCG',
+    descriptionLines: [
+      '-Material / Composition: Architectural Grade Glazed Porcelain & Ceramic Tile',
+      '-Nominal Dimensions: 15cm x 15cm (150mm x 150mm) Rectified Edge',
+      '-Thickness: 9.0mm Heavy-Duty Wear Resistant Body',
+      '-Surface Finish: Nano-Glazed Anti-Slip Matte Texture (R10 Slip Rating)',
+      '-Water Absorption: <= 0.5% (Impervious to moisture, mold, and mildew)',
+      '-Breaking Strength: >= 1300 N | Modulus of Rupture: >= 35 N/mm²',
+      '-Abrasion Resistance: PEI Class IV (Suitable for high foot-traffic residential & commercial)',
+      '-Stain & Chemical Resistance: Class 5 (Maximum resistance to acids, alkalis, and oils)',
+      '-Packaging Specification: 44 pieces / carton box (approx. 1.0 m² coverage)',
+      '-Manufacturing Standard: ISO 13006 / EN 14411 Annex G Standard Certified',
+      '-Warranty: 5 Years Genuine Color Fastness & Surface Guarantee'
+    ],
+    reviews: standardReviews
+  },
+  'steel-product': {
+    id: 'steel-product',
+    title: 'បំពង់ដែក សម្រាប់សំណង់ (High-Grade Structural Steel Pipe)',
+    brand: 'HomeAll Certified',
+    price: 28,
+    unit: '/ piece',
+    mainImage: pro2,
+    gallery: [
+      pro2,
+      pro1,
+      pro3,
+      pro4,
+      pro5,
+      pro6,
+      pro7,
+      pro8,
+      pro9,
+      pro10,
+      pro11,
+      pro12
+    ],
+    quickSpecs: [
+      'Standard: ASTM A53 / JIS G3444 Structural Steel',
+      'Grade: Q235B / Q345B High-Yield Carbon Steel',
+      'Outer Diameter: 48.3mm - 114.3mm calibrated',
+      'Wall Thickness: 2.5mm - 3.2mm structural wall',
+      'Length: Standard 6.0 Meters mill length',
+      'Finish: Hot-Dip Galvanized Anti-Rust coating',
+      'Tensile Strength: 370 - 500 MPa',
+      'Warranty: 15 Years Anti-Corrosion Guarantee'
+    ],
+    monthlyPayment: 15,
+    installmentTitle: 'លក្ខខណ្ឌនៃការបង់',
+    installmentText: 'ទូទាត់ប្រចាំខែត្រឹមតែ $15',
+    installmentPartner: 'AEON Specialized Bank',
+    installmentLogo: null,
+    inStock: true,
+    isPreOrder: false,
+    sku: 'ST-PIPE-28',
+    descriptionLines: [
+      '-Manufacturing Standard: ASTM A53 / JIS G3444 Structural Grade Carbon Steel',
+      '-Steel Grade / Tensile: Q235B / Q345B High-Yield Tensile Structural Steel',
+      '-Yield Strength: >= 235 MPa | Tensile Strength: 370 - 500 MPa',
+      '-Wall Thickness: 2.5mm - 3.2mm precision tolerance calibrated',
+      '-Surface Treatment: Hot-Dip Galvanized (Zinc coating >= 275g/m²) / Anti-Rust Oil Prime',
+      '-Standard Length: 6.0 Meters (Custom cutting available upon request)',
+      '-End Finish: Plain square cut / Beveled ends for structural welding',
+      '-Application: Structural building frames, columns, trusses, bridge lintels, scaffolding',
+      '-Quality Certification: Mill Test Certificate (MTC EN 10204 3.1) Included',
+      '-Warranty: 15 Years Anti-Corrosion & Structural Integrity Guarantee'
+    ],
+    reviews: standardReviews
+  },
+  'plastic-resin': {
+    id: 'plastic-resin',
+    title: 'ជ័រផ្លាស្ទិក គុណភាពខ្ពស់ (Virgin Polymer Pellets)',
+    brand: 'HomeAll Industrial',
+    price: 1250,
+    unit: '/ ton',
+    mainImage: pro3,
+    gallery: [
+      pro3,
+      pro1,
+      pro2,
+      pro4,
+      pro5,
+      pro6,
+      pro7,
+      pro8,
+      pro9,
+      pro10,
+      pro11,
+      pro12
+    ],
+    quickSpecs: [
+      'Material: Virgin HDPE / Polypropylene (PP)',
+      'Melt Flow Index: 0.35 - 2.0 g/10min',
+      'Density: 0.952 - 0.958 g/cm³ precision grade',
+      'Tensile Strength: >= 24 MPa',
+      'Form: Translucent Cylindrical Granules',
+      'Safety: RoHS / REACH Non-Toxic Certified',
+      'Application: Pipe extrusion & tank blow molding',
+      'Packaging: 25kg bags / 1 Ton Pallet'
+    ],
+    monthlyPayment: 75,
+    installmentTitle: 'លក្ខខណ្ឌនៃការបង់',
+    installmentText: 'ទូទាត់ប្រចាំខែត្រឹមតែ $75',
+    installmentPartner: 'AEON Specialized Bank',
+    installmentLogo: null,
+    inStock: true,
+    isPreOrder: false,
+    sku: 'PL-RESIN-1250',
+    descriptionLines: [
+      '-Polymer Grade: Virgin High-Density Polyethylene (HDPE) / Polypropylene (PP)',
+      '-Melt Flow Index (MFI): 0.35 - 2.0 g/10min (190°C/2.16kg ASTM D1238)',
+      '-Density: 0.952 - 0.958 g/cm³ precision extrusion grade',
+      '-Tensile Yield Strength: >= 24 MPa | Elongation at Break: >= 600%',
+      '-Pellet Form: Translucent cylindrical beads, uniform granulation',
+      '-Processing Compatibility: Extrusion pipe lines, blow molding, injection molding',
+      '-Compliance & Safety: RoHS / REACH certified non-toxic food-grade contact',
+      '-Packaging: 25kg multi-ply woven bags with inner barrier liner',
+      '-Warranty: 100% Virgin Material Purity Guaranteed'
+    ],
+    reviews: standardReviews
+  },
+  'pvc-pipes': {
+    id: 'pvc-pipes',
+    title: 'បំពង់ទឹក PVC (Class 13.5 High Pressure Water Pipe)',
+    brand: 'HomeAll Standard',
+    price: 6.8,
+    unit: '/ length',
+    mainImage: pro4,
+    gallery: [
+      pro4,
+      pro1,
+      pro2,
+      pro3,
+      pro5,
+      pro6,
+      pro7,
+      pro8,
+      pro9,
+      pro10,
+      pro11,
+      pro12
+    ],
+    quickSpecs: [
+      'Material: 100% Virgin uPVC Compound',
+      'Pressure Class: Class 13.5 (PN16 rated)',
+      'Standard: TIS 17-2532 / ISO 1452 Certified',
+      'Length: 4.0m / 6.0m with Bell Socket End',
+      'Temperature: 0°C to 60°C continuous flow',
+      'Features: Lead-free, anti-scaling inner bore',
+      'Joint: Solvent Cement Socket Weld',
+      'Warranty: 10 Years Leak-Free Guarantee'
+    ],
+    monthlyPayment: 10,
+    installmentTitle: 'លក្ខខណ្ឌនៃការបង់',
+    installmentText: 'ទូទាត់ប្រចាំខែត្រឹមតែ $10',
+    installmentPartner: 'AEON Specialized Bank',
+    installmentLogo: null,
+    inStock: true,
+    isPreOrder: false,
+    sku: 'PVC-PIPE-04',
+    descriptionLines: [
+      '-Standard / Certification: ISO 1452 / BS 3505 / TIS 17-2532 Standard Certified',
+      '-Material / Composition: 100% Virgin High-Grade Unplasticized PVC (uPVC)',
+      '-Pressure Rating: PN16 (16 Bar) / Class 13.5 High Pressure Resistance',
+      '-Nominal Sizes: 1/2" to 4" (20mm - 110mm) Heavy-Duty Wall',
+      '-Operating Temperature: 0°C to 60°C continuous flow rating',
+      '-Flow Efficiency: Mirror-smooth hydraulic bore (Hazen-Williams C=150)',
+      '-Chemical Resistance: High resistance to acids, alkalis, salts, and subterranean corrosion',
+      '-Jointing Method: Solvent cement socket welding / elastomeric seal ring',
+      '-Application / Usage: Potable water distribution, municipal plumbing, agricultural irrigation',
+      '-Safety / Environment: Non-toxic, lead-free, NSF/ANSI 61 compliant for drinking water',
+      '-Color: Sky Blue (Potable) / Pearl White / Industrial Grey',
+      '-Warranty: 10 Years Genuine Quality & Anti-Burst Guarantee'
+    ],
     reviews: standardReviews
   },
   'pvc-elbow-90': {
@@ -189,7 +476,7 @@ export const productDetailsMap = {
       'Material: High-Grade PVC Polymer',
       'Type: 90-Degree Female Solvent Socket',
       'Pressure Rating: PN16 (16 Bar)',
-      'Standard: ISO 1452 / BS 3505',
+      'Standard: ISO 1452 / BS 3505 / TIS 1131',
       'Temperature Range: 0°C to 60°C',
       'Usage: Potable water, irrigation, industrial'
     ],
@@ -201,7 +488,20 @@ export const productDetailsMap = {
     inStock: true,
     isPreOrder: false,
     sku: 'PVC-E90-07',
-    descriptionLines: asusFullDescriptionLines,
+    descriptionLines: [
+      '-Standard / Certification: ISO 1452 / BS 3505 / TIS 17-2532 Standard Certified',
+      '-Material / Composition: 100% Virgin High-Grade Unplasticized PVC (uPVC)',
+      '-Pressure Rating: PN16 (16 Bar) / Class 13.5 High Pressure Resistance',
+      '-Nominal Sizes: 1/2" to 4" (20mm - 110mm) Heavy-Duty Wall',
+      '-Operating Temperature: 0°C to 60°C continuous flow rating',
+      '-Flow Efficiency: Mirror-smooth hydraulic bore (Hazen-Williams C=150)',
+      '-Chemical Resistance: High resistance to acids, alkalis, salts, and subterranean corrosion',
+      '-Jointing Method: Solvent cement socket welding / elastomeric seal ring',
+      '-Application / Usage: Potable water distribution, municipal plumbing, agricultural irrigation',
+      '-Safety / Environment: Non-toxic, lead-free, NSF/ANSI 61 compliant for drinking water',
+      '-Color: Sky Blue (Potable) / Pearl White / Industrial Grey',
+      '-Warranty: 10 Years Genuine Quality & Anti-Burst Guarantee'
+    ],
     reviews: standardReviews
   },
   'flange-rubber-gasket': {
@@ -226,11 +526,12 @@ export const productDetailsMap = {
       pro6
     ],
     quickSpecs: [
-      'Material: EPDM / NBR Industrial Rubber',
-      'Flange Standard: ANSI B16.5 / JIS 10K',
-      'Pressure Rating: Up to 25 Bar',
-      'Temperature: -20°C to +120°C',
-      'Application: Flange sealing, anti-vibration'
+      'Material: EPDM / NBR Industrial Synthetic Rubber',
+      'Flange Standard: ANSI B16.5 / JIS 10K / DIN PN16',
+      'Pressure Rating: Up to 25 Bar hydro-tested',
+      'Temperature Range: -30°C to +130°C continuous',
+      'Hardness: Shore A 70 ± 5 Elastic Resilience',
+      'Application: Flange sealing, pump anti-vibration'
     ],
     monthlyPayment: 10,
     installmentTitle: 'លក្ខខណ្ឌនៃការបង់',
@@ -240,7 +541,17 @@ export const productDetailsMap = {
     inStock: true,
     isPreOrder: false,
     sku: 'GSK-HD-08',
-    descriptionLines: asusFullDescriptionLines,
+    descriptionLines: [
+      '-Material / Composition: High-Density EPDM / NBR Synthetic Rubber',
+      '-Type: Full Face / Ring Flange Gasket',
+      '-Standard: ANSI B16.5 / JIS B2220 10K/16K / DIN EN 1514-1',
+      '-Pressure Class: 150 LB / PN16 / PN25',
+      '-Temperature Range: -30°C to +130°C',
+      '-Hardness: Shore A 70 ± 5',
+      '-Features: Excellent elasticity, oil resistant, ozone and UV proof, anti-vibration',
+      '-Application: Pipe flange sealing, pump connections, water treatment plants',
+      '-Warranty: 3 Years Elastic Sealing Guarantee'
+    ],
     reviews: standardReviews
   },
   'industrial-butterfly-valve': {
@@ -265,11 +576,12 @@ export const productDetailsMap = {
       pro6
     ],
     quickSpecs: [
-      'Body: Epoxy Coated Cast Iron / Ductile Iron',
-      'Disc: CF8M Stainless Steel',
-      'Seat: EPDM Food Grade Liner',
+      'Body: Epoxy Coated Ductile Iron GGG40',
+      'Disc: CF8M Stainless Steel (SS316)',
+      'Seat: EPDM Resilient Rubber Liner',
       'Actuation: Manual Handwheel Worm Gearbox',
-      'Working Pressure: PN16 / 200 PSI'
+      'Working Pressure: PN16 / 200 PSI',
+      'Flange: Wafer fits ANSI 150, JIS 10K, DIN'
     ],
     monthlyPayment: 12,
     installmentTitle: 'លក្ខខណ្ឌនៃការបង់',
@@ -279,7 +591,19 @@ export const productDetailsMap = {
     inStock: true,
     isPreOrder: false,
     sku: 'VLV-BF-09',
-    descriptionLines: asusFullDescriptionLines,
+    descriptionLines: [
+      '-Valve Classification: Industrial Heavy-Duty Fluid Control Valve',
+      '-Body Construction: Precision Molded UPVC / Epoxy-Coated Ductile Iron GGG40',
+      '-Disc / Ball Element: SS316 Stainless Steel / High-Purity Virgin UPVC',
+      '-Sealing Technology: EPDM / PTFE (Teflon) Resilient Double Seat Seals',
+      '-Working Pressure: PN16 (16 Bar / 232 PSI) Factory Hydro-Tested to 1.5x',
+      '-Flange Compatibility: Fits DIN PN10/16, ANSI Class 150, JIS 10K Flanges',
+      '-Operation Mechanism: Ergonomic Quarter-Turn Lever / Precision Worm Gear Handwheel',
+      '-Flow Characteristic: Full-bore bi-directional tight shut-off (Zero Leakage Class A)',
+      '-Temperature Range: -10°C to +80°C media operating tolerance',
+      '-Maintenance Feature: True-union detachable end sockets for inline maintenance without cutting',
+      '-Warranty: 3 Years Industrial Free-Replacement Guarantee'
+    ],
     reviews: standardReviews
   },
   'pvc-lever-butterfly-valve': {
@@ -304,11 +628,12 @@ export const productDetailsMap = {
       pro6
     ],
     quickSpecs: [
-      'Body: UPVC Injection Molded',
-      'Operation: 10-Position Ergonomic Lock Lever',
-      'Seat: EPDM / FPM O-Rings',
-      'Corrosion Resistance: High Acid & Alkali proof',
-      'Standard: DIN / ANSI / JIS'
+      'Body: UPVC Injection Molded (White)',
+      'Operation: 10-Position Ergonomic Red Lock Lever',
+      'Seat: EPDM / FKM Resilient O-Rings',
+      'Corrosion: High Acid & Alkali Proof',
+      'Working Pressure: 150 PSI (10 Bar)',
+      'Standard: DIN / ANSI / JIS Wafer Fitting'
     ],
     monthlyPayment: 11,
     installmentTitle: 'លក្ខខណ្ឌនៃការបង់',
@@ -318,170 +643,22 @@ export const productDetailsMap = {
     inStock: true,
     isPreOrder: false,
     sku: 'VLV-LV-10',
-    descriptionLines: asusFullDescriptionLines,
+    descriptionLines: [
+      '-Body Material: Injection-Molded UPVC (White Body)',
+      '-Handle / Lever: High-Strength ABS Red Lever with 10-point locking plate',
+      '-Disc: UPVC streamlined flow design',
+      '-Seat & Seal: EPDM / FKM O-rings',
+      '-Working Pressure: 150 PSI at 23°C (10 Bar)',
+      '-End Connection: Wafer style compatible with DIN/ANSI/JIS flanges',
+      '-Features: 100% corrosion proof, lightweight, low operating torque, acid resistant',
+      '-Application: Water treatment, aquaculture, chemical processing, swimming pools',
+      '-Warranty: 2 Years Replacement Warranty'
+    ],
     reviews: standardReviews
   },
-  'printer-epson-l3210': {
-    id: 'printer-epson-l3210',
-    title: 'Printer Epson EcoTank L3210 A4 Color (3-in-1)',
-    brand: 'Epson',
-    price: 125,
-    unit: '/Pc',
-    mainImage: pro2,
-    gallery: [
-      pro2,
-      pro1,
-      pro3,
-      pro4,
-      pro5,
-      pro6,
-      pro7,
-      pro8,
-      pro9,
-      pro10,
-      pro11,
-      pro12
-    ],
-    quickSpecs: [
-      'Functions: Print, Scan, Copy (3-in-1)',
-      'Ink System: EcoTank Refillable Bottle (003)',
-      'Print Speed: Up to 33 ppm black, 15 ppm color',
-      'Resolution: 5760 x 1440 dpi',
-      'Compact Integrated Tank Design',
-      'Warranty: 1 Year or 30,000 pages'
-    ],
-    monthlyPayment: 12,
-    installmentTitle: 'លក្ខខណ្ឌនៃការបង់',
-    installmentText: 'ទូទាត់ប្រចាំខែត្រឹមតែ $12',
-    installmentPartner: 'AEON Specialized Bank',
-    installmentLogo: null,
-    inStock: true,
-    isPreOrder: false,
-    sku: 'PRE-L3210',
-    descriptionLines: asusFullDescriptionLines,
-    reviews: standardReviews
-  },
-  'acer-aspire-lite-al15-32p': {
-    id: 'acer-aspire-lite-al15-32p',
-    title: 'Acer Aspire Lite AL15-32P-C5CE-N4500-8GB-512GB-15.6"-No ODD',
-    brand: 'Acer',
-    price: 369,
-    unit: '/Pc',
-    mainImage: pro3,
-    gallery: [
-      pro3,
-      pro1,
-      pro2,
-      pro4,
-      pro5,
-      pro6,
-      pro7,
-      pro8,
-      pro9,
-      pro10,
-      pro11,
-      pro12
-    ],
-    quickSpecs: [
-      'CPU: Intel® Celeron® N4500 Processor',
-      'OS: Windows 11 Home',
-      'RAM: 8GB DDR4 RAM',
-      'Storage: 512GB PCIe NVMe SSD',
-      'Display: 15.6" Full HD (1920 x 1080)',
-      'Graphic: Intel® UHD Graphics'
-    ],
-    monthlyPayment: 28,
-    installmentTitle: 'លក្ខខណ្ឌនៃការបង់',
-    installmentText: 'ទូទាត់ប្រចាំខែត្រឹមតែ $28',
-    installmentPartner: 'AEON Specialized Bank',
-    installmentLogo: null,
-    inStock: true,
-    isPreOrder: false,
-    sku: 'LAL-0027',
-    descriptionLines: asusFullDescriptionLines,
-    reviews: standardReviews
-  },
-  'acer-aspire-lite-al15-54p': {
-    id: 'acer-aspire-lite-al15-54p',
-    title: 'Acer Aspire Lite AL15-54P-58BE-Core Ultra 5-115U-16GB-512G-15.6',
-    brand: 'Acer',
-    price: 649,
-    unit: '/Pc',
-    mainImage: pro4,
-    gallery: [
-      pro4,
-      pro1,
-      pro2,
-      pro3,
-      pro5,
-      pro6,
-      pro7,
-      pro8,
-      pro9,
-      pro10,
-      pro11,
-      pro12
-    ],
-    quickSpecs: [
-      'CPU: Intel® Core™ Ultra 5-115U Processor',
-      'OS: Windows 11 Home',
-      'RAM: 16GB DDR5 RAM',
-      'Storage: 512GB PCIe NVMe SSD',
-      'Display: 15.6" Full HD (1920 x 1080)'
-    ],
-    monthlyPayment: 46,
-    installmentTitle: 'លក្ខខណ្ឌនៃការបង់',
-    installmentText: 'ទូទាត់ប្រចាំខែត្រឹមតែ $46',
-    installmentPartner: 'AEON Specialized Bank',
-    installmentLogo: null,
-    inStock: true,
-    isPreOrder: false,
-    sku: 'LAL-0028',
-    descriptionLines: asusFullDescriptionLines,
-    reviews: standardReviews
-  },
-  'printer-epson-l3250': {
-    id: 'printer-epson-l3250',
-    title: 'Printer Epson EcoTank L3250 A4 Color (3-in-1) (Wi-Fi, Print, Scan, Copy)',
-    brand: 'Epson',
-    price: 140,
-    unit: '/Pc',
-    mainImage: pro5,
-    gallery: [
-      pro5,
-      pro1,
-      pro2,
-      pro3,
-      pro4,
-      pro6,
-      pro7,
-      pro8,
-      pro9,
-      pro10,
-      pro11,
-      pro12
-    ],
-    quickSpecs: [
-      'Functions: Wi-Fi, Print, Scan, Copy (3-in-1)',
-      'Ink System: EcoTank Refillable Bottle (003)',
-      'Connectivity: Wi-Fi & Wi-Fi Direct + USB',
-      'Print Speed: Up to 33 ppm black, 15 ppm color',
-      'Resolution: 5760 x 1440 dpi'
-    ],
-    monthlyPayment: 13,
-    installmentTitle: 'លក្ខខណ្ឌនៃការបង់',
-    installmentText: 'ទូទាត់ប្រចាំខែត្រឹមតែ $13',
-    installmentPartner: 'AEON Specialized Bank',
-    installmentLogo: null,
-    inStock: true,
-    isPreOrder: false,
-    sku: 'PRE-L3250',
-    descriptionLines: asusFullDescriptionLines,
-    reviews: standardReviews
-  },
-  'floor-tile': {
-    id: 'floor-tile',
-    title: 'ជេក ការចេំ ខ្នាត 15x15 (Floor Tile Premium Grade)',
+  'asus-vivobook-14': {
+    id: 'asus-vivobook-14',
+    title: 'ជេក ការចេំ ខ្នាត 15x15 (Floor Tile Architectural Grade)',
     brand: 'SCG Standard',
     price: 12.5,
     unit: '/ box',
@@ -501,12 +678,14 @@ export const productDetailsMap = {
       pro12
     ],
     quickSpecs: [
-      'Category: Floor Tile & Surface Material',
-      'Standard: ISO 9001 Factory Inspected',
-      'Durability: High-strength wear & weather proof',
-      'Finish: Premium protective non-slip glaze',
-      'Dimensions: 15cm x 15cm Architectural Grade',
-      'Warranty: 100% Genuine Quality Guaranteed'
+      'Material: Architectural Grade Porcelain & Ceramic',
+      'Size: 15cm x 15cm (150x150mm) Rectified',
+      'Thickness: 9.0mm Heavy-Duty Wear Resistant',
+      'Finish: Non-Slip Matte (R10 Slip Rating)',
+      'Water Absorption: <= 0.5% (Impervious)',
+      'Coverage: 44 pieces / box (approx. 1.0 m²)',
+      'Standard: ISO 13006 Certified',
+      'Warranty: 5 Years Quality Guarantee'
     ],
     monthlyPayment: 10,
     installmentTitle: 'លក្ខខណ្ឌនៃការបង់',
@@ -516,47 +695,19 @@ export const productDetailsMap = {
     inStock: true,
     isPreOrder: false,
     sku: 'FT-1515-SCG',
-    descriptionLines: asusFullDescriptionLines,
-    reviews: standardReviews
-  },
-  'steel-product': {
-    id: 'steel-product',
-    title: 'បំពង់ដែក សម្រាប់សំណង់ (High-Grade Construction Steel Pipe)',
-    brand: 'HomeAll Certified',
-    price: 28,
-    unit: '/ piece',
-    mainImage: pro2,
-    gallery: [
-      pro2,
-      pro1,
-      pro3,
-      pro4,
-      pro5,
-      pro6,
-      pro7,
-      pro8,
-      pro9,
-      pro10,
-      pro11,
-      pro12
+    descriptionLines: [
+      '-Material / Composition: Architectural Grade Glazed Porcelain & Ceramic Tile',
+      '-Nominal Dimensions: 15cm x 15cm (150mm x 150mm) Rectified Edge',
+      '-Thickness: 9.0mm Heavy-Duty Wear Resistant Body',
+      '-Surface Finish: Nano-Glazed Anti-Slip Matte Texture (R10 Slip Rating)',
+      '-Water Absorption: <= 0.5% (Impervious to moisture, mold, and mildew)',
+      '-Breaking Strength: >= 1300 N | Modulus of Rupture: >= 35 N/mm²',
+      '-Abrasion Resistance: PEI Class IV (Suitable for high foot-traffic residential & commercial)',
+      '-Stain & Chemical Resistance: Class 5 (Maximum resistance to acids, alkalis, and oils)',
+      '-Packaging Specification: 44 pieces / carton box (approx. 1.0 m² coverage)',
+      '-Manufacturing Standard: ISO 13006 / EN 14411 Annex G Standard Certified',
+      '-Warranty: 5 Years Genuine Color Fastness & Surface Guarantee'
     ],
-    quickSpecs: [
-      'Standard: ASTM A53 / JIS G3444 Structural Steel',
-      'Finish: Anti-rust protective prime coating',
-      'Thickness: 2.5mm heavy-gauge structural wall',
-      'Length: Standard 6.0 meter construction lengths',
-      'Usage: Column, trusses, lintels and support framing',
-      'Warranty: Mill test certificate included'
-    ],
-    monthlyPayment: 15,
-    installmentTitle: 'លក្ខខណ្ឌនៃការបង់',
-    installmentText: 'ទូទាត់ប្រចាំខែត្រឹមតែ $15',
-    installmentPartner: 'AEON Specialized Bank',
-    installmentLogo: null,
-    inStock: true,
-    isPreOrder: false,
-    sku: 'ST-PIPE-28',
-    descriptionLines: asusFullDescriptionLines,
     reviews: standardReviews
   }
 }
@@ -566,23 +717,11 @@ export const productDetailsMap = {
  * Guarantees that any product clicked across the catalog returns a complete detail object.
  */
 export function getProductDetails(id) {
-  if (!id) return productDetailsMap['asus-vivobook-14']
+  if (!id) return productDetailsMap['floor-tile']
 
   const key = String(id).toLowerCase().trim()
   if (productDetailsMap[key]) {
     return productDetailsMap[key]
-  }
-
-  // Look in customPcProducts
-  const customPc = customPcProducts.find((p) => String(p.id).toLowerCase() === key)
-  if (customPc) {
-    return createDetailFromCatalog(customPc)
-  }
-
-  // Look in allProducts
-  const foundInAll = allProducts.find((p) => String(p.id).toLowerCase() === key)
-  if (foundInAll) {
-    return createDetailFromCatalog(foundInAll)
   }
 
   // Look in homeProducts
@@ -591,19 +730,33 @@ export function getProductDetails(id) {
     return createDetailFromCatalog(foundInHome)
   }
 
-  // Default fallback: ASUS Vivobook
-  return productDetailsMap['asus-vivobook-14']
+  // Look in allProducts
+  const foundInAll = allProducts.find((p) => String(p.id).toLowerCase() === key)
+  if (foundInAll) {
+    return createDetailFromCatalog(foundInAll)
+  }
+
+  // Look in customPcProducts
+  const customPc = customPcProducts.find((p) => String(p.id).toLowerCase() === key)
+  if (customPc) {
+    return createDetailFromCatalog(customPc)
+  }
+
+  // Default fallback: Floor Tile
+  return productDetailsMap['floor-tile']
 }
 
 /**
  * Helper to generate a complete Product Detail view object from a catalog product.
+ * Automatically generates matching technical specs and description lines fitting the product image.
  */
 function createDetailFromCatalog(product) {
   const priceNum = typeof product.price === 'number'
     ? product.price
-    : parseFloat(String(product.price).replace(/[^0-9.]/g, '')) || 50
+    : parseFloat(String(product.price).replace(/[^0-9.]/g, '')) || 12.5
 
   const monthlyEst = Math.max(10, Math.round(priceNum / 18))
+  const matchingDescLines = generateDescriptionLines(product)
 
   return {
     id: product.id,
@@ -633,7 +786,7 @@ function createDetailFromCatalog(product) {
     inStock: product.inStock !== false,
     isPreOrder: false,
     sku: `HA-${String(product.id).toUpperCase().slice(0, 8)}`,
-    descriptionLines: asusFullDescriptionLines,
+    descriptionLines: matchingDescLines,
     reviews: standardReviews
   }
 }

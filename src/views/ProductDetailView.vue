@@ -1270,23 +1270,28 @@ onUnmounted(() => {
 
 .product-card_image-wrap {
   width: 100%;
-  aspect-ratio: 1.15;
+  aspect-ratio: 1;
   background-color: #f8fafc;
   border: 1px solid #f1f5f9;
   border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 12px;
+  margin: 0 auto 12px auto;
+  padding: 10px;
+  box-sizing: border-box;
   overflow: hidden;
   position: relative;
 }
 
 .product-card_img {
-  width: 100%;
-  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
   object-fit: contain;
-  padding: 8px;
+  margin: 0 auto;
+  display: block;
   transition: transform 0.35s cubic-bezier(0.2, 0, 0.2, 1);
 }
 

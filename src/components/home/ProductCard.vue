@@ -193,25 +193,32 @@ function handleAddToCart(event) {
 
 .product-card_image {
   width: 100%;
-  aspect-ratio: 1.15;
+  aspect-ratio: 1;
   border-radius: 10px;
   overflow: hidden;
   background-color: #f8fafc;
+  border: 1px solid #f1f5f9;
+  padding: 10px;
   margin-bottom: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
+  box-sizing: border-box;
 }
 
 .product-card_image img {
-  width: 100%;
-  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
   object-fit: contain;
+  margin: 0 auto;
+  display: block;
   transition: transform 0.25s ease;
 }
 
 .product-card:hover .product-card_image img {
-  transform: scale(1.04);
+  transform: scale(1.06);
 }
 
 .product-card_title {

@@ -862,9 +862,9 @@ onMounted(() => {
   border-color: #cbd5e1;
 }
 
-/* Active Thumbnail with Orange Border matching user screenshot */
+/* Active Thumbnail with Brand Green Border */
 .thumbnail-item.is-active {
-  border: 2px solid #ea580c;
+  border: 2px solid var(--color-brand, #34c759);
   padding: 2px;
 }
 
@@ -1002,8 +1002,8 @@ onMounted(() => {
 
 .installment-heading {
   font-size: 13px;
-  font-weight: 600;
-  color: #8b5cf6; /* Vibrant violet */
+  font-weight: 700;
+  color: #0f172a; /* Clean dark slate */
   margin: 0 0 6px 0;
 }
 
@@ -1025,7 +1025,7 @@ onMounted(() => {
   color: #dc2626; /* Highlighted red price text */
 }
 
-/* Primary PRE ORDER Action Button (Light cyan-blue matching screenshot) */
+/* Primary PRE ORDER Action Button (HomeAll Brand Green matching header/nav) */
 .primary-action-wrap {
   margin-bottom: 14px;
 }
@@ -1034,7 +1034,7 @@ onMounted(() => {
   width: 100%;
   max-width: 240px;
   height: 42px;
-  background-color: #67c5e8; /* Soft bright cyan-blue matching screenshot */
+  background-color: var(--color-brand, #34c759);
   color: #ffffff;
   border: none;
   border-radius: 6px;
@@ -1043,12 +1043,12 @@ onMounted(() => {
   letter-spacing: 0.5px;
   cursor: pointer;
   transition: background-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
-  box-shadow: 0 2px 6px rgba(103, 197, 232, 0.35);
+  box-shadow: 0 2px 8px rgba(52, 199, 89, 0.32);
 }
 
 .pre-order-btn:hover {
-  background-color: #4fb5dd;
-  box-shadow: 0 4px 12px rgba(103, 197, 232, 0.45);
+  background-color: var(--color-brand-dark, #269c46);
+  box-shadow: 0 4px 14px rgba(52, 199, 89, 0.42);
   transform: translateY(-1px);
 }
 
@@ -1089,7 +1089,7 @@ onMounted(() => {
 }
 
 .sub-action-btn.compare-btn {
-  color: #38bdf8;
+  color: #0284c7;
   border-color: #bae6fd;
 }
 
@@ -1240,7 +1240,7 @@ onMounted(() => {
 }
 
 .top-selling-card:hover .top-selling-title {
-  color: #ea580c;
+  color: var(--color-brand-dark, #269c46);
 }
 
 .star-rating {
@@ -1319,7 +1319,7 @@ onMounted(() => {
   left: 0;
   right: 0;
   height: 2px;
-  background-color: #ea580c;
+  background-color: var(--color-brand, #34c759);
 }
 
 /* Tab Content */
