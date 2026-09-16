@@ -300,7 +300,7 @@ function handleAddToCart(item) {
 }
 
 .wishlist-title.is-khmer {
-  font-family: var(--font-family-title, 'Khmer OS', sans-serif);
+  font-family: var(--font-family-title, 'Siemreap', 'Battambang', sans-serif);
   line-height: 1.5;
 }
 
@@ -351,7 +351,7 @@ function handleAddToCart(item) {
 }
 
 .wishlist-empty_title.is-khmer {
-  font-family: var(--font-family-title, 'Khmer OS', sans-serif);
+  font-family: var(--font-family-title, 'Siemreap', 'Battambang', sans-serif);
   font-size: 19px;
   line-height: 1.5;
 }

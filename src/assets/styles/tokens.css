@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Battambang:wght@100;300;400;700;900&family=Siemreap&display=swap');
+
 /**
  * Design tokens
  * Single source of truth for colors, spacing, radii and typography,
@@ -50,8 +52,9 @@
   --radius-pill: 999px;
 
   /* Typography */
-  --font-family-base: 'Khmer OS', 'Kantumruy Pro', 'Battambang', 'Inter', system-ui, sans-serif;
-  --font-family-title: 'Khmer OS', 'Khmer OS System', 'Khmer OS Muol Light', 'Khmer', 'Kantumruy Pro', 'Battambang', sans-serif;
+  --font-family-base: 'Battambang', 'Siemreap', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-family-title: 'Siemreap', 'Battambang', sans-serif;
+  --font-family-khmer: 'Siemreap', 'Battambang', sans-serif;
   --font-size-xs: 13px;
   --font-size-sm: 14px;
   --font-size-base: 15px;

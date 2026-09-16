@@ -34,8 +34,14 @@ a {
   text-decoration: none;
 }
 
-button {
+button,
+input,
+select,
+textarea {
   font-family: inherit;
+}
+
+button {
   cursor: pointer;
   border: none;
   background: none;
