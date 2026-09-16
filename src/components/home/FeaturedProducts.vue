@@ -8,8 +8,8 @@ import { useCart } from '@/composables/useCart'
 const { t, isKhmer } = useI18n()
 const { addToCart } = useCart()
 
-// Number of products to show initially (8 = 2 full rows of 4 cards)
-const initialCount = 8
+// Number of products to show initially (10 = 2 full rows of 5 cards)
+const initialCount = 10
 const visibleCount = ref(initialCount)
 const isLoading = ref(false)
 
@@ -23,13 +23,13 @@ const hasMore = computed(() => {
   return visibleCount.value < products.length
 })
 
-// Load 4 more products (1 full row) when "Show More" is clicked
+// Load 5 more products (1 full row) when "Show More" is clicked
 function handleShowMore() {
   if (!hasMore.value || isLoading.value) return
   isLoading.value = true
 
   setTimeout(() => {
-    visibleCount.value = Math.min(products.length, visibleCount.value + 4)
+    visibleCount.value = Math.min(products.length, visibleCount.value + 5)
     isLoading.value = false
   }, 250)
 }
@@ -90,8 +90,8 @@ function handleAddToCart(product) {
 
 .featured_grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
 }
 
 /* Show More Button (Matching user screenshot) */
@@ -149,15 +149,17 @@ function handleAddToCart(product) {
   }
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1280px) {
   .featured_grid {
     grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
   }
 }
 
 @media (max-width: 1024px) {
   .featured_grid {
     grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
   }
 }
 
@@ -171,6 +173,7 @@ function handleAddToCart(product) {
 @media (max-width: 480px) {
   .featured_grid {
     grid-template-columns: 1fr;
+    gap: 12px;
   }
 }
 </style>

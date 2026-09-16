@@ -168,8 +168,8 @@ function handleAddToCart(event) {
 .product-card {
   background-color: #ffffff;
   border: 1.5px solid #e2e8f0;
-  border-radius: 16px;
-  padding: 14px 14px 16px 14px;
+  border-radius: 14px;
+  padding: 12px 12px 14px 12px;
   display: flex;
   flex-direction: column;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
@@ -194,10 +194,10 @@ function handleAddToCart(event) {
 .product-card_image {
   width: 100%;
   aspect-ratio: 1.15;
-  border-radius: 12px;
+  border-radius: 10px;
   overflow: hidden;
   background-color: #f8fafc;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -216,16 +216,16 @@ function handleAddToCart(event) {
 
 .product-card_title {
   font-family: var(--font-family-title, inherit);
-  font-size: 13.5px;
+  font-size: 13px;
   font-weight: 600;
   color: #111827;
   line-height: 1.35;
-  margin: 0 0 6px 0;
+  margin: 0 0 5px 0;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  min-height: 36px;
+  min-height: 35px;
   transition: color 0.15s ease;
 }
 
@@ -237,17 +237,17 @@ function handleAddToCart(event) {
   display: flex;
   align-items: baseline;
   gap: 4px;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .product-card_price {
-  font-size: 16px;
+  font-size: 15.5px;
   font-weight: 700;
   color: #ea580c; /* Vivid red-orange price matching ฿ 204.00 in the screenshot */
 }
 
 .product-card_unit {
-  font-size: 12px;
+  font-size: 11.5px;
   font-weight: 400;
   color: #6b7280;
 }
@@ -256,7 +256,7 @@ function handleAddToCart(event) {
 .product-card_actions {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   margin-top: auto;
 }
 
@@ -264,14 +264,14 @@ function handleAddToCart(event) {
    Default: Icon-only button (compact circle/rounded shape)
    When Selected / Hovered: Expands to show both Title and Icon */
 .product-card_quick-btn {
-  height: 38px;
-  min-width: 38px;
-  padding: 0 11px;
+  height: 36px;
+  min-width: 36px;
+  padding: 0 10px;
   background-color: #16a34a; /* Vibrant green */
   color: #ffffff;
   border: none;
-  border-radius: 10px;
-  font-size: 13px;
+  border-radius: 8px;
+  font-size: 12.5px;
   font-weight: 700;
   display: inline-flex;
   align-items: center;
@@ -335,8 +335,8 @@ function handleAddToCart(event) {
 
 /* Shared Circular Style for Action Buttons (Compare & Wishlist) */
 .product-card_action-btn {
-  width: 38px;
-  height: 38px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
   border: 1px solid #e2e8f0;
   background-color: #ffffff;
