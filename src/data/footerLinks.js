@@ -30,7 +30,7 @@ export const footerColumns = [
     title: 'Customer Support',
     links: [
       { label: 'Help Center', href: '/help' },
-      { label: 'homeall99@example.com', href: 'mailto:homeall99@example.com' }
+      { label: 'makarasam68@example.com', href: 'mailto:makarasam68@example.com' }
     ]
   }
 ]
