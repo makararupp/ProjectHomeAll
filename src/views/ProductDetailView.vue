@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
-import { RouterLink, useRoute } from 'vue-router'
+import { RouterLink, useRoute, useRouter } from 'vue-router'
 import AppHeader from '@/components/layout/AppHeader.vue'
 import CategoryNav from '@/components/layout/CategoryNav.vue'
 import AppFooter from '@/components/layout/AppFooter.vue'
@@ -36,6 +36,14 @@ function getGroupLabel(name) {
 }
 
 const route = useRoute()
+const router = useRouter()
+
+function goToProductDetail(product) {
+  if (product && product.id) {
+    router.push(`/products/${product.id}`)
+  }
+}
+
 const searchQuery = ref(route.query.search ? String(route.query.search) : '')
 const selectedGroups = ref(route.query.group ? [String(route.query.group)] : [])
 const viewMode = ref('grid') // 'grid' | 'list'
@@ -509,8 +517,8 @@ onUnmounted(() => {
               tabindex="0"
               role="button"
               :aria-label="product.title"
-              @click="openProductModal(product)"
-              @keydown.enter="openProductModal(product)"
+              @click="goToProductDetail(product)"
+              @keydown.enter="goToProductDetail(product)"
             >
               <!-- Card Image Box -->
               <div class="product-card_image-wrap">

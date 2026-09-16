@@ -169,7 +169,7 @@ function handleAddToCart(event) {
   background-color: #ffffff;
   border: 1.5px solid #e2e8f0;
   border-radius: 16px;
-  padding: 10px 10px 12px 10px;
+  padding: 14px 14px 16px 14px;
   display: flex;
   flex-direction: column;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
@@ -193,11 +193,11 @@ function handleAddToCart(event) {
 
 .product-card_image {
   width: 100%;
-  aspect-ratio: 1 / 1;
-  border-radius: 10px;
+  aspect-ratio: 1.15;
+  border-radius: 12px;
   overflow: hidden;
   background-color: #f8fafc;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
   display: flex;
   align-items: center;
   justify-content: center;

@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
-import { RouterLink, useRoute } from 'vue-router'
+import { RouterLink, useRoute, useRouter } from 'vue-router'
 import AppHeader from '@/components/layout/AppHeader.vue'
 import CategoryNav from '@/components/layout/CategoryNav.vue'
 import AppFooter from '@/components/layout/AppFooter.vue'
@@ -12,6 +12,13 @@ import { useCompare } from '@/composables/useCompare'
 import { useI18n } from '@/composables/useI18n'
 
 const route = useRoute()
+const router = useRouter()
+
+function goToProductDetail(product) {
+  if (product && product.id) {
+    router.push(`/products/${product.id}`)
+  }
+}
 const { t, isKhmer } = useI18n()
 const { addToCart } = useCart()
 const { toggleWishlist, isInWishlist } = useWishlist()
@@ -552,7 +559,7 @@ watch([selectedBrand, sortBy, minPrice, maxPrice, activeSubCategory, itemsPerPag
                   :alt="getDisplayTitle(product, (currentPage - 1) * itemsPerPage + idx)"
                   class="catalog-card_img"
                   loading="lazy"
-                  @click="openProductModal(product, (currentPage - 1) * itemsPerPage + idx)"
+                  @click="goToProductDetail(product)"
                 />
 
                 <!-- Vertical Circular Action Stack (Target style matching screenshot) -->
@@ -633,7 +640,7 @@ watch([selectedBrand, sortBy, minPrice, maxPrice, activeSubCategory, itemsPerPag
               <!-- Product Title (Follows Main Title / Active SubCategory) -->
               <h2
                 class="catalog-card_title"
-                @click="openProductModal(product, (currentPage - 1) * itemsPerPage + idx)"
+                @click="goToProductDetail(product)"
               >
                 {{ getDisplayTitle(product, (currentPage - 1) * itemsPerPage + idx) }}
               </h2>
