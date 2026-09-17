@@ -196,3 +196,42 @@ const { t, isKhmer } = useI18n()
 }
 </style>
 
+<!-- Non-scoped so body.dark / :root[data-theme="dark"] ancestor selectors work -->
+<style>
+/* =====================================================
+   Real Estate Page – Dark Mode Overrides
+   ===================================================== */
+
+:root[data-theme="dark"] .category-page,
+:root[data-theme="dark"] .category-main,
+body.dark .category-page,
+body.dark .category-main {
+  background-color: #0f172a !important;
+}
+
+/* Breadcrumbs */
+:root[data-theme="dark"] .category-breadcrumb_link,
+body.dark .category-breadcrumb_link {
+  color: #94a3b8;
+}
+
+:root[data-theme="dark"] .category-breadcrumb_current,
+body.dark .category-breadcrumb_current {
+  color: #ffffff !important;
+}
+
+/* Empty State Card */
+:root[data-theme="dark"] .empty-state-card,
+body.dark .empty-state-card {
+  background-color: #1e293b;
+  border-color: #334155;
+}
+
+/* Title → white */
+:root[data-theme="dark"] .empty-state-title,
+body.dark .empty-state-title {
+  color: #ffffff !important;
+}
+</style>
+
+

@@ -496,3 +496,69 @@ const { t, isKhmer } = useI18n()
   }
 }
 </style>
+
+<!-- Non-scoped so body.dark / :root[data-theme="dark"] ancestor selectors work -->
+<style>
+/* =====================================================
+   Structural Materials (Category Detail) – Dark Mode
+   ===================================================== */
+
+:root[data-theme="dark"] .category-page,
+:root[data-theme="dark"] .category-main,
+body.dark .category-page,
+body.dark .category-main {
+  background-color: #0f172a !important;
+}
+
+/* Title → white */
+:root[data-theme="dark"] .category-header_title,
+body.dark .category-header_title {
+  color: #ffffff !important;
+}
+
+/* Subtitle → light text */
+:root[data-theme="dark"] .category-header_subtitle,
+body.dark .category-header_subtitle {
+  color: #94a3b8 !important;
+}
+
+/* Breadcrumbs */
+:root[data-theme="dark"] .category-breadcrumb_link,
+body.dark .category-breadcrumb_link {
+  color: #94a3b8;
+}
+
+:root[data-theme="dark"] .category-breadcrumb_current,
+body.dark .category-breadcrumb_current {
+  color: #ffffff;
+}
+
+/* Section Bar */
+:root[data-theme="dark"] .section-bar,
+body.dark .section-bar {
+  background-color: #1e293b;
+}
+
+:root[data-theme="dark"] .section-bar_title,
+body.dark .section-bar_title {
+  color: #ffffff !important;
+}
+
+/* Catalog item box & name */
+:root[data-theme="dark"] .catalog-item_img-box,
+body.dark .catalog-item_img-box {
+  background-color: #1e293b;
+  border-color: #334155;
+}
+
+:root[data-theme="dark"] .catalog-item_name,
+body.dark .catalog-item_name {
+  color: #cbd5e1;
+}
+
+:root[data-theme="dark"] .catalog-item:hover .catalog-item_name,
+body.dark .catalog-item:hover .catalog-item_name {
+  color: #ffffff;
+}
+</style>
+

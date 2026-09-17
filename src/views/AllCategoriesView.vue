@@ -2158,3 +2158,302 @@ watch([selectedBrand, sortBy, minPrice, maxPrice, activeSubCategory, itemsPerPag
 }
 </style>
 
+<!-- Non-scoped so body.dark / :root[data-theme="dark"] ancestor selectors work -->
+<style>
+/* =====================================================
+   AllCategoriesView – Dark Mode Overrides
+   ===================================================== */
+
+:root[data-theme="dark"] .category-catalog-page,
+body.dark .category-catalog-page {
+  background-color: #0f172a !important;
+}
+
+/* Breadcrumbs in dark mode */
+:root[data-theme="dark"] .catalog-breadcrumb_link,
+body.dark .catalog-breadcrumb_link {
+  color: #94a3b8 !important;
+}
+
+:root[data-theme="dark"] .catalog-breadcrumb_sep,
+body.dark .catalog-breadcrumb_sep {
+  color: #64748b !important;
+}
+
+:root[data-theme="dark"] .catalog-breadcrumb_current,
+body.dark .catalog-breadcrumb_current {
+  color: #ffffff !important;
+}
+
+/* Left Sidebar in dark mode */
+:root[data-theme="dark"] .sidebar-title,
+body.dark .sidebar-title {
+  color: #ffffff !important;
+}
+
+:root[data-theme="dark"] .sidebar-subtitle,
+body.dark .sidebar-subtitle {
+  color: #ffffff !important;
+}
+
+:root[data-theme="dark"] .sidebar-all-btn,
+body.dark .sidebar-all-btn {
+  color: #cbd5e1 !important;
+}
+
+:root[data-theme="dark"] .sidebar-all-btn:hover,
+:root[data-theme="dark"] .sidebar-all-btn.is-active-main,
+body.dark .sidebar-all-btn:hover,
+body.dark .sidebar-all-btn.is-active-main {
+  color: #ffffff !important;
+  background-color: #1e293b !important;
+}
+
+:root[data-theme="dark"] .sidebar-cat-header,
+body.dark .sidebar-cat-header {
+  color: #cbd5e1 !important;
+}
+
+:root[data-theme="dark"] .sidebar-cat-header:hover,
+body.dark .sidebar-cat-header:hover {
+  color: #ffffff !important;
+  background-color: #1e293b !important;
+}
+
+:root[data-theme="dark"] .sidebar-cat-header.is-active-cat,
+body.dark .sidebar-cat-header.is-active-cat {
+  color: #ffffff !important;
+}
+
+:root[data-theme="dark"] .sidebar-sub-link,
+body.dark .sidebar-sub-link {
+  color: #94a3b8 !important;
+}
+
+:root[data-theme="dark"] .sidebar-sub-link:hover,
+body.dark .sidebar-sub-link:hover {
+  color: #ffffff !important;
+  background-color: #1e293b !important;
+}
+
+:root[data-theme="dark"] .sidebar-sub-link.is-active,
+body.dark .sidebar-sub-link.is-active {
+  color: #ffffff !important;
+  background-color: #334155 !important;
+}
+
+/* Price Range Slider & Values in dark mode */
+:root[data-theme="dark"] .sidebar-section--price,
+body.dark .sidebar-section--price {
+  border-top-color: #334155 !important;
+}
+
+:root[data-theme="dark"] .price-box,
+body.dark .price-box {
+  background-color: #1e293b !important;
+  color: #ffffff !important;
+}
+
+:root[data-theme="dark"] .price-values-row,
+body.dark .price-values-row {
+  color: #ffffff !important;
+}
+
+:root[data-theme="dark"] .price-range-input::-webkit-slider-runnable-track,
+body.dark .price-range-input::-webkit-slider-runnable-track {
+  background: #334155 !important;
+}
+
+/* Brands list in dark mode */
+:root[data-theme="dark"] .sidebar-brand-item,
+body.dark .sidebar-brand-item {
+  color: #94a3b8 !important;
+}
+
+:root[data-theme="dark"] .sidebar-brand-item:hover,
+body.dark .sidebar-brand-item:hover {
+  color: #ffffff !important;
+  background-color: #1e293b !important;
+}
+
+:root[data-theme="dark"] .sidebar-brand-item.is-active,
+body.dark .sidebar-brand-item.is-active {
+  color: #ffffff !important;
+  background-color: #334155 !important;
+}
+
+/* Catalog Heading & Top Filter Controls */
+:root[data-theme="dark"] .catalog-heading,
+body.dark .catalog-heading {
+  color: #ffffff !important;
+}
+
+:root[data-theme="dark"] .filter-label,
+body.dark .filter-label {
+  color: #cbd5e1 !important;
+}
+
+:root[data-theme="dark"] .filter-select,
+body.dark .filter-select {
+  background-color: #1e293b !important;
+  border-color: #334155 !important;
+  color: #ffffff !important;
+}
+
+/* Catalog Product Cards in dark mode */
+:root[data-theme="dark"] .catalog-card,
+body.dark .catalog-card {
+  background-color: #1e293b !important;
+  border-color: #334155 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+:root[data-theme="dark"] .catalog-card:hover,
+body.dark .catalog-card:hover {
+  border-color: #475569 !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+/* Image container */
+:root[data-theme="dark"] .catalog-card_image-wrap,
+body.dark .catalog-card_image-wrap {
+  background-color: #0f172a !important;
+}
+
+/* Circular action buttons stack */
+:root[data-theme="dark"] .card-circle-btn,
+body.dark .card-circle-btn {
+  background-color: #1e293b !important;
+  border-color: #334155 !important;
+  color: #cbd5e1 !important;
+}
+
+:root[data-theme="dark"] .card-circle-btn:hover,
+body.dark .card-circle-btn:hover {
+  background-color: #0f172a !important;
+  border-color: #64748b !important;
+}
+
+/* Product Price → white */
+:root[data-theme="dark"] .catalog-card_price,
+body.dark .catalog-card_price {
+  color: #ffffff !important;
+}
+
+/* Brand tag */
+:root[data-theme="dark"] .catalog-card_brand-tag,
+body.dark .catalog-card_brand-tag {
+  background-color: #0f172a !important;
+  border-color: #334155 !important;
+  color: #cbd5e1 !important;
+}
+
+/* Cart icon button */
+:root[data-theme="dark"] .catalog-card_cart-btn,
+body.dark .catalog-card_cart-btn {
+  color: #ffffff !important;
+}
+
+:root[data-theme="dark"] .catalog-card_cart-btn:hover:not(:disabled),
+body.dark .catalog-card_cart-btn:hover:not(:disabled) {
+  background-color: #0f172a !important;
+  color: #38bdf8 !important;
+}
+
+/* Product Title → white */
+:root[data-theme="dark"] .catalog-card_title,
+body.dark .catalog-card_title {
+  color: #ffffff !important;
+}
+
+:root[data-theme="dark"] .catalog-card_title:hover,
+body.dark .catalog-card_title:hover {
+  color: #60a5fa !important;
+}
+
+/* Subtitle / summary text */
+:root[data-theme="dark"] .catalog-card_subtitle,
+body.dark .catalog-card_subtitle {
+  color: #94a3b8 !important;
+}
+
+/* Divider line */
+:root[data-theme="dark"] .catalog-card_divider,
+body.dark .catalog-card_divider {
+  border-top-color: #334155 !important;
+}
+
+/* Technical specifications bullets */
+:root[data-theme="dark"] .catalog-card_specs,
+body.dark .catalog-card_specs {
+  color: #cbd5e1 !important;
+}
+
+:root[data-theme="dark"] .spec-dot,
+body.dark .spec-dot {
+  color: #64748b !important;
+}
+
+/* Pagination container in dark mode */
+:root[data-theme="dark"] .pagination-container,
+body.dark .pagination-container {
+  border-top-color: #334155 !important;
+}
+
+:root[data-theme="dark"] .pagination-btn,
+body.dark .pagination-btn {
+  background-color: #1e293b !important;
+  border-color: #334155 !important;
+  color: #cbd5e1 !important;
+}
+
+:root[data-theme="dark"] .pagination-btn.is-active,
+body.dark .pagination-btn.is-active {
+  background-color: #2563eb !important;
+  color: #ffffff !important;
+}
+
+:root[data-theme="dark"] .per-page-select,
+body.dark .per-page-select {
+  background-color: #1e293b !important;
+  border-color: #334155 !important;
+  color: #ffffff !important;
+}
+
+/* Modal Popup in dark mode */
+:root[data-theme="dark"] .catalog-modal_dialog,
+body.dark .catalog-modal_dialog {
+  background-color: #1e293b !important;
+  color: #ffffff !important;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.7) !important;
+}
+
+:root[data-theme="dark"] .catalog-modal_title,
+body.dark .catalog-modal_title {
+  color: #ffffff !important;
+}
+
+:root[data-theme="dark"] .catalog-modal_price,
+body.dark .catalog-modal_price {
+  color: #ffffff !important;
+}
+
+:root[data-theme="dark"] .catalog-modal_desc,
+body.dark .catalog-modal_desc {
+  color: #cbd5e1 !important;
+}
+
+:root[data-theme="dark"] .catalog-modal_specs,
+body.dark .catalog-modal_specs {
+  color: #cbd5e1 !important;
+}
+
+:root[data-theme="dark"] .modal-wish-btn,
+body.dark .modal-wish-btn {
+  background-color: #0f172a !important;
+  border-color: #334155 !important;
+  color: #cbd5e1 !important;
+}
+</style>
+
+

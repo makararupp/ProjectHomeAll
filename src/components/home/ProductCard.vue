@@ -267,7 +267,7 @@ function handleAddToCart(event) {
 .product-card_price {
   font-size: 15.5px;
   font-weight: 700;
-  color: #ea580c; /* Vivid red-orange price matching ฿ 204.00 in the screenshot */
+  color: #000000; /* Black color in light mode */
 }
 
 .product-card_unit {
@@ -460,3 +460,63 @@ function handleAddToCart(event) {
   }
 }
 </style>
+
+<!-- Non-scoped so body.dark / :root[data-theme="dark"] ancestor selectors work -->
+<style>
+/* =====================================================
+   Product Card (Feature Products) – Dark Mode Overrides
+   ===================================================== */
+
+/* Card surface */
+:root[data-theme="dark"] .product-card,
+body.dark .product-card {
+  background-color: #1e293b !important;
+  border-color: #334155 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+:root[data-theme="dark"] .product-card:hover,
+body.dark .product-card:hover {
+  border-color: #3b82f6 !important;
+  box-shadow: 0 14px 28px -4px rgba(59, 130, 246, 0.3), 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Image container box in dark mode */
+:root[data-theme="dark"] .product-card_image,
+body.dark .product-card_image {
+  background-color: #0f172a !important;
+  border-color: #1e293b !important;
+}
+
+/* Title → white */
+:root[data-theme="dark"] .product-card_title,
+body.dark .product-card_title {
+  color: #ffffff !important;
+}
+
+:root[data-theme="dark"] .product-card:hover .product-card_title,
+body.dark .product-card:hover .product-card_title {
+  color: #60a5fa !important;
+}
+
+/* Product Price → white in dark mode */
+:root[data-theme="dark"] .product-card_price,
+body.dark .product-card_price {
+  color: #ffffff !important;
+}
+
+/* Unit text */
+:root[data-theme="dark"] .product-card_unit,
+body.dark .product-card_unit {
+  color: #cbd5e1 !important;
+}
+
+/* Action buttons (Compare & Wishlist) in dark mode */
+:root[data-theme="dark"] .product-card_action-btn,
+body.dark .product-card_action-btn {
+  background-color: #0f172a !important;
+  border-color: #334155 !important;
+  color: #94a3b8 !important;
+}
+</style>
+

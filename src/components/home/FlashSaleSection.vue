@@ -565,7 +565,7 @@ function handleToggleWishlist(product, event) {
 .price-sale {
   font-size: 16px;
   font-weight: 800;
-  color: #ea580c;
+  color: #000000; /* Black color in light mode */
 }
 
 .price-original {
@@ -830,6 +830,91 @@ body.dark .flash-sale_timer-label {
 body.dark .flash-sale_timer {
   background-color: #ffffff;
   border-color: #e2e8f0;
+}
+
+/* Flash sale section container */
+:root[data-theme="dark"] .flash-sale,
+body.dark .flash-sale {
+  background-color: #0f172a !important;
+  border-top-color: #334155;
+  border-bottom-color: #334155;
+}
+
+/* View All link */
+:root[data-theme="dark"] .flash-sale_view-all,
+body.dark .flash-sale_view-all {
+  color: #94a3b8;
+}
+
+:root[data-theme="dark"] .flash-sale_view-all svg,
+body.dark .flash-sale_view-all svg {
+  color: #94a3b8;
+}
+
+/* Product Cards in dark mode */
+:root[data-theme="dark"] .flash-card,
+body.dark .flash-card {
+  background-color: #1e293b;
+  border-color: #334155;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+:root[data-theme="dark"] .flash-card:hover,
+body.dark .flash-card:hover {
+  border-color: #475569;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+}
+
+/* Image container */
+:root[data-theme="dark"] .flash-card_image-wrap,
+body.dark .flash-card_image-wrap {
+  background-color: #0f172a;
+  border-color: #1e293b;
+}
+
+/* Product titles → crisp white in dark mode */
+:root[data-theme="dark"] .flash-card_title,
+body.dark .flash-card_title {
+  color: #ffffff !important;
+}
+
+/* Sale price in dark mode → white */
+:root[data-theme="dark"] .price-sale,
+body.dark .price-sale {
+  color: #ffffff !important;
+}
+
+/* Strikethrough original price */
+:root[data-theme="dark"] .price-original,
+body.dark .price-original {
+  color: #64748b;
+}
+
+/* Quick Add button */
+:root[data-theme="dark"] .flash-card_quick-btn,
+body.dark .flash-card_quick-btn {
+  background-color: #1e293b;
+  border-color: #22c55e;
+  color: #22c55e;
+}
+
+:root[data-theme="dark"] .flash-card_quick-btn:hover:not(:disabled),
+:root[data-theme="dark"] .flash-card_quick-btn:focus-visible,
+:root[data-theme="dark"] .flash-card_quick-btn.is-added,
+body.dark .flash-card_quick-btn:hover:not(:disabled),
+body.dark .flash-card_quick-btn:focus-visible,
+body.dark .flash-card_quick-btn.is-added {
+  background-color: #16a34a;
+  border-color: #16a34a;
+  color: #ffffff;
+}
+
+/* Compare & Wishlist buttons */
+:root[data-theme="dark"] .flash-card_action-btn,
+body.dark .flash-card_action-btn {
+  background-color: #0f172a;
+  border-color: #334155;
+  color: #94a3b8;
 }
 </style>
 

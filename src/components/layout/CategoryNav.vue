@@ -874,3 +874,155 @@ onUnmounted(() => {
   }
 }
 </style>
+
+<!-- Non-scoped so body.dark / :root[data-theme="dark"] ancestor selectors work -->
+<style>
+/* =====================================================
+   CategoryNav – Dark Mode Overrides
+   ===================================================== */
+
+/* Category links (Structural Materials, Construction, Food & Beverage, Logistics, Real Estate) → white */
+:root[data-theme="dark"] .category-nav_link,
+body.dark .category-nav_link {
+  color: #ffffff !important;
+}
+
+:root[data-theme="dark"] .category-nav_link:hover,
+body.dark .category-nav_link:hover {
+  background-color: rgba(255, 255, 255, 0.16) !important;
+  color: #ffffff !important;
+}
+
+:root[data-theme="dark"] .category-nav_trigger,
+body.dark .category-nav_trigger {
+  color: #ffffff !important;
+}
+
+/* Mega menu in dark mode */
+:root[data-theme="dark"] .mega-menu,
+body.dark .mega-menu {
+  background-color: transparent;
+}
+
+:root[data-theme="dark"] .mega-menu_container,
+body.dark .mega-menu_container {
+  background-color: #1e293b;
+  border-color: #334155;
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.6);
+}
+
+:root[data-theme="dark"] .mega-menu_sidebar,
+body.dark .mega-menu_sidebar {
+  background-color: #0f172a;
+  border-right-color: #334155;
+}
+
+:root[data-theme="dark"] .mega-menu_sidebar-name,
+body.dark .mega-menu_sidebar-name {
+  color: #cbd5e1;
+}
+
+:root[data-theme="dark"] .mega-menu_sidebar-icon,
+body.dark .mega-menu_sidebar-icon {
+  color: #94a3b8;
+}
+
+:root[data-theme="dark"] .mega-menu_sidebar-item:hover,
+body.dark .mega-menu_sidebar-item:hover {
+  background-color: #1e293b;
+  color: #ffffff;
+}
+
+:root[data-theme="dark"] .mega-menu_sidebar-item:hover .mega-menu_sidebar-icon,
+body.dark .mega-menu_sidebar-item:hover .mega-menu_sidebar-icon {
+  color: #ffffff;
+}
+
+/* Active item in sidebar in dark mode */
+:root[data-theme="dark"] .mega-menu_sidebar-item.is-active,
+body.dark .mega-menu_sidebar-item.is-active {
+  background-color: #1e293b !important;
+  color: #ffffff !important;
+  border-left-color: var(--color-brand, #34c759) !important;
+}
+
+:root[data-theme="dark"] .mega-menu_sidebar-item.is-active .mega-menu_sidebar-name,
+body.dark .mega-menu_sidebar-item.is-active .mega-menu_sidebar-name {
+  color: #ffffff !important;
+  font-weight: 700;
+}
+
+:root[data-theme="dark"] .mega-menu_sidebar-item.is-active .mega-menu_sidebar-icon,
+body.dark .mega-menu_sidebar-item.is-active .mega-menu_sidebar-icon {
+  color: var(--color-brand, #34c759) !important;
+}
+
+/* Right Content Area in dark mode */
+:root[data-theme="dark"] .mega-menu_content,
+body.dark .mega-menu_content {
+  background-color: #1e293b;
+}
+
+:root[data-theme="dark"] .mega-menu_title,
+body.dark .mega-menu_title {
+  color: #ffffff !important;
+}
+
+/* Subcategory circular items in dark mode */
+:root[data-theme="dark"] .mega-menu_circle,
+body.dark .mega-menu_circle {
+  background: #0f172a !important;
+  border-color: #334155 !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+:root[data-theme="dark"] .mega-menu_item:hover .mega-menu_circle,
+body.dark .mega-menu_item:hover .mega-menu_circle {
+  background: #1e293b !important;
+  border-color: var(--color-brand, #34c759) !important;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
+}
+
+:root[data-theme="dark"] .mega-menu_circle-icon,
+body.dark .mega-menu_circle-icon {
+  color: #cbd5e1;
+}
+
+:root[data-theme="dark"] .mega-menu_item:hover .mega-menu_circle-icon,
+body.dark .mega-menu_item:hover .mega-menu_circle-icon {
+  color: #ffffff;
+}
+
+:root[data-theme="dark"] .mega-menu_item-name,
+body.dark .mega-menu_item-name {
+  color: #e2e8f0 !important;
+}
+
+:root[data-theme="dark"] .mega-menu_item:hover .mega-menu_item-name,
+body.dark .mega-menu_item:hover .mega-menu_item-name {
+  color: #ffffff !important;
+}
+
+/* Bottom secondary footer section */
+:root[data-theme="dark"] .mega-menu_secondary,
+body.dark .mega-menu_secondary {
+  border-top-color: #334155;
+}
+
+:root[data-theme="dark"] .mega-menu_secondary-title,
+body.dark .mega-menu_secondary-title {
+  color: #ffffff !important;
+}
+
+:root[data-theme="dark"] .mega-menu_secondary-link,
+body.dark .mega-menu_secondary-link {
+  color: #60a5fa !important;
+}
+
+:root[data-theme="dark"] .mega-menu_secondary-link:hover,
+body.dark .mega-menu_secondary-link:hover {
+  color: #93c5fd !important;
+}
+</style>
+
+

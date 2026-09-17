@@ -238,3 +238,38 @@ const { isKhmer } = useI18n()
   }
 }
 </style>
+
+<!-- Non-scoped so body.dark / :root[data-theme="dark"] ancestor selectors work -->
+<style>
+/* =====================================================
+   Category Showcase (PromoBanners) – Dark Mode Overrides
+   ===================================================== */
+
+:root[data-theme="dark"] .category-showcase,
+body.dark .category-showcase {
+  background-color: #0f172a !important;
+}
+
+/* Category item thumbnail card in dark mode */
+:root[data-theme="dark"] .category-item_image-wrap,
+body.dark .category-item_image-wrap {
+  background-color: #1e293b;
+  border-color: #334155;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+:root[data-theme="dark"] .category-item:hover .category-item_image-wrap,
+body.dark .category-item:hover .category-item_image-wrap {
+  border-color: #64748b;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.35);
+}
+
+/* Category Title text → crisp white in dark mode (stays white even on hover) */
+:root[data-theme="dark"] .category-item_title,
+body.dark .category-item_title,
+:root[data-theme="dark"] .category-item:hover .category-item_title,
+body.dark .category-item:hover .category-item_title {
+  color: #ffffff !important;
+}
+</style>
+
