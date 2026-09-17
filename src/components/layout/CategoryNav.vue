@@ -9,21 +9,6 @@ const { t } = useI18n()
 const route = useRoute()
 const router = useRouter()
 
-function scrollToServices() {
-  const el = document.getElementById('services') || document.querySelector('.services_grid')
-  if (el) {
-    const headerHeight = 120
-    const rect = el.getBoundingClientRect()
-    const topPos = rect.top + window.pageYOffset - headerHeight
-    window.scrollTo({
-      top: topPos,
-      behavior: 'smooth'
-    })
-    return true
-  }
-  return false
-}
-
 function getActiveKeyFromPath(path) {
   if (path.includes('industrial-parts')) return 'industrialParts'
   if (path.includes('construction')) return 'construction'
@@ -49,18 +34,6 @@ watch(
 
 function selectCategoryLink(category) {
   activeCategoryKey.value = activeCategoryKey.value === category.key ? '' : category.key
-  if (category.key === 'services') {
-    if (route.path === '/') {
-      scrollToServices()
-      window.history.pushState(null, '', '#services')
-    } else {
-      router.push({ path: '/', hash: '#services' }).then(() => {
-        setTimeout(scrollToServices, 60)
-        setTimeout(scrollToServices, 250)
-        setTimeout(scrollToServices, 600)
-      })
-    }
-  }
 }
 
 // Helper to convert kebab-case id to camelCase key for translations

@@ -6,6 +6,5 @@ export const categories = [
   { key: 'construction', label: 'Construction', href: '/categories/construction' },
   { key: 'foodBeverage', label: 'Food & Beverage', href: '/categories/food-beverage' },
   { key: 'logistics', label: 'Logistics', href: '/categories/logistics' },
-  { key: 'realEstate', label: 'Real Estate', href: '/categories/real-estate' },
-  { key: 'services', label: 'Services', href: null }
+  { key: 'realEstate', label: 'Real Estate', href: '/categories/real-estate' }
 ]

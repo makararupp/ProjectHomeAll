@@ -9,6 +9,7 @@ import { useCart } from '@/composables/useCart'
 import { useWishlist } from '@/composables/useWishlist'
 import { useCompare } from '@/composables/useCompare'
 import AppearanceSwitch from '@/components/common/AppearanceSwitch.vue'
+import TopAnnouncementBar from '@/components/layout/TopAnnouncementBar.vue'
 
 const { t, setLocale, currentLocale } = useI18n()
 const { totalCount, isCartBumping, toastMessage, isToastVisible, hideCartToast } = useCart()
@@ -91,6 +92,7 @@ onUnmounted(() => {
 </script>
 
 <template>
+  <TopAnnouncementBar />
   <header class="app-header">
     <div class="app-header_inner">
       
