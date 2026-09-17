@@ -33,6 +33,28 @@ const slideCount = slides.length
 const activeSlide = ref(0)
 let intervalId = null
 
+// Rotating words like spring.io ("Everything your [business needs / construction / quality materials / trusted suppliers / industrial solutions]")
+const rotatingWordsEn = [
+  'business needs.',
+  'construction.',
+  'quality materials.',
+  'trusted suppliers.',
+  'industrial solutions.'
+]
+const rotatingWordsKm = [
+  'អាជីវកម្មត្រូវការ។',
+  'សម្ភារៈសំណង់។',
+  'ដៃគូទុកចិត្ត។',
+  'ដំណោះស្រាយឧស្សាហកម្ម។'
+]
+const currentWordIndex = ref(0)
+let wordIntervalId = null
+
+function nextRotatingWord() {
+  const words = isKhmer.value ? rotatingWordsKm : rotatingWordsEn
+  currentWordIndex.value = (currentWordIndex.value + 1) % words.length
+}
+
 function goToSlide(index) {
   activeSlide.value = index
 }
@@ -51,10 +73,12 @@ function handleSlideClick(slide) {
 
 onMounted(() => {
   intervalId = window.setInterval(nextSlide, 5000)
+  wordIntervalId = window.setInterval(nextRotatingWord, 2000)
 })
 
 onBeforeUnmount(() => {
   if (intervalId) window.clearInterval(intervalId)
+  if (wordIntervalId) window.clearInterval(wordIntervalId)
 })
 </script>
 
@@ -74,13 +98,27 @@ onBeforeUnmount(() => {
           <span class="hero_badge-text">{{ t('hero.eyebrow', 'BUSINESS SOLUTIONS') }}</span>
         </div>
 
-        <!-- Hero Heading with Brand Gradient Accent (Small & Punchy) -->
+        <!-- Hero Heading with Rotating spring.io style animated words -->
         <h1 class="hero_heading" :class="{ 'hero_heading--km': isKhmer }">
           <template v-if="!isKhmer">
-            Everything your <span class="hero_heading-accent">business needs</span>
+            <span class="hero_heading-prefix">Everything your</span>
+            <span class="hero_rotator-wrapper">
+              <Transition name="word-slide" mode="out-in">
+                <span :key="currentWordIndex" class="hero_heading-accent hero_rotating-word">
+                  {{ rotatingWordsEn[currentWordIndex] }}
+                </span>
+              </Transition>
+            </span>
           </template>
           <template v-else>
-            <span class="hero_heading-accent">{{ t('hero.heading', 'អ្វីៗគ្រប់យ៉ាងដែលអាជីវកម្មរបស់អ្នកត្រូវការ') }}</span>
+            <span class="hero_heading-prefix">អ្វីៗគ្រប់យ៉ាងដែល</span>
+            <span class="hero_rotator-wrapper">
+              <Transition name="word-slide" mode="out-in">
+                <span :key="currentWordIndex" class="hero_heading-accent hero_rotating-word">
+                  {{ rotatingWordsKm[currentWordIndex] }}
+                </span>
+              </Transition>
+            </span>
           </template>
         </h1>
 
@@ -252,7 +290,7 @@ onBeforeUnmount(() => {
   text-transform: uppercase;
 }
 
-/* Heading - Compact & Sharp */
+/* Heading - Compact & Sharp with spring.io style text rotator */
 .hero_heading {
   font-size: 26px;
   font-weight: 800;
@@ -261,6 +299,8 @@ onBeforeUnmount(() => {
   margin: 0 0 10px 0;
   letter-spacing: -0.02em;
   overflow: visible;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .hero_heading--km {
@@ -271,21 +311,61 @@ onBeforeUnmount(() => {
   padding: 4px 0;
 }
 
+.hero_heading-prefix {
+  display: block;
+  font-weight: 800;
+  margin-bottom: 2px;
+}
+
+/* Rotator container like spring.io */
+.hero_rotator-wrapper {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  min-height: 38px;
+  vertical-align: middle;
+  overflow: hidden;
+}
+
 .hero_heading-accent {
   background: linear-gradient(135deg, #15803d 0%, #16a34a 50%, #059669 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  display: inline;
+  display: inline-block;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  will-change: transform, opacity;
 }
 
 .hero_heading--km .hero_heading-accent {
   display: inline-block;
-  padding: 8px 0 12px 0;
-  margin: -8px 0 -12px 0;
+  padding: 4px 0;
+  margin: 0;
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
   line-height: inherit;
+}
+
+/* spring.io style slide / roll transition */
+.word-slide-enter-active {
+  transition: transform 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.35s ease;
+}
+
+.word-slide-leave-active {
+  transition: transform 0.3s cubic-bezier(0.6, -0.28, 0.735, 0.045), opacity 0.25s ease;
+  position: absolute;
+  left: 0;
+}
+
+.word-slide-enter-from {
+  opacity: 0;
+  transform: translateY(100%);
+}
+
+.word-slide-leave-to {
+  opacity: 0;
+  transform: translateY(-100%);
 }
 
 /* Subtitle - Small & Crisp */
@@ -487,3 +567,38 @@ onBeforeUnmount(() => {
   }
 }
 </style>
+
+<!-- Non-scoped so body.dark / :root[data-theme="dark"] ancestor selectors work -->
+<style>
+/* =====================================================
+   Hero Banner – Dark Mode Overrides
+   ===================================================== */
+
+/* Hero section background */
+:root[data-theme="dark"] .hero,
+body.dark .hero {
+  background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+}
+
+/* Hero card: keep white background so the black heading
+   "Everything your business needs" stays readable */
+:root[data-theme="dark"] .hero_card,
+body.dark .hero_card {
+  background: #ffffff;
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4), 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* Heading → black (readable on the white card) */
+:root[data-theme="dark"] .hero_heading,
+body.dark .hero_heading {
+  color: #0f172a;
+}
+
+/* Subtitle → dark grey (readable on white card) */
+:root[data-theme="dark"] .hero_subtitle,
+body.dark .hero_subtitle {
+  color: #475569;
+}
+</style>
+

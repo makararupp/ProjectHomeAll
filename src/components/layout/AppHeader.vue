@@ -1235,12 +1235,15 @@ onUnmounted(() => {
    AppHeader – Dark Mode Overrides (non-scoped)
    ========================================================= */
 
-/* Logo: use screen blend in dark mode (opposite of multiply).
-   Screen makes the dark/black pixels transparent and keeps the
-   green icon + text visible on the dark header background. */
+/* Logo in dark mode: circular white background so the logo
+   is clearly visible and has a clean defined shape */
 :root[data-theme="dark"] .app-header_logo-img,
 body.dark .app-header_logo-img {
-  mix-blend-mode: screen;
+  mix-blend-mode: normal;
+  background-color: #ffffff;
+  border-radius: 50%;
+  padding: 4px;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.15);
 }
 
 /* Nav links (Home, Product, About Us, New) → white */
