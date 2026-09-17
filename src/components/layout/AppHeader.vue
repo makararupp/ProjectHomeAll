@@ -8,6 +8,7 @@ import { useI18n } from '@/composables/useI18n'
 import { useCart } from '@/composables/useCart'
 import { useWishlist } from '@/composables/useWishlist'
 import { useCompare } from '@/composables/useCompare'
+import AppearanceSwitch from '@/components/common/AppearanceSwitch.vue'
 
 const { t, setLocale, currentLocale } = useI18n()
 const { totalCount, isCartBumping, toastMessage, isToastVisible, hideCartToast } = useCart()
@@ -44,6 +45,8 @@ const languages = [
 const currentLang = computed(() => {
   return languages.find(l => l.id === currentLocale.value) || languages[0]
 })
+
+const isKhmer = computed(() => currentLocale.value === 'km')
 
 function selectLanguage(lang) {
   setLocale(lang.id)
@@ -139,106 +142,117 @@ onUnmounted(() => {
         </BaseButton>
       </form>
 
-      <!-- Language Selector (matching reference image) -->
-      <div ref="langRef" class="lang-selector">
-        <button
-          type="button"
-          class="lang-selector_btn"
-          :class="{ 'is-open': isLangOpen }"
-          :aria-expanded="isLangOpen"
-          aria-haspopup="true"
-          @click="toggleLangDropdown"
-        >
-          <span class="lang-selector_globe" aria-hidden="true">🌐</span>
-          <span class="lang-selector_code">{{ currentLang.displayCode }}</span>
-          <svg
-            class="lang-selector_caret"
-            :class="{ 'is-flipped': isLangOpen }"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-            width="14"
-            height="14"
-            aria-hidden="true"
+      <!-- Header Right Section (Right Center: Language, Compare, Wishlist, Appearance, Cart, Auth) -->
+      <div class="app-header_right">
+        <!-- Language Selector (matching reference image) -->
+        <div ref="langRef" class="lang-selector">
+          <button
+            type="button"
+            class="lang-selector_btn"
+            :class="{ 'is-open': isLangOpen }"
+            :aria-expanded="isLangOpen"
+            aria-haspopup="true"
+            @click="toggleLangDropdown"
           >
-            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-          </svg>
-        </button>
-
-        <!-- Dropdown Menu -->
-        <transition name="lang-fade">
-          <div v-if="isLangOpen" class="lang-selector_dropdown" role="menu">
-            <button
-              v-for="lang in languages"
-              :key="lang.id"
-              type="button"
-              class="lang-selector_option"
-              :class="{ 'is-selected': currentLang.id === lang.id }"
-              role="menuitem"
-              @click="selectLanguage(lang)"
+            <span class="lang-selector_globe" aria-hidden="true">🌐</span>
+            <span class="lang-selector_code">{{ currentLang.displayCode }}</span>
+            <svg
+              class="lang-selector_caret"
+              :class="{ 'is-flipped': isLangOpen }"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              width="14"
+              height="14"
+              aria-hidden="true"
             >
-              <span class="lang-selector_item-code">{{ lang.code }}</span>
-              <span class="lang-selector_item-name" :lang="lang.id">{{ lang.name }}</span>
-            </button>
+              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+
+          <!-- Dropdown Menu -->
+          <transition name="lang-fade">
+            <div v-if="isLangOpen" class="lang-selector_dropdown" role="menu">
+              <button
+                v-for="lang in languages"
+                :key="lang.id"
+                type="button"
+                class="lang-selector_option"
+                :class="{ 'is-selected': currentLang.id === lang.id }"
+                role="menuitem"
+                @click="selectLanguage(lang)"
+              >
+                <span class="lang-selector_item-code">{{ lang.code }}</span>
+                <span class="lang-selector_item-name" :lang="lang.id">{{ lang.name }}</span>
+              </button>
+            </div>
+          </transition>
+        </div>
+
+        <!-- Compare Action (In front of Wishlist) -->
+        <RouterLink to="/compare" class="header-action-item" title="Compare">
+          <div class="header-action-item_icon-wrap">
+            <svg class="header-action-item_icon header-action-item_icon--compare" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 12a9 9 0 0 1 15-6.7L21 8" />
+              <path d="M21 3v5h-5" />
+              <path d="M21 12a9 9 0 0 1-15 6.7L3 16" />
+              <path d="M3 21v-5h5" />
+            </svg>
+            <span
+              class="header-action-item_badge"
+              :class="{ 'has-items': compareCount > 0 }"
+            >
+              {{ compareCount > 99 ? '99+' : compareCount }}
+            </span>
           </div>
-        </transition>
-      </div>
+          <span class="header-action-item_title">{{ t('header.compare', 'Compare') }}</span>
+        </RouterLink>
 
-      <!-- Compare Action (In front of Wishlist) -->
-      <RouterLink to="/compare" class="header-action-item" title="Compare">
-        <div class="header-action-item_icon-wrap">
-          <svg class="header-action-item_icon header-action-item_icon--compare" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M3 12a9 9 0 0 1 15-6.7L21 8" />
-            <path d="M21 3v5h-5" />
-            <path d="M21 12a9 9 0 0 1-15 6.7L3 16" />
-            <path d="M3 21v-5h5" />
-          </svg>
-          <span
-            class="header-action-item_badge"
-            :class="{ 'has-items': compareCount > 0 }"
-          >
-            {{ compareCount > 99 ? '99+' : compareCount }}
-          </span>
+        <!-- Wishlist Action (matching reference image) -->
+        <RouterLink to="/wishlist" class="header-action-item" title="Wishlist">
+          <div class="header-action-item_icon-wrap">
+            <svg class="header-action-item_icon header-action-item_icon--wishlist" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+            </svg>
+            <span
+              class="header-action-item_badge"
+              :class="{ 'has-items': wishlistCount > 0 }"
+            >
+              {{ wishlistCount > 99 ? '99+' : wishlistCount }}
+            </span>
+          </div>
+          <span class="header-action-item_title">{{ t('header.wishlist', 'Wishlist') }}</span>
+        </RouterLink>
+
+        <!-- Appearance Action (In front of Cart Icon) -->
+        <div class="header-action-item header-action-item--appearance" :title="t('header.appearance', 'Appearance')">
+          <div class="header-action-item_switch-wrap">
+            <AppearanceSwitch :floating="false" />
+          </div>
+          <span class="header-action-item_title">{{ t('header.appearance', 'Appearance') }}</span>
         </div>
-        <span class="header-action-item_title">{{ t('header.compare', 'Compare') }}</span>
-      </RouterLink>
 
-      <!-- Wishlist Action (matching reference image) -->
-      <RouterLink to="/wishlist" class="header-action-item" title="Wishlist">
-        <div class="header-action-item_icon-wrap">
-          <svg class="header-action-item_icon header-action-item_icon--wishlist" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-          </svg>
-          <span
-            class="header-action-item_badge"
-            :class="{ 'has-items': wishlistCount > 0 }"
-          >
-            {{ wishlistCount > 99 ? '99+' : wishlistCount }}
-          </span>
+        <!-- Cart (Card) Action -->
+        <RouterLink to="/cart" class="header-action-item" :class="{ 'is-bumped': isCartBumping }" title="Cart">
+          <div class="header-action-item_icon-wrap" :class="{ 'is-bumped': isCartBumping }">
+            <svg class="header-action-item_icon header-action-item_icon--cart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="9" cy="21" r="1" />
+              <circle cx="20" cy="21" r="1" />
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+            </svg>
+            <span
+              class="header-action-item_badge"
+              :class="{ 'has-items': totalCount > 0, 'is-bumped': isCartBumping }"
+            >
+              {{ totalCount > 99 ? '99+' : totalCount }}
+            </span>
+          </div>
+          <span class="header-action-item_title">{{ t('header.cart', 'Cart') }}</span>
+        </RouterLink>
+
+        <div v-if="showAuth" class="app-header_auth">
+          <RouterLink to="/sign-in" class="app-header_auth-link">{{ t('header.signIn', 'Sign in') }}</RouterLink>
+          <RouterLink to="/register" class="app-header_auth-link">{{ t('header.register', 'Register') }}</RouterLink>
         </div>
-        <span class="header-action-item_title">{{ t('header.wishlist', 'Wishlist') }}</span>
-      </RouterLink>
-
-      <!-- Cart (Card) Action -->
-      <RouterLink to="/cart" class="header-action-item" :class="{ 'is-bumped': isCartBumping }" title="Cart">
-        <div class="header-action-item_icon-wrap" :class="{ 'is-bumped': isCartBumping }">
-          <svg class="header-action-item_icon header-action-item_icon--cart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="9" cy="21" r="1" />
-            <circle cx="20" cy="21" r="1" />
-            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
-          </svg>
-          <span
-            class="header-action-item_badge"
-            :class="{ 'has-items': totalCount > 0, 'is-bumped': isCartBumping }"
-          >
-            {{ totalCount > 99 ? '99+' : totalCount }}
-          </span>
-        </div>
-        <span class="header-action-item_title">{{ t('header.cart', 'Cart') }}</span>
-      </RouterLink>
-
-      <div v-if="showAuth" class="app-header_auth">
-        <RouterLink to="/sign-in" class="app-header_auth-link">{{ t('header.signIn', 'Sign in') }}</RouterLink>
-        <RouterLink to="/register" class="app-header_auth-link">{{ t('header.register', 'Register') }}</RouterLink>
       </div>
     </div>
 
@@ -328,6 +342,12 @@ onUnmounted(() => {
               </RouterLink>
             </nav>
 
+            <!-- Mobile Appearance Switch -->
+            <div class="mobile-nav_controls">
+              <span class="mobile-nav_controls-label">{{ isKhmer ? 'រូបរាង (Appearance)' : 'Appearance' }}</span>
+              <AppearanceSwitch :floating="false" />
+            </div>
+
             <!-- Mobile Auth Buttons -->
             <div class="mobile-nav_auth">
               <RouterLink to="/sign-in" class="mobile-nav_auth-btn signin" @click="closeMobileMenu">
@@ -394,6 +414,7 @@ onUnmounted(() => {
 
 .app-header_nav ul {
   display: flex;
+  align-items: center;
   gap: var(--space-6);
 }
 
@@ -433,10 +454,11 @@ onUnmounted(() => {
 }
 
 .app-header_search {
-  margin-left: auto;
+  margin: 0 auto;
   flex: 1;
   display: flex;
-  max-width: 460px;
+  max-width: 440px;
+  min-width: 180px;
 }
 
 .app-header_search input {
@@ -470,10 +492,19 @@ onUnmounted(() => {
   font-weight: 600;
 }
 
+/* Header Right Section (Right Center: Language, Compare, Wishlist, Appearance, Cart, Auth) */
+.app-header_right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4, 16px);
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
 .app-header_auth {
   display: flex;
   align-items: center;
-  gap: var(--space-6);
+  gap: var(--space-4);
   flex-shrink: 0;
 }
 
@@ -759,6 +790,37 @@ onUnmounted(() => {
   color: #111827;
 }
 
+.app-header_auth {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4, 16px);
+  margin-left: var(--space-2, 8px);
+}
+
+.app-header_auth-link {
+  font-size: var(--font-size-sm, 14px);
+  font-weight: 500;
+  color: var(--color-text-primary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.app-header_auth-link:hover {
+  color: var(--color-brand);
+}
+
+.header-action-item_switch-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 24px;
+}
+
+.header-action-item--appearance {
+  cursor: pointer;
+}
+
 /* Global Cart Toast Notification */
 .global-cart-toast {
   position: fixed;
@@ -1021,6 +1083,22 @@ onUnmounted(() => {
   color: #94a3b8;
 }
 
+.mobile-nav_controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  background-color: #f8fafc;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+
+.mobile-nav_controls-label {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: #475569;
+}
+
 .mobile-nav_auth {
   margin-top: auto;
   padding-top: 16px;
@@ -1085,6 +1163,10 @@ onUnmounted(() => {
     gap: var(--space-4);
     padding: 0 var(--space-4);
   }
+
+  .app-header_right {
+    gap: var(--space-3, 12px);
+  }
 }
 
 @media (max-width: 768px) {
@@ -1102,6 +1184,10 @@ onUnmounted(() => {
 
   .app-header_inner {
     gap: 10px;
+  }
+
+  .app-header_right {
+    gap: 8px;
   }
 }
 
@@ -1131,6 +1217,11 @@ onUnmounted(() => {
 
   .header-action-item {
     padding: 4px 2px;
+  }
+
+  .app-header_right {
+    margin-left: auto;
+    gap: 6px;
   }
 }
 </style>

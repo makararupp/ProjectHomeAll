@@ -252,30 +252,40 @@ onBeforeUnmount(() => {
   text-transform: uppercase;
 }
 
-/* Heading - Incremented & Sharp */
 /* Heading - Compact & Sharp */
 .hero_heading {
-  font-size: 32px;
   font-size: 26px;
   font-weight: 800;
-  color: #0f172a;
-  line-height: 1.22;
-  margin: 0 0 12px 0;
+  color: var(--color-text-primary, #0f172a);
+  line-height: 1.25;
   margin: 0 0 10px 0;
   letter-spacing: -0.02em;
+  overflow: visible;
 }
 
 .hero_heading--km {
-  font-size: 29px;
+  font-family: 'Kantumruy Pro', 'Battambang', 'Siemreap', 'Khmer OS', sans-serif;
   font-size: 23px;
-  line-height: 1.35;
+  line-height: 1.6;
+  overflow: visible;
+  padding: 4px 0;
 }
 
 .hero_heading-accent {
   background: linear-gradient(135deg, #15803d 0%, #16a34a 50%, #059669 100%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   display: inline;
+}
+
+.hero_heading--km .hero_heading-accent {
+  display: inline-block;
+  padding: 8px 0 12px 0;
+  margin: -8px 0 -12px 0;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  line-height: inherit;
 }
 
 /* Subtitle - Small & Crisp */
@@ -288,8 +298,12 @@ onBeforeUnmount(() => {
 }
 
 .hero_subtitle--km {
-  font-size: 12.5px;
-  line-height: 1.55;
+  font-family: 'Kantumruy Pro', 'Battambang', 'Siemreap', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.65;
+  color: #475569;
+  max-width: 420px;
 }
 
 /* Actions - Compact CTA Button */

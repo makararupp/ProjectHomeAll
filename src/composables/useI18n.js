@@ -19,11 +19,14 @@ export const translations = {
       register: 'Register',
       cart: 'Cart',
       wishlist: 'Wishlist',
-      compare: 'Compare'
+      compare: 'Compare',
+      appearance: 'Appearance'
     },
     hero: {
       eyebrow: 'BUSINESS SOLUTIONS',
       heading: 'Everything your business needs',
+      headingPart1: 'Everything your',
+      headingAccent: 'business needs',
       exploreProducts: 'Explore Products'
     },
     categories: {
@@ -303,11 +306,14 @@ export const translations = {
       register: 'ចុះឈ្មោះ',
       cart: 'កន្ត្រក',
       wishlist: 'ទំនិញពេញចិត្ត',
-      compare: 'ប្រៀបធៀប'
+      compare: 'ប្រៀបធៀប',
+      appearance: 'រូបរាង'
     },
     hero: {
       eyebrow: 'ដំណោះស្រាយអាជីវកម្ម',
       heading: 'អ្វីៗគ្រប់យ៉ាងដែលអាជីវកម្មរបស់អ្នកត្រូវការ',
+      headingPart1: 'អ្វីៗគ្រប់យ៉ាងដែល',
+      headingAccent: 'អាជីវកម្មរបស់អ្នកត្រូវការ',
       exploreProducts: 'ស្វែងរកផលិតផល'
     },
     categories: {

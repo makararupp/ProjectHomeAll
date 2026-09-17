@@ -80,3 +80,28 @@
   /* Motion */
   --transition-fast: 150ms ease;
 }
+
+/* Dark Appearance Theme */
+:root[data-theme="dark"],
+body.dark {
+  /* Text */
+  --color-text-heading: #f9fafb;
+  --color-text-primary: #f3f4f6;
+  --color-text-secondary: #9ca3af;
+  --color-text-muted: #9ca3af;
+  --color-text-faint: #6b7280;
+  --color-text-nav: #e5e7eb;
+
+  /* Surfaces */
+  --color-bg-page: #0f172a;
+  --color-bg-section: #1e293b;
+  --color-bg-surface: #1e293b;
+
+  /* Borders */
+  --color-border: #334155;
+  --color-border-soft: #334155;
+  --color-border-softer: #1e293b;
+  --color-border-input: #475569;
+  --color-border-strong: #e2e8f0;
+  --color-dot-inactive: #475569;
+}
