@@ -678,3 +678,88 @@ onUnmounted(() => {
   }
 }
 </style>
+
+<!-- Non-scoped so body.dark / :root[data-theme="dark"] ancestor selectors work -->
+<style>
+/* =====================================================
+   New / Blog Page – Dark Mode Overrides
+   ===================================================== */
+
+/* Page heading "Blog" title → white */
+:root[data-theme="dark"] .blog_heading,
+body.dark .blog_heading {
+  color: #ffffff;
+}
+
+/* Breadcrumb current page */
+:root[data-theme="dark"] .blog_breadcrumb-current,
+body.dark .blog_breadcrumb-current {
+  color: #e2e8f0;
+}
+
+/* Sidebar category title button */
+:root[data-theme="dark"] .category_title-btn,
+body.dark .category_title-btn {
+  color: #f1f5f9;
+}
+
+/* Sidebar category item buttons */
+:root[data-theme="dark"] .category_btn,
+body.dark .category_btn {
+  color: #94a3b8;
+}
+
+/* Blog card border */
+:root[data-theme="dark"] .blog_card,
+body.dark .blog_card {
+  border-color: #334155;
+}
+
+/* Card thumbnail background */
+:root[data-theme="dark"] .blog_thumb-wrap,
+body.dark .blog_thumb-wrap {
+  background-color: #0f172a;
+}
+
+/* Card title → white */
+:root[data-theme="dark"] .blog_card-title,
+body.dark .blog_card-title {
+  color: #f1f5f9;
+}
+
+/* Card description */
+:root[data-theme="dark"] .blog_card-desc,
+body.dark .blog_card-desc {
+  color: #94a3b8;
+}
+
+/* View More button */
+:root[data-theme="dark"] .blog_view-btn,
+body.dark .blog_view-btn {
+  background-color: #3b1c1c;
+  color: #fca5a5;
+}
+
+:root[data-theme="dark"] .blog_view-btn:hover,
+body.dark .blog_view-btn:hover {
+  background-color: #4c2020;
+  color: #f87171;
+}
+
+/* Modal dialog */
+:root[data-theme="dark"] .modal_title,
+body.dark .modal_title {
+  color: #f1f5f9;
+}
+
+:root[data-theme="dark"] .modal_text,
+body.dark .modal_text {
+  color: #cbd5e1;
+}
+
+:root[data-theme="dark"] .modal_badge,
+body.dark .modal_badge {
+  background-color: #3b1c1c;
+  color: #fca5a5;
+}
+</style>

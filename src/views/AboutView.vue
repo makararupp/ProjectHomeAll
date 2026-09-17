@@ -163,3 +163,41 @@ const { t } = useI18n()
   }
 }
 </style>
+
+<!-- Non-scoped so body.dark / :root[data-theme="dark"] ancestor selectors work -->
+<style>
+/* =====================================================
+   About Us Page – Dark Mode Overrides
+   ===================================================== */
+
+/* Banner background */
+:root[data-theme="dark"] .about-banner,
+body.dark .about-banner {
+  background-color: #1e293b;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* "About Us" title → white */
+:root[data-theme="dark"] .about-banner_title,
+body.dark .about-banner_title {
+  color: #ffffff;
+}
+
+/* Paragraph text */
+:root[data-theme="dark"] .about-paragraph,
+body.dark .about-paragraph {
+  color: #cbd5e1;
+}
+
+:root[data-theme="dark"] .about-paragraph strong,
+body.dark .about-paragraph strong {
+  color: #f1f5f9;
+}
+
+/* Image column border */
+:root[data-theme="dark"] .about-image-col,
+body.dark .about-image-col {
+  background-color: #1e293b;
+}
+</style>
+

@@ -2101,3 +2101,111 @@ onUnmounted(() => {
   }
 }
 </style>
+
+<!-- Non-scoped so body.dark / :root[data-theme="dark"] ancestor selectors work -->
+<style>
+/* =====================================================
+   All Products Page – Dark Mode Overrides
+   ===================================================== */
+
+/* "All Products" title → white */
+:root[data-theme="dark"] .page-heading,
+body.dark .page-heading {
+  color: #ffffff;
+}
+
+/* Subtitle → light grey */
+:root[data-theme="dark"] .products-header_subtitle,
+body.dark .products-header_subtitle {
+  color: #94a3b8;
+}
+
+/* Header bottom border */
+:root[data-theme="dark"] .products-header,
+body.dark .products-header {
+  border-bottom-color: #334155;
+}
+
+/* Breadcrumb links (Home, homely Village) → light */
+:root[data-theme="dark"] .breadcrumb_link,
+body.dark .breadcrumb_link {
+  color: #94a3b8;
+}
+
+/* Breadcrumb separator › → light */
+:root[data-theme="dark"] .breadcrumb_separator,
+body.dark .breadcrumb_separator {
+  color: #64748b;
+}
+
+/* Breadcrumb current page (All Products) → white */
+:root[data-theme="dark"] .breadcrumb_current,
+body.dark .breadcrumb_current {
+  color: #ffffff;
+}
+
+/* "Categories" sidebar title → white */
+:root[data-theme="dark"] .category-menu-title,
+body.dark .category-menu-title {
+  color: #ffffff;
+}
+
+/* "Clear All" button → light */
+:root[data-theme="dark"] .category-menu-clear,
+body.dark .category-menu-clear {
+  color: #94a3b8;
+}
+
+:root[data-theme="dark"] .category-menu-clear:hover,
+body.dark .category-menu-clear:hover {
+  color: #ffffff;
+}
+
+/* Category card background & border */
+:root[data-theme="dark"] .category-menu-card,
+body.dark .category-menu-card {
+  background-color: #1e293b;
+  border-color: #334155;
+}
+
+/* Category list row text → white */
+:root[data-theme="dark"] .category-menu-row,
+body.dark .category-menu-row {
+  color: #e2e8f0;
+  border-bottom-color: #334155;
+}
+
+/* Chevron arrow → light */
+:root[data-theme="dark"] .category-menu-row_chevron,
+body.dark .category-menu-row_chevron {
+  color: #64748b;
+}
+
+/* Hover & active states */
+:root[data-theme="dark"] .category-menu-row.is-active,
+:root[data-theme="dark"] .category-menu-row.is-hovered,
+:root[data-theme="dark"] .category-menu-row:hover,
+body.dark .category-menu-row.is-active,
+body.dark .category-menu-row.is-hovered,
+body.dark .category-menu-row:hover {
+  background-color: #0f172a !important;
+  color: #ffffff !important;
+}
+
+:root[data-theme="dark"] .category-menu-row.is-active,
+body.dark .category-menu-row.is-active {
+  background-color: #172033 !important;
+}
+
+:root[data-theme="dark"] .category-menu-row.is-active .category-menu-row_chevron,
+:root[data-theme="dark"] .category-menu-row.is-hovered .category-menu-row_chevron,
+:root[data-theme="dark"] .category-menu-row:hover .category-menu-row_chevron,
+body.dark .category-menu-row.is-active .category-menu-row_chevron,
+body.dark .category-menu-row.is-hovered .category-menu-row_chevron,
+body.dark .category-menu-row:hover .category-menu-row_chevron {
+  color: #ffffff !important;
+}
+</style>
+
+
+

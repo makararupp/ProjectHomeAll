@@ -1224,4 +1224,85 @@ onUnmounted(() => {
     gap: 6px;
   }
 }
+
 </style>
+
+<!-- Dark mode overrides must live in a non-scoped block so that the
+     ancestor selectors (:root[data-theme="dark"], body.dark) are not
+     affected by Vue's scoped attribute hash. -->
+<style>
+/* =========================================================
+   AppHeader – Dark Mode Overrides (non-scoped)
+   ========================================================= */
+
+/* Logo: use screen blend in dark mode (opposite of multiply).
+   Screen makes the dark/black pixels transparent and keeps the
+   green icon + text visible on the dark header background. */
+:root[data-theme="dark"] .app-header_logo-img,
+body.dark .app-header_logo-img {
+  mix-blend-mode: screen;
+}
+
+/* Nav links (Home, Product, About Us, New) → white */
+:root[data-theme="dark"] .app-header_nav-link,
+body.dark .app-header_nav-link {
+  color: #ffffff;
+}
+
+:root[data-theme="dark"] .app-header_nav-link:hover,
+body.dark .app-header_nav-link:hover {
+  color: #34c759;
+}
+
+/* Caret arrow next to nav links → white */
+:root[data-theme="dark"] .app-header_caret,
+body.dark .app-header_caret {
+  color: #ffffff;
+}
+
+/* Auth links (Sign In, Register) → white */
+:root[data-theme="dark"] .app-header_auth-link,
+body.dark .app-header_auth-link {
+  color: #ffffff;
+}
+
+:root[data-theme="dark"] .app-header_auth-link:hover,
+body.dark .app-header_auth-link:hover {
+  color: #34c759;
+}
+
+/* Icon titles → white */
+:root[data-theme="dark"] .header-action-item_title,
+body.dark .header-action-item_title {
+  color: #ffffff;
+}
+
+:root[data-theme="dark"] .header-action-item:hover .header-action-item_title,
+body.dark .header-action-item:hover .header-action-item_title {
+  color: #ffffff;
+}
+
+/* Compare icon → light */
+:root[data-theme="dark"] .header-action-item_icon--compare,
+body.dark .header-action-item_icon--compare {
+  color: #e2e8f0;
+}
+
+/* Cart icon → light */
+:root[data-theme="dark"] .header-action-item_icon--cart,
+body.dark .header-action-item_icon--cart {
+  color: #e2e8f0;
+}
+
+/* Hover states */
+:root[data-theme="dark"] .header-action-item:hover .header-action-item_icon--compare,
+body.dark .header-action-item:hover .header-action-item_icon--compare {
+  color: #7dd3fc;
+}
+
+:root[data-theme="dark"] .header-action-item:hover .header-action-item_icon--cart,
+body.dark .header-action-item:hover .header-action-item_icon--cart {
+  color: var(--color-brand);
+}
+</style>
+

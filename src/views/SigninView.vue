@@ -424,3 +424,86 @@ function handleLogin() {
   }
 }
 </style>
+
+<!-- Non-scoped block so :root[data-theme="dark"] / body.dark ancestor selectors work -->
+<style>
+/* =====================================================
+   SignIn Page – Dark Mode Overrides
+   ===================================================== */
+
+/* Page background */
+:root[data-theme="dark"] .signin-page,
+body.dark .signin-page {
+  background-color: #0f172a;
+}
+
+/* Left diagonal illustration shape */
+:root[data-theme="dark"] .signin-page_bg-shape polygon,
+body.dark .signin-page_bg-shape polygon {
+  fill: #1e293b;
+}
+
+/* Login card */
+:root[data-theme="dark"] .signin-card,
+body.dark .signin-card {
+  background: #1e293b;
+  border-color: #334155;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4);
+}
+
+/* Card title */
+:root[data-theme="dark"] .signin-card_title,
+body.dark .signin-card_title {
+  color: #f1f5f9;
+}
+
+/* Input groups */
+:root[data-theme="dark"] .signin-input-group,
+body.dark .signin-input-group {
+  background-color: #0f172a;
+  border-color: #475569;
+}
+
+:root[data-theme="dark"] .signin-input-group:focus-within,
+body.dark .signin-input-group:focus-within {
+  border-color: #34c759;
+  box-shadow: 0 0 0 3px rgba(52, 199, 89, 0.2);
+}
+
+/* Input text */
+:root[data-theme="dark"] .signin-input,
+body.dark .signin-input {
+  color: #f1f5f9;
+}
+
+:root[data-theme="dark"] .signin-input::placeholder,
+body.dark .signin-input::placeholder {
+  color: #64748b;
+}
+
+/* Input icon */
+:root[data-theme="dark"] .signin-input-icon,
+body.dark .signin-input-icon {
+  color: #64748b;
+}
+
+/* Bottom prompt text */
+:root[data-theme="dark"] .signin-bottom-prompt,
+body.dark .signin-bottom-prompt {
+  color: #94a3b8;
+}
+
+/* Back to Home link */
+:root[data-theme="dark"] .signin-page_home-link,
+body.dark .signin-page_home-link {
+  background: rgba(30, 41, 59, 0.85);
+  border-color: #334155;
+  color: #34d399;
+}
+
+/* Footer */
+:root[data-theme="dark"] .signin-footer,
+body.dark .signin-footer {
+  color: #475569;
+}
+</style>

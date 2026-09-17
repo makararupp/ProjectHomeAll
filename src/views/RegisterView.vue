@@ -915,3 +915,146 @@ function handleBackToInput() {
   }
 }
 </style>
+
+<!-- Non-scoped block so :root[data-theme="dark"] / body.dark ancestor selectors work -->
+<style>
+/* =====================================================
+   Register Page – Dark Mode Overrides
+   ===================================================== */
+
+/* Page background */
+:root[data-theme="dark"] .register-page,
+body.dark .register-page {
+  background-color: #0f172a;
+}
+
+/* Left diagonal illustration shape */
+:root[data-theme="dark"] .register-page_bg-shape polygon,
+body.dark .register-page_bg-shape polygon {
+  fill: #1e293b;
+}
+
+/* Register card */
+:root[data-theme="dark"] .register-card,
+body.dark .register-card {
+  background: #1e293b;
+  border-color: #334155;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4);
+}
+
+/* Card title */
+:root[data-theme="dark"] .register-card_title,
+body.dark .register-card_title {
+  color: #f1f5f9;
+}
+
+/* Card description */
+:root[data-theme="dark"] .register-card_desc,
+body.dark .register-card_desc {
+  color: #94a3b8;
+}
+
+:root[data-theme="dark"] .register-card_desc strong,
+body.dark .register-card_desc strong {
+  color: #e2e8f0;
+}
+
+/* Input groups */
+:root[data-theme="dark"] .register-input-group,
+body.dark .register-input-group {
+  background-color: #0f172a;
+  border-color: #475569;
+}
+
+:root[data-theme="dark"] .register-input-group:focus-within,
+body.dark .register-input-group:focus-within {
+  border-color: #34c759;
+  box-shadow: 0 0 0 3px rgba(52, 199, 89, 0.2);
+}
+
+/* Input text */
+:root[data-theme="dark"] .register-input,
+body.dark .register-input {
+  color: #f1f5f9;
+}
+
+:root[data-theme="dark"] .register-input::placeholder,
+body.dark .register-input::placeholder {
+  color: #64748b;
+}
+
+/* OTP code input */
+:root[data-theme="dark"] .otp-code-input,
+body.dark .otp-code-input {
+  color: #f1f5f9;
+}
+
+/* Toggle mode link */
+:root[data-theme="dark"] .register-link-btn,
+body.dark .register-link-btn {
+  color: #60a5fa;
+}
+
+/* Divider */
+:root[data-theme="dark"] .register-divider_line,
+body.dark .register-divider_line {
+  background-color: #334155;
+}
+
+:root[data-theme="dark"] .register-divider_text,
+body.dark .register-divider_text {
+  color: #64748b;
+}
+
+/* Google social button */
+:root[data-theme="dark"] .register-social-btn,
+body.dark .register-social-btn {
+  background: #0f172a;
+  border-color: #334155;
+}
+
+/* Already have account row */
+:root[data-theme="dark"] .register-existing-account,
+body.dark .register-existing-account {
+  color: #94a3b8;
+}
+
+/* Resend / Back buttons */
+:root[data-theme="dark"] .register-resend-btn,
+:root[data-theme="dark"] .register-back-btn,
+body.dark .register-resend-btn,
+body.dark .register-back-btn {
+  color: #60a5fa;
+}
+
+:root[data-theme="dark"] .register-resend-btn:disabled,
+body.dark .register-resend-btn:disabled {
+  color: #475569;
+}
+
+/* OTP toast */
+:root[data-theme="dark"] .local-otp-toast,
+body.dark .local-otp-toast {
+  background: #1e293b;
+  border-color: #10b981;
+}
+
+:root[data-theme="dark"] .local-otp-toast_body,
+body.dark .local-otp-toast_body {
+  color: #cbd5e1;
+}
+
+/* Back to Home link */
+:root[data-theme="dark"] .register-page_home-link,
+body.dark .register-page_home-link {
+  background: rgba(30, 41, 59, 0.85);
+  border-color: #334155;
+  color: #34d399;
+}
+
+/* Footer */
+:root[data-theme="dark"] .register-footer,
+body.dark .register-footer {
+  color: #475569;
+}
+</style>
