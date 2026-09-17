@@ -276,6 +276,16 @@ export const translations = {
       quickView: 'Quick View',
       compare: 'Compare',
       wishlist: 'Wishlist'
+    },
+    footer: {
+      tagline: 'Your business marketplace for products, services and opportunities.',
+      address: 'Tolaka St, Krong Siem Reap 171201',
+      rights: 'All rights reserved.',
+      marketplace: 'Marketplace',
+      services: 'Services',
+      company: 'Company',
+      customerSupport: 'Customer Support',
+      scrollToTop: 'Go to top'
     }
   },
   km: {
@@ -549,6 +559,16 @@ export const translations = {
       quickView: 'មើលរហ័ស',
       compare: 'ប្រៀបធៀប',
       wishlist: 'ទំនិញពេញចិត្ត'
+    },
+    footer: {
+      tagline: 'ផ្សារពាណិជ្ជកម្មរបស់អ្នកសម្រាប់ផលិតផល សេវាកម្ម និងឱកាសធុរកិច្ច។',
+      address: 'ផ្លូវតុលាការ ក្រុងសៀមរាប ១៧១២០១',
+      rights: 'រក្សាសិទ្ធិគ្រប់យ៉ាង។',
+      marketplace: 'ផ្សារទំនិញ',
+      services: 'សេវាកម្ម',
+      company: 'ក្រុមហ៊ុន',
+      customerSupport: 'សេវាបម្រើអតិថិជន',
+      scrollToTop: 'ឡើងលើវិញ'
     }
   }
 }

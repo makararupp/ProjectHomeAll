@@ -160,6 +160,7 @@ function handleAddToCart(item) {
 }
 
 .compare-page-title.is-khmer {
+  font-family: 'Kantumruy Pro', 'Battambang', sans-serif;
   font-family: 'Siemreap', 'Battambang', sans-serif;
 }
 

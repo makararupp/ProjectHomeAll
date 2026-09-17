@@ -360,6 +360,7 @@ onUnmounted(() => {
   align-items: center;
   gap: var(--space-8);
   width: 100%;
+  padding: 0 var(--space-8);
   max-width: var(--container-max-width);
   margin: 0 auto;
   padding: 0 var(--space-6);
@@ -477,6 +478,7 @@ onUnmounted(() => {
 }
 
 .app-header_auth-link {
+  font-family: var(--font-family-title, 'Khmer OS', 'Khmer OS System', 'Khmer OS MSOL Light', 'Khmer', 'Kantumruy Pro', 'Battambang', sans-serif);
   font-family: var(--font-family-title, 'Siemreap', 'Battambang', sans-serif);
   font-size: var(--font-size-md);
   font-weight: 500;

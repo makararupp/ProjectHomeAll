@@ -448,6 +448,7 @@ function handleBackToInput() {
   justify-content: center;
   background-color: #ffffff;
   overflow: hidden;
+  font-family: 'Kantumruy Pro', 'Battambang', 'Hanuman', 'Noto Sans Khmer', system-ui, sans-serif;
   font-family: 'Battambang', 'Siemreap', system-ui, sans-serif;
 }
 
@@ -534,6 +535,7 @@ function handleBackToInput() {
 }
 
 .register-card_title {
+  font-family: var(--font-family-title, 'Khmer OS', 'Khmer OS System', 'Khmer OS Muol Light', 'Khmer', 'Kantumruy Pro', 'Battambang', sans-serif);
   font-family: var(--font-family-title, 'Siemreap', 'Battambang', sans-serif);
   text-align: center;
   font-size: 24px;
@@ -895,6 +897,7 @@ function handleBackToInput() {
   }
 
   .register-card {
+    max-width: 360px;
     max-width: 420px;
     width: 100%;
   }

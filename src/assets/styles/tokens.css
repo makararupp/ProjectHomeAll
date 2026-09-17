@@ -53,6 +53,8 @@
   --radius-pill: 999px;
 
   /* Typography */
+  --font-family-base: 'Khmer OS', 'Kantumruy Pro', 'Battambang', 'Inter', system-ui, sans-serif;
+  --font-family-title: 'Khmer OS', 'Khmer OS System', 'Khmer OS Muol Light', 'Khmer', 'Kantumruy Pro', 'Battambang', sans-serif;
   --font-family-base: 'Inter', 'Battambang', 'Siemreap', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-family-title: 'Inter', 'Siemreap', 'Battambang', sans-serif;
   --font-family-khmer: 'Siemreap', 'Battambang', sans-serif;

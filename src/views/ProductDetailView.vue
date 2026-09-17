@@ -849,6 +849,7 @@ onUnmounted(() => {
   display: flex;
   flex-direction: column;
   background-color: var(--color-bg-surface);
+  font-family: 'Kantumruy Pro', 'Battambang', var(--font-family-base);
   font-family: 'Siemreap', 'Battambang', var(--font-family-base);
 }
 
@@ -925,6 +926,7 @@ onUnmounted(() => {
 }
 
 .page-heading.is-khmer {
+  font-family: 'Kantumruy Pro', 'Battambang', sans-serif;
   font-family: 'Siemreap', 'Battambang', sans-serif;
   font-size: 26px;
   line-height: 1.4;
@@ -2048,6 +2050,7 @@ onUnmounted(() => {
 
 @media (max-width: 580px) {
   .products-grid {
+    grid-template-columns: 1fr;
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
   }

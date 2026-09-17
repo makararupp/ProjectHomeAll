@@ -1,25 +1,51 @@
 <script setup>
+import { RouterLink } from 'vue-router'
 import { footerColumns, socialLinks } from '@/data/footerLinks'
+import { useI18n } from '@/composables/useI18n'
 
+const { t, isKhmer } = useI18n()
 const year = new Date().getFullYear()
+
+function isExternal(href) {
+  return typeof href === 'string' && (href.startsWith('tel:') || href.startsWith('mailto:') || href.startsWith('http'))
+}
 </script>
 
 <template>
-  <footer class="app-footer">
+  <footer class="app-footer" :class="{ 'is-khmer': isKhmer }">
     <div class="container app-footer_top">
       <div class="app-footer_brand">
-        <p class="app-footer_tagline">
-          Your business marketplace for products, services and opportunities.
+        <p class="app-footer_tagline" :class="{ 'is-khmer': isKhmer }">
+          {{ t('footer.tagline', 'Your business marketplace for products, services and opportunities.') }}
         </p>
-        <p class="app-footer_address">Tolaka St, Krong Siem Reap 171201</p>
+        <p class="app-footer_address" :class="{ 'is-khmer': isKhmer }">
+          {{ t('footer.address', 'Tolaka St, Krong Siem Reap 171201') }}
+        </p>
       </div>
 
       <div class="app-footer_columns">
         <div v-for="column in footerColumns" :key="column.title" class="app-footer_column">
-          <h3>{{ column.title }}</h3>
+          <h3 :class="{ 'is-khmer': isKhmer }">
+            {{ isKhmer && column.titleKm ? column.titleKm : column.title }}
+          </h3>
           <ul>
             <li v-for="link in column.links" :key="link.label">
-              <a :href="link.href">{{ link.label }}</a>
+              <a
+                v-if="isExternal(link.href)"
+                :href="link.href"
+                :target="link.href.startsWith('http') ? '_blank' : undefined"
+                :rel="link.href.startsWith('http') ? 'noopener noreferrer' : undefined"
+                :class="{ 'is-khmer': isKhmer }"
+              >
+                {{ isKhmer && link.labelKm ? link.labelKm : link.label }}
+              </a>
+              <RouterLink
+                v-else
+                :to="link.href"
+                :class="{ 'is-khmer': isKhmer }"
+              >
+                {{ isKhmer && link.labelKm ? link.labelKm : link.label }}
+              </RouterLink>
             </li>
           </ul>
         </div>
@@ -29,7 +55,9 @@ const year = new Date().getFullYear()
     <div class="app-footer_divider container" />
 
     <div class="container app-footer_bottom">
-      <p>&copy; {{ year }} HomeAll. All rights reserved.</p>
+      <p :class="{ 'is-khmer': isKhmer }">
+        &copy; {{ year }} HomeAll. {{ t('footer.rights', 'All rights reserved.') }}
+      </p>
       <ul class="app-footer_social">
         <li v-for="social in socialLinks" :key="social.label">
           <a :href="social.href" target="_blank" rel="noopener">{{ social.label }}</a>
@@ -140,5 +168,39 @@ const year = new Date().getFullYear()
   .app-footer {
     padding-top: var(--space-6);
   }
+}
+
+/* Khmer typography adjustments */
+.app-footer.is-khmer {
+  font-family: var(--font-family-khmer, 'Siemreap', 'Battambang', sans-serif);
+}
+
+.app-footer_tagline.is-khmer {
+  font-family: var(--font-family-khmer, inherit);
+  line-height: 1.8;
+  font-size: 14.5px;
+}
+
+.app-footer_address.is-khmer {
+  font-family: var(--font-family-khmer, inherit);
+  line-height: 1.7;
+}
+
+.app-footer_column h3.is-khmer {
+  font-family: var(--font-family-khmer, inherit);
+  font-size: 16px;
+  line-height: 1.5;
+  font-weight: 700;
+}
+
+.app-footer_column a.is-khmer {
+  font-family: var(--font-family-khmer, inherit);
+  font-size: 13.5px;
+  line-height: 1.7;
+}
+
+.app-footer_bottom p.is-khmer {
+  font-family: var(--font-family-khmer, inherit);
+  line-height: 1.6;
 }
 </style>
