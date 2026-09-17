@@ -832,12 +832,13 @@ body.dark .flash-sale_timer {
   border-color: #e2e8f0;
 }
 
-/* Flash sale section container */
+/* Flash sale section container: transparent so continuous page gradient flows through */
 :root[data-theme="dark"] .flash-sale,
 body.dark .flash-sale {
-  background-color: #0f172a !important;
-  border-top-color: #334155;
-  border-bottom-color: #334155;
+  background: transparent !important;
+  background-color: transparent !important;
+  border-top-color: rgba(255, 255, 255, 0.08);
+  border-bottom-color: rgba(255, 255, 255, 0.08);
 }
 
 /* View All link */
@@ -856,7 +857,7 @@ body.dark .flash-sale_view-all svg {
 body.dark .flash-card {
   background-color: #1e293b;
   border-color: #334155;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 :root[data-theme="dark"] .flash-card:hover,
@@ -865,11 +866,12 @@ body.dark .flash-card:hover {
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
 }
 
-/* Image container */
+/* Image container: white background matching the Hero card & category icons */
 :root[data-theme="dark"] .flash-card_image-wrap,
 body.dark .flash-card_image-wrap {
-  background-color: #0f172a;
-  border-color: #1e293b;
+  background-color: #ffffff !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
 /* Product titles → crisp white in dark mode */
@@ -890,12 +892,20 @@ body.dark .price-original {
   color: #64748b;
 }
 
-/* Quick Add button */
+/* Quick Add button: white background and black text/icon */
 :root[data-theme="dark"] .flash-card_quick-btn,
 body.dark .flash-card_quick-btn {
-  background-color: #1e293b;
-  border-color: #22c55e;
-  color: #22c55e;
+  background-color: #ffffff !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  color: #000000 !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+}
+
+:root[data-theme="dark"] .flash-card_quick-btn svg,
+:root[data-theme="dark"] .flash-card_quick-btn .btn-text,
+body.dark .flash-card_quick-btn svg,
+body.dark .flash-card_quick-btn .btn-text {
+  color: #000000 !important;
 }
 
 :root[data-theme="dark"] .flash-card_quick-btn:hover:not(:disabled),
@@ -904,9 +914,10 @@ body.dark .flash-card_quick-btn {
 body.dark .flash-card_quick-btn:hover:not(:disabled),
 body.dark .flash-card_quick-btn:focus-visible,
 body.dark .flash-card_quick-btn.is-added {
-  background-color: #16a34a;
-  border-color: #16a34a;
-  color: #ffffff;
+  background-color: #f1f5f9 !important;
+  border-color: #ffffff !important;
+  color: #000000 !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
 }
 
 /* Compare & Wishlist buttons */

@@ -481,11 +481,12 @@ body.dark .product-card:hover {
   box-shadow: 0 14px 28px -4px rgba(59, 130, 246, 0.3), 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
-/* Image container box in dark mode */
+/* Image container box in dark mode: white background matching the Hero card & deal cards */
 :root[data-theme="dark"] .product-card_image,
 body.dark .product-card_image {
-  background-color: #0f172a !important;
-  border-color: #1e293b !important;
+  background-color: #ffffff !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
 /* Title → white */
@@ -509,6 +510,33 @@ body.dark .product-card_price {
 :root[data-theme="dark"] .product-card_unit,
 body.dark .product-card_unit {
   color: #cbd5e1 !important;
+}
+
+/* Quick Add button: white background and black text/icon */
+:root[data-theme="dark"] .product-card_quick-btn,
+body.dark .product-card_quick-btn {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+}
+
+:root[data-theme="dark"] .product-card_quick-btn svg,
+:root[data-theme="dark"] .product-card_quick-btn .btn-text,
+body.dark .product-card_quick-btn svg,
+body.dark .product-card_quick-btn .btn-text {
+  color: #000000 !important;
+}
+
+:root[data-theme="dark"] .product-card_quick-btn:hover:not(:disabled),
+:root[data-theme="dark"] .product-card_quick-btn:focus-visible,
+:root[data-theme="dark"] .product-card_quick-btn.is-added,
+body.dark .product-card_quick-btn:hover:not(:disabled),
+body.dark .product-card_quick-btn:focus-visible,
+body.dark .product-card_quick-btn.is-added {
+  background-color: #f1f5f9 !important;
+  color: #000000 !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
 }
 
 /* Action buttons (Compare & Wishlist) in dark mode */

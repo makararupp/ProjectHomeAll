@@ -137,16 +137,22 @@ function handleAddToCart(product) {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 8px 24px;
-  background: transparent;
-  color: #3b5bf5; /* Vibrant blue matching screenshot */
+  padding: 10px 28px;
+  background-color: #ffffff;
+  color: #000000;
   font-size: 15.5px;
   font-weight: 700;
-  border: none;
+  border: 1px solid #e2e8f0;
   cursor: pointer;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   user-select: none;
   border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.featured_show-more-btn span {
+  color: inherit;
+  transition: color 0.2s ease;
 }
 
 .featured_show-more-btn--km {
@@ -156,9 +162,15 @@ function handleAddToCart(product) {
 }
 
 .featured_show-more-btn:hover:not(:disabled) {
-  color: #1d4ed8;
-  background-color: #eff6ff;
+  color: #ffffff;
+  background-color: #000000;
+  border-color: #000000;
   transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+}
+
+.featured_show-more-btn:hover:not(:disabled) span {
+  color: #ffffff;
 }
 
 .featured_show-more-btn:active:not(:disabled) {
@@ -173,8 +185,8 @@ function handleAddToCart(product) {
 .loading-spinner {
   width: 18px;
   height: 18px;
-  border: 2px solid #cbd5e1;
-  border-top-color: #3b5bf5;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  border-top-color: currentColor;
   border-radius: 50%;
   animation: spin 0.75s linear infinite;
 }
@@ -213,3 +225,65 @@ function handleAddToCart(product) {
   }
 }
 </style>
+
+<!-- Non-scoped so body.dark / :root[data-theme="dark"] ancestor selectors work -->
+<style>
+/* =====================================================
+   Featured Products – Dark Mode Overrides
+   ===================================================== */
+
+/* Section Title → white */
+:root[data-theme="dark"] .featured_title,
+body.dark .featured_title {
+  color: #ffffff !important;
+}
+
+/* Subtitle → light */
+:root[data-theme="dark"] .featured_subtitle,
+body.dark .featured_subtitle {
+  color: #94a3b8 !important;
+}
+
+/* Underline bar → white */
+:root[data-theme="dark"] .section-underline,
+body.dark .section-underline {
+  background-color: #ffffff !important;
+}
+
+/* Show more button in dark mode:
+   Normal: White button, Black title
+   Hover: Dark background, White title */
+:root[data-theme="dark"] .featured_show-more-btn,
+body.dark .featured_show-more-btn {
+  background-color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  color: #000000 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+}
+
+:root[data-theme="dark"] .featured_show-more-btn span,
+body.dark .featured_show-more-btn span {
+  color: #000000 !important;
+}
+
+:root[data-theme="dark"] .featured_show-more-btn:hover:not(:disabled),
+body.dark .featured_show-more-btn:hover:not(:disabled) {
+  background-color: #0f172a !important;
+  border-color: #ffffff !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5) !important;
+  transform: translateY(-1px);
+}
+
+:root[data-theme="dark"] .featured_show-more-btn:hover:not(:disabled) span,
+body.dark .featured_show-more-btn:hover:not(:disabled) span {
+  color: #ffffff !important;
+}
+
+:root[data-theme="dark"] .featured_show-more-btn:hover .loading-spinner,
+body.dark .featured_show-more-btn:hover .loading-spinner {
+  border-color: rgba(255, 255, 255, 0.3) !important;
+  border-top-color: #ffffff !important;
+}
+</style>
+

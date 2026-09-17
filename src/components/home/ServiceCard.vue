@@ -89,24 +89,37 @@ function getServiceKey(id) {
 
 :root[data-theme="dark"] .service-card,
 body.dark .service-card {
-  background-color: #1e293b;
-  border-color: #334155;
+  background-color: #ffffff !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+:root[data-theme="dark"] .service-card:hover,
+body.dark .service-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
 }
 
 :root[data-theme="dark"] .service-card_title,
 body.dark .service-card_title {
-  color: #e2e8f0;
+  color: #1f2937 !important;
 }
 
 :root[data-theme="dark"] .service-card:hover .service-card_title,
 body.dark .service-card:hover .service-card_title {
-  color: #ffffff;
+  color: #111827 !important;
 }
 
 :root[data-theme="dark"] .service-card_icon,
 body.dark .service-card_icon {
-  background-color: #0f172a;
-  color: var(--color-brand);
+  background-color: #f3f4f6 !important;
+  color: var(--color-brand-dark, #16a34a) !important;
+}
+
+:root[data-theme="dark"] .service-card:hover .service-card_icon,
+body.dark .service-card:hover .service-card_icon {
+  background-color: var(--color-brand, #34c759) !important;
+  color: #ffffff !important;
 }
 </style>
 

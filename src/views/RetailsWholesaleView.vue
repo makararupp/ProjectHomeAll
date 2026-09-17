@@ -77,6 +77,19 @@ const { t } = useI18n()
   color: #0f172a;
   font-weight: 600;
 }
-
 </style>
+
+<!-- Non-scoped so body.dark / :root[data-theme="dark"] ancestor selectors work -->
+<style>
+:root[data-theme="dark"] .breadcrumb-link,
+body.dark .breadcrumb-link {
+  color: #94a3b8 !important;
+}
+
+:root[data-theme="dark"] .breadcrumb-current,
+body.dark .breadcrumb-current {
+  color: #ffffff !important;
+}
+</style>
+
 

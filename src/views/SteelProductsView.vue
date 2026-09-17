@@ -529,3 +529,54 @@ const foundationSteelItems = [
 }
 </style>
 
+<!-- Non-scoped so body.dark / :root[data-theme="dark"] ancestor selectors work -->
+<style>
+/* =====================================================
+   Steel Products Page – Dark Mode Overrides
+   ===================================================== */
+
+:root[data-theme="dark"] .steel-page,
+body.dark .steel-page {
+  background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%) !important;
+}
+
+:root[data-theme="dark"] .steel-item_name,
+body.dark .steel-item_name {
+  color: #ffffff !important;
+}
+
+:root[data-theme="dark"] .steel-item_img-wrap,
+body.dark .steel-item_img-wrap {
+  background-color: #1e293b !important;
+  border-color: #334155 !important;
+}
+
+:root[data-theme="dark"] .steel-hero_title,
+body.dark .steel-hero_title {
+  color: #ffffff !important;
+}
+
+:root[data-theme="dark"] .steel-hero_desc,
+body.dark .steel-hero_desc {
+  color: #cbd5e1 !important;
+}
+
+:root[data-theme="dark"] .feature-tab-btn,
+body.dark .feature-tab-btn {
+  color: #94a3b8 !important;
+}
+
+:root[data-theme="dark"] .feature-tab-btn.is-active,
+:root[data-theme="dark"] .feature-tab-btn:hover,
+body.dark .feature-tab-btn.is-active,
+body.dark .feature-tab-btn:hover {
+  color: #ffffff !important;
+}
+
+:root[data-theme="dark"] .foundation-steel-section_title,
+body.dark .foundation-steel-section_title {
+  color: #ffffff !important;
+}
+</style>
+
+

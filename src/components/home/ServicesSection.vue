@@ -85,5 +85,11 @@ body.dark .services_title {
 body.dark .services_subtitle {
   color: #94a3b8;
 }
+
+/* Underline bar → white */
+:root[data-theme="dark"] .section-underline,
+body.dark .section-underline {
+  background-color: #ffffff !important;
+}
 </style>
 

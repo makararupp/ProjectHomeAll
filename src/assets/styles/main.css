@@ -126,3 +126,63 @@ p {
   display: inline-block;
 }
 
+/* =========================================================
+   Global Dark Mode Background:
+   Single seamless continuous linear-gradient across the entire window.
+   All individual child sections are transparent so there is no color
+   break or seam between HeroBanner and PromoBanners / Services.
+   ========================================================= */
+:root[data-theme="dark"],
+:root[data-theme="dark"] body,
+:root[data-theme="dark"] #app,
+body.dark,
+body.dark #app {
+  background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%) fixed !important;
+  background-attachment: fixed !important;
+}
+
+:root[data-theme="dark"] main,
+:root[data-theme="dark"] .hero,
+:root[data-theme="dark"] .category-showcase,
+:root[data-theme="dark"] .services,
+:root[data-theme="dark"] .featured,
+:root[data-theme="dark"] .about,
+:root[data-theme="dark"] .category-page,
+:root[data-theme="dark"] .category-main,
+:root[data-theme="dark"] .category-catalog-page,
+:root[data-theme="dark"] .catalog-main,
+:root[data-theme="dark"] .retails-wholesale-page,
+:root[data-theme="dark"] .retails-wholesale-main,
+:root[data-theme="dark"] .steel-page,
+:root[data-theme="dark"] .steel-main,
+:root[data-theme="dark"] .about-page,
+:root[data-theme="dark"] .about-main,
+:root[data-theme="dark"] .blog_page,
+:root[data-theme="dark"] .blog_main,
+body.dark main,
+body.dark .hero,
+body.dark .category-showcase,
+body.dark .services,
+body.dark .featured,
+body.dark .about,
+body.dark .category-page,
+body.dark .category-main,
+body.dark .category-catalog-page,
+body.dark .catalog-main,
+body.dark .retails-wholesale-page,
+body.dark .retails-wholesale-main,
+body.dark .steel-page,
+body.dark .steel-main,
+body.dark .about-page,
+body.dark .about-main,
+body.dark .blog_page,
+body.dark .blog_main {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+/* Section title underline bars → white in dark mode */
+:root[data-theme="dark"] .section-underline,
+body.dark .section-underline {
+  background-color: #ffffff !important;
+}

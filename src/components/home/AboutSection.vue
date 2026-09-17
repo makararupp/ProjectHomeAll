@@ -99,11 +99,38 @@ body.dark .about_sub {
   color: #cbd5e1 !important;
 }
 
+/* Underline bar → white */
+:root[data-theme="dark"] .section-underline,
+body.dark .section-underline {
+  background-color: #ffffff !important;
+}
+
 /* Card background & border */
 :root[data-theme="dark"] .about_card,
 body.dark .about_card {
   background-color: #1e293b;
   border-color: #334155;
+}
+
+/* "Read About Us" button → white background and black text in dark mode */
+:root[data-theme="dark"] .about .base-button,
+:root[data-theme="dark"] .about_card .base-button,
+body.dark .about .base-button,
+body.dark .about_card .base-button {
+  background-color: #ffffff !important;
+  border-color: #ffffff !important;
+  color: #000000 !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25) !important;
+}
+
+:root[data-theme="dark"] .about .base-button:hover,
+:root[data-theme="dark"] .about_card .base-button:hover,
+body.dark .about .base-button:hover,
+body.dark .about_card .base-button:hover {
+  background-color: #f1f5f9 !important;
+  border-color: #f1f5f9 !important;
+  color: #000000 !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35) !important;
 }
 </style>
 

@@ -110,3 +110,38 @@ onUnmounted(() => {
 }
 </style>
 
+<!-- Non-scoped so body.dark / :root[data-theme="dark"] ancestor selectors work -->
+<style>
+/* =====================================================
+   Scroll To Top – Dark Mode Overrides
+   ===================================================== */
+
+/* Circle button in dark mode → pure white background */
+:root[data-theme="dark"] .scroll-to-top-btn,
+body.dark .scroll-to-top-btn {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4), 0 2px 6px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Arrow icon inside the white circle */
+:root[data-theme="dark"] .scroll-to-top-btn i,
+body.dark .scroll-to-top-btn i {
+  color: #0f172a !important;
+}
+
+:root[data-theme="dark"] .scroll-to-top-btn:hover,
+body.dark .scroll-to-top-btn:hover {
+  background-color: #ffffff !important;
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), 0 0 14px rgba(255, 255, 255, 0.4) !important;
+}
+
+:root[data-theme="dark"] .scroll-to-top-btn:hover i,
+body.dark .scroll-to-top-btn:hover i {
+  color: var(--color-brand, #34c759) !important;
+}
+</style>
+
+
