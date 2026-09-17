@@ -67,3 +67,23 @@ const { t } = useI18n()
   }
 }
 </style>
+
+<!-- Non-scoped so body.dark / :root[data-theme="dark"] ancestor selectors work -->
+<style>
+/* =====================================================
+   Explore Our Services – Dark Mode Overrides
+   ===================================================== */
+
+/* "Explore Our Services" title → white in dark mode */
+:root[data-theme="dark"] .services_title,
+body.dark .services_title {
+  color: #ffffff !important;
+}
+
+/* Subtitle → light text */
+:root[data-theme="dark"] .services_subtitle,
+body.dark .services_subtitle {
+  color: #94a3b8;
+}
+</style>
+

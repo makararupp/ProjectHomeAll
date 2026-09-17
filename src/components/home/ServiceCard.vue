@@ -80,3 +80,33 @@ function getServiceKey(id) {
   color: var(--color-text-primary);
 }
 </style>
+
+<!-- Non-scoped so body.dark / :root[data-theme="dark"] ancestor selectors work -->
+<style>
+/* =====================================================
+   Service Card – Dark Mode Overrides
+   ===================================================== */
+
+:root[data-theme="dark"] .service-card,
+body.dark .service-card {
+  background-color: #1e293b;
+  border-color: #334155;
+}
+
+:root[data-theme="dark"] .service-card_title,
+body.dark .service-card_title {
+  color: #e2e8f0;
+}
+
+:root[data-theme="dark"] .service-card:hover .service-card_title,
+body.dark .service-card:hover .service-card_title {
+  color: #ffffff;
+}
+
+:root[data-theme="dark"] .service-card_icon,
+body.dark .service-card_icon {
+  background-color: #0f172a;
+  color: var(--color-brand);
+}
+</style>
+

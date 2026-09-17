@@ -74,3 +74,36 @@ const { t } = useI18n()
   }
 }
 </style>
+
+<!-- Non-scoped so body.dark / :root[data-theme="dark"] ancestor selectors work -->
+<style>
+/* =====================================================
+   About Section – Dark Mode Overrides
+   ===================================================== */
+
+/* "About Us" title → white */
+:root[data-theme="dark"] .about_title,
+body.dark .about_title {
+  color: #ffffff !important;
+}
+
+/* "We connect businesses with products..." → white */
+:root[data-theme="dark"] .about_lead,
+body.dark .about_lead {
+  color: #ffffff !important;
+}
+
+/* "Built for sourcing, selling, renting and growing your business." → light/white */
+:root[data-theme="dark"] .about_sub,
+body.dark .about_sub {
+  color: #cbd5e1 !important;
+}
+
+/* Card background & border */
+:root[data-theme="dark"] .about_card,
+body.dark .about_card {
+  background-color: #1e293b;
+  border-color: #334155;
+}
+</style>
+

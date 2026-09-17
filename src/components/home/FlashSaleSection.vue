@@ -798,3 +798,39 @@ function handleToggleWishlist(product, event) {
 }
 </style>
 
+<!-- Non-scoped so body.dark / :root[data-theme="dark"] ancestor selectors work -->
+<style>
+/* =====================================================
+   FlashSale (GoExpress) – Dark Mode Overrides
+   ===================================================== */
+
+/* GoExpress title → black in dark mode */
+:root[data-theme="dark"] .flash-sale_title,
+body.dark .flash-sale_title {
+  color: #000000 !important;
+}
+
+/* Flash sale header badge background so black title stands out */
+:root[data-theme="dark"] .flash-sale_badge,
+body.dark .flash-sale_badge {
+  background-color: #ffffff;
+  padding: 4px 10px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* "Ends in:" label → black in dark mode */
+:root[data-theme="dark"] .flash-sale_timer-label,
+body.dark .flash-sale_timer-label {
+  color: #000000 !important;
+}
+
+/* Timer pill background: keeps clean white so black text is clear */
+:root[data-theme="dark"] .flash-sale_timer,
+body.dark .flash-sale_timer {
+  background-color: #ffffff;
+  border-color: #e2e8f0;
+}
+</style>
+
+
