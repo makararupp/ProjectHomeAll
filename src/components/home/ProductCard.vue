@@ -6,7 +6,7 @@ import { useI18n } from '@/composables/useI18n'
 import { useWishlist } from '@/composables/useWishlist'
 import { useCompare } from '@/composables/useCompare'
 
-const { t } = useI18n()
+const { t, isKhmer } = useI18n()
 const { isInWishlist, addToWishlist, removeFromWishlist } = useWishlist()
 const { isInCompare, toggleCompare } = useCompare()
 
@@ -68,15 +68,20 @@ function handleAddToCart(event) {
         <img
           v-if="product.image"
           :src="product.image"
-          :alt="product.title || product.category"
+          :alt="isKhmer ? (product.titleKm || product.title) : (product.titleEn || product.title)"
           loading="lazy"
         />
         <ImagePlaceholder v-else :label="product.category" />
       </div>
 
       <!-- Title (Clamped to 2 lines) -->
-      <h3 class="product-card_title" :title="product.title">
-        {{ product.title }}
+      <h3
+        class="product-card_title"
+        :class="{ 'product-card_title--km': isKhmer }"
+        :lang="isKhmer ? 'km' : 'en'"
+        :title="isKhmer ? (product.titleKm || product.title) : (product.titleEn || product.title)"
+      >
+        {{ isKhmer ? (product.titleKm || product.title) : (product.titleEn || product.title) }}
       </h3>
 
       <!-- Red-Orange Bold Price (Matching screenshot) -->
@@ -212,6 +217,7 @@ function handleAddToCart(event) {
   width: auto;
   height: auto;
   object-fit: contain;
+  padding-top: 5px;
   margin: 0 auto;
   display: block;
   transition: transform 0.25s ease;
@@ -238,6 +244,17 @@ function handleAddToCart(event) {
 
 .product-card:hover .product-card_title {
   color: #2563eb;
+}
+
+/* Khmer-specific title styling - prevents broken/clipped subscripts and vowels */
+.product-card_title--km {
+  font-family: 'Kantumruy Pro', 'Battambang', 'Siemreap', 'Khmer OS', sans-serif;
+  font-size: 12.5px;
+  font-weight: 600;
+  line-height: 1.6;
+  letter-spacing: 0;
+  min-height: 42px;
+  padding: 2px 0 4px 0;
 }
 
 .product-card_price-wrap {
@@ -317,7 +334,7 @@ function handleAddToCart(event) {
 .product-card_quick-btn:hover:not(:disabled) .btn-text,
 .product-card_quick-btn:focus-visible .btn-text,
 .product-card_quick-btn.is-added .btn-text {
-  max-width: 95px;
+  max-width: 115px;
   opacity: 1;
   margin-left: 6px;
 }
@@ -410,6 +427,12 @@ function handleAddToCart(event) {
     font-size: 12px;
     min-height: 32px;
     margin-bottom: 4px;
+  }
+
+  .product-card_title--km {
+    font-size: 11.5px;
+    line-height: 1.55;
+    min-height: 38px;
   }
 
   .product-card_price {

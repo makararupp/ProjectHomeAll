@@ -30,7 +30,11 @@ const { isKhmer } = useI18n()
           </div>
 
           <!-- Category Title -->
-          <span class="category-item_title">
+          <span
+            class="category-item_title"
+            :class="{ 'category-item_title--km': isKhmer }"
+            :lang="isKhmer ? 'km' : 'en'"
+          >
             {{ isKhmer ? item.titleKm : item.title }}
           </span>
         </component>
@@ -103,7 +107,8 @@ const { isKhmer } = useI18n()
   width: 100%;
   height: 100%;
   object-fit: contain;
-  padding: 4px;
+  padding: 5px 4px 3px 4px;
+  padding-top: 5px;
   display: block;
   pointer-events: none;
   transition: transform 0.25s ease;
@@ -117,19 +122,39 @@ const { isKhmer } = useI18n()
 .category-item_title {
   margin-top: 8px;
   font-size: 12px;
-  font-weight: 700;
+  font-weight: 600;
   color: #1f2937;
-  line-height: 1.25;
-  letter-spacing: 0.1px;
+  line-height: 1.35;
+  letter-spacing: 0;
+  text-align: center;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  max-width: 102px;
+  min-height: 34px;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  max-width: 95px;
 }
 
 .category-item:hover .category-item_title {
   color: #1f2937;
+}
+
+/* Khmer-specific title styling - prevents broken/clipped subscripts and vowels */
+.category-item_title--km {
+  font-family: 'Kantumruy Pro', 'Battambang', 'Siemreap', 'Khmer OS', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.6;
+  letter-spacing: 0;
+  margin-top: 6px;
+  padding: 2px 2px 4px 2px;
+  max-width: 106px;
+  min-height: 40px;
+  display: block;
+  overflow: visible;
+  -webkit-line-clamp: unset;
 }
 
 /* Responsive: 5 per row on tablets */
@@ -146,6 +171,14 @@ const { isKhmer } = useI18n()
 
   .category-item_title {
     font-size: 11.5px;
+    min-height: 32px;
+  }
+
+  .category-item_title--km {
+    font-size: 11.5px;
+    line-height: 1.55;
+    min-height: 38px;
+    max-width: 96px;
   }
 }
 
@@ -163,6 +196,14 @@ const { isKhmer } = useI18n()
 
   .category-item_title {
     font-size: 11px;
+    min-height: 30px;
+  }
+
+  .category-item_title--km {
+    font-size: 11px;
+    line-height: 1.5;
+    min-height: 36px;
+    max-width: 90px;
   }
 }
 
@@ -185,6 +226,14 @@ const { isKhmer } = useI18n()
 
   .category-item_title {
     font-size: 10.5px;
+    max-width: 85px;
+    min-height: 28px;
+  }
+
+  .category-item_title--km {
+    font-size: 10.5px;
+    line-height: 1.48;
+    min-height: 34px;
     max-width: 85px;
   }
 }

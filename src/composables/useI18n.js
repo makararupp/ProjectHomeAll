@@ -1,7 +1,11 @@
 import { ref, computed } from 'vue'
 
 // Global shared reactive locale state
-const currentLocale = ref(localStorage.getItem('app_language') || 'en')
+const initialLocale = localStorage.getItem('app_language') || 'en'
+const currentLocale = ref(initialLocale)
+if (typeof document !== 'undefined') {
+  document.documentElement.lang = initialLocale
+}
 
 export const translations = {
   en: {
@@ -584,6 +588,9 @@ export function useI18n() {
     const norm = (locale === 'km' || locale === 'kh') ? 'km' : 'en'
     currentLocale.value = norm
     localStorage.setItem('app_language', norm)
+    if (typeof document !== 'undefined') {
+      document.documentElement.lang = norm
+    }
   }
 
   const t = (path, defaultText = '') => {

@@ -27,7 +27,9 @@ import tankImg from '@/assets/images/categories/tank.png'
 export const products = [
   {
     id: 'floor-tile',
-    title: 'ជេក ការចេំ ខ្នាត 15x15',
+    title: 'ក្បឿងការ៉ូ ខ្នាត 15x15',
+    titleEn: 'Floor Tile 15x15',
+    titleKm: 'ក្បឿងការ៉ូ ខ្នាត 15x15',
     category: 'Floor Tile',
     price: '$12.50',
     unit: '/ box',
@@ -36,6 +38,8 @@ export const products = [
   {
     id: 'steel-product',
     title: 'បំពង់ដែក សម្រាប់សំណង់',
+    titleEn: 'Steel Pipe for Construction',
+    titleKm: 'បំពង់ដែក សម្រាប់សំណង់',
     category: 'Steel Product',
     price: '$28.00',
     unit: '/ piece',
@@ -44,6 +48,8 @@ export const products = [
   {
     id: 'plastic-resin',
     title: 'ជ័រផ្លាស្ទិក គុណភាពខ្ពស់',
+    titleEn: 'High Quality Plastic Resin',
+    titleKm: 'ជ័រផ្លាស្ទិក គុណភាពខ្ពស់',
     category: 'Plastic Resin',
     price: '$1,250',
     unit: '/ ton',
@@ -52,6 +58,8 @@ export const products = [
   {
     id: 'pvc-pipes',
     title: 'បំពង់ទឹក PVC',
+    titleEn: 'PVC Water Pipes',
+    titleKm: 'បំពង់ទឹក PVC',
     category: 'PVC Water Pipes',
     price: '$6.80',
     unit: '/ length',
@@ -60,6 +68,8 @@ export const products = [
   {
     id: 'bathroom-appliances',
     title: 'បន្ទប់ទឹក និងក្បាលផ្កាឈូក',
+    titleEn: 'Bathroom & Shower Head Set',
+    titleKm: 'បន្ទប់ទឹក និងក្បាលផ្កាឈូក',
     category: 'Bathroom Appliance',
     price: '$25.00',
     unit: '/ set',
@@ -68,6 +78,8 @@ export const products = [
   {
     id: 'kitchen-cookware',
     title: 'សម្ភារៈ ឧបករណ៍ផ្ទះបាយ',
+    titleEn: 'Kitchen Equipment & Cookware',
+    titleKm: 'សម្ភារៈ ឧបករណ៍ផ្ទះបាយ',
     category: 'Kitchen Product',
     price: '$8.00',
     unit: '/ item',
@@ -76,6 +88,8 @@ export const products = [
   {
     id: 'pvc-elbow-fitting',
     title: 'កែងបំពង់ជ័រ PVC 90°',
+    titleEn: 'PVC Pipe Elbow 90°',
+    titleKm: 'កែងបំពង់ជ័រ PVC 90°',
     category: 'PVC Water Pipes',
     price: '$1.20',
     unit: '/ piece',
@@ -84,6 +98,8 @@ export const products = [
   {
     id: 'steel-seal-ring',
     title: 'កងកៅស៊ូ និងដែកបិទជិត SCGTY',
+    titleEn: 'Rubber & Steel Seal Ring SCGTY',
+    titleKm: 'កងកៅស៊ូ និងដែកបិទជិត SCGTY',
     category: 'Steel Product',
     price: '$4.50',
     unit: '/ piece',
@@ -92,6 +108,8 @@ export const products = [
   {
     id: 'industrial-gear-valve',
     title: 'វ៉ាល់ទឹកឧស្សាហកម្ម Blue Gear Valve',
+    titleEn: 'Industrial Water Blue Gear Valve',
+    titleKm: 'វ៉ាល់ទឹកឧស្សាហកម្ម Blue Gear Valve',
     category: 'PVC Material',
     price: '$45.00',
     unit: '/ piece',
@@ -100,6 +118,8 @@ export const products = [
   {
     id: 'butterfly-lever-valve',
     title: 'វ៉ាល់មេអំបៅ Butterfly Valve Lever',
+    titleEn: 'Butterfly Valve Lever',
+    titleKm: 'វ៉ាល់មេអំបៅ Butterfly Valve Lever',
     category: 'PVC Material',
     price: '$32.00',
     unit: '/ piece',
@@ -108,6 +128,8 @@ export const products = [
   {
     id: 'union-ball-valve',
     title: 'វ៉ាល់បាល់ Double Union Ball Valve',
+    titleEn: 'Double Union Ball Valve',
+    titleKm: 'វ៉ាល់បាល់ Double Union Ball Valve',
     category: 'PVC Material',
     price: '$8.50',
     unit: '/ piece',
@@ -116,6 +138,8 @@ export const products = [
   {
     id: 'compact-ball-valve',
     title: 'វ៉ាល់បិទបើក Compact Ball Valve',
+    titleEn: 'Compact Ball Valve',
+    titleKm: 'វ៉ាល់បិទបើក Compact Ball Valve',
     category: 'PVC Material',
     price: '$4.20',
     unit: '/ piece',
@@ -123,7 +147,9 @@ export const products = [
   },
   {
     id: 'cement-scg-power',
-    title: 'ស៊ីម៉ងត៍ SCG គុណភាពខ្ពស់ 50kg',
+    title: 'ស៊ីម៉ង់ត៍ SCG គុណភាពខ្ពស់ 50kg',
+    titleEn: 'SCG Power Cement 50kg',
+    titleKm: 'ស៊ីម៉ង់ត៍ SCG គុណភាពខ្ពស់ 50kg',
     category: 'Construction',
     price: '$5.50',
     unit: '/ bag',
@@ -132,6 +158,8 @@ export const products = [
   {
     id: 'bricks-red-standard',
     title: 'ឥដ្ឋក្រហម សំណង់ស្តង់ដារ 8x8x18',
+    titleEn: 'Standard Red Construction Bricks 8x8x18',
+    titleKm: 'ឥដ្ឋក្រហម សំណង់ស្តង់ដារ 8x8x18',
     category: 'Concrete Products',
     price: '$0.18',
     unit: '/ piece',
@@ -140,6 +168,8 @@ export const products = [
   {
     id: 'roof-tile-prestige',
     title: 'ក្បឿងដំបូល សេរ៉ាមិច Prestige',
+    titleEn: 'Prestige Ceramic Roof Tile',
+    titleKm: 'ក្បឿងដំបូល សេរ៉ាមិច Prestige',
     category: 'Roof',
     price: '$1.85',
     unit: '/ piece',
@@ -148,6 +178,8 @@ export const products = [
   {
     id: 'metal-sheet-blue',
     title: 'ស័ង្កសីពណ៌ កម្រាស់ 0.40mm SCG',
+    titleEn: 'Color Metal Roofing Sheet 0.40mm SCG',
+    titleKm: 'ស័ង្កសីពណ៌ កម្រាស់ 0.40mm SCG',
     category: 'Roof',
     price: '$8.20',
     unit: '/ sheet',
@@ -156,6 +188,8 @@ export const products = [
   {
     id: 'power-drill-cordless',
     title: 'ម៉ាស៊ីនស្វានឥតខ្សែ Brushless 20V',
+    titleEn: 'Brushless Cordless Drill 20V',
+    titleKm: 'ម៉ាស៊ីនស្វានឥតខ្សែ Brushless 20V',
     category: 'Hardware Tools',
     price: '$48.00',
     unit: '/ set',
@@ -164,6 +198,8 @@ export const products = [
   {
     id: 'paints-interior-deluxe',
     title: 'ថ្នាំលាបជញ្ជាំងខាងក្នុង Deluxe 18L',
+    titleEn: 'Deluxe Interior Wall Paint 18L',
+    titleKm: 'ថ្នាំលាបជញ្ជាំងខាងក្នុង Deluxe 18L',
     category: 'Paints & Equipments',
     price: '$24.50',
     unit: '/ can',
@@ -172,6 +208,8 @@ export const products = [
   {
     id: 'electrical-cable-copper',
     title: 'ខ្សែភ្លើងស្ពាន់សុទ្ធ THW 1x2.5mm',
+    titleEn: 'Pure Copper Cable THW 1x2.5mm',
+    titleKm: 'ខ្សែភ្លើងស្ពាន់សុទ្ធ THW 1x2.5mm',
     category: 'Electrical System',
     price: '$35.00',
     unit: '/ roll',
@@ -180,6 +218,8 @@ export const products = [
   {
     id: 'hardware-toolkit-pro',
     title: 'ប្រអប់ឧបករណ៍ជាងចម្រុះ Pro 108 មុខ',
+    titleEn: 'Pro 108-piece Hardware Toolkit',
+    titleKm: 'ប្រអប់ឧបករណ៍ជាងចម្រុះ Pro 108 មុខ',
     category: 'Hardware Tools',
     price: '$29.00',
     unit: '/ box',
@@ -188,6 +228,8 @@ export const products = [
   {
     id: 'water-pump-automatic',
     title: 'ម៉ាស៊ីនបូមទឹកស្វ័យប្រវត្តិ 370W',
+    titleEn: 'Automatic Water Pump 370W',
+    titleKm: 'ម៉ាស៊ីនបូមទឹកស្វ័យប្រវត្តិ 370W',
     category: 'Water Pipes',
     price: '$65.00',
     unit: '/ unit',
@@ -196,6 +238,8 @@ export const products = [
   {
     id: 'water-storage-tank',
     title: 'ធុងស្តុកទឹក មិនជ្រាប 1500L Anti-Bacteria',
+    titleEn: 'Water Storage Tank 1500L Anti-Bacteria',
+    titleKm: 'ធុងស្តុកទឹក មិនជ្រាប 1500L Anti-Bacteria',
     category: 'Water Pipes',
     price: '$145.00',
     unit: '/ unit',

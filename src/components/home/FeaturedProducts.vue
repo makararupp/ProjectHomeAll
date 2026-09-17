@@ -42,9 +42,22 @@ function handleAddToCart(product) {
 <template>
   <section class="featured" aria-labelledby="featured-heading">
     <div class="container">
-      <h2 id="featured-heading" class="featured_title">{{ t('featured.title', 'Feature Product') }}</h2>
+      <h2
+        id="featured-heading"
+        class="featured_title"
+        :class="{ 'featured_title--km': isKhmer }"
+        :lang="isKhmer ? 'km' : 'en'"
+      >
+        {{ t('featured.title', 'Feature Product') }}
+      </h2>
       <div class="section-underline" />
-      <p class="featured_subtitle">{{ t('featured.subtitle', 'Popular products from trusted suppliers') }}</p>
+      <p
+        class="featured_subtitle"
+        :class="{ 'featured_subtitle--km': isKhmer }"
+        :lang="isKhmer ? 'km' : 'en'"
+      >
+        {{ t('featured.subtitle', 'Popular products from trusted suppliers') }}
+      </p>
 
       <div class="featured_grid">
         <ProductCard
@@ -60,6 +73,8 @@ function handleAddToCart(product) {
         <button
           type="button"
           class="featured_show-more-btn"
+          :class="{ 'featured_show-more-btn--km': isKhmer }"
+          :lang="isKhmer ? 'km' : 'en'"
           :disabled="isLoading"
           @click="handleShowMore"
         >
@@ -73,19 +88,34 @@ function handleAddToCart(product) {
 
 <style scoped>
 .featured {
-  padding: var(--space-10) 0;
+  padding: 24px 0 40px 0;
 }
 
 .featured_title {
   font-size: 22px;
   font-weight: 700;
   color: var(--color-text-heading);
+  line-height: 1.3;
+}
+
+.featured_title--km {
+  font-family: 'Kantumruy Pro', 'Battambang', 'Siemreap', 'Khmer OS', sans-serif;
+  line-height: 1.5;
+  letter-spacing: 0;
+  padding-bottom: 2px;
 }
 
 .featured_subtitle {
   font-size: var(--font-size-sm);
   color: var(--color-text-secondary);
   margin-bottom: var(--space-6);
+  line-height: 1.4;
+}
+
+.featured_subtitle--km {
+  font-family: 'Kantumruy Pro', 'Battambang', 'Siemreap', 'Khmer OS', sans-serif;
+  line-height: 1.6;
+  letter-spacing: 0;
 }
 
 .featured_grid {
@@ -117,6 +147,12 @@ function handleAddToCart(product) {
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   user-select: none;
   border-radius: 8px;
+}
+
+.featured_show-more-btn--km {
+  font-family: 'Kantumruy Pro', 'Battambang', 'Siemreap', 'Khmer OS', sans-serif;
+  letter-spacing: 0;
+  line-height: 1.5;
 }
 
 .featured_show-more-btn:hover:not(:disabled) {
