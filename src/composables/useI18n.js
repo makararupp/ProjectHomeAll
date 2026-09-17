@@ -89,6 +89,23 @@ export const translations = {
       addToCart: 'Add to Card',
       quickAdd: 'Quick Add'
     },
+    flashSale: {
+      title: 'GoExpress',
+      subtitle: 'Limited time offers with massive discounts',
+      endsIn: 'Ends in',
+      viewAll: 'View All',
+      sold: 'Sold',
+      available: 'Available',
+      days: 'Days',
+      hrs: 'Hrs',
+      mins: 'Mins',
+      secs: 'Secs',
+      hours: 'hrs',
+      claimDeal: 'Quick Add',
+      quickAdd: 'Quick Add',
+      hot: 'HOT',
+      hurryUp: 'Hurry, limited stock!'
+    },
     about: {
       title: 'About Us',
       lead: 'We connect businesses with products, services and trusted partners across industries.',
@@ -375,6 +392,23 @@ export const translations = {
       viewAll: 'មើលផលិតផលទាំងអស់ក្នុងហាង',
       addToCart: 'បញ្ចូលទៅកន្ត្រក',
       quickAdd: 'បញ្ជាទិញរហ័ស'
+    },
+    flashSale: {
+      title: 'ការបញ្ចុះតម្លៃពិសេស',
+      subtitle: 'ការផ្តល់ជូនពិសេសក្នុងរយៈពេលកំណត់ ជាមួយនឹងការបញ្ចុះតម្លៃយ៉ាងច្រើន',
+      endsIn: 'បញ្ចប់ក្នុងរយៈពេល',
+      viewAll: 'មើលទាំងអស់',
+      sold: 'បានលក់',
+      available: 'នៅសល់',
+      days: 'ថ្ងៃ',
+      hrs: 'ម៉ោង',
+      mins: 'នាទី',
+      secs: 'វិនាទី',
+      hours: 'ម៉ោង',
+      claimDeal: 'បញ្ជាទិញរហ័ស',
+      quickAdd: 'បញ្ជាទិញរហ័ស',
+      hot: 'ក្តៅៗ',
+      hurryUp: 'រួសរាន់ឡើង ចំនួនមានកំណត់!'
     },
     about: {
       title: 'អំពីយើង',

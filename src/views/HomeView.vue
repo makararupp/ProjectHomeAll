@@ -6,6 +6,7 @@ import CategoryNav from '@/components/layout/CategoryNav.vue'
 import AppFooter from '@/components/layout/AppFooter.vue'
 import HeroBanner from '@/components/home/HeroBanner.vue'
 import PromoBanners from '@/components/home/PromoBanners.vue'
+import FlashSaleSection from '@/components/home/FlashSaleSection.vue'
 import ServicesSection from '@/components/home/ServicesSection.vue'
 import FeaturedProducts from '@/components/home/FeaturedProducts.vue'
 import AboutSection from '@/components/home/AboutSection.vue'
@@ -51,6 +52,7 @@ watch(
     <main>
       <HeroBanner />
       <PromoBanners />
+      <FlashSaleSection />
       <ServicesSection />
       <FeaturedProducts />
       <AboutSection />
