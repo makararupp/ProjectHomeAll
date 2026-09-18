@@ -95,6 +95,18 @@ const router = createRouter({
       component: () => import('@/views/SteelProductsView.vue')
     },
     {
+      path: '/categories/washbasin',
+      alias: ['/categories/basin', '/categories/labo', '/products/washbasin'],
+      name: 'category-washbasin',
+      component: () => import('@/views/WashbasinView.vue')
+    },
+    {
+      path: '/categories/roof-tiles',
+      alias: ['/categories/roof', '/categories/tiles', '/categories/kboeung', '/products/roof-tiles'],
+      name: 'category-roof-tiles',
+      component: () => import('@/views/RoofTilesView.vue')
+    },
+    {
       path: '/all-categories',
       alias: ['/categories/all', '/custom-pc', '/categories/computer'],
       name: 'all-categories',

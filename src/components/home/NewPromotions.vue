@@ -1,5 +1,6 @@
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { RouterLink } from 'vue-router'
 import { useI18n } from '@/composables/useI18n'
 
 // Promotion images for the 6 cards from assets/images/New&Promotion
@@ -18,12 +19,12 @@ const isKhmer = computed(() => currentLocale.value === 'km')
 
 // 6 promotion cards matching user specification (pt1 to pt6)
 const quickCategories = [
-  { id: 'pt1', title: 'Wall-Hung Basin', titleKm: 'ឡាបូលាងដៃភ្ជាប់ជញ្ជាំង', image: pt1 },
-  { id: 'pt2', title: 'Roof Tile Red', titleKm: 'ក្បឿងជើបម៉ុង ពណ៌ក្រហម', image: pt2 },
-  { id: 'pt3', title: 'Karat Toilet 4.5L', titleKm: 'បង្គន់ការ៉ាត់ចុច KARAT', image: pt3 },
-  { id: 'pt4', title: '4-Hole Brick', titleKm: 'ឥដ្ឋប្រហោងផ្កា៤', image: pt4 },
-  { id: 'pt5', title: 'Ridge Tile', titleKm: 'ត្រាំជើបម៉ុង', image: pt5 },
-  { id: 'pt6', title: 'Kitchen Sink', titleKm: 'ឡាបូលាងចាន', image: pt6 }
+  { id: 'pt1', title: 'Wall-Hung Basin', titleKm: 'ឡាបូលាងដៃភ្ជាប់ជញ្ជាំង', image: pt1, href: '/categories/washbasin' },
+  { id: 'pt2', title: 'Roof Tile Red', titleKm: 'ក្បឿងជើបម៉ុង ពណ៌ក្រហម', image: pt2, href: '/categories/roof-tiles' },
+  { id: 'pt3', title: 'Karat Toilet 4.5L', titleKm: 'បង្គន់ការ៉ាត់ចុច KARAT', image: pt3, href: '/products?search=Toilet' },
+  { id: 'pt4', title: '4-Hole Brick', titleKm: 'ឥដ្ឋប្រហោងផ្កា៤', image: pt4, href: '/products?search=Brick' },
+  { id: 'pt5', title: 'Ridge Tile', titleKm: 'ត្រាំជើបម៉ុង', image: pt5, href: '/products?search=Tile' },
+  { id: 'pt6', title: 'Kitchen Sink', titleKm: 'ឡាបូលាងចាន', image: pt6, href: '/products?search=Sink' }
 ]
 
 const slides = computed(() => {
@@ -181,9 +182,10 @@ onUnmounted(() => {
         <!-- 1. Left: Card in Front of Image Slider (6 Big Category Image Boxes) -->
         <div class="new-promotions_categories-card">
           <div class="new-promotions_categories-grid">
-            <div
+            <RouterLink
               v-for="cat in quickCategories"
               :key="cat.id"
+              :to="cat.href || '/products'"
               class="new-promotions_cat-item"
               :title="isKhmer ? cat.titleKm : cat.title"
               :aria-label="isKhmer ? cat.titleKm : cat.title"
@@ -194,7 +196,7 @@ onUnmounted(() => {
                 class="new-promotions_cat-img"
                 loading="lazy"
               />
-            </div>
+            </RouterLink>
           </div>
         </div>
 
@@ -441,6 +443,7 @@ onUnmounted(() => {
   overflow: hidden;
   cursor: pointer;
   user-select: none;
+  text-decoration: none;
 }
 
 .new-promotions_cat-item:hover {
