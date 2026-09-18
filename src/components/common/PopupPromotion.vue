@@ -2,15 +2,17 @@
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { RouterLink } from 'vue-router'
 import { useI18n } from '@/composables/useI18n'
-import defaultPromoImg from '@/assets/images/PopupPromotion/promotion.jpg'
-
-// Also support any dynamically added images in the folder
+// Dynamically import all images in the PopupPromotion folder
 const imagesGlob = import.meta.glob('../../assets/images/PopupPromotion/*.{png,jpg,jpeg,webp,svg,gif,PNG,JPG,JPEG}', { eager: true, import: 'default' })
 
-// Current image to display
+// Current image to display (loads promotion5)
 const promoImage = computed(() => {
-  const images = Object.values(imagesGlob)
-  return images[0] || defaultPromoImg
+  const match = Object.entries(imagesGlob).find(([path]) => /promotion5\./i.test(path))
+  if (match) return match[1]
+  const sorted = Object.entries(imagesGlob).sort(([a], [b]) =>
+    a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' })
+  )
+  return sorted.length > 0 ? sorted[0][1] : ''
 })
 
 const { t, currentLocale } = useI18n()
@@ -141,12 +143,13 @@ onUnmounted(() => {
 
 .popup-promotion_dialog {
   position: relative;
-  width: 100%;
-  max-width: 680px;
+  width: fit-content;
+  max-width: min(92vw, 560px);
   background: transparent;
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 0 auto;
   animation: popupScale 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -161,15 +164,17 @@ onUnmounted(() => {
   }
 }
 
-/* Full Image Wrapper */
+/* Full Image Wrapper - tightly wraps around the image */
 .popup-promotion_image-wrapper {
   position: relative;
-  width: 100%;
+  width: fit-content;
+  max-width: 100%;
   border-radius: 18px;
   overflow: hidden;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.15);
-  background-color: #0f172a;
+  background-color: transparent;
   line-height: 0;
+  display: flex;
 }
 
 /* 3-Second Auto-Close Progress Bar */
@@ -223,18 +228,20 @@ onUnmounted(() => {
 /* Promotion Image Banner */
 .popup-promotion_banner-link {
   display: block;
-  width: 100%;
   text-decoration: none;
   overflow: hidden;
   line-height: 0;
+  border-radius: 18px;
 }
 
 .popup-promotion_img {
-  width: 100%;
-  height: auto;
-  max-height: min(82vh, 640px);
-  object-fit: contain;
   display: block;
+  width: auto;
+  height: auto;
+  max-width: min(90vw, 540px);
+  max-height: min(78vh, 540px);
+  object-fit: contain;
+  border-radius: 18px;
   transition: transform 0.3s ease;
 }
 
