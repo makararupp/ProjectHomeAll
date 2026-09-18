@@ -5,6 +5,7 @@ import AppFooter from '@/components/layout/AppFooter.vue'
 import HeroBanner from '@/components/home/HeroBanner.vue'
 import PromoBanners from '@/components/home/PromoBanners.vue'
 import FlashSaleSection from '@/components/home/FlashSaleSection.vue'
+import HouseholdBanner from '@/components/home/HouseholdBanner.vue'
 import FeaturedProducts from '@/components/home/FeaturedProducts.vue'
 import AboutSection from '@/components/home/AboutSection.vue'
 </script>
@@ -18,6 +19,7 @@ import AboutSection from '@/components/home/AboutSection.vue'
       <HeroBanner />
       <PromoBanners />
       <FlashSaleSection />
+      <HouseholdBanner />
       <FeaturedProducts />
       <AboutSection />
     </main>

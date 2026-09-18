@@ -501,6 +501,7 @@ onUnmounted(() => {
   gap: var(--space-4, 16px);
   margin-left: auto;
   flex-shrink: 0;
+  height: 100%;
 }
 
 .app-header_auth {
@@ -541,12 +542,15 @@ onUnmounted(() => {
 /* Language Selector */
 .lang-selector {
   position: relative;
+  display: flex;
+  align-items: center;
   flex-shrink: 0;
 }
 
 .lang-selector_btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 6px;
   height: 38px;
   padding: 0 12px;
@@ -668,6 +672,8 @@ onUnmounted(() => {
   padding: 0 4px;
   user-select: none;
   flex-shrink: 0;
+  height: 42px;
+  box-sizing: border-box;
   transition: transform var(--transition-fast);
 }
 
@@ -797,11 +803,19 @@ onUnmounted(() => {
   align-items: center;
   gap: var(--space-4, 16px);
   margin-left: var(--space-2, 8px);
+  height: 42px;
+  flex-shrink: 0;
 }
 
 .app-header_auth-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 38px;
+  padding: 0 4px;
   font-size: var(--font-size-sm, 14px);
   font-weight: 500;
+  line-height: 1;
   color: var(--color-text-primary);
   text-decoration: none;
   transition: color var(--transition-fast);
