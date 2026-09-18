@@ -21,10 +21,10 @@ const isKhmer = computed(() => currentLocale.value === 'km')
 const quickCategories = [
   { id: 'pt1', title: 'Wall-Hung Basin', titleKm: 'ឡាបូលាងដៃភ្ជាប់ជញ្ជាំង', image: pt1, href: '/categories/washbasin' },
   { id: 'pt2', title: 'Roof Tile Red', titleKm: 'ក្បឿងជើបម៉ុង ពណ៌ក្រហម', image: pt2, href: '/categories/roof-tiles' },
-  { id: 'pt3', title: 'Karat Toilet 4.5L', titleKm: 'បង្គន់ការ៉ាត់ចុច KARAT', image: pt3, href: '/products?search=Toilet' },
-  { id: 'pt4', title: '4-Hole Brick', titleKm: 'ឥដ្ឋប្រហោងផ្កា៤', image: pt4, href: '/products?search=Brick' },
-  { id: 'pt5', title: 'Ridge Tile', titleKm: 'ត្រាំជើបម៉ុង', image: pt5, href: '/products?search=Tile' },
-  { id: 'pt6', title: 'Kitchen Sink', titleKm: 'ឡាបូលាងចាន', image: pt6, href: '/products?search=Sink' }
+  { id: 'pt3', title: 'Karat Toilet 4.5L', titleKm: 'បង្គន់ការ៉ាត់ចុច KARAT', image: pt3, href: '/categories/toilets' },
+  { id: 'pt4', title: '4-Hole Brick', titleKm: 'ឥដ្ឋប្រហោងផ្កា៤', image: pt4, href: '/categories/bricks' },
+  { id: 'pt5', title: 'Ridge Tile', titleKm: 'ត្រាំជើបម៉ុង', image: pt5, href: '/categories/ridge-tiles' },
+  { id: 'pt6', title: 'Kitchen Sink', titleKm: 'ឡាបូលាងចាន', image: pt6, href: '/categories/kitchen-sinks' }
 ]
 
 const slides = computed(() => {

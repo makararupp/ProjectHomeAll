@@ -107,6 +107,30 @@ const router = createRouter({
       component: () => import('@/views/RoofTilesView.vue')
     },
     {
+      path: '/categories/toilets',
+      alias: ['/categories/toilet', '/categories/sanitary-ware', '/products/toilets'],
+      name: 'category-toilets',
+      component: () => import('@/views/ToiletsView.vue')
+    },
+    {
+      path: '/categories/bricks',
+      alias: ['/categories/brick', '/categories/clay-bricks', '/products/bricks'],
+      name: 'category-bricks',
+      component: () => import('@/views/BricksView.vue')
+    },
+    {
+      path: '/categories/ridge-tiles',
+      alias: ['/categories/ridge-tile', '/categories/tram', '/products/ridge-tiles'],
+      name: 'category-ridge-tiles',
+      component: () => import('@/views/RidgeTilesView.vue')
+    },
+    {
+      path: '/categories/kitchen-sinks',
+      alias: ['/categories/kitchen-sink', '/categories/sink', '/categories/sinks', '/products/kitchen-sinks'],
+      name: 'category-kitchen-sinks',
+      component: () => import('@/views/KitchenSinksView.vue')
+    },
+    {
       path: '/all-categories',
       alias: ['/categories/all', '/custom-pc', '/categories/computer'],
       name: 'all-categories',
