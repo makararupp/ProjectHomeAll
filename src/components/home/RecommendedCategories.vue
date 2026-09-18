@@ -77,7 +77,7 @@ const categories = [
 .rec-title {
   font-size: 1.05rem;
   font-weight: 700;
-  color: #1a1a1a;
+  color: #000000;
   margin: 0;
 }
 
@@ -87,7 +87,7 @@ const categories = [
   gap: 3px;
   font-size: 0.82rem;
   font-weight: 600;
-  color: #e53e3e;
+  color: #000000;
   text-decoration: none;
   transition: opacity 0.2s;
 }
@@ -194,7 +194,7 @@ body.dark .rec-label,
 
 body.dark .rec-view-all,
 :root[data-theme="dark"] .rec-view-all {
-  color: #fc8181 !important;
+  color: #ffffff !important;
 }
 </style>
 
