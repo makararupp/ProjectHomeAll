@@ -9,12 +9,13 @@ import { useI18n } from '@/composables/useI18n'
 // Hero image (pt4 4-Hole Brick / ឥដ្ឋប្រហោងផ្កា៤)
 import brickHeroImg from '@/assets/images/New&Promotion/pt4.jpg'
 
-// Brick category images (de1 to de5)
+// Brick category images (de1 to de6)
 import de1 from '@/assets/images/New&Promotion/de1.jpg'
 import de2 from '@/assets/images/New&Promotion/de2.jpg'
 import de3 from '@/assets/images/New&Promotion/de3.jpg'
 import de4 from '@/assets/images/New&Promotion/de4.jpg'
 import de5 from '@/assets/images/New&Promotion/de5.jpg'
+import de6 from '@/assets/images/New&Promotion/de6.jpg'
 
 const { t, isKhmer } = useI18n()
 
@@ -33,7 +34,7 @@ const navTabs = [
   { id: 'bestseller', label: 'Bestseller', icon: 'bestseller' }
 ]
 
-// 5 Brick products (de1 to de5)
+// 6 Brick products (de1 to de6)
 const brickItems = [
   {
     id: 'de-1',
@@ -68,6 +69,13 @@ const brickItems = [
     name: 'Automatic Solid Brick (Banteay Srei)',
     nameKm: 'ឥដ្ឋតាន់ស្វ័យប្រវត្តិ (បន្ទាយស្រី)',
     image: de5,
+    search: 'Brick'
+  },
+  {
+    id: 'de-6',
+    name: '2-Hole Hollow Brick (Angkor Thom)',
+    nameKm: 'ឥដ្ឋប្រហោងផ្កាពីរ (អង្គរធំ)',
+    image: de6,
     search: 'Brick'
   }
 ]
@@ -216,8 +224,8 @@ const brickItems = [
                 :alt="isKhmer ? item.nameKm : item.name"
                 class="steel-item_img"
                 loading="lazy"
-                width="76"
-                height="76"
+                width="80"
+                height="80"
               />
             </div>
 
@@ -361,13 +369,16 @@ const brickItems = [
   height: 80px;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  border: 1.5px solid rgba(226, 232, 240, 0.95);
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05);
+  background-color: #ffffff;
 }
 
 .steel-hero-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
   display: block;
 }
 
@@ -452,26 +463,34 @@ const brickItems = [
   height: 80px;
   background-color: #ffffff;
   border-radius: 12px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03);
+  border: 1.5px solid rgba(226, 232, 240, 0.95);
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05);
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  padding: 2px;
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-              box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 0;
+  box-sizing: border-box;
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .steel-item-card:hover .steel-item_box {
   transform: scale(1.05);
-  box-shadow: 0 8px 16px -2px rgba(15, 23, 42, 0.08);
+  border-color: var(--color-brand, #34c759);
+  box-shadow: 0 10px 22px rgba(52, 199, 89, 0.22);
 }
 
 .steel-item_img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
+  object-position: center;
   display: block;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.steel-item-card:hover .steel-item_img {
+  transform: scale(1.08);
 }
 
 .steel-item_name {
@@ -482,6 +501,11 @@ const brickItems = [
   text-align: center;
   line-height: 1.3;
   word-break: break-word;
+  transition: color 0.2s ease;
+}
+
+.steel-item-card:hover .steel-item_name {
+  color: var(--color-brand, #34c759);
 }
 
 .steel-item_name.is-khmer {
@@ -519,7 +543,9 @@ body.dark .steel-item_name {
 }
 
 :root[data-theme="dark"] .steel-item_box,
-body.dark .steel-item_box {
+:root[data-theme="dark"] .steel-hero-thumb,
+body.dark .steel-item_box,
+body.dark .steel-hero-thumb {
   background-color: #1e293b !important;
   border: 1px solid #334155 !important;
 }
