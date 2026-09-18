@@ -2,13 +2,13 @@
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useI18n } from '@/composables/useI18n'
 
-// Category thumbnail images for the card in front of slider
-import steelProducts from '@/assets/images/categories/steel-products.png'
-import cement from '@/assets/images/categories/cement.png'
-import waterPipes from '@/assets/images/categories/water-pipes.png'
-import artificialWood from '@/assets/images/categories/artificial-wood.png'
-import tank from '@/assets/images/categories/tank.png'
-import waterPump from '@/assets/images/categories/water-pump.png'
+// Promotion images for the 6 cards from assets/images/New&Promotion
+import pt1 from '@/assets/images/New&Promotion/pt1.jpg'
+import pt2 from '@/assets/images/New&Promotion/pt2.jpg'
+import pt3 from '@/assets/images/New&Promotion/pt3.jpg'
+import pt4 from '@/assets/images/New&Promotion/pt4.jpg'
+import pt5 from '@/assets/images/New&Promotion/pt5.jpg'
+import pt6 from '@/assets/images/New&Promotion/pt6.jpg'
 
 // Dynamically import all images in PopupPromotion folder
 const promoImagesMap = import.meta.glob('../../assets/images/PopupPromotion/*.{png,jpg,jpeg,webp,svg,gif,PNG,JPG,JPEG}', { eager: true, import: 'default' })
@@ -16,14 +16,14 @@ const promoImagesMap = import.meta.glob('../../assets/images/PopupPromotion/*.{p
 const { currentLocale } = useI18n()
 const isKhmer = computed(() => currentLocale.value === 'km')
 
-// 6 quick categories matching user specification
+// 6 promotion cards matching user specification (pt1 to pt6)
 const quickCategories = [
-  { id: 'steel-products', title: 'Steel Products', titleKm: 'ផលិតផលដែក', image: steelProducts, href: '/categories/steel-products' },
-  { id: 'cement', title: 'Cement', titleKm: 'ស៊ីម៉ង់ត៍', image: cement, href: '/products' },
-  { id: 'water-pipes', title: 'Water Pipes', titleKm: 'បំពង់ទឹក', image: waterPipes, href: '/products' },
-  { id: 'artificial-wood', title: 'Artificial Wood', titleKm: 'ឈើសិប្បនិម្មិត', image: artificialWood, href: '/products' },
-  { id: 'tank', title: 'Tank', titleKm: 'ធុងស្តុកទឹក', image: tank, href: '/products' },
-  { id: 'water-pump', title: 'Water Pump', titleKm: 'ម៉ាស៊ីនបូមទឹក', image: waterPump, href: '/products' }
+  { id: 'pt1', title: 'Wall-Hung Basin', titleKm: 'ឡាបូលាងដៃភ្ជាប់ជញ្ជាំង', image: pt1 },
+  { id: 'pt2', title: 'Roof Tile Red', titleKm: 'ក្បឿងជើបម៉ុង ពណ៌ក្រហម', image: pt2 },
+  { id: 'pt3', title: 'Karat Toilet 4.5L', titleKm: 'បង្គន់ការ៉ាត់ចុច KARAT', image: pt3 },
+  { id: 'pt4', title: '4-Hole Brick', titleKm: 'ឥដ្ឋប្រហោងផ្កា៤', image: pt4 },
+  { id: 'pt5', title: 'Ridge Tile', titleKm: 'ត្រាំជើបម៉ុង', image: pt5 },
+  { id: 'pt6', title: 'Kitchen Sink', titleKm: 'ឡាបូលាងចាន', image: pt6 }
 ]
 
 const slides = computed(() => {
@@ -295,24 +295,49 @@ onUnmounted(() => {
               </template>
             </p>
 
-            <!-- Delivery Truck Icon with Parcel Inside -->
+            <!-- Running Delivery Truck Icon with Road & Wind Lines -->
             <div class="new-promotions_icon-wrap">
-              <svg viewBox="0 0 74 52" class="new-promotions_truck-svg" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <!-- Truck Cab -->
-                <path d="M48 16 H59 L66 26 V38 H48" />
-                <line x1="59" y1="26" x2="48" y2="26" />
-                <circle cx="58" cy="40" r="4.5" />
-                <!-- Truck Cargo Box -->
-                <rect x="6" y="8" width="42" height="30" rx="3.5" />
-                <circle cx="17" cy="40" r="4.5" />
-                <circle cx="31" cy="40" r="4.5" />
-                <line x1="21.5" y1="40" x2="26.5" y2="40" />
-                <line x1="35.5" y1="40" x2="48" y2="40" />
-                <!-- Parcel Inside Cargo Box -->
-                <rect x="13" y="16" width="13" height="15" rx="1.5" />
-                <line x1="13" y1="22" x2="26" y2="22" />
-                <line x1="19.5" y1="16" x2="19.5" y2="31" />
-              </svg>
+              <div class="new-promotions_truck-stage">
+                <div class="new-promotions_speed-lines" aria-hidden="true">
+                  <span class="speed-line speed-line--1"></span>
+                  <span class="speed-line speed-line--2"></span>
+                  <span class="speed-line speed-line--3"></span>
+                </div>
+                <svg viewBox="0 0 74 52" class="new-promotions_truck-svg" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <!-- Truck Cab -->
+                  <path d="M48 16 H59 L66 26 V38 H48" />
+                  <line x1="59" y1="26" x2="48" y2="26" />
+                  <!-- Truck Cargo Box -->
+                  <rect x="6" y="8" width="42" height="30" rx="3.5" />
+                  <!-- Connecting Axle Lines -->
+                  <line x1="21.5" y1="40" x2="26.5" y2="40" />
+                  <line x1="35.5" y1="40" x2="48" y2="40" />
+                  <!-- Parcel Inside Cargo Box -->
+                  <rect x="13" y="16" width="13" height="15" rx="1.5" />
+                  <line x1="13" y1="22" x2="26" y2="22" />
+                  <line x1="19.5" y1="16" x2="19.5" y2="31" />
+                  <!-- Animated Running Wheels with Spokes -->
+                  <g class="truck-wheel truck-wheel--1">
+                    <circle cx="17" cy="40" r="4.5" />
+                    <line x1="17" y1="36" x2="17" y2="44" stroke-width="1.2" />
+                    <line x1="13" y1="40" x2="21" y2="40" stroke-width="1.2" />
+                  </g>
+                  <g class="truck-wheel truck-wheel--2">
+                    <circle cx="31" cy="40" r="4.5" />
+                    <line x1="31" y1="36" x2="31" y2="44" stroke-width="1.2" />
+                    <line x1="27" y1="40" x2="35" y2="40" stroke-width="1.2" />
+                  </g>
+                  <g class="truck-wheel truck-wheel--3">
+                    <circle cx="58" cy="40" r="4.5" />
+                    <line x1="58" y1="36" x2="58" y2="44" stroke-width="1.2" />
+                    <line x1="54" y1="40" x2="62" y2="40" stroke-width="1.2" />
+                  </g>
+                </svg>
+              </div>
+              <!-- Running Road Track -->
+              <div class="new-promotions_road-track" aria-hidden="true">
+                <div class="new-promotions_road-dashes"></div>
+              </div>
             </div>
 
             <span class="new-promotions_footer-note" :class="{ 'new-promotions_footer-note--km': isKhmer }">
@@ -374,7 +399,7 @@ onUnmounted(() => {
    1. Left: Categories Card in Front of Slider
 ---------------------------------------------------- */
 .new-promotions_categories-card {
-  width: 320px;
+  width: 250px;
   flex-shrink: 0;
   height: 330px;
   background-color: #ffffff;
@@ -410,7 +435,7 @@ onUnmounted(() => {
   border-radius: 12px;
   border: 1.5px solid rgba(226, 232, 240, 0.95);
   box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
-  padding: 8px;
+  padding: 0;
   box-sizing: border-box;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   overflow: hidden;
@@ -425,17 +450,16 @@ onUnmounted(() => {
 }
 
 .new-promotions_cat-img {
-  max-width: 88%;
-  max-height: 88%;
-  width: auto;
-  height: auto;
-  object-fit: contain;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
   display: block;
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .new-promotions_cat-item:hover .new-promotions_cat-img {
-  transform: scale(1.1);
+  transform: scale(1.06);
 }
 
 /* ----------------------------------------------------
@@ -696,20 +720,163 @@ onUnmounted(() => {
 
 .new-promotions_icon-wrap {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   margin-bottom: 4px;
+  position: relative;
 }
 
+.new-promotions_truck-stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* Trailing Speed Wind Lines */
+.new-promotions_speed-lines {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 3px;
+  margin-right: 3px;
+}
+
+.speed-line {
+  height: 2px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 2px;
+  animation: windSpeed 0.6s ease-in-out infinite alternate;
+}
+
+.speed-line--1 {
+  width: 12px;
+  animation-delay: 0.1s;
+}
+
+.speed-line--2 {
+  width: 18px;
+  animation-delay: 0.25s;
+}
+
+.speed-line--3 {
+  width: 9px;
+  animation-delay: 0.4s;
+}
+
+@keyframes windSpeed {
+  0% {
+    opacity: 0.25;
+    transform: translateX(3px) scaleX(0.7);
+  }
+  100% {
+    opacity: 0.95;
+    transform: translateX(-3px) scaleX(1.15);
+  }
+}
+
+/* Running Truck Bounce & Suspension */
 .new-promotions_truck-svg {
   width: 48px;
   height: 32px;
   color: #ffffff;
-  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  display: block;
+  animation: truckRun 1.1s ease-in-out infinite;
+  transform-origin: center bottom;
 }
 
+@keyframes truckRun {
+  0% {
+    transform: translateY(0) translateX(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-2px) translateX(2px) rotate(-0.8deg);
+  }
+  50% {
+    transform: translateY(0.5px) translateX(4px) rotate(0.6deg);
+  }
+  75% {
+    transform: translateY(-1.5px) translateX(1px) rotate(-0.5deg);
+  }
+  100% {
+    transform: translateY(0) translateX(0) rotate(0deg);
+  }
+}
+
+/* Spinning Wheels */
+.truck-wheel {
+  animation: wheelSpin 0.45s linear infinite;
+}
+
+.truck-wheel--1 {
+  transform-origin: 17px 40px;
+}
+
+.truck-wheel--2 {
+  transform-origin: 31px 40px;
+}
+
+.truck-wheel--3 {
+  transform-origin: 58px 40px;
+}
+
+@keyframes wheelSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Running Road Track */
+.new-promotions_road-track {
+  width: 76px;
+  height: 2px;
+  overflow: hidden;
+  margin-top: 2px;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 2px;
+}
+
+.new-promotions_road-dashes {
+  width: 200%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    90deg,
+    #ffffff 0,
+    #ffffff 6px,
+    transparent 6px,
+    transparent 12px
+  );
+  animation: roadScroll 0.45s linear infinite;
+}
+
+@keyframes roadScroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-12px);
+  }
+}
+
+/* Hover Acceleration (Turbo Run) */
 .new-promotions_card:hover .new-promotions_truck-svg {
-  transform: translateX(5px);
+  animation-duration: 0.65s;
+}
+
+.new-promotions_card:hover .truck-wheel {
+  animation-duration: 0.22s;
+}
+
+.new-promotions_card:hover .new-promotions_road-dashes {
+  animation-duration: 0.22s;
+}
+
+.new-promotions_card:hover .speed-line {
+  animation-duration: 0.35s;
 }
 
 .new-promotions_footer-note {
@@ -728,7 +895,7 @@ onUnmounted(() => {
 ---------------------------------------------------- */
 @media (max-width: 1199px) {
   .new-promotions_categories-card {
-    width: 280px;
+    width: 230px;
     height: 310px;
     padding: 10px;
   }
@@ -876,8 +1043,8 @@ onUnmounted(() => {
   }
 
   .new-promotions_cat-item {
-    height: 72px;
-    padding: 6px;
+    height: 76px;
+    padding: 0;
     border-radius: 10px;
   }
 
@@ -912,13 +1079,15 @@ onUnmounted(() => {
   }
 
   .new-promotions_cat-item {
-    height: 62px;
-    padding: 4px;
+    height: 64px;
+    padding: 0;
   }
 
   .new-promotions_cat-img {
-    max-width: 80%;
-    max-height: 80%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
   }
 }
 </style>
