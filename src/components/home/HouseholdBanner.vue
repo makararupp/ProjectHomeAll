@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import { RouterLink } from 'vue-router'
 import { useI18n } from '@/composables/useI18n'
-import familyImg from '@/assets/images/household-family.jpg'
+import familyImg from '@/assets/images/household-family.png'
 
 const { t, currentLocale } = useI18n()
 const isKhmer = computed(() => currentLocale.value === 'km')
@@ -60,7 +60,7 @@ const isKhmer = computed(() => currentLocale.value === 'km')
 }
 
 .household-banner_card {
-  background-color: #f2f5f9;
+  background-color: #ffffff;
   border-radius: 16px;
   overflow: hidden;
   display: flex;
@@ -70,7 +70,8 @@ const isKhmer = computed(() => currentLocale.value === 'km')
   min-height: 216px;
   box-sizing: border-box;
   position: relative;
-  border: 1px solid rgba(0, 0, 0, 0.04);
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
 }
 
 /* Left Content Area */
@@ -153,6 +154,7 @@ const isKhmer = computed(() => currentLocale.value === 'km')
   display: flex;
   align-items: flex-end;
   justify-content: flex-end;
+  align-self: flex-end;
   height: 100%;
   max-width: 520px;
 }
