@@ -1289,6 +1289,29 @@ body.dark .app-header_logo-img {
   box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.15);
 }
 
+/* Header bar background → dark in dark mode */
+:root[data-theme="dark"] .app-header,
+body.dark .app-header {
+  background-color: #1a2236 !important;
+  border-bottom-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Hamburger toggle button → dark bg, white bars */
+:root[data-theme="dark"] .app-header_mobile-toggle,
+body.dark .app-header_mobile-toggle {
+  background-color: #252d3d !important;
+}
+
+:root[data-theme="dark"] .app-header_mobile-toggle:hover,
+body.dark .app-header_mobile-toggle:hover {
+  background-color: #2d3748 !important;
+}
+
+:root[data-theme="dark"] .hamburger-bar,
+body.dark .hamburger-bar {
+  background-color: #ffffff !important;
+}
+
 /* Nav links (Home, Product, About Us, New) → white */
 :root[data-theme="dark"] .app-header_nav-link,
 body.dark .app-header_nav-link {
@@ -1391,6 +1414,96 @@ body.dark .app-header_search-btn {
   background-color: var(--color-brand, #34c759) !important;
   border-color: var(--color-brand, #34c759) !important;
   color: #ffffff !important;
+}
+
+/* =========================================================
+   Mobile Navigation Drawer – Dark Mode
+   ========================================================= */
+
+/* Drawer background */
+:root[data-theme="dark"] .mobile-nav_drawer,
+body.dark .mobile-nav_drawer {
+  background-color: #1a2236 !important;
+  box-shadow: 6px 0 30px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Drawer header (logo + close) */
+:root[data-theme="dark"] .mobile-nav_header,
+body.dark .mobile-nav_header {
+  border-bottom-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Close button */
+:root[data-theme="dark"] .mobile-nav_close,
+body.dark .mobile-nav_close {
+  background-color: #252d3d !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  color: #e2e8f0 !important;
+}
+
+:root[data-theme="dark"] .mobile-nav_close:hover,
+body.dark .mobile-nav_close:hover {
+  background-color: #2d3748 !important;
+  color: #ffffff !important;
+}
+
+/* Nav links */
+:root[data-theme="dark"] .mobile-nav_link,
+body.dark .mobile-nav_link {
+  color: #e2e8f0 !important;
+}
+
+:root[data-theme="dark"] .mobile-nav_link:hover,
+body.dark .mobile-nav_link:hover,
+:root[data-theme="dark"] .mobile-nav_link.router-link-active,
+body.dark .mobile-nav_link.router-link-active {
+  background-color: rgba(52, 199, 89, 0.12) !important;
+  color: #4ade80 !important;
+}
+
+/* Arrow in nav links */
+:root[data-theme="dark"] .mobile-nav_arrow,
+body.dark .mobile-nav_arrow {
+  color: #64748b !important;
+}
+
+/* Appearance / Controls row */
+:root[data-theme="dark"] .mobile-nav_controls,
+body.dark .mobile-nav_controls {
+  background-color: #252d3d !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+:root[data-theme="dark"] .mobile-nav_controls-label,
+body.dark .mobile-nav_controls-label {
+  color: #e2e8f0 !important;
+}
+
+/* Auth section divider */
+:root[data-theme="dark"] .mobile-nav_auth,
+body.dark .mobile-nav_auth {
+  border-top-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Sign In button */
+:root[data-theme="dark"] .mobile-nav_auth-btn.signin,
+body.dark .mobile-nav_auth-btn.signin {
+  background-color: #252d3d !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+  color: #e2e8f0 !important;
+}
+
+/* Register button stays green, ensure it looks right */
+:root[data-theme="dark"] .mobile-nav_auth-btn.register,
+body.dark .mobile-nav_auth-btn.register {
+  background-color: var(--color-brand, #34c759) !important;
+  color: #ffffff !important;
+}
+
+/* Search icon button inside mobile search */
+:root[data-theme="dark"] .mobile-nav_search button,
+body.dark .mobile-nav_search button {
+  color: #94a3b8 !important;
 }
 </style>
 

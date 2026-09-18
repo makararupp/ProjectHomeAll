@@ -153,7 +153,7 @@ const router = createRouter({
       alias: ['/consignment', '/services/consignment-products', '/categories/consignment'],
       name: 'consignment',
       component: () => import('@/views/ConsignmentView.vue')
-    }
+    },
   ],
   scrollBehavior(to, from, savedPosition) {
     if (to.hash) {
