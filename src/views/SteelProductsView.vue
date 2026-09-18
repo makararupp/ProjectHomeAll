@@ -558,24 +558,50 @@ body.dark .steel-hero_title {
 
 :root[data-theme="dark"] .steel-hero_desc,
 body.dark .steel-hero_desc {
-  color: #cbd5e1 !important;
-}
-
-:root[data-theme="dark"] .feature-tab-btn,
-body.dark .feature-tab-btn {
-  color: #94a3b8 !important;
-}
-
-:root[data-theme="dark"] .feature-tab-btn.is-active,
-:root[data-theme="dark"] .feature-tab-btn:hover,
-body.dark .feature-tab-btn.is-active,
-body.dark .feature-tab-btn:hover {
   color: #ffffff !important;
 }
 
 :root[data-theme="dark"] .foundation-steel-section_title,
 body.dark .foundation-steel-section_title {
   color: #ffffff !important;
+}
+
+:root[data-theme="dark"] .feature-tabs-bar,
+body.dark .feature-tabs-bar {
+  border-top-color: rgba(255, 255, 255, 0.2) !important;
+  border-bottom-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+:root[data-theme="dark"] .feature-tab,
+body.dark .feature-tab,
+:root[data-theme="dark"] .feature-tab_icon,
+body.dark .feature-tab_icon,
+:root[data-theme="dark"] .feature-tab_label,
+body.dark .feature-tab_label {
+  color: #ffffff !important;
+  fill: currentColor !important;
+}
+
+:root[data-theme="dark"] .feature-tab svg,
+body.dark .feature-tab svg {
+  color: #ffffff !important;
+}
+
+:root[data-theme="dark"] .feature-tab.is-active,
+body.dark .feature-tab.is-active {
+  color: #ffffff !important;
+  font-weight: 700 !important;
+}
+
+:root[data-theme="dark"] .feature-tab_indicator,
+body.dark .feature-tab_indicator {
+  background-color: #ffffff !important;
+}
+
+:root[data-theme="dark"] .feature-tab:hover,
+body.dark .feature-tab:hover {
+  color: #ffffff !important;
+  opacity: 0.85;
 }
 </style>
 

@@ -537,7 +537,7 @@ body.dark .steel-hero_title {
 
 :root[data-theme="dark"] .steel-hero_desc,
 body.dark .steel-hero_desc {
-  color: #cbd5e1 !important;
+  color: #ffffff !important;
 }
 
 :root[data-theme="dark"] .foundation-steel_title,
@@ -548,7 +548,45 @@ body.dark .foundation-steel_title {
 :root[data-theme="dark"] .category-breadcrumb_link,
 :root[data-theme="dark"] .category-breadcrumb_separator,
 :root[data-theme="dark"] .category-breadcrumb_current {
-  color: #cbd5e1 !important;
+  color: #ffffff !important;
+}
+
+:root[data-theme="dark"] .feature-tabs-bar,
+body.dark .feature-tabs-bar {
+  border-top-color: rgba(255, 255, 255, 0.2) !important;
+  border-bottom-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+:root[data-theme="dark"] .feature-tab,
+body.dark .feature-tab,
+:root[data-theme="dark"] .feature-tab_icon,
+body.dark .feature-tab_icon,
+:root[data-theme="dark"] .feature-tab_label,
+body.dark .feature-tab_label {
+  color: #ffffff !important;
+  fill: currentColor !important;
+}
+
+:root[data-theme="dark"] .feature-tab svg,
+body.dark .feature-tab svg {
+  color: #ffffff !important;
+}
+
+:root[data-theme="dark"] .feature-tab.is-active,
+body.dark .feature-tab.is-active {
+  color: #ffffff !important;
+  font-weight: 700 !important;
+}
+
+:root[data-theme="dark"] .feature-tab_indicator,
+body.dark .feature-tab_indicator {
+  background-color: #ffffff !important;
+}
+
+:root[data-theme="dark"] .feature-tab:hover,
+body.dark .feature-tab:hover {
+  color: #ffffff !important;
+  opacity: 0.85;
 }
 </style>
 
