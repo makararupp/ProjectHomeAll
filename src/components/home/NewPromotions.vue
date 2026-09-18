@@ -182,9 +182,10 @@ onUnmounted(() => {
         <!-- 1. Left: Card in Front of Image Slider (6 Big Category Image Boxes) -->
         <div class="new-promotions_categories-card">
           <div class="new-promotions_categories-grid">
-            <div
+            <RouterLink
               v-for="cat in quickCategories"
               :key="cat.id"
+              :to="cat.href || '/products'"
               class="new-promotions_cat-item"
               :title="isKhmer ? cat.titleKm : cat.title"
               :aria-label="isKhmer ? cat.titleKm : cat.title"
@@ -195,7 +196,7 @@ onUnmounted(() => {
                 class="new-promotions_cat-img"
                 loading="lazy"
               />
-            </div>
+            </RouterLink>
           </div>
         </div>
 
@@ -212,6 +213,7 @@ onUnmounted(() => {
           @touchstart.passive="onDragStart"
           @touchmove="onDragMove"
           @touchend="onDragEnd"
+          @click="onSlideClick"
         >
           <div class="new-promotions_track" :style="trackStyle">
             <div
@@ -219,14 +221,16 @@ onUnmounted(() => {
               :key="slide.id"
               class="new-promotions_slide"
             >
-              <!-- Full Uncropped Fit Image -->
-              <img
-                :src="slide.image"
-                :alt="slide.alt"
-                class="new-promotions_slide-img"
-                loading="lazy"
-                draggable="false"
-              />
+              <!-- Clean White Background Slide with Centered Image -->
+              <div class="new-promotions_slide-img-box">
+                <img
+                  :src="slide.image"
+                  :alt="slide.alt"
+                  class="new-promotions_slide-img"
+                  loading="lazy"
+                  draggable="false"
+                />
+              </div>
             </div>
           </div>
 
@@ -267,7 +271,7 @@ onUnmounted(() => {
         </div>
 
         <!-- 3. Right: Free Shipping Siem Reap Card -->
-        <div class="new-promotions_card">
+        <RouterLink to="/products" class="new-promotions_card">
           <div class="new-promotions_card-content">
             <span class="new-promotions_badge">
               {{ isKhmer ? 'កម្ម៉ង់ឥឡូវនេះ!' : 'Order Now!' }}
@@ -317,7 +321,7 @@ onUnmounted(() => {
               {{ isKhmer ? '*សម្រាប់តែទំនិញដែលបានកំណត់' : '*only on participating products' }}
             </span>
           </div>
-        </div>
+        </RouterLink>
       </div>
     </div>
   </section>
@@ -374,7 +378,7 @@ onUnmounted(() => {
 .new-promotions_categories-card {
   width: 320px;
   flex-shrink: 0;
-  height: 300px;
+  height: 330px;
   background-color: #ffffff;
   border-radius: 16px;
   border: 1px solid rgba(0, 0, 0, 0.07);
@@ -412,8 +416,9 @@ onUnmounted(() => {
   box-sizing: border-box;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   overflow: hidden;
-  cursor: default;
+  cursor: pointer;
   user-select: none;
+  text-decoration: none;
 }
 
 .new-promotions_cat-item:hover {
@@ -448,9 +453,9 @@ onUnmounted(() => {
   background-color: #ffffff;
   box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
   border: 1px solid rgba(0, 0, 0, 0.07);
-  height: 300px;
+  height: 330px;
   display: flex;
-  cursor: default;
+  cursor: pointer;
   user-select: none;
   -webkit-user-select: none;
 }
@@ -474,25 +479,37 @@ onUnmounted(() => {
   overflow: hidden;
   user-select: none;
   -webkit-user-select: none;
-  cursor: default;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Full bleed cropped image presentation matching hero slider */
+.new-promotions_slide-img-box {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: hidden;
   background-color: #ffffff;
 }
 
 .new-promotions_slide-img {
   width: 100%;
   height: 100%;
-  object-fit: fill;
+  object-fit: cover;
   object-position: center;
   display: block;
   pointer-events: none;
   user-select: none;
   -webkit-user-drag: none;
   -webkit-user-select: none;
-  transition: transform 0.3s ease;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .new-promotions_slide:hover .new-promotions_slide-img {
-  transform: scale(1.01);
+  transform: scale(1.015);
 }
 
 /* Slider Arrows */
@@ -503,8 +520,8 @@ onUnmounted(() => {
   width: 38px;
   height: 38px;
   border-radius: 50%;
-  background-color: rgba(15, 23, 42, 0.65);
-  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.92);
+  color: #1f2937;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -513,7 +530,8 @@ onUnmounted(() => {
   opacity: 0;
   transition: all 0.25s ease;
   backdrop-filter: blur(6px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
 }
 
 .new-promotions_slider-wrap:hover .new-promotions_arrow {
@@ -521,9 +539,11 @@ onUnmounted(() => {
 }
 
 .new-promotions_arrow:hover {
-  background-color: rgba(15, 23, 42, 0.95);
+  background-color: #ffffff;
+  color: var(--color-brand, #34c759);
   transform: translateY(-50%) scale(1.1);
-  border-color: #ffffff;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+  border-color: var(--color-brand, #34c759);
 }
 
 .new-promotions_arrow--prev {
@@ -537,18 +557,18 @@ onUnmounted(() => {
 /* Indicator Dots Pill */
 .new-promotions_dots {
   position: absolute;
-  bottom: 14px;
+  bottom: 12px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   align-items: center;
   gap: 6px;
   z-index: 10;
-  padding: 5px 12px;
-  background-color: rgba(15, 23, 42, 0.45);
+  padding: 4px 10px;
+  background-color: rgba(15, 23, 42, 0.55);
   backdrop-filter: blur(8px);
-  border-radius: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .new-promotions_dot {
@@ -567,10 +587,10 @@ onUnmounted(() => {
 }
 
 .new-promotions_dot--active {
-  width: 22px;
+  width: 20px;
   border-radius: 4px;
   background-color: #ffffff;
-  box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.9);
 }
 
 /* ----------------------------------------------------
@@ -579,7 +599,7 @@ onUnmounted(() => {
 .new-promotions_card {
   width: 250px;
   flex-shrink: 0;
-  height: 300px;
+  height: 330px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -587,13 +607,20 @@ onUnmounted(() => {
   overflow: hidden;
   background: linear-gradient(155deg, #34c759 0%, #269c46 50%, #1b7a34 100%);
   color: #ffffff;
-  padding: 14px 14px 10px 14px;
+  padding: 16px 14px 12px 14px;
   box-sizing: border-box;
   box-shadow: 0 4px 18px rgba(38, 156, 70, 0.3);
   position: relative;
   text-align: center;
-  cursor: default;
+  cursor: pointer;
   user-select: none;
+  text-decoration: none;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.new-promotions_card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(38, 156, 70, 0.45);
 }
 
 .new-promotions_card-content {
@@ -696,7 +723,7 @@ onUnmounted(() => {
 @media (max-width: 1024px) {
   .new-promotions_categories-card {
     width: 250px;
-    height: 260px;
+    height: 290px;
     padding: 8px;
   }
 
@@ -711,11 +738,12 @@ onUnmounted(() => {
 
   .new-promotions_slider-wrap,
   .new-promotions_card {
-    height: 260px;
+    height: 290px;
   }
 
   .new-promotions_card {
     width: 210px;
+    padding: 12px 10px;
   }
 }
 
@@ -732,12 +760,17 @@ onUnmounted(() => {
   .new-promotions_categories-card {
     width: 100%;
     height: auto;
-    padding: 20px 16px;
+    padding: 16px;
+  }
+
+  .new-promotions_categories-grid {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 85px);
   }
 
   .new-promotions_slider-wrap {
     width: 100%;
-    height: 280px;
+    height: 300px;
   }
 
   .new-promotions_card {
@@ -753,11 +786,16 @@ onUnmounted(() => {
 
 @media (max-width: 480px) {
   .new-promotions_slider-wrap {
-    height: 210px;
+    height: 230px;
+  }
+
+  .new-promotions_categories-grid {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 70px);
   }
 
   .new-promotions_cat-item {
-    padding: 8px;
+    padding: 6px;
   }
 }
 </style>
@@ -795,10 +833,22 @@ body.dark .new-promotions_cat-item:hover {
 }
 
 :root[data-theme="dark"] .new-promotions_slider-wrap,
-body.dark .new-promotions_slider-wrap {
+body.dark .new-promotions_slider-wrap,
+:root[data-theme="dark"] .new-promotions_slide,
+body.dark .new-promotions_slide,
+:root[data-theme="dark"] .new-promotions_slide-img-box,
+body.dark .new-promotions_slide-img-box {
   border-color: #334155 !important;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35) !important;
   background-color: #1e293b !important;
+}
+
+:root[data-theme="dark"] .new-promotions_arrow,
+body.dark .new-promotions_arrow {
+  background-color: rgba(30, 41, 59, 0.92) !important;
+  color: #ffffff !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
 }
 
 :root[data-theme="dark"] .new-promotions_card,
