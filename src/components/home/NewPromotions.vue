@@ -1,6 +1,5 @@
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue'
-import { RouterLink } from 'vue-router'
 import { useI18n } from '@/composables/useI18n'
 
 // Category thumbnail images for the card in front of slider
@@ -182,10 +181,9 @@ onUnmounted(() => {
         <!-- 1. Left: Card in Front of Image Slider (6 Big Category Image Boxes) -->
         <div class="new-promotions_categories-card">
           <div class="new-promotions_categories-grid">
-            <RouterLink
+            <div
               v-for="cat in quickCategories"
               :key="cat.id"
-              :to="cat.href || '/products'"
               class="new-promotions_cat-item"
               :title="isKhmer ? cat.titleKm : cat.title"
               :aria-label="isKhmer ? cat.titleKm : cat.title"
@@ -196,7 +194,7 @@ onUnmounted(() => {
                 class="new-promotions_cat-img"
                 loading="lazy"
               />
-            </RouterLink>
+            </div>
           </div>
         </div>
 
@@ -271,7 +269,7 @@ onUnmounted(() => {
         </div>
 
         <!-- 3. Right: Free Shipping Siem Reap Card -->
-        <RouterLink to="/products" class="new-promotions_card">
+        <div class="new-promotions_card">
           <div class="new-promotions_card-content">
             <span class="new-promotions_badge">
               {{ isKhmer ? 'កម្ម៉ង់ឥឡូវនេះ!' : 'Order Now!' }}
@@ -321,7 +319,7 @@ onUnmounted(() => {
               {{ isKhmer ? '*សម្រាប់តែទំនិញដែលបានកំណត់' : '*only on participating products' }}
             </span>
           </div>
-        </RouterLink>
+        </div>
       </div>
     </div>
   </section>
@@ -418,13 +416,12 @@ onUnmounted(() => {
   overflow: hidden;
   cursor: pointer;
   user-select: none;
-  text-decoration: none;
 }
 
 .new-promotions_cat-item:hover {
-  transform: translateY(-3px);
+  transform: translateY(-4px);
   border-color: var(--color-brand, #34c759);
-  box-shadow: 0 8px 20px rgba(52, 199, 89, 0.22);
+  box-shadow: 0 10px 24px rgba(52, 199, 89, 0.25);
 }
 
 .new-promotions_cat-img {
@@ -434,11 +431,11 @@ onUnmounted(() => {
   height: auto;
   object-fit: contain;
   display: block;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .new-promotions_cat-item:hover .new-promotions_cat-img {
-  transform: scale(1.08);
+  transform: scale(1.1);
 }
 
 /* ----------------------------------------------------
@@ -458,6 +455,11 @@ onUnmounted(() => {
   cursor: pointer;
   user-select: none;
   -webkit-user-select: none;
+  transition: box-shadow 0.28s ease, transform 0.28s ease;
+}
+
+.new-promotions_slider-wrap:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
 }
 
 .new-promotions_slider-wrap.is-dragging {
@@ -614,13 +616,12 @@ onUnmounted(() => {
   text-align: center;
   cursor: pointer;
   user-select: none;
-  text-decoration: none;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition: transform 0.28s ease, box-shadow 0.28s ease;
 }
 
 .new-promotions_card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(38, 156, 70, 0.45);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(38, 156, 70, 0.45);
 }
 
 .new-promotions_card-content {
@@ -704,6 +705,11 @@ onUnmounted(() => {
   width: 48px;
   height: 32px;
   color: #ffffff;
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.new-promotions_card:hover .new-promotions_truck-svg {
+  transform: translateX(5px);
 }
 
 .new-promotions_footer-note {
