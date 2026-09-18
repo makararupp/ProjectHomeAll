@@ -7,6 +7,7 @@ import PromoBanners from '@/components/home/PromoBanners.vue'
 import NewPromotions from '@/components/home/NewPromotions.vue'
 import FlashSaleSection from '@/components/home/FlashSaleSection.vue'
 import HouseholdBanner from '@/components/home/HouseholdBanner.vue'
+import RecommendedCategories from '@/components/home/RecommendedCategories.vue'
 import FeaturedProducts from '@/components/home/FeaturedProducts.vue'
 import AboutSection from '@/components/home/AboutSection.vue'
 </script>
@@ -22,6 +23,7 @@ import AboutSection from '@/components/home/AboutSection.vue'
       <NewPromotions />
       <FlashSaleSection />
       <HouseholdBanner />
+      <RecommendedCategories />
       <FeaturedProducts />
       <AboutSection />
     </main>
