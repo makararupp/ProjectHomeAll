@@ -2,7 +2,6 @@
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { RouterLink } from 'vue-router'
 import { navLinks } from '@/data/navLinks'
-import BaseButton from '@/components/ui/BaseButton.vue'
 import logoImg from '@/assets/images/logo.jpg'
 import { useI18n } from '@/composables/useI18n'
 import { useCart } from '@/composables/useCart'
@@ -139,9 +138,17 @@ onUnmounted(() => {
           type="search"
           :placeholder="t('header.searchPlaceholder', 'Search products')"
         />
-        <BaseButton variant="primary" size="md">
-          <button type="submit" class="app-header_search-submit">{{ t('header.searchBtn', 'Search') }}</button>
-        </BaseButton>
+        <button
+          type="submit"
+          class="app-header_search-btn"
+          :aria-label="t('header.searchBtn', 'Search')"
+          :title="t('header.searchBtn', 'Search')"
+        >
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8" />
+            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+          </svg>
+        </button>
       </form>
 
       <!-- Header Right Section (Right Center: Language, Compare, Wishlist, Appearance, Cart, Auth) -->
@@ -459,6 +466,7 @@ onUnmounted(() => {
   margin: 0 auto;
   flex: 1;
   display: flex;
+  align-items: center;
   max-width: 440px;
   min-width: 180px;
 }
@@ -466,32 +474,51 @@ onUnmounted(() => {
 .app-header_search input {
   flex: 1;
   height: 38px;
-  padding: 0 var(--space-3);
-  border: 1px solid var(--color-border-input);
+  padding: 0 var(--space-3, 12px);
+  border: 1px solid var(--color-border-input, #cbd5e1);
   border-right: none;
-  border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+  border-radius: var(--radius-sm, 6px) 0 0 var(--radius-sm, 6px);
   font-size: 13.5px;
-  color: var(--color-text-primary);
+  color: #000000;
+  background-color: #ffffff;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.app-header_search input:focus {
+  border-color: var(--color-brand, #34c759);
 }
 
 .app-header_search input::placeholder {
-  color: var(--color-text-faint);
+  color: #64748b;
   font-size: 13px;
 }
 
-.app-header_search .base-button {
-  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-  padding: 0;
-  width: 80px;
+.app-header_search-btn {
+  width: 46px;
   height: 38px;
+  background-color: var(--color-brand, #34c759);
+  color: #ffffff;
+  border: 1px solid var(--color-brand, #34c759);
+  border-radius: 0 var(--radius-sm, 6px) var(--radius-sm, 6px) 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+  transition: background-color var(--transition-fast, 150ms ease),
+              border-color var(--transition-fast, 150ms ease),
+              transform var(--transition-fast, 150ms ease);
 }
 
-.app-header_search-submit {
-  width: 100%;
-  height: 100%;
-  color: inherit;
-  font: inherit;
-  font-weight: 600;
+.app-header_search-btn:hover {
+  background-color: var(--color-brand-dark, #2da84a);
+  border-color: var(--color-brand-dark, #2da84a);
+}
+
+.app-header_search-btn:active {
+  transform: scale(0.96);
 }
 
 /* Header Right Section (Right Center: Language, Compare, Wishlist, Appearance, Cart, Auth) */
@@ -1322,6 +1349,48 @@ body.dark .header-action-item:hover .header-action-item_icon--compare {
 :root[data-theme="dark"] .header-action-item:hover .header-action-item_icon--cart,
 body.dark .header-action-item:hover .header-action-item_icon--cart {
   color: var(--color-brand);
+}
+
+/* Search input in Dark Mode: text color solid black on clean white background */
+:root[data-theme="dark"] .app-header_search input,
+body.dark .app-header_search input {
+  color: #000000 !important;
+  -webkit-text-fill-color: #000000 !important;
+  background-color: #ffffff !important;
+  border-color: #cbd5e1 !important;
+}
+
+:root[data-theme="dark"] .app-header_search input::placeholder,
+body.dark .app-header_search input::placeholder {
+  color: #64748b !important;
+  -webkit-text-fill-color: #64748b !important;
+}
+
+/* Mobile search in Dark Mode: text color solid black on clean white background */
+:root[data-theme="dark"] .mobile-nav_search,
+body.dark .mobile-nav_search {
+  background-color: #ffffff !important;
+  border-color: #cbd5e1 !important;
+}
+
+:root[data-theme="dark"] .mobile-nav_search input,
+body.dark .mobile-nav_search input {
+  color: #000000 !important;
+  -webkit-text-fill-color: #000000 !important;
+  background-color: #ffffff !important;
+}
+
+:root[data-theme="dark"] .mobile-nav_search input::placeholder,
+body.dark .mobile-nav_search input::placeholder {
+  color: #64748b !important;
+  -webkit-text-fill-color: #64748b !important;
+}
+
+:root[data-theme="dark"] .app-header_search-btn,
+body.dark .app-header_search-btn {
+  background-color: var(--color-brand, #34c759) !important;
+  border-color: var(--color-brand, #34c759) !important;
+  color: #ffffff !important;
 }
 </style>
 
