@@ -726,82 +726,199 @@ onUnmounted(() => {
 /* ----------------------------------------------------
    Responsive Breakpoints
 ---------------------------------------------------- */
-@media (max-width: 1024px) {
+@media (max-width: 1199px) {
   .new-promotions_categories-card {
-    width: 250px;
-    height: 290px;
-    padding: 8px;
-  }
-
-  .new-promotions_cat-thumb {
-    width: 42px;
-    height: 42px;
-  }
-
-  .new-promotions_cat-name {
-    font-size: 11px;
+    width: 280px;
+    height: 310px;
+    padding: 10px;
   }
 
   .new-promotions_slider-wrap,
   .new-promotions_card {
-    height: 290px;
+    height: 310px;
   }
 
   .new-promotions_card {
-    width: 210px;
-    padding: 12px 10px;
+    width: 230px;
+    padding: 14px 12px;
+  }
+
+  .new-promotions_title-sub {
+    font-size: 15px;
+  }
+
+  .new-promotions_title-city {
+    font-size: 18px;
   }
 }
 
-@media (max-width: 768px) {
-  .new-promotions {
-    padding: 12px 0 16px 0;
-  }
-
+/* Tablet Layout (641px - 991px): Slider full width on top, Categories & Shipping side-by-side below */
+@media (max-width: 991px) {
   .new-promotions_grid {
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 14px;
   }
 
-  .new-promotions_categories-card {
+  .new-promotions_slider-wrap {
+    grid-column: 1 / -1;
+    order: 1;
     width: 100%;
-    height: auto;
-    padding: 16px;
+    height: 290px;
+  }
+
+  .new-promotions_categories-card {
+    grid-column: 1 / 2;
+    order: 2;
+    width: 100%;
+    height: 230px;
+    padding: 12px;
   }
 
   .new-promotions_categories-grid {
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(2, 85px);
-  }
-
-  .new-promotions_slider-wrap {
-    width: 100%;
-    height: 300px;
+    grid-template-rows: repeat(2, 1fr);
+    gap: 8px;
   }
 
   .new-promotions_card {
+    grid-column: 2 / 3;
+    order: 3;
     width: 100%;
-    height: auto;
-    padding: 22px 18px;
+    height: 230px;
+    padding: 16px 14px 12px 14px;
+  }
+
+  .new-promotions_arrow {
+    opacity: 0.9;
+    width: 34px;
+    height: 34px;
+  }
+}
+
+/* Mobile Layout (<= 640px): 1 Column Vertical Stack */
+@media (max-width: 640px) {
+  .new-promotions {
+    padding: 10px 0 16px 0;
+  }
+
+  .new-promotions_header {
+    margin-bottom: 12px;
+  }
+
+  .new-promotions_section-title {
+    font-size: 19px;
+  }
+
+  .new-promotions_section-title--km {
+    font-size: 17px;
+  }
+
+  .new-promotions_grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .new-promotions_slider-wrap {
+    order: 1;
+    width: 100%;
+    height: 220px;
+    border-radius: 14px;
   }
 
   .new-promotions_arrow {
     opacity: 1;
+    width: 30px;
+    height: 30px;
   }
-}
 
-@media (max-width: 480px) {
-  .new-promotions_slider-wrap {
-    height: 230px;
+  .new-promotions_arrow--prev {
+    left: 8px;
+  }
+
+  .new-promotions_arrow--next {
+    right: 8px;
+  }
+
+  .new-promotions_arrow svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .new-promotions_dots {
+    bottom: 8px;
+    padding: 3px 8px;
+    gap: 4px;
+  }
+
+  .new-promotions_dot {
+    width: 5px;
+    height: 5px;
+  }
+
+  .new-promotions_dot--active {
+    width: 16px;
+  }
+
+  .new-promotions_categories-card {
+    order: 2;
+    width: 100%;
+    height: auto;
+    padding: 12px;
+    border-radius: 14px;
   }
 
   .new-promotions_categories-grid {
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(2, 70px);
+    grid-template-rows: auto;
+    gap: 8px;
   }
 
   .new-promotions_cat-item {
+    height: 72px;
     padding: 6px;
+    border-radius: 10px;
+  }
+
+  .new-promotions_card {
+    order: 3;
+    width: 100%;
+    height: auto;
+    min-height: 165px;
+    padding: 16px 14px 12px 14px;
+    border-radius: 14px;
+  }
+
+  .new-promotions_truck-svg {
+    width: 40px;
+    height: 26px;
+  }
+
+  .new-promotions_desc {
+    font-size: 12px;
+    margin-bottom: 6px;
+  }
+}
+
+/* Extra Small Phones (<= 400px) */
+@media (max-width: 400px) {
+  .new-promotions_slider-wrap {
+    height: 190px;
+  }
+
+  .new-promotions_categories-grid {
+    gap: 6px;
+  }
+
+  .new-promotions_cat-item {
+    height: 62px;
+    padding: 4px;
+  }
+
+  .new-promotions_cat-img {
+    max-width: 80%;
+    max-height: 80%;
   }
 }
 </style>
