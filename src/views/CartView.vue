@@ -513,12 +513,6 @@ function getItemLineTotal(item) {
 
             <!-- FORM STATE -->
             <form v-else class="checkout-form" @submit.prevent="handleConfirmOrder">
-              <!-- Order Total Banner -->
-              <div class="checkout-total-banner">
-                <span>Total to Pay:</span>
-                <strong>{{ formatCurrency(totalPrice) }} ({{ totalCount }} items)</strong>
-              </div>
-
               <!-- Customer Name -->
               <div class="form-group">
                 <label class="form-label">
@@ -1009,22 +1003,39 @@ function getItemLineTotal(item) {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  background: linear-gradient(135deg, #16a34a, #15803d);
-  color: #ffffff;
+  background: #ffffff;
+  color: #000000;
   font-size: 15px;
   font-weight: 700;
   padding: 13px 20px;
-  border: none;
+  border: 1.5px solid #000000;
   border-radius: 10px;
   cursor: pointer;
-  box-shadow: 0 4px 14px rgba(22, 163, 74, 0.3);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
   transition: all 0.2s ease;
 }
 
+.cart-checkout-btn span {
+  color: #000000;
+}
+
+.cart-checkout-btn svg {
+  color: #000000;
+  fill: #000000;
+}
+
 .cart-checkout-btn:hover {
-  background: linear-gradient(135deg, #15803d, #166534);
+  background: #f1f5f9;
+  color: #000000;
+  border-color: #000000;
   transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(22, 163, 74, 0.4);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+.cart-checkout-btn:hover span,
+.cart-checkout-btn:hover svg {
+  color: #000000;
+  fill: #000000;
 }
 
 /* Empty State */
@@ -1072,20 +1083,39 @@ function getItemLineTotal(item) {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: linear-gradient(135deg, #16a34a, #15803d);
-  color: #ffffff;
+  background: #ffffff;
+  color: #000000;
   font-size: 14.5px;
-  font-weight: 600;
+  font-weight: 700;
   padding: 12px 24px;
   border-radius: 10px;
+  border: 1.5px solid #000000;
   text-decoration: none;
-  box-shadow: 0 4px 12px rgba(22, 163, 74, 0.3);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   transition: all 0.2s ease;
 }
 
+.cart-empty-state_btn span {
+  color: #000000;
+}
+
+.cart-empty-state_btn svg {
+  color: #000000;
+  fill: #000000;
+}
+
 .cart-empty-state_btn:hover {
-  background: linear-gradient(135deg, #15803d, #166534);
+  background: #f1f5f9;
+  color: #000000;
+  border-color: #000000;
   transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.cart-empty-state_btn:hover span,
+.cart-empty-state_btn:hover svg {
+  color: #000000;
+  fill: #000000;
 }
 
 /* Responsive */
@@ -1605,4 +1635,502 @@ function getItemLineTotal(item) {
   color: #991b1b;
 }
 </style>
+
+<!-- Non-scoped so body.dark / :root[data-theme="dark"] ancestor selectors work -->
+<style>
+/* =====================================================
+   CartView – Dark Mode Overrides
+   ===================================================== */
+
+:root[data-theme="dark"] .cart-page,
+body.dark .cart-page {
+  background-color: #0f172a !important;
+  color: #f8fafc !important;
+}
+
+/* Breadcrumb Navigation */
+:root[data-theme="dark"] .cart-breadcrumb_link,
+body.dark .cart-breadcrumb_link {
+  color: #94a3b8 !important;
+}
+
+:root[data-theme="dark"] .cart-breadcrumb_link:hover,
+body.dark .cart-breadcrumb_link:hover {
+  color: #ffffff !important;
+}
+
+:root[data-theme="dark"] .cart-breadcrumb_separator,
+body.dark .cart-breadcrumb_separator {
+  color: #64748b !important;
+}
+
+:root[data-theme="dark"] .cart-breadcrumb_current,
+body.dark .cart-breadcrumb_current {
+  color: #ffffff !important;
+}
+
+/* Header & Titles */
+:root[data-theme="dark"] .cart-header_title,
+body.dark .cart-header_title {
+  color: #ffffff !important;
+}
+
+:root[data-theme="dark"] .cart-header_subtitle,
+body.dark .cart-header_subtitle {
+  color: #94a3b8 !important;
+}
+
+:root[data-theme="dark"] .cart-header_badge,
+body.dark .cart-header_badge {
+  background-color: rgba(34, 197, 94, 0.15) !important;
+  color: #4ade80 !important;
+  border-color: rgba(34, 197, 94, 0.3) !important;
+}
+
+/* =====================================================
+   Processing Card (Order Summary Card) - Title White
+   ===================================================== */
+:root[data-theme="dark"] .cart-summary-card,
+body.dark .cart-summary-card {
+  background-color: #1e293b !important;
+  border-color: #334155 !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Card Title White in Dark Mode */
+:root[data-theme="dark"] .cart-summary-card_title,
+body.dark .cart-summary-card_title {
+  color: #ffffff !important;
+  border-bottom-color: #334155 !important;
+}
+
+:root[data-theme="dark"] .summary-row,
+body.dark .summary-row,
+:root[data-theme="dark"] .summary-row_label,
+body.dark .summary-row_label {
+  color: #94a3b8 !important;
+}
+
+:root[data-theme="dark"] .summary-row_val,
+body.dark .summary-row_val {
+  color: #f1f5f9 !important;
+}
+
+:root[data-theme="dark"] .summary-row_val--free,
+body.dark .summary-row_val--free {
+  color: #4ade80 !important;
+}
+
+:root[data-theme="dark"] .summary-divider,
+body.dark .summary-divider {
+  background-color: #334155 !important;
+}
+
+:root[data-theme="dark"] .summary-row--grand .summary-row_label,
+body.dark .summary-row--grand .summary-row_label {
+  color: #ffffff !important;
+  font-weight: 700 !important;
+}
+
+:root[data-theme="dark"] .summary-row_val--total,
+body.dark .summary-row_val--total {
+  color: #4ade80 !important;
+}
+
+:root[data-theme="dark"] .cart-trust-badges,
+body.dark .cart-trust-badges {
+  background-color: #0f172a !important;
+  border-color: #334155 !important;
+}
+
+:root[data-theme="dark"] .trust-badge,
+body.dark .trust-badge,
+:root[data-theme="dark"] .trust-badge_text,
+body.dark .trust-badge_text {
+  color: #cbd5e1 !important;
+}
+
+/* Proceed to Checkout Button: White box with Black title/icon */
+:root[data-theme="dark"] .cart-checkout-btn,
+body.dark .cart-checkout-btn {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 1.5px solid #ffffff !important;
+  box-shadow: 0 4px 14px rgba(255, 255, 255, 0.18) !important;
+}
+
+:root[data-theme="dark"] .cart-checkout-btn span,
+body.dark .cart-checkout-btn span,
+:root[data-theme="dark"] .cart-checkout-btn svg,
+body.dark .cart-checkout-btn svg {
+  color: #000000 !important;
+  fill: #000000 !important;
+}
+
+:root[data-theme="dark"] .cart-checkout-btn:hover,
+body.dark .cart-checkout-btn:hover {
+  background: #f1f5f9 !important;
+  color: #000000 !important;
+  border-color: #f1f5f9 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(255, 255, 255, 0.28) !important;
+}
+
+:root[data-theme="dark"] .cart-checkout-btn:hover span,
+body.dark .cart-checkout-btn:hover span,
+:root[data-theme="dark"] .cart-checkout-btn:hover svg,
+body.dark .cart-checkout-btn:hover svg {
+  color: #000000 !important;
+  fill: #000000 !important;
+}
+
+/* Left Items Panel */
+:root[data-theme="dark"] .cart-items-panel,
+body.dark .cart-items-panel {
+  background-color: #1e293b !important;
+  border-color: #334155 !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
+}
+
+:root[data-theme="dark"] .cart-items-panel_header,
+body.dark .cart-items-panel_header {
+  background-color: #1e293b !important;
+  border-bottom-color: #334155 !important;
+  color: #94a3b8 !important;
+}
+
+:root[data-theme="dark"] .cart-item-row,
+body.dark .cart-item-row {
+  border-bottom-color: #334155 !important;
+}
+
+:root[data-theme="dark"] .cart-item-row_img-wrap,
+body.dark .cart-item-row_img-wrap {
+  background-color: #0f172a !important;
+  border-color: #334155 !important;
+}
+
+:root[data-theme="dark"] .cart-item-row_title,
+body.dark .cart-item-row_title {
+  color: #ffffff !important;
+}
+
+:root[data-theme="dark"] .cart-item-row_category,
+body.dark .cart-item-row_category {
+  color: #94a3b8 !important;
+}
+
+:root[data-theme="dark"] .cart-item-row_price-val,
+body.dark .cart-item-row_price-val {
+  color: #cbd5e1 !important;
+}
+
+:root[data-theme="dark"] .cart-item-row_total-val,
+body.dark .cart-item-row_total-val {
+  color: #4ade80 !important;
+}
+
+:root[data-theme="dark"] .cart-item-row_mobile-label,
+body.dark .cart-item-row_mobile-label {
+  color: #94a3b8 !important;
+}
+
+:root[data-theme="dark"] .qty-stepper,
+body.dark .qty-stepper {
+  border-color: #334155 !important;
+  background-color: #0f172a !important;
+}
+
+:root[data-theme="dark"] .qty-stepper_btn,
+body.dark .qty-stepper_btn {
+  color: #cbd5e1 !important;
+  background-color: #0f172a !important;
+}
+
+:root[data-theme="dark"] .qty-stepper_btn:hover:not(:disabled),
+body.dark .qty-stepper_btn:hover:not(:disabled) {
+  background-color: #334155 !important;
+  color: #ffffff !important;
+}
+
+:root[data-theme="dark"] .qty-stepper_input,
+body.dark .qty-stepper_input {
+  background-color: #0f172a !important;
+  border-color: #334155 !important;
+  color: #ffffff !important;
+}
+
+:root[data-theme="dark"] .cart-item-row_remove-btn,
+body.dark .cart-item-row_remove-btn {
+  background-color: #334155 !important;
+  border-color: #475569 !important;
+  color: #ffffff !important;
+}
+
+:root[data-theme="dark"] .cart-item-row_remove-btn svg,
+body.dark .cart-item-row_remove-btn svg {
+  fill: #ffffff !important;
+  color: #ffffff !important;
+}
+
+:root[data-theme="dark"] .cart-item-row_remove-btn:hover,
+body.dark .cart-item-row_remove-btn:hover {
+  background-color: #475569 !important;
+  border-color: #ffffff !important;
+  color: #ffffff !important;
+}
+
+:root[data-theme="dark"] .cart-item-row_remove-btn:hover svg,
+body.dark .cart-item-row_remove-btn:hover svg {
+  fill: #ffffff !important;
+  color: #ffffff !important;
+}
+
+:root[data-theme="dark"] .cart-items-panel_footer,
+body.dark .cart-items-panel_footer {
+  background-color: #1e293b !important;
+  border-top-color: #334155 !important;
+}
+
+:root[data-theme="dark"] .cart-back-btn,
+body.dark .cart-back-btn {
+  color: #94a3b8 !important;
+}
+
+:root[data-theme="dark"] .cart-back-btn:hover,
+body.dark .cart-back-btn:hover {
+  color: #ffffff !important;
+}
+
+/* Clear Cart button and title to white color in dark mode */
+:root[data-theme="dark"] .cart-clear-btn,
+body.dark .cart-clear-btn {
+  background-color: #334155 !important;
+  color: #ffffff !important;
+  border-color: #475569 !important;
+}
+
+:root[data-theme="dark"] .cart-clear-btn:hover,
+body.dark .cart-clear-btn:hover {
+  background-color: #475569 !important;
+  color: #ffffff !important;
+  border-color: #ffffff !important;
+}
+
+/* Empty State */
+:root[data-theme="dark"] .cart-empty-state,
+body.dark .cart-empty-state {
+  background-color: #1e293b !important;
+  border-color: #334155 !important;
+}
+
+:root[data-theme="dark"] .cart-empty-state_icon,
+body.dark .cart-empty-state_icon {
+  background-color: #0f172a !important;
+  color: #ffffff !important;
+  border: 1px solid #334155 !important;
+}
+
+:root[data-theme="dark"] .cart-empty-state_icon svg,
+body.dark .cart-empty-state_icon svg {
+  stroke: #ffffff !important;
+}
+
+:root[data-theme="dark"] .cart-empty-state_title,
+body.dark .cart-empty-state_title {
+  color: #ffffff !important;
+}
+
+:root[data-theme="dark"] .cart-empty-state_desc,
+body.dark .cart-empty-state_desc {
+  color: #94a3b8 !important;
+}
+
+/* Start Shopping Button: White box background with Black title in Dark Mode */
+:root[data-theme="dark"] .cart-empty-state_btn,
+body.dark .cart-empty-state_btn {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 1.5px solid #ffffff !important;
+  box-shadow: 0 4px 14px rgba(255, 255, 255, 0.18) !important;
+}
+
+:root[data-theme="dark"] .cart-empty-state_btn span,
+body.dark .cart-empty-state_btn span,
+:root[data-theme="dark"] .cart-empty-state_btn svg,
+body.dark .cart-empty-state_btn svg {
+  color: #000000 !important;
+  fill: #000000 !important;
+}
+
+:root[data-theme="dark"] .cart-empty-state_btn:hover,
+body.dark .cart-empty-state_btn:hover {
+  background: #f1f5f9 !important;
+  color: #000000 !important;
+  border-color: #f1f5f9 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(255, 255, 255, 0.28) !important;
+}
+
+:root[data-theme="dark"] .cart-empty-state_btn:hover span,
+body.dark .cart-empty-state_btn:hover span,
+:root[data-theme="dark"] .cart-empty-state_btn:hover svg,
+body.dark .cart-empty-state_btn:hover svg {
+  color: #000000 !important;
+  fill: #000000 !important;
+}
+
+/* Checkout Modal */
+:root[data-theme="dark"] .checkout-modal,
+body.dark .checkout-modal {
+  background-color: #1e293b !important;
+  border: 1px solid #334155 !important;
+  color: #ffffff !important;
+}
+
+:root[data-theme="dark"] .checkout-modal_header,
+body.dark .checkout-modal_header {
+  background-color: #1e293b !important;
+  border-bottom-color: #334155 !important;
+}
+
+:root[data-theme="dark"] .checkout-modal_title,
+body.dark .checkout-modal_title {
+  color: #ffffff !important;
+}
+
+:root[data-theme="dark"] .checkout-modal_subtitle,
+body.dark .checkout-modal_subtitle {
+  color: #94a3b8 !important;
+}
+
+:root[data-theme="dark"] .checkout-modal_close,
+body.dark .checkout-modal_close {
+  background-color: #334155 !important;
+  color: #ffffff !important;
+}
+
+:root[data-theme="dark"] .checkout-section-title,
+body.dark .checkout-section-title {
+  color: #cbd5e1 !important;
+}
+
+:root[data-theme="dark"] .form-label,
+body.dark .form-label {
+  color: #e2e8f0 !important;
+}
+
+:root[data-theme="dark"] .form-input,
+body.dark .form-input,
+:root[data-theme="dark"] .form-textarea,
+body.dark .form-textarea {
+  background-color: #0f172a !important;
+  border-color: #334155 !important;
+  color: #ffffff !important;
+}
+
+:root[data-theme="dark"] .form-input::placeholder,
+body.dark .form-input::placeholder,
+:root[data-theme="dark"] .form-textarea::placeholder,
+body.dark .form-textarea::placeholder {
+  color: #64748b !important;
+}
+
+:root[data-theme="dark"] .payment-option,
+body.dark .payment-option {
+  background-color: #0f172a !important;
+  border-color: #334155 !important;
+}
+
+:root[data-theme="dark"] .payment-option-name,
+body.dark .payment-option-name {
+  color: #ffffff !important;
+}
+
+:root[data-theme="dark"] .payment-option-desc,
+body.dark .payment-option-desc {
+  color: #94a3b8 !important;
+}
+
+:root[data-theme="dark"] .payment-option.is-selected,
+body.dark .payment-option.is-selected {
+  border-color: #22c55e !important;
+  background-color: rgba(34, 197, 94, 0.12) !important;
+}
+
+:root[data-theme="dark"] .checkout-summary-box,
+body.dark .checkout-summary-box {
+  background-color: #0f172a !important;
+  border-color: #334155 !important;
+}
+
+:root[data-theme="dark"] .c-row,
+body.dark .c-row {
+  color: #94a3b8 !important;
+}
+
+:root[data-theme="dark"] .c-row.c-total,
+body.dark .c-row.c-total {
+  color: #ffffff !important;
+  border-top-color: #334155 !important;
+}
+
+:root[data-theme="dark"] .c-total-val,
+body.dark .c-total-val {
+  color: #4ade80 !important;
+}
+
+:root[data-theme="dark"] .checkout-modal_footer,
+body.dark .checkout-modal_footer {
+  background-color: #1e293b !important;
+  border-top-color: #334155 !important;
+}
+
+:root[data-theme="dark"] .checkout-btn-cancel,
+body.dark .checkout-btn-cancel {
+  background-color: #334155 !important;
+  color: #cbd5e1 !important;
+  border-color: #475569 !important;
+}
+
+:root[data-theme="dark"] .order-receipt-summary,
+body.dark .order-receipt-summary {
+  background-color: #0f172a !important;
+  border-color: #334155 !important;
+}
+
+:root[data-theme="dark"] .receipt-title,
+body.dark .receipt-title {
+  color: #ffffff !important;
+}
+
+:root[data-theme="dark"] .receipt-row,
+body.dark .receipt-row {
+  color: #94a3b8 !important;
+}
+
+:root[data-theme="dark"] .receipt-row .r-val,
+body.dark .receipt-row .r-val {
+  color: #cbd5e1 !important;
+}
+
+:root[data-theme="dark"] .receipt-row.receipt-total,
+body.dark .receipt-row.receipt-total {
+  color: #ffffff !important;
+  border-top-color: #334155 !important;
+}
+
+:root[data-theme="dark"] .receipt-row.receipt-total .r-val,
+body.dark .receipt-row.receipt-total .r-val {
+  color: #4ade80 !important;
+}
+
+:root[data-theme="dark"] .success-notice-box,
+body.dark .success-notice-box {
+  background-color: rgba(59, 130, 246, 0.12) !important;
+  border-color: rgba(59, 130, 246, 0.25) !important;
+  color: #93c5fd !important;
+}
+</style>
+
 

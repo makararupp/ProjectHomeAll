@@ -474,21 +474,23 @@ onUnmounted(() => {
 .blog_view-btn {
   display: block;
   width: 100%;
-  background-color: #faebeb;
-  color: #c53030;
+  background-color: #ffffff;
+  color: #000000;
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 700;
   border-radius: 6px;
   padding: 9px 0;
   text-align: center;
   cursor: pointer;
-  border: none;
+  border: 1.5px solid #000000;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   transition: background-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
 }
 
 .blog_view-btn:hover {
-  background-color: #f5d6d6;
-  color: #a82020;
+  background-color: #f1f5f9;
+  color: #000000;
+  border-color: #000000;
   transform: translateY(-1px);
 }
 
@@ -596,11 +598,12 @@ onUnmounted(() => {
 }
 
 .modal_badge {
-  background-color: #faebeb;
-  color: #c53030;
+  background-color: #ffffff;
+  color: #000000;
+  border: 1px solid #000000;
   padding: 3px 8px;
   border-radius: 4px;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 12px;
 }
 
@@ -685,10 +688,16 @@ onUnmounted(() => {
    New / Blog Page – Dark Mode Overrides
    ===================================================== */
 
+/* Blog page background */
+:root[data-theme="dark"] .blog_page,
+body.dark .blog_page {
+  background-color: #0f172a !important;
+}
+
 /* Page heading "Blog" title → white */
 :root[data-theme="dark"] .blog_heading,
 body.dark .blog_heading {
-  color: #ffffff;
+  color: #ffffff !important;
 }
 
 /* Breadcrumb current page */
@@ -697,10 +706,18 @@ body.dark .blog_breadcrumb-current {
   color: #e2e8f0;
 }
 
+/* Sidebar category card */
+:root[data-theme="dark"] .category_card,
+body.dark .category_card {
+  background-color: #1e293b !important;
+  border-color: #334155 !important;
+}
+
 /* Sidebar category title button */
 :root[data-theme="dark"] .category_title-btn,
 body.dark .category_title-btn {
   color: #f1f5f9;
+  color: #ffffff !important;
 }
 
 /* Sidebar category item buttons */
@@ -710,21 +727,26 @@ body.dark .category_btn {
 }
 
 /* Blog card border */
+/* Blog card background & border */
 :root[data-theme="dark"] .blog_card,
 body.dark .blog_card {
   border-color: #334155;
+  background-color: #1e293b !important;
+  border-color: #334155 !important;
 }
 
 /* Card thumbnail background */
 :root[data-theme="dark"] .blog_thumb-wrap,
 body.dark .blog_thumb-wrap {
   background-color: #0f172a;
+  background-color: #0f172a !important;
 }
 
 /* Card title → white */
 :root[data-theme="dark"] .blog_card-title,
 body.dark .blog_card-title {
   color: #f1f5f9;
+  color: #ffffff !important;
 }
 
 /* Card description */
@@ -734,22 +756,35 @@ body.dark .blog_card-desc {
 }
 
 /* View More button */
+/* View More button: White box background with Black title */
 :root[data-theme="dark"] .blog_view-btn,
 body.dark .blog_view-btn {
-  background-color: #3b1c1c;
-  color: #fca5a5;
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  font-weight: 700;
+  border: 1px solid #ffffff !important;
 }
 
 :root[data-theme="dark"] .blog_view-btn:hover,
 body.dark .blog_view-btn:hover {
-  background-color: #4c2020;
-  color: #f87171;
+  background-color: #f1f5f9 !important;
+  color: #000000 !important;
+  border-color: #f1f5f9 !important;
 }
 
 /* Modal dialog */
+/* Modal dialog background & border */
+:root[data-theme="dark"] .modal_dialog,
+body.dark .modal_dialog {
+  background-color: #1e293b !important;
+  border: 1px solid #334155 !important;
+}
+
+/* Modal title → white */
 :root[data-theme="dark"] .modal_title,
 body.dark .modal_title {
   color: #f1f5f9;
+  color: #ffffff !important;
 }
 
 :root[data-theme="dark"] .modal_text,
@@ -757,9 +792,26 @@ body.dark .modal_text {
   color: #cbd5e1;
 }
 
+/* Modal Solutions badge: White box background with Black title */
 :root[data-theme="dark"] .modal_badge,
 body.dark .modal_badge {
-  background-color: #3b1c1c;
-  color: #fca5a5;
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  font-weight: 700;
+}
+
+/* Modal Close button in dark mode */
+:root[data-theme="dark"] .modal_dismiss-btn,
+body.dark .modal_dismiss-btn {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  font-weight: 700;
+  border: 1px solid #ffffff !important;
+}
+
+:root[data-theme="dark"] .modal_dismiss-btn:hover,
+body.dark .modal_dismiss-btn:hover {
+  background-color: #f1f5f9 !important;
+  color: #000000 !important;
 }
 </style>
