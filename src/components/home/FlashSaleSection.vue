@@ -427,9 +427,10 @@ function handleToggleWishlist(product, event) {
 }
 
 /* Grid */
+/* Grid - Strictly locked columns so no card can ever resize or affect other cards */
 .flash-sale_grid {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: 14px;
 }
 
@@ -442,8 +443,11 @@ function handleToggleWishlist(product, event) {
   padding: 10px 10px 12px 10px;
   display: flex;
   flex-direction: column;
-  transition: all 0.2s ease;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .flash-card:hover {
@@ -579,13 +583,15 @@ function handleToggleWishlist(product, event) {
 .flash-card_actions {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
   margin-top: auto;
+  min-width: 0;
+  width: 100%;
 }
 
 /* Quick Add Button:
    Default: Cart icon only (compact rounded shape)
-   When Selected / Hovered: Smoothly expands to show title and cart icon */
+   When Selected / Hovered: Smoothly expands to show title and cart icon within the card */
 .flash-card_quick-btn {
   height: 34px;
   min-width: 34px;
@@ -594,7 +600,7 @@ function handleToggleWishlist(product, event) {
   color: #269c46;
   border: 1.5px solid #269c46;
   border-radius: 8px;
-  font-size: 12px;
+  font-size: 11.5px;
   font-weight: 700;
   display: inline-flex;
   align-items: center;
@@ -615,15 +621,17 @@ function handleToggleWishlist(product, event) {
   opacity: 0;
   overflow: hidden;
   white-space: nowrap;
+  text-overflow: ellipsis;
   margin-left: 0;
   transition: max-width 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease, margin 0.2s ease;
 }
 
-/* Expand Quick Add on hover, focus-visible, or when added */
+/* Expand Quick Add on hover, focus-visible, or when added - strictly constrained within card */
 .flash-card_quick-btn:hover:not(:disabled),
 .flash-card_quick-btn:focus-visible {
   flex: 1;
-  padding: 0 12px;
+  min-width: 0;
+  padding: 0 8px;
   background-color: #269c46;
   border-color: #269c46;
   color: #ffffff;
@@ -634,9 +642,9 @@ function handleToggleWishlist(product, event) {
 .flash-card_quick-btn:hover:not(:disabled) .btn-text,
 .flash-card_quick-btn:focus-visible .btn-text,
 .flash-card_quick-btn.is-added .btn-text {
-  max-width: 110px;
+  max-width: 80px;
   opacity: 1;
-  margin-left: 6px;
+  margin-left: 5px;
 }
 
 .flash-card_quick-btn:active:not(:disabled) {
@@ -645,7 +653,8 @@ function handleToggleWishlist(product, event) {
 
 .flash-card_quick-btn.is-added {
   flex: 1;
-  padding: 0 12px;
+  min-width: 0;
+  padding: 0 8px;
   background-color: #1e7e34;
   border-color: #1e7e34;
   color: #ffffff;
@@ -655,12 +664,13 @@ function handleToggleWishlist(product, event) {
 .btn-text--km {
   font-family: 'Kantumruy Pro', 'Battambang', 'Siemreap', sans-serif;
   letter-spacing: 0;
+  font-size: 11px;
 }
 
 /* Shared Circular Style for Action Buttons (Compare & Wishlist) */
 .flash-card_action-btn {
-  width: 32px;
-  height: 32px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   border: 1px solid #e2e8f0;
   background-color: #ffffff;
@@ -708,13 +718,13 @@ function handleToggleWishlist(product, event) {
 /* Responsive */
 @media (max-width: 1280px) {
   .flash-sale_grid {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
 
 @media (max-width: 1024px) {
   .flash-sale_grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 12px;
   }
 
@@ -733,7 +743,7 @@ function handleToggleWishlist(product, event) {
   }
 
   .flash-sale_grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 10px;
   }
 

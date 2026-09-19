@@ -38,13 +38,13 @@ const slides = computed(() => {
   }))
 })
 
+const sliderWrapRef = ref(null)
 const currentIndex = ref(0)
 let timer = null
 
 // Slick Mouse & Touch Dragging State
 const isDragging = ref(false)
 const dragStartX = ref(0)
-const dragCurrentX = ref(0)
 const dragDeltaX = ref(0)
 const wasDragged = ref(false)
 
@@ -61,52 +61,107 @@ const trackStyle = computed(() => {
   }
 })
 
-function onDragStart(e) {
+function onMouseDown(e) {
+  // Only respond to primary (left) mouse button
+  if (e.button !== 0) return
+
   stopAutoPlay()
   isDragging.value = true
   wasDragged.value = false
-  const clientX = e.type.startsWith('touch') ? e.touches[0].clientX : e.clientX
-  dragStartX.value = clientX
-  dragCurrentX.value = clientX
+  dragStartX.value = e.clientX
   dragDeltaX.value = 0
+
+  window.addEventListener('mousemove', onMouseMove)
+  window.addEventListener('mouseup', onMouseUp)
 }
 
-function onDragMove(e) {
+function onMouseMove(e) {
   if (!isDragging.value) return
-  const clientX = e.type.startsWith('touch') ? e.touches[0].clientX : e.clientX
-  dragCurrentX.value = clientX
-  dragDeltaX.value = clientX - dragStartX.value
-  if (Math.abs(dragDeltaX.value) > 6) {
+  const delta = e.clientX - dragStartX.value
+  dragDeltaX.value = delta
+  if (Math.abs(delta) > 7) {
     wasDragged.value = true
   }
 }
 
-function onDragEnd() {
+function onMouseUp(e) {
   if (!isDragging.value) return
+
+  window.removeEventListener('mousemove', onMouseMove)
+  window.removeEventListener('mouseup', onMouseUp)
+
+  const delta = dragDeltaX.value
+  const dragged = wasDragged.value
   isDragging.value = false
-  const threshold = 40
-  if (dragDeltaX.value < -threshold) {
-    nextSlide()
-  } else if (dragDeltaX.value > threshold) {
-    prevSlide()
-  }
   dragDeltaX.value = 0
+
+  const threshold = 35
+  if (dragged && delta < -threshold) {
+    // Left-click mouse dragged left -> Scroll to NEXT slide
+    nextSlide()
+  } else if (dragged && delta > threshold) {
+    // Left-click mouse dragged right -> Scroll to BACK / PREVIOUS slide
+    prevSlide()
+  } else if (!dragged && sliderWrapRef.value) {
+    // Left-click without dragging:
+    // Left half click scrolls to BACK slider, Right half click scrolls to NEXT slider
+    const rect = sliderWrapRef.value.getBoundingClientRect()
+    const clickX = e.clientX - rect.left
+    if (clickX < rect.width / 2) {
+      prevSlide()
+    } else {
+      nextSlide()
+    }
+  }
+
+  startAutoPlay()
+}
+
+function onTouchStart(e) {
+  stopAutoPlay()
+  isDragging.value = true
+  wasDragged.value = false
+  dragStartX.value = e.touches[0].clientX
+  dragDeltaX.value = 0
+}
+
+function onTouchMove(e) {
+  if (!isDragging.value) return
+  const delta = e.touches[0].clientX - dragStartX.value
+  dragDeltaX.value = delta
+  if (Math.abs(delta) > 7) {
+    wasDragged.value = true
+  }
+}
+
+function onTouchEnd(e) {
+  if (!isDragging.value) return
+  const delta = dragDeltaX.value
+  const dragged = wasDragged.value
+  isDragging.value = false
+  dragDeltaX.value = 0
+
+  const threshold = 35
+  if (dragged && delta < -threshold) {
+    nextSlide()
+  } else if (dragged && delta > threshold) {
+    prevSlide()
+  } else if (!dragged && sliderWrapRef.value && e.changedTouches && e.changedTouches.length > 0) {
+    const rect = sliderWrapRef.value.getBoundingClientRect()
+    const touchX = e.changedTouches[0].clientX - rect.left
+    if (touchX < rect.width / 2) {
+      prevSlide()
+    } else {
+      nextSlide()
+    }
+  }
   startAutoPlay()
 }
 
 function onMouseLeaveWrap() {
-  if (isDragging.value) {
-    onDragEnd()
+  if (!isDragging.value) {
+    startAutoPlay()
   }
-  startAutoPlay()
-}
-
-function onSlideClick(e) {
-  // If user was dragging/swiping, do not advance
-  if (wasDragged.value) return
-  // Left click advances to next slide
-  nextSlide()
-  restartAutoPlay()
 }
 
 let wheelDebounce = null
@@ -126,13 +181,13 @@ function onWheel(e) {
 
 function nextSlide() {
   const total = slides.value.length
-  if (total === 0) return
+  if (total <= 1) return
   currentIndex.value = (currentIndex.value + 1) % total
 }
 
 function prevSlide() {
   const total = slides.value.length
-  if (total === 0) return
+  if (total <= 1) return
   currentIndex.value = (currentIndex.value - 1 + total) % total
 }
 
@@ -163,6 +218,8 @@ onMounted(() => {
 
 onUnmounted(() => {
   stopAutoPlay()
+  window.removeEventListener('mousemove', onMouseMove)
+  window.removeEventListener('mouseup', onMouseUp)
 })
 </script>
 
@@ -200,20 +257,18 @@ onUnmounted(() => {
           </div>
         </div>
 
-        <!-- 2. Middle: Promotions Carousel Slider (Display-only, arrows/drag/dots) -->
+        <!-- 2. Middle: Promotions Carousel Slider (Left click drag next/back, click left-half back, click right-half next) -->
         <div
+          ref="sliderWrapRef"
           class="new-promotions_slider-wrap"
           :class="{ 'is-dragging': isDragging }"
           @mouseenter="stopAutoPlay"
           @mouseleave="onMouseLeaveWrap"
-          @mousedown="onDragStart"
-          @mousemove="onDragMove"
-          @mouseup="onDragEnd"
+          @mousedown="onMouseDown"
+          @touchstart.passive="onTouchStart"
+          @touchmove.passive="onTouchMove"
+          @touchend="onTouchEnd"
           @wheel.prevent="onWheel"
-          @touchstart.passive="onDragStart"
-          @touchmove="onDragMove"
-          @touchend="onDragEnd"
-          @click="onSlideClick"
         >
           <div class="new-promotions_track" :style="trackStyle">
             <div
@@ -239,6 +294,8 @@ onUnmounted(() => {
             type="button"
             class="new-promotions_arrow new-promotions_arrow--prev"
             aria-label="Previous slide"
+            @mousedown.stop
+            @touchstart.stop
             @click.stop="prevSlide(); restartAutoPlay()"
           >
             <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -249,6 +306,8 @@ onUnmounted(() => {
             type="button"
             class="new-promotions_arrow new-promotions_arrow--next"
             aria-label="Next slide"
+            @mousedown.stop
+            @touchstart.stop
             @click.stop="nextSlide(); restartAutoPlay()"
           >
             <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -257,7 +316,7 @@ onUnmounted(() => {
           </button>
 
           <!-- Slider Indicator Dots -->
-          <div class="new-promotions_dots">
+          <div class="new-promotions_dots" @mousedown.stop @touchstart.stop>
             <button
               v-for="(slide, idx) in slides"
               :key="slide.id"
@@ -479,9 +538,10 @@ onUnmounted(() => {
   border: 1px solid rgba(0, 0, 0, 0.07);
   height: 330px;
   display: flex;
-  cursor: pointer;
+  cursor: grab;
   user-select: none;
   -webkit-user-select: none;
+  touch-action: pan-y;
   transition: box-shadow 0.28s ease, transform 0.28s ease;
 }
 
@@ -489,6 +549,7 @@ onUnmounted(() => {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
 }
 
+.new-promotions_slider-wrap:active,
 .new-promotions_slider-wrap.is-dragging {
   cursor: grabbing;
 }
