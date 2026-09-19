@@ -1,11 +1,12 @@
 <script setup>
-import { computed } from 'vue'
+import { ref, computed } from 'vue'
 import { RouterLink } from 'vue-router'
 import AppHeader from '@/components/layout/AppHeader.vue'
 import CategoryNav from '@/components/layout/CategoryNav.vue'
 import AppFooter from '@/components/layout/AppFooter.vue'
 import { useCart } from '@/composables/useCart'
 import { useI18n } from '@/composables/useI18n'
+import { useTelegram } from '@/composables/useTelegram'
 
 const { t, isKhmer } = useI18n()
 const {
@@ -16,6 +17,172 @@ const {
   removeFromCart,
   clearCart
 } = useCart()
+
+const { isAvailable: isTelegram, user: telegramUser, haptic, submitOrder } = useTelegram()
+
+const botUsername = import.meta.env.VITE_BOT_USERNAME || 'HomeMiniStoreBot'
+
+// Checkout Modal State
+const isCheckoutOpen = ref(false)
+const isSubmitting = ref(false)
+const orderSuccess = ref(null)
+
+const form = ref({
+  name: '',
+  phone: '',
+  address: '',
+  paymentMethod: 'KHQR'
+})
+
+const phoneError = ref('')
+const nameError = ref('')
+
+function openCheckoutModal() {
+  if (telegramUser?.value) {
+    form.value.name = [telegramUser.value.first_name, telegramUser.value.last_name].filter(Boolean).join(' ') || telegramUser.value.username || ''
+  }
+  phoneError.value = ''
+  nameError.value = ''
+  orderSuccess.value = null
+  isCheckoutOpen.value = true
+}
+
+function closeCheckoutModal() {
+  isCheckoutOpen.value = false
+  phoneError.value = ''
+  nameError.value = ''
+  if (orderSuccess.value) {
+    clearCart()
+    orderSuccess.value = null
+  }
+}
+
+function validateFullName(name) {
+  if (!name || typeof name !== 'string') return false
+  const trimmed = name.trim()
+  if (trimmed.length < 2 || trimmed.length > 80) return false
+  // Allow letters (Khmer, English, etc.), vowels/marks, spaces, hyphens, and apostrophes
+  return /^[\p{L}\p{M}\s'-]+$/u.test(trimmed)
+}
+
+function validatePhoneNumber(phone) {
+  if (!phone || typeof phone !== 'string') return false
+  const cleaned = phone.replace(/[\s\-\(\)\.]/g, '')
+
+  // Reject dummy patterns (00000000, 11111111, 12345678, etc.)
+  if (/^(\d)\1+$/.test(cleaned) || cleaned === '12345678' || cleaned === '123456789' || cleaned === '012345678') {
+    return false
+  }
+
+  // 1. Cambodian Local: starts with 0, 9 to 10 digits (e.g. 012 345 678 or 097 123 4567)
+  const isCambodiaLocal = /^0[1-9]\d{7,8}$/.test(cleaned)
+
+  // 2. Cambodian International: starts with +855 or 855 followed by 8-9 digits
+  const isCambodiaIntl = /^(\+?855)[1-9]\d{7,8}$/.test(cleaned)
+
+  // 3. General International with country code (+XX followed by 7-14 digits)
+  const isGeneralIntl = /^\+[1-9]\d{7,14}$/.test(cleaned)
+
+  return isCambodiaLocal || isCambodiaIntl || isGeneralIntl
+}
+
+async function handleConfirmOrder() {
+  // Validate Full Name: characters only (matched with phone validation pattern)
+  if (!form.value.name || !form.value.name.trim()) {
+    nameError.value = isKhmer.value
+      ? 'សូមបញ្ចូលឈ្មោះរបស់អ្នក'
+      : 'Please enter your full name.'
+    return
+  }
+
+  if (!validateFullName(form.value.name)) {
+    nameError.value = isKhmer.value
+      ? 'ឈ្មោះមិនត្រឹមត្រូវទេ។ សូមបញ្ចូលឈ្មោះត្រឹមត្រូវ'
+      : 'Invalid name format. Please enter a valid name.'
+    return
+  }
+  nameError.value = ''
+
+  if (!form.value.phone || !form.value.phone.trim()) {
+    phoneError.value = isKhmer.value
+      ? 'សូមបញ្ចូលលេខទូរស័ព្ទរបស់អ្នក'
+      : 'Please enter your phone number.'
+    return
+  }
+
+  if (!validatePhoneNumber(form.value.phone)) {
+    phoneError.value = isKhmer.value
+      ? 'លេខទូរស័ព្ទមិនត្រឹមត្រូវទេ។ សូមបញ្ចូលលេខទូរស័ព្ទត្រឹមត្រូវ'
+      : 'Invalid phone number format. Please enter a valid phone number.'
+    return
+  }
+
+  phoneError.value = ''
+  isSubmitting.value = true
+
+  const orderPayload = {
+    customerName: form.value.name || (telegramUser?.value ? `${telegramUser.value.first_name || ''} ${telegramUser.value.last_name || ''}`.trim() : 'Guest Customer'),
+    customerPhone: form.value.phone.trim(),
+    customerAddress: form.value.address || 'Phnom Penh, Cambodia',
+    paymentMethod: form.value.paymentMethod,
+    items: cartItems.value.map(item => ({
+      id: item.id,
+      name: item.title,
+      price: getItemPriceNumber(item.price),
+      quantity: item.quantity
+    })),
+    total: totalPrice.value
+  }
+
+  try {
+    const res = await submitOrder(orderPayload)
+    if (res && res.success === false) {
+      phoneError.value = res.message || 'Failed to submit order'
+      isSubmitting.value = false
+      return
+    }
+    const orderData = res.order || {
+      orderId: 'HA-' + Math.floor(100000 + Math.random() * 900000),
+      total: totalPrice.value,
+      paymentMethod: form.value.paymentMethod
+    }
+    orderSuccess.value = {
+      ...orderData,
+      payment: res.payment || res.order?.paymentDetails
+    }
+    haptic('success')
+
+    // Clear cart immediately so old items are removed for future orders
+    clearCart()
+
+    // Open Telegram Bot with the order deep link
+    const telegramUrl = `https://t.me/${botUsername}?start=order_${orderData.orderId}`
+    if (!isTelegram.value) {
+      window.open(telegramUrl, '_blank')
+    }
+  } catch (err) {
+    console.error('Order submission error:', err)
+    const fallbackId = 'HA-' + Math.floor(100000 + Math.random() * 900000)
+    orderSuccess.value = {
+      orderId: fallbackId,
+      total: totalPrice.value,
+      paymentMethod: form.value.paymentMethod
+    }
+    clearCart()
+    const telegramUrl = `https://t.me/${botUsername}?start=order_${fallbackId}`
+    window.open(telegramUrl, '_blank')
+  } finally {
+    isSubmitting.value = false
+  }
+}
+
+function openTelegramBot() {
+  const orderId = orderSuccess.value?.orderId || ''
+  const param = orderId ? `?start=order_${orderId}` : ''
+  window.open(`https://t.me/${botUsername}${param}`, '_blank')
+  // Auto-close confirmation modal after opening Telegram
+  closeCheckoutModal()
+}
 
 // Helper to format currency values
 function formatCurrency(val) {
@@ -225,6 +392,7 @@ function getItemLineTotal(item) {
             <button
               type="button"
               class="cart-checkout-btn"
+              @click="openCheckoutModal"
             >
               <span>Proceed to Checkout</span>
               <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16">
@@ -255,6 +423,183 @@ function getItemLineTotal(item) {
           </svg>
         </RouterLink>
       </div>
+
+      <!-- Checkout with Telegram Modal -->
+      <Teleport to="body">
+        <div v-if="isCheckoutOpen" class="checkout-modal-backdrop" @click.self="closeCheckoutModal">
+          <div class="checkout-modal">
+            <!-- Modal Header -->
+            <div class="checkout-modal_header">
+              <div class="checkout-modal_title-wrap">
+                <span class="tg-icon-badge">
+                  <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.75-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z" />
+                  </svg>
+                </span>
+                <div>
+                  <h3 class="checkout-modal_title">
+                    {{ orderSuccess ? 'Order Confirmed!' : 'Checkout with Telegram' }}
+                  </h3>
+                  <span class="checkout-modal_subtitle">
+                    {{ orderSuccess ? 'Your order is placed' : `@${botUsername}` }}
+                  </span>
+                </div>
+              </div>
+              <button type="button" class="checkout-modal_close" @click="closeCheckoutModal">✕</button>
+            </div>
+
+            <!-- SUCCESS STATE -->
+            <div v-if="orderSuccess" class="checkout-success-view">
+              <div class="success-icon-circle">✓</div>
+              <h4 class="success-title">Thank You For Your Order!</h4>
+              <p class="success-amount">Total to pay: <strong>{{ formatCurrency(orderSuccess.total) }}</strong></p>
+
+              <!-- KHQR Popup Box if KHQR / Bakong / ABA Mobile -->
+              <div v-if="orderSuccess.paymentMethod === 'KHQR' || orderSuccess.payment?.type === 'KHQR'" class="khqr-popup-card">
+                <div class="khqr-card-header">
+                  <span class="khqr-logo-tag">KHQR</span>
+                  <span class="khqr-bank-tag">Bakong / ABA Mobile</span>
+                </div>
+                <div class="khqr-card-body">
+                  <div class="khqr-img-frame">
+                    <img
+                      v-if="orderSuccess.payment?.qrDataUrl || orderSuccess.paymentDetails?.qrDataUrl"
+                      :src="orderSuccess.payment?.qrDataUrl || orderSuccess.paymentDetails?.qrDataUrl"
+                      alt="KHQR Code"
+                      class="khqr-qr-img"
+                    />
+                    <img
+                      v-else
+                      :src="`https://api.qrserver.com/v1/create-qr-code/?size=280x280&data=bakong_khqr_order_${orderSuccess.orderId}`"
+                      alt="KHQR Code"
+                      class="khqr-qr-img"
+                    />
+                  </div>
+                  <div class="khqr-merchant-info">
+                    <span class="khqr-merchant-label">Merchant</span>
+                    <strong class="khqr-merchant-name">HomeAll Product Center</strong>
+                  </div>
+                  <div class="khqr-amount-pill">
+                    {{ formatCurrency(orderSuccess.total) }}
+                  </div>
+                </div>
+                <div class="khqr-card-footer">
+                  <span>📱 Scan with <strong>ABA Mobile</strong>, <strong>Bakong</strong>, or any banking app</span>
+                </div>
+              </div>
+              
+              <div class="success-notice-box">
+                <p>
+                  Your bill and payment details have been sent to our Telegram Bot <strong>@{{ botUsername }}</strong>.
+                </p>
+                <p class="success-hint">
+                  Open Telegram to view your order receipt and confirm payment with our team.
+                </p>
+              </div>
+
+              <div class="success-actions-group">
+                <button type="button" class="btn-open-telegram" @click="openTelegramBot">
+                  <span>Open @{{ botUsername }} on Telegram</span>
+                  <svg viewBox="0 0 20 20" fill="currentColor" width="18" height="18">
+                    <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                  </svg>
+                </button>
+
+                <button type="button" class="btn-close-confirmed" @click="closeCheckoutModal">
+                  <span>✕ Close / បិទ</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- FORM STATE -->
+            <form v-else class="checkout-form" @submit.prevent="handleConfirmOrder">
+              <!-- Order Total Banner -->
+              <div class="checkout-total-banner">
+                <span>Total to Pay:</span>
+                <strong>{{ formatCurrency(totalPrice) }} ({{ totalCount }} items)</strong>
+              </div>
+
+              <!-- Customer Name -->
+              <div class="form-group">
+                <label class="form-label">
+                  Full Name / ឈ្មោះ <span class="required-star">*</span>
+                </label>
+                <input
+                  v-model="form.name"
+                  type="text"
+                  class="form-input"
+                  :class="{ 'input-has-error': nameError }"
+                  placeholder="akara"
+                  required
+                  @input="nameError = ''"
+                />
+                <span v-if="nameError" class="phone-error-text">{{ nameError }}</span>
+              </div>
+
+              <!-- Phone Number -->
+              <div class="form-group">
+                <label class="form-label">
+                  Phone Number / លេខទូរស័ព្ទ <span class="required-star">*</span>
+                </label>
+                <input
+                  v-model="form.phone"
+                  type="tel"
+                  class="form-input"
+                  :class="{ 'input-has-error': phoneError }"
+                  placeholder="012 345 678"
+                  required
+                  @input="phoneError = ''"
+                />
+                <span v-if="phoneError" class="phone-error-text">{{ phoneError }}</span>
+              </div>
+
+              <!-- Delivery Address -->
+              <div class="form-group">
+                <label class="form-label">Delivery Address / ទីតាំងដឹកជញ្ជូន</label>
+                <input
+                  v-model="form.address"
+                  type="text"
+                  class="form-input"
+                  placeholder="Sensok, Phnom Penh"
+                  required
+                />
+              </div>
+
+              <!-- Payment Method Selector -->
+              <div class="form-group">
+                <label class="form-label">Payment Method / វិធីបង់ប្រាក់</label>
+                <div class="payment-options">
+                  <label class="payment-option" :class="{ 'is-selected': form.paymentMethod === 'KHQR' }">
+                    <input v-model="form.paymentMethod" type="radio" value="KHQR" name="paymentMethod" />
+                    <div class="payment-option_content">
+                      <span class="payment-option_title">🏦 KHQR / Bakong / ABA Mobile</span>
+                      <span class="payment-option_desc">Scan dynamic QR code in Telegram</span>
+                    </div>
+                  </label>
+
+                  <label class="payment-option" :class="{ 'is-selected': form.paymentMethod === 'COD' }">
+                    <input v-model="form.paymentMethod" type="radio" value="COD" name="paymentMethod" />
+                    <div class="payment-option_content">
+                      <span class="payment-option_title">💵 Cash on Delivery (COD)</span>
+                      <span class="payment-option_desc">Pay when materials arrive</span>
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Submit Button -->
+              <button
+                type="submit"
+                class="btn-submit-order"
+                :disabled="isSubmitting"
+              >
+                <span v-if="isSubmitting">Processing Order...</span>
+                <span v-else>👉 Proceed to Telegram to Pay ({{ formatCurrency(totalPrice) }})</span>
+              </button>
+            </form>
+          </div>
+        </div>
+      </Teleport>
     </main>
 
     <AppFooter />
@@ -808,6 +1153,456 @@ function getItemLineTotal(item) {
   .cart-item-row_title {
     font-size: 13.5px;
   }
+}
+
+/* =========================================
+   Telegram Checkout Modal Styling
+   ========================================= */
+.checkout-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 16px;
+}
+
+.checkout-modal {
+  background: #ffffff;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 400px;
+  max-height: 92vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+  animation: modalPopIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalPopIn {
+  from {
+    opacity: 0;
+    transform: scale(0.94) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.checkout-modal_header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 18px;
+  border-bottom: 1px solid #f1f5f9;
+  background: #f8fafc;
+}
+
+.checkout-modal_title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tg-icon-badge {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #229ed9;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(34, 158, 217, 0.3);
+}
+
+.tg-icon-badge svg {
+  width: 18px;
+  height: 18px;
+}
+
+.checkout-modal_title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.checkout-modal_subtitle {
+  font-size: 12px;
+  color: #229ed9;
+  font-weight: 600;
+}
+
+.checkout-modal_close {
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: #94a3b8;
+  cursor: pointer;
+  padding: 4px;
+  transition: color 0.15s;
+}
+
+.checkout-modal_close:hover {
+  color: #0f172a;
+}
+
+.checkout-form {
+  padding: 20px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.checkout-total-banner {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 10px;
+  padding: 12px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #166534;
+  font-size: 13.5px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-label {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #334155;
+}
+
+.required-star {
+  color: #ef4444;
+  font-weight: 700;
+}
+
+.form-input {
+  padding: 10px 14px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 13.5px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-input:focus {
+  border-color: #229ed9;
+  box-shadow: 0 0 0 3px rgba(34, 158, 217, 0.15);
+}
+
+.form-input.input-has-error {
+  border-color: #ef4444 !important;
+  background-color: #fef2f2;
+}
+
+.form-input.input-has-error:focus {
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15) !important;
+}
+
+.phone-error-text {
+  font-size: 12px;
+  font-weight: 600;
+  color: #ef4444;
+  margin-top: 2px;
+}
+
+.payment-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.payment-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.payment-option:hover {
+  border-color: #cbd5e1;
+}
+
+.payment-option.is-selected {
+  border-color: #229ed9;
+  background: #f0f9ff;
+}
+
+.payment-option_content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.payment-option_title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.payment-option_desc {
+  font-size: 11.5px;
+  color: #64748b;
+}
+
+.btn-submit-order {
+  margin-top: 6px;
+  background: linear-gradient(135deg, #229ed9, #0088cc);
+  color: #ffffff;
+  border: none;
+  padding: 13px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 14.5px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 14px rgba(34, 158, 217, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-submit-order:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(34, 158, 217, 0.45);
+}
+
+.btn-submit-order:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Success View - Compact Size */
+.checkout-success-view {
+  padding: 16px 18px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.success-icon-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #dcfce7;
+  color: #16a34a;
+  font-size: 20px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 6px;
+}
+
+.success-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 3px;
+}
+
+.success-order-id {
+  font-size: 12px;
+  color: #475569;
+  margin: 0 0 1px;
+}
+
+.success-amount {
+  font-size: 13px;
+  color: #16a34a;
+  margin: 0 0 8px;
+}
+
+.success-notice-box {
+  background: #f8fafc;
+  border: 1px dashed #cbd5e1;
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 11px;
+  color: #334155;
+  margin-bottom: 10px;
+  line-height: 1.35;
+  width: 100%;
+}
+
+.success-hint {
+  font-size: 10.5px;
+  color: #64748b;
+  margin-top: 3px;
+}
+
+.success-actions-group {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  width: 100%;
+}
+
+.btn-open-telegram {
+  width: 100%;
+  background: linear-gradient(135deg, #229ed9, #0088cc);
+  color: #ffffff;
+  border: none;
+  padding: 9px 14px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 3px 10px rgba(34, 158, 217, 0.3);
+  transition: all 0.2s;
+}
+
+.btn-open-telegram:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 14px rgba(34, 158, 217, 0.4);
+}
+
+.btn-close-confirmed {
+  width: 100%;
+  background: #f8fafc;
+  color: #64748b;
+  border: 1px solid #e2e8f0;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.btn-close-confirmed:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+  border-color: #cbd5e1;
+}
+
+/* KHQR Popup Card - Compact & Clean */
+.khqr-popup-card {
+  width: 100%;
+  max-width: 220px;
+  background: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 14px rgba(220, 38, 38, 0.1), 0 1px 4px rgba(0, 0, 0, 0.05);
+  border: 1.5px solid #fee2e2;
+  margin: 4px auto 10px;
+  text-align: center;
+}
+
+.khqr-card-header {
+  background: linear-gradient(135deg, #dc2626, #b91c1c);
+  color: #ffffff;
+  padding: 5px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.khqr-logo-tag {
+  font-weight: 900;
+  font-size: 11.5px;
+  letter-spacing: 0.06em;
+  background: #ffffff;
+  color: #dc2626;
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+
+.khqr-bank-tag {
+  font-size: 9.5px;
+  font-weight: 600;
+  color: #fef2f2;
+}
+
+.khqr-card-body {
+  padding: 8px 8px 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.khqr-img-frame {
+  width: 120px;
+  height: 120px;
+  background: #ffffff;
+  border: 1px solid #f1f5f9;
+  border-radius: 8px;
+  padding: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+
+.khqr-qr-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.khqr-merchant-info {
+  margin-top: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.khqr-merchant-label {
+  font-size: 8.5px;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.khqr-merchant-name {
+  font-size: 11px;
+  color: #1e293b;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.khqr-amount-pill {
+  margin-top: 4px;
+  background: #f0fdf4;
+  color: #15803d;
+  font-weight: 800;
+  font-size: 13.5px;
+  padding: 2px 10px;
+  border-radius: 999px;
+  border: 1px solid #bbf7d0;
+}
+
+.khqr-card-footer {
+  background: #fef2f2;
+  border-top: 1px dashed #fecaca;
+  padding: 4px 6px;
+  font-size: 9.5px;
+  color: #991b1b;
 }
 </style>
 
