@@ -27,7 +27,7 @@ const categories = [
         <h2 class="rec-title">
           {{ isKhmer ? 'ប្រភេទផលិតផលណែនាំ' : 'Recommended Categories' }}
         </h2>
-        <router-link to="/categories" class="rec-view-all">
+        <router-link to="/products" class="rec-view-all">
           {{ isKhmer ? 'មើលទាំងអស់' : 'View all' }}
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="9 18 15 12 9 6"/>

@@ -205,7 +205,7 @@ const ridgeItems = [
           <RouterLink
             v-for="item in ridgeItems"
             :key="item.id"
-            :to="{ path: '/products', query: { search: item.search } }"
+            :to="{ path: '/products', query: { group: 'Roofing', search: item.search } }"
             class="steel-item-card"
             :title="isKhmer ? item.nameKm : item.name"
           >
@@ -244,34 +244,38 @@ const ridgeItems = [
 
 .steel-main {
   flex: 1;
-  padding-top: 24px;
-  padding-bottom: 60px;
+  width: 100%;
+  padding-top: 18px;
+  padding-bottom: 56px;
+  background-color: #ffffff;
 }
 
-/* Breadcrumb */
+/* Breadcrumb Navigation */
 .category-breadcrumb {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 13.5px;
-  color: #6b7280;
-  margin-bottom: 24px;
   flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 24px;
+  font-size: 13.5px;
+  color: #4b5563;
 }
 
 .category-breadcrumb_link {
-  color: #6b7280;
+  color: #4b5563;
   text-decoration: none;
-  transition: color 0.15s ease;
+  transition: color var(--transition-fast, 0.2s ease);
 }
 
 .category-breadcrumb_link:hover {
   color: #111827;
+  text-decoration: underline;
 }
 
 .category-breadcrumb_separator {
   color: #9ca3af;
   font-size: 12px;
+  user-select: none;
 }
 
 .category-breadcrumb_current {
@@ -279,17 +283,20 @@ const ridgeItems = [
   font-weight: 600;
 }
 
-/* Sub-navigation Tabs Bar */
+/* =========================================
+   Feature Sub-navigation Tab Bar
+   ========================================= */
 .feature-tabs-bar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  border-top: 1px solid #e5e7eb;
-  border-bottom: 1px solid #e5e7eb;
-  padding: 8px 0;
+  justify-content: center;
+  gap: 32px;
+  border-bottom: 1px solid #f1f5f9;
+  padding-bottom: 14px;
   margin-bottom: 28px;
   overflow-x: auto;
   scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 .feature-tabs-bar::-webkit-scrollbar {
@@ -297,22 +304,22 @@ const ridgeItems = [
 }
 
 .feature-tab {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  background: transparent;
+  background: none;
   border: none;
+  padding: 4px 6px;
   cursor: pointer;
-  padding: 6px 14px;
-  color: #4b5563;
-  position: relative;
-  transition: color 0.15s ease;
+  color: #64748b;
+  transition: color 0.2s ease;
+  user-select: none;
   flex-shrink: 0;
 }
 
 .feature-tab:hover {
-  color: #111827;
+  color: #1e293b;
 }
 
 .feature-tab.is-active {

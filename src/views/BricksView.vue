@@ -213,7 +213,7 @@ const brickItems = [
           <RouterLink
             v-for="item in brickItems"
             :key="item.id"
-            :to="{ path: '/products', query: { search: item.search } }"
+            :to="{ path: '/products', query: { group: 'Construction Materials', search: item.search } }"
             class="steel-item-card"
             :title="isKhmer ? item.nameKm : item.name"
           >
@@ -224,8 +224,8 @@ const brickItems = [
                 :alt="isKhmer ? item.nameKm : item.name"
                 class="steel-item_img"
                 loading="lazy"
-                width="80"
-                height="80"
+                width="76"
+                height="76"
               />
             </div>
 
@@ -252,34 +252,38 @@ const brickItems = [
 
 .steel-main {
   flex: 1;
-  padding-top: 24px;
-  padding-bottom: 60px;
+  width: 100%;
+  padding-top: 18px;
+  padding-bottom: 56px;
+  background-color: #ffffff;
 }
 
-/* Breadcrumb */
+/* Breadcrumb Navigation */
 .category-breadcrumb {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 13.5px;
-  color: #6b7280;
-  margin-bottom: 24px;
   flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 24px;
+  font-size: 13.5px;
+  color: #4b5563;
 }
 
 .category-breadcrumb_link {
-  color: #6b7280;
+  color: #4b5563;
   text-decoration: none;
-  transition: color 0.15s ease;
+  transition: color var(--transition-fast, 0.2s ease);
 }
 
 .category-breadcrumb_link:hover {
   color: #111827;
+  text-decoration: underline;
 }
 
 .category-breadcrumb_separator {
   color: #9ca3af;
   font-size: 12px;
+  user-select: none;
 }
 
 .category-breadcrumb_current {
@@ -287,17 +291,20 @@ const brickItems = [
   font-weight: 600;
 }
 
-/* Sub-navigation Tabs Bar */
+/* =========================================
+   Feature Sub-navigation Tab Bar
+   ========================================= */
 .feature-tabs-bar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  border-top: 1px solid #e5e7eb;
-  border-bottom: 1px solid #e5e7eb;
-  padding: 8px 0;
+  justify-content: center;
+  gap: 32px;
+  border-bottom: 1px solid #f1f5f9;
+  padding-bottom: 14px;
   margin-bottom: 28px;
   overflow-x: auto;
   scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 .feature-tabs-bar::-webkit-scrollbar {
@@ -305,22 +312,22 @@ const brickItems = [
 }
 
 .feature-tab {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  background: transparent;
+  background: none;
   border: none;
+  padding: 4px 6px;
   cursor: pointer;
-  padding: 6px 14px;
-  color: #4b5563;
-  position: relative;
-  transition: color 0.15s ease;
+  color: #64748b;
+  transition: color 0.2s ease;
+  user-select: none;
   flex-shrink: 0;
 }
 
 .feature-tab:hover {
-  color: #111827;
+  color: #1e293b;
 }
 
 .feature-tab.is-active {
@@ -369,16 +376,13 @@ const brickItems = [
   height: 80px;
   border-radius: 12px;
   overflow: hidden;
-  border: 1.5px solid rgba(226, 232, 240, 0.95);
-  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05);
-  background-color: #ffffff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
 }
 
 .steel-hero-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
   display: block;
 }
 
@@ -463,34 +467,26 @@ const brickItems = [
   height: 80px;
   background-color: #ffffff;
   border-radius: 12px;
-  border: 1.5px solid rgba(226, 232, 240, 0.95);
-  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03);
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  padding: 0;
-  box-sizing: border-box;
-  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 2px;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .steel-item-card:hover .steel-item_box {
   transform: scale(1.05);
-  border-color: var(--color-brand, #34c759);
-  box-shadow: 0 10px 22px rgba(52, 199, 89, 0.22);
+  box-shadow: 0 8px 16px -2px rgba(15, 23, 42, 0.08);
 }
 
 .steel-item_img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: center;
+  object-fit: contain;
   display: block;
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.steel-item-card:hover .steel-item_img {
-  transform: scale(1.08);
 }
 
 .steel-item_name {
@@ -501,11 +497,6 @@ const brickItems = [
   text-align: center;
   line-height: 1.3;
   word-break: break-word;
-  transition: color 0.2s ease;
-}
-
-.steel-item-card:hover .steel-item_name {
-  color: var(--color-brand, #34c759);
 }
 
 .steel-item_name.is-khmer {
